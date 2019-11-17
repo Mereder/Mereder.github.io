@@ -5,6 +5,10 @@
     <url>/2019/11/16/test/</url>
     <content><![CDATA[<p>This is a test markdown</p>
 ]]></content>
+      <categories>
+        <category>分类1</category>
+        <category>分类2</category>
+      </categories>
   </entry>
   <entry>
     <title>Hello World</title>
