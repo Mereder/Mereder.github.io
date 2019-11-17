@@ -1,47 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="https://www.w3.org/2005/Atom">
-  <title>Mengdi</title>
+  <title>Mereder</title>
   
   <subtitle>珍惜现在，感谢所有，不悔将来</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-17T05:33:30.309Z</updated>
+  <updated>2019-11-15T13:06:01.225Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>Mereder</name>
+    <name>Meng Di</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>test</title>
-    <link href="http://yoursite.com/2019/11/16/test/"/>
-    <id>http://yoursite.com/2019/11/16/test/</id>
-    <published>2019-11-16T08:42:18.000Z</published>
-    <updated>2019-11-17T05:33:30.309Z</updated>
-    
-    <content type="html"><![CDATA[<p>This is a test markdown</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;This is a test markdown&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="分类1" scheme="http://yoursite.com/categories/%E5%88%86%E7%B1%BB1/"/>
-    
-      <category term="分类2" scheme="http://yoursite.com/categories/%E5%88%86%E7%B1%BB1/%E5%88%86%E7%B1%BB2/"/>
-    
-    
-  </entry>
   
   <entry>
     <title>Hello World</title>
