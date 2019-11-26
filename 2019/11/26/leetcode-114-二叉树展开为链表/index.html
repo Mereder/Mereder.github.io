@@ -51,18 +51,20 @@
   };
 </script>
 
-  <meta name="description" content="两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 解法python">
+  <meta name="description" content="二叉树展开为链表 思路1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253如下过程生动的描述了节点的拼接过程    1   &#x2F; \  2   5 &#x2F; \   \3   4   6&#x2F;&#x2F;将 1 的左子树插入到右子树的地方    1     \      2">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-1-两数之和">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;17&#x2F;leetcode_1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C&#x2F;index.html">
+<meta property="og:title" content="Leetcode-114-将二叉树展开为链表">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;leetcode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 解法python">
+<meta property="og:description" content="二叉树展开为链表 思路1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253如下过程生动的描述了节点的拼接过程    1   &#x2F; \  2   5 &#x2F; \   \3   4   6&#x2F;&#x2F;将 1 的左子树插入到右子树的地方    1     \      2">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-26T08:32:37.760Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g9bkaid387j30vq0r4wft.jpg">
+<meta property="og:updated_time" content="2019-11-26T09:21:50.822Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g9bkaid387j30vq0r4wft.jpg">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/17/leetcode_1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+<link rel="canonical" href="http://yoursite.com/2019/11/26/leetcode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8/">
 
 
 <script id="page-configurations">
@@ -76,7 +78,7 @@
   };
 </script>
 
-  <title>Leetcode-1-两数之和 | Mereder</title>
+  <title>Leetcode-114-将二叉树展开为链表 | Mereder</title>
   
 
 
@@ -213,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/leetcode_1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/leetcode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -226,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Leetcode-1-两数之和
+          Leetcode-114-将二叉树展开为链表
         </h1>
 
         <div class="post-meta">
@@ -235,16 +237,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-11-17 14:27:19" itemprop="dateCreated datePublished" datetime="2019-11-17T14:27:19+08:00">2019-11-17</time>
+              <time title="Created: 2019-11-26 17:21:00 / Modified: 17:21:50" itemprop="dateCreated datePublished" datetime="2019-11-26T17:21:00+08:00">2019-11-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-26 16:32:37" itemprop="dateModified" datetime="2019-11-26T16:32:37+08:00">2019-11-26</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -274,18 +270,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例:</p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>python 使用字典来减少遍历时间</p>
-<p><strong>关键点</strong></p>
-<ul>
-<li>往字典存的过程是动态的从前向后的，也就是说 后边的每一次查找，其前面元素都放进字典里面了</li>
-<li>也对应了题目要求：不能重复利用这个数组中同样的元素。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> nums == <span class="literal">None</span> <span class="keyword">or</span> nums == []:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        d = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            err = target - value</span><br><span class="line">            <span class="keyword">if</span> err <span class="keyword">in</span> d:</span><br><span class="line">                <span class="keyword">return</span> [d[err], index]</span><br><span class="line">            <span class="comment"># 不在就加入字典</span></span><br><span class="line">            d[value] = index</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+        <h2 id="二叉树展开为链表"><a href="#二叉树展开为链表" class="headerlink" title="二叉树展开为链表"></a>二叉树展开为链表</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9bkaid387j30vq0r4wft.jpg" alt="题目描述"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">如下过程生动的描述了节点的拼接过程</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">2</span>   <span class="number">5</span></span><br><span class="line"> / \   \</span><br><span class="line"><span class="number">3</span>   <span class="number">4</span>   <span class="number">6</span></span><br><span class="line"></span><br><span class="line">//将 <span class="number">1</span> 的左子树插入到右子树的地方</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>         <span class="number">5</span></span><br><span class="line">     / \         \</span><br><span class="line">    <span class="number">3</span>   <span class="number">4</span>         <span class="number">6</span>        </span><br><span class="line">//将原来的右子树接到左子树的最右边节点</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>          </span><br><span class="line">     / \          </span><br><span class="line">    <span class="number">3</span>   <span class="number">4</span>  </span><br><span class="line">         \</span><br><span class="line">          <span class="number">5</span></span><br><span class="line">           \</span><br><span class="line">            <span class="number">6</span></span><br><span class="line">            </span><br><span class="line"> //将 <span class="number">2</span> 的左子树插入到右子树的地方</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>          </span><br><span class="line">       \          </span><br><span class="line">        <span class="number">3</span>       <span class="number">4</span>  </span><br><span class="line">                 \</span><br><span class="line">                  <span class="number">5</span></span><br><span class="line">                   \</span><br><span class="line">                    <span class="number">6</span>   </span><br><span class="line">        </span><br><span class="line"> //将原来的右子树接到左子树的最右边节点</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>          </span><br><span class="line">       \          </span><br><span class="line">        <span class="number">3</span>      </span><br><span class="line">         \</span><br><span class="line">          <span class="number">4</span>  </span><br><span class="line">           \</span><br><span class="line">            <span class="number">5</span></span><br><span class="line">             \</span><br><span class="line">              <span class="number">6</span>         </span><br><span class="line">  </span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">作者：windliang (leetcode 用户的分享)</span><br><span class="line">链接：https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-<span class="number">-26</span>/</span><br><span class="line">来源：力扣（LeetCode）</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, root: TreeNode)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify root in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cur = root</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.left:   </span><br><span class="line">                <span class="comment"># 1. 找到最右点</span></span><br><span class="line">                before = cur.left</span><br><span class="line">                <span class="keyword">while</span> before.right:</span><br><span class="line">                    before = before.right</span><br><span class="line">                <span class="comment"># 2. 右子树插入到嘴有点</span></span><br><span class="line">                before.right = cur.right</span><br><span class="line">                <span class="comment"># 3. 左子树放到右子树位置</span></span><br><span class="line">                cur.right = cur.left</span><br><span class="line">                <span class="comment"># 4. 原左子树置为None</span></span><br><span class="line">                cur.left = <span class="literal">None</span></span><br><span class="line">                <span class="comment"># 5. 继续下一个节点</span></span><br><span class="line">                cur = cur.right</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.right</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -299,17 +286,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/16/test/" rel="next" title="test">
-                  <i class="fa fa-chevron-left"></i> test
+                <a href="/2019/11/26/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B9%8B%E5%AD%97%E5%BD%A2%E9%81%8D%E5%8E%86/" rel="next" title="Leetcode-103-二叉树之字形遍历">
+                  <i class="fa fa-chevron-left"></i> Leetcode-103-二叉树之字形遍历
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/18/leetcode-33/" rel="prev" title="Leetcode_33">
-                  Leetcode_33 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -348,7 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#两数之和"><span class="nav-number">1.</span> <span class="nav-text">两数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.0.1.</span> <span class="nav-text">解法</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树展开为链表"><span class="nav-number">1.</span> <span class="nav-text">二叉树展开为链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
