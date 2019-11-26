@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-26T03:05:15.051Z</updated>
+  <updated>2019-11-26T06:56:46.628Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode-95-不同的二叉搜索树（具体路径）</title>
+    <link href="http://yoursite.com/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/"/>
+    <id>http://yoursite.com/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/</id>
+    <published>2019-11-26T06:54:53.000Z</published>
+    <updated>2019-11-26T06:56:46.628Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>实习期间的租房体验</title>
@@ -44,7 +59,7 @@
     <link href="http://yoursite.com/2019/11/25/leetcode_96_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
     <id>http://yoursite.com/2019/11/25/leetcode_96_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</id>
     <published>2019-11-25T14:00:19.000Z</published>
-    <updated>2019-11-26T06:55:46.454Z</updated>
+    <updated>2019-11-26T06:56:32.597Z</updated>
     
     <content type="html"><![CDATA[<h1 id="不同的二叉搜索树"><a href="#不同的二叉搜索树" class="headerlink" title="不同的二叉搜索树"></a>不同的二叉搜索树</h1><p>给定一个整数 n，求以 1 … n 为节点组成的二叉搜索树有多少种？</p><p>示例:</p><p>输入: 3<br>输出: 5<br>解释:<br>给定 n = 3, 一共有 5 种不同结构的二叉搜索树:</p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9anyc2kikj30iw06st8u.jpg" alt="image-20191125223959254"></p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>假设n个节点存在二叉排序树的个数是G(n)，令f(i)为以i为根的二叉搜索树的个数，则</p><script type="math/tex; mode=display">G(n)=f(1)+f(2)+f(3)+f(4)+...+f(n)</script><p>当i为根节点时，其左子树节点个数为i-1个，右子树节点为n-i，则<br>$ f(i)=G(i−1)∗G(n−i) $</p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9ao389x1kj30ss09oabr.jpg" alt="image-20191125224443905"></p><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>重点感受下将一个大问题划分为小问题，并且存在较多重复子问题时候考虑dp</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numTrees</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        dp = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span> <span class="comment"># 当出现节点个数为0表示None 也算一个节点</span></span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,n+<span class="number">1</span>): <span class="comment"># i相当于 数字总数</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,i+<span class="number">1</span>): <span class="comment"># j 相当于每次作为根的数字</span></span><br><span class="line">                dp[i] += dp[j<span class="number">-1</span>]*dp[i-j] <span class="comment"># 以j为根，左侧总数*右侧总数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>]]></content>
     
