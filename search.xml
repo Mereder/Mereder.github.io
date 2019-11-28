@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>快速排序</title>
+    <url>/2019/11/28/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>先留几个坑，有空回来填：</p>
+<ul>
+<li>快排的时间复杂度平均为$NlogN$，最差退化为$N^2$</li>
+<li>快排是不稳定排序算法，即相同值的前后顺序可能会发生变化</li>
+<li>快排的优化是：1.先将数组乱序random.shuffle(in place)  2.枢值的选取随机</li>
+</ul>
+<p>基本面试最最最基础的问题了</p>
+<p>尤其是其中的partition函数，更是很多其他算法题的应用基础</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这个跟市面上大多数partition不太一样</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition1</span><span class="params">(nums,left,right)</span>:</span></span><br><span class="line">    <span class="comment"># 选一个枢值</span></span><br><span class="line">    pivot = nums[right]</span><br><span class="line">    slow = left - <span class="number">1</span>   <span class="comment"># slow指针用来记录较小元素</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; pivot:</span><br><span class="line">            slow += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> slow != i:</span><br><span class="line">                nums[slow],nums[i] = nums[i],nums[slow]</span><br><span class="line">    <span class="comment"># 经过上面的遍历过程，slow指向小于pivot的最后一个，所以还需要将slow++ 才是pivot的位置</span></span><br><span class="line">    slow += <span class="number">1</span></span><br><span class="line">    nums[slow], nums[right] = pivot, nums[slow]</span><br><span class="line">    <span class="keyword">return</span> slow</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(nums,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &gt; right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    index = partition1(nums,left,right)</span><br><span class="line">    quick_sort(nums, left, index<span class="number">-1</span>)</span><br><span class="line">    quick_sort(nums, index+<span class="number">1</span>,right)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    quick_sort(nums,<span class="number">0</span>,len(nums)<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">10</span>]</span><br><span class="line">    print(a)</span><br><span class="line">    quickSort(a)</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法基础</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Naive Bayes</title>
+    <url>/2019/11/28/NB/</url>
+    <content><![CDATA[<h2 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h2><p>基础知识点：</p>
+<ul>
+<li><p>为什么叫朴素（特征之间独立）</p>
+</li>
+<li><p>贝叶斯公式（）</p>
+<script type="math/tex; mode=display">
+P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_{j=1}^{n} P\left(B_{j}\right) P\left(A | B_{j}\right)}</script></li>
+</ul>
+<ul>
+<li><p>朴素贝叶斯算法的极大似然过程（就是统计做count）</p>
+</li>
+<li><p>朴素贝叶斯算法的贝叶斯估计（+1平滑，拉普拉斯平滑？）</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>ML</category>
+        <category>算法面试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Logistic Regression</title>
+    <url>/2019/11/28/LR/</url>
+    <content><![CDATA[<h2 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h2><p>机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。</p>
+<p>对于LR，需要重点掌握：</p>
+<ul>
+<li>对数几率的含义，以及为什么是逻辑<strong>回归</strong></li>
+<li>可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1）</li>
+<li>可以写出逻辑回归的极大似然</li>
+<li>损失函数最终的化简结果</li>
+<li>梯度下降中的梯度怎么求出来的</li>
+</ul>
+]]></content>
+      <categories>
+        <category>ML</category>
+        <category>算法面试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>堆排序</title>
+    <url>/2019/11/28/%E5%A0%86%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>几个重要的排序算法中比较常用的或者经常写的</p>
+<p>主要过程就是：</p>
+<ul>
+<li>最大堆调整（Max Heapify）：将堆的末端子节点作调整，使得子节点永远小于父节点</li>
+<li>创建最大堆（Build Max Heap）：将堆中的所有数据重新排序</li>
+<li>堆排序（HeapSort）：移除位在第一个数据的根节点，并做最大堆调整的递归运算 </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 大顶推  将最大值往上挪  最小值在叶子节点</span></span><br><span class="line"><span class="comment"># 1. 大顶堆的一次调整过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">headAdjust</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="comment"># 函数内的临时变量</span></span><br><span class="line">    root = start</span><br><span class="line">    child = <span class="number">2</span>*root+<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> child &lt; end:</span><br><span class="line">        <span class="comment"># 找左右叶子节点中值较大的一个</span></span><br><span class="line">        <span class="keyword">if</span> child+<span class="number">1</span> &lt; end <span class="keyword">and</span> nums[child+<span class="number">1</span>] &gt; nums[child]:</span><br><span class="line">            child = child + <span class="number">1</span></span><br><span class="line">        <span class="comment"># 若 某一个叶节点值确实 大于根 则进行操作</span></span><br><span class="line">        <span class="keyword">if</span> nums[root] &lt; nums[child]:</span><br><span class="line">            <span class="comment"># 交换 根 和 叶的值</span></span><br><span class="line">            nums[root], nums[child] = nums[child], nums[root]</span><br><span class="line">            <span class="comment"># 调换了叶子节点的值，继续调整以叶子节点为根的分支</span></span><br><span class="line">            root = child</span><br><span class="line">            child = <span class="number">2</span>*root+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="comment"># 从第一个非叶子节点开始 从下向上调整树为大顶堆</span></span><br><span class="line">    start = n &gt;&gt; <span class="number">1</span> - <span class="number">1</span></span><br><span class="line">    <span class="comment"># 2. 从下到上建造大顶堆</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(start,<span class="number">-1</span>,<span class="number">-1</span>):   <span class="comment"># 从start 到0</span></span><br><span class="line">        headAdjust(nums,i,n)</span><br><span class="line">    <span class="comment"># 此时已经  调整为大顶堆</span></span><br><span class="line">    <span class="comment"># 3. 堆排序过程：不断将最大值交换到数组尾部，然后再调整堆</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        nums[<span class="number">0</span>],nums[i] = nums[i], nums[<span class="number">0</span>]</span><br><span class="line">        headAdjust(nums,<span class="number">0</span>,i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试阶段</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = [<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">2</span>,<span class="number">10</span>]</span><br><span class="line">    print(a)</span><br><span class="line">    heapSort(a)</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
+<h3 id="主要应用场景"><a href="#主要应用场景" class="headerlink" title="主要应用场景"></a>主要应用场景</h3><p>1.面试直接写堆排序的过程</p>
+<p>2.海量数据中取最小（或最大 topK问题）</p>
+<blockquote>
+<p>维护一个k大小的堆，如果堆不满直接加入，若满堆，则根堆内最值比较，选择替换堆内元素 或者 不替换</p>
+<p>若不是海量数据取topk， 可以考虑 快排形式</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>Leetcode-74-搜索二维矩阵</title>
+    <url>/2019/11/28/leetcode-74-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/</url>
+    <content><![CDATA[<h2 id="搜索二维矩阵"><a href="#搜索二维矩阵" class="headerlink" title="搜索二维矩阵"></a>搜索二维矩阵</h2><p>编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：</p>
+<p>每行中的整数从左到右按升序排列。<br>每行的第一个整数大于前一行的最后一个整数。<br>示例 1:</p>
+<blockquote>
+<p>输入:<br>matrix = [<br>  [1,   3,  5,  7],<br>  [10, 11, 16, 20],<br>  [23, 30, 34, 50]<br>]<br>target = 3<br>输出: true</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>其实就是个二分查找的过程，重点就是如何将二维矩阵变成我们熟悉的一维数组形式。</p>
+<p><strong>重点</strong></p>
+<blockquote>
+<p>二维矩阵的行标和列标可以完全对应到一维数组的index上</p>
+<p>以示例为例：</p>
+<p>matrix = [<br>  [1,   3,  5,  7],<br>  [10, 11, 16, 20],<br>  [23, 30, 34, 50]<br>]</p>
+<p>取数字 10，其row_index = 1, col_index =0</p>
+<p>对应到一维数组上就是，row_index<em>n+col_index = 1\</em>n+0 = 4 </p>
+</blockquote>
+<p>借用官方的一张图</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9e1zgrvrvj30y40aswgy.jpg" alt="image-20191128210209085"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchMatrix</span><span class="params">(self, matrix: List[List[int]], target: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> matrix:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        m = len(matrix)</span><br><span class="line">        n = len(matrix[<span class="number">0</span>])</span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = m*n - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = (left+right)&gt;&gt;<span class="number">1</span></span><br><span class="line">            row = mid//n </span><br><span class="line">            col = mid%n </span><br><span class="line">            <span class="keyword">if</span> matrix[row][col] == target:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> matrix[row][col] &gt; target:</span><br><span class="line">                right = mid - <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                left = mid + <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-116-填充每个节点的下一个右侧节点指针</title>
     <url>/2019/11/27/leetcode-116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88/</url>
     <content><![CDATA[<h2 id="116-填充每个节点的下一个右侧节点指针"><a href="#116-填充每个节点的下一个右侧节点指针" class="headerlink" title="116. 填充每个节点的下一个右侧节点指针"></a>116. 填充每个节点的下一个右侧节点指针</h2><p>给定一个<strong>完美</strong>二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</p>
@@ -123,9 +226,26 @@
 <li>loss+regulization</li>
 </ul>
 </li>
-<li>怎么学的？</li>
-<li>跟其他方法有何异同？</li>
-<li>怎么用</li>
+<li>怎么学的？<ul>
+<li>增量学习，每次只学一棵树，前面树固定</li>
+<li>loss怎么写：泰勒展开</li>
+<li>正则怎么做：</li>
+</ul>
+</li>
+<li>还有哪些优化：<ul>
+<li>shrinkage</li>
+<li>列采样</li>
+</ul>
+</li>
+<li>跟其他方法有何异同<ul>
+<li>与gbdt的优缺点</li>
+<li>与RF有什么优缺点</li>
+</ul>
+</li>
+<li>怎么用<ul>
+<li>几个关键参数：树的个数，树深， 叶子节点个数， </li>
+</ul>
+</li>
 </ul>
 <h2 id="学的是什么？"><a href="#学的是什么？" class="headerlink" title="学的是什么？"></a>学的是什么？</h2><p>对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习</p>
 ]]></content>

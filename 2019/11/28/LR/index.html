@@ -51,18 +51,18 @@
   };
 </script>
 
-  <meta name="description" content="租房原因实习立项，学院要求搬出校区，只能在外边租房住。还好是个码农，可以靠实习工资基本贴补下租房的费用。 租房选择其实租房的时候，可选择的空间特别大，条件也特别多，如果漫无目的的去找房子很费时间很费力气，还很费鞋子。所有需要自己优先确定好3个自己最在意的事情，基本上按照这3个标准（就一个标准也行）然后排查一下就可以很快的定位出租房范围，然后价格差不多的情况下，中介靠谱就签了。 我的三个标准：  租">
+  <meta name="description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实习期间的租房体验">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF&#x2F;index.html">
+<meta property="og:title" content="Logistic Regression">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;28&#x2F;LR&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="租房原因实习立项，学院要求搬出校区，只能在外边租房住。还好是个码农，可以靠实习工资基本贴补下租房的费用。 租房选择其实租房的时候，可选择的空间特别大，条件也特别多，如果漫无目的的去找房子很费时间很费力气，还很费鞋子。所有需要自己优先确定好3个自己最在意的事情，基本上按照这3个标准（就一个标准也行）然后排查一下就可以很快的定位出租房范围，然后价格差不多的情况下，中介靠谱就签了。 我的三个标准：  租">
+<meta property="og:description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-27T09:27:12.673Z">
+<meta property="og:updated_time" content="2019-11-28T14:37:58.553Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/">
+<link rel="canonical" href="http://yoursite.com/2019/11/28/LR/">
 
 
 <script id="page-configurations">
@@ -76,7 +76,7 @@
   };
 </script>
 
-  <title>实习期间的租房体验 | Mereder</title>
+  <title>Logistic Regression | Mereder</title>
   
 
 
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/LR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          实习期间的租房体验
+          Logistic Regression
         </h1>
 
         <div class="post-meta">
@@ -235,16 +235,27 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-11-26 11:04:13" itemprop="dateCreated datePublished" datetime="2019-11-26T11:04:13+08:00">2019-11-26</time>
+              <time title="Created: 2019-11-28 22:33:02 / Modified: 22:37:58" itemprop="dateCreated datePublished" datetime="2019-11-28T22:33:02+08:00">2019-11-28</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-27 17:27:12" itemprop="dateModified" datetime="2019-11-27T17:27:12+08:00">2019-11-27</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法面试</span>
+                  </a>
+                </span>
+            </span>
 
           
 
@@ -257,17 +268,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="租房原因"><a href="#租房原因" class="headerlink" title="租房原因"></a>租房原因</h3><p>实习立项，学院要求搬出校区，只能在外边租房住。还好是个码农，可以靠实习工资基本贴补下租房的费用。</p>
-<h3 id="租房选择"><a href="#租房选择" class="headerlink" title="租房选择"></a>租房选择</h3><p>其实租房的时候，可选择的空间特别大，条件也特别多，如果漫无目的的去找房子很费时间很费力气，还很费鞋子。所有需要自己优先确定好3个自己最在意的事情，基本上按照这3个标准（就一个标准也行）然后排查一下就可以很快的定位出租房范围，然后价格差不多的情况下，中介靠谱就签了。</p>
-<p>我的三个标准：</p>
+        <h2 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h2><p>机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。</p>
+<p>对于LR，需要重点掌握：</p>
 <ul>
-<li>租房最好在公司附近，每天路上的时间一定一定不要超过1小时，半小时最好</li>
-<li>合租房间其他卧室正常（最好几室就几个人住）</li>
-<li>价格是实习工资的一半，要不就活不下去了</li>
+<li>对数几率的含义，以及为什么是逻辑<strong>回归</strong></li>
+<li>可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1）</li>
+<li>可以写出逻辑回归的极大似然</li>
+<li>损失函数最终的化简结果</li>
+<li>梯度下降中的梯度怎么求出来的</li>
 </ul>
-<p>第一个条件是比较坚决的，第二三个条件可以波动。</p>
-<h3 id="中介"><a href="#中介" class="headerlink" title="中介"></a>中介</h3><p>永丰南那里中润置家还是挺好的，至少我租了6个月的体验还算可以吧</p>
-<p>肖家河东西区那边就是合美家还可以，就是收服务费这个事情一定要搞清楚</p>
 
     </div>
 
@@ -281,16 +290,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/25/leetcode_96_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="next" title="Leetcode-96-不同的二叉搜索树">
-                  <i class="fa fa-chevron-left"></i> Leetcode-96-不同的二叉搜索树
+                <a href="/2019/11/28/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="next" title="堆排序">
+                  <i class="fa fa-chevron-left"></i> 堆排序
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/" rel="prev" title="Leetcode-95-不同的二叉搜索树（具体路径）">
-                  Leetcode-95-不同的二叉搜索树（具体路径） <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/28/NB/" rel="prev" title="Naive Bayes">
+                  Naive Bayes <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -330,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#租房原因"><span class="nav-number">1.</span> <span class="nav-text">租房原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#租房选择"><span class="nav-number">2.</span> <span class="nav-text">租房选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中介"><span class="nav-number">3.</span> <span class="nav-text">中介</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

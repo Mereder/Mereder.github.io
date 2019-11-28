@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="学的是什么？ 很多CART树 loss+regulization   怎么学的？ 跟其他方法有何异同？ 怎么用  学的是什么？对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习">
+  <meta name="description" content="学的是什么？ 很多CART树 loss+regulization   怎么学的？ 增量学习，每次只学一棵树，前面树固定 loss怎么写：泰勒展开 正则怎么做：   还有哪些优化： shrinkage 列采样   跟其他方法有何异同 与gbdt的优缺点 与RF有什么优缺点   怎么用 几个关键参数：树的个数，树深， 叶子节点个数，     学的是什么？对于任何一个有监督模型来说，都是从一批又标签的">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xgboost 原理分析">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;xgboost&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="学的是什么？ 很多CART树 loss+regulization   怎么学的？ 跟其他方法有何异同？ 怎么用  学的是什么？对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习">
+<meta property="og:description" content="学的是什么？ 很多CART树 loss+regulization   怎么学的？ 增量学习，每次只学一棵树，前面树固定 loss怎么写：泰勒展开 正则怎么做：   还有哪些优化： shrinkage 列采样   跟其他方法有何异同 与gbdt的优缺点 与RF有什么优缺点   怎么用 几个关键参数：树的个数，树深， 叶子节点个数，     学的是什么？对于任何一个有监督模型来说，都是从一批又标签的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-26T11:21:43.121Z">
+<meta property="og:updated_time" content="2019-11-28T14:32:23.625Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/26/xgboost/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-26 19:10:02 / Modified: 19:21:43" itemprop="dateCreated datePublished" datetime="2019-11-26T19:10:02+08:00">2019-11-26</time>
+              <time title="Created: 2019-11-26 19:10:02" itemprop="dateCreated datePublished" datetime="2019-11-26T19:10:02+08:00">2019-11-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-28 22:32:23" itemprop="dateModified" datetime="2019-11-28T22:32:23+08:00">2019-11-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -274,9 +280,26 @@
 <li>loss+regulization</li>
 </ul>
 </li>
-<li>怎么学的？</li>
-<li>跟其他方法有何异同？</li>
-<li>怎么用</li>
+<li>怎么学的？<ul>
+<li>增量学习，每次只学一棵树，前面树固定</li>
+<li>loss怎么写：泰勒展开</li>
+<li>正则怎么做：</li>
+</ul>
+</li>
+<li>还有哪些优化：<ul>
+<li>shrinkage</li>
+<li>列采样</li>
+</ul>
+</li>
+<li>跟其他方法有何异同<ul>
+<li>与gbdt的优缺点</li>
+<li>与RF有什么优缺点</li>
+</ul>
+</li>
+<li>怎么用<ul>
+<li>几个关键参数：树的个数，树深， 叶子节点个数， </li>
+</ul>
+</li>
 </ul>
 <h2 id="学的是什么？"><a href="#学的是什么？" class="headerlink" title="学的是什么？"></a>学的是什么？</h2><p>对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习</p>
 
@@ -355,7 +378,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
