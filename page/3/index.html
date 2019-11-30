@@ -212,6 +212,233 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/26/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="post-title-link" itemprop="url">Leetcode-98-验证二叉搜索树</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-26 15:27:15 / Modified: 15:37:42" itemprop="dateCreated datePublished" datetime="2019-11-26T15:27:15+08:00">2019-11-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h2><p>首先二叉搜索树（二叉排序树，二叉查找树）的概念：</p>
+<blockquote>
+<p>它或者是一棵空树，</p>
+<p>或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>按照概念，只需要递归判定就好了。</p>
+<p>如果左节点符合，右节点符合，且根的值也符合 left&lt;root&lt;right，则符合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValidBST</span><span class="params">(self, root: TreeNode)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> self.helper(root, <span class="number">-2</span>**<span class="number">32</span>, <span class="number">2</span>**<span class="number">32</span><span class="number">-1</span>)  <span class="comment"># 这个地方有trick 借用最大最小值来完成</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, root,left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> root.val &lt;= left <span class="keyword">or</span> root.val &gt;= right: <span class="comment"># 记得带上等号</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> self.helper(root.left,left,root.val) <span class="keyword">and</span> self.helper(root.right, root.val, right)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/" class="post-title-link" itemprop="url">Leetcode-95-不同的二叉搜索树（具体路径）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-26 14:54:53 / Modified: 15:25:54" itemprop="dateCreated datePublished" datetime="2019-11-26T14:54:53+08:00">2019-11-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="不同的二叉搜索树II"><a href="#不同的二叉搜索树II" class="headerlink" title="不同的二叉搜索树II"></a>不同的二叉搜索树II</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9bg9rbsntj30v20nq768.jpg" alt="image-20191126145946420"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>没有思路…. 看一下人家是怎么解决的</p>
+<p>总的解决是两个部分</p>
+<ul>
+<li>先构建以i为根的树，构建过程可以依靠递归来实现</li>
+<li>再遍历构建好的树，进行左—右的排列组合</li>
+</ul>
+<p>这样就完成了以i为根的所有可能情况的搜索，然后再按照这样的办法一次遍历1…N.</p>
+<p>注意 要求的返回结果是 List[TreeNode]  相当于降低了难度，组装树的过程只需要考虑左右节点就可以了</p>
+<p>==不要受题目描述的输出结果影响，实际输出只需要输出根节点就好了，系统内部应该会有一个遍历操作==</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generateTrees</span><span class="params">(self, n: int)</span> -&gt; List[TreeNode]:</span>    </span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span> :</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">return</span> self.helper(<span class="number">1</span>,n)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> left&gt;right:</span><br><span class="line">            <span class="keyword">return</span> [<span class="literal">None</span>]  <span class="comment"># 不可以直接返回None  函数之间返回的都是 []</span></span><br><span class="line">        </span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right+<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 1. 以为i根递归建树</span></span><br><span class="line">            left_tree = self.helper(left,i<span class="number">-1</span>)</span><br><span class="line">            right_tree = self.helper(i+<span class="number">1</span>,right)</span><br><span class="line">						<span class="comment"># 2. 以i为根对左右两侧进行排列组合</span></span><br><span class="line">            <span class="keyword">for</span> l_tree <span class="keyword">in</span> left_tree:</span><br><span class="line">                <span class="keyword">for</span> r_tree <span class="keyword">in</span> right_tree:</span><br><span class="line">                    root = TreeNode(i)</span><br><span class="line">                    root.left = l_tree</span><br><span class="line">                    root.right = r_tree</span><br><span class="line">                    <span class="comment"># 3. 排好的结果加入结果集</span></span><br><span class="line">                    res.append(root)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res  <span class="comment"># 数据形式 [TreeNode1,TreeNode2,....TreeNode...]</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/" class="post-title-link" itemprop="url">实习期间的租房体验</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-26 11:04:13" itemprop="dateCreated datePublished" datetime="2019-11-26T11:04:13+08:00">2019-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-27 17:27:12" itemprop="dateModified" datetime="2019-11-27T17:27:12+08:00">2019-11-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="租房原因"><a href="#租房原因" class="headerlink" title="租房原因"></a>租房原因</h3><p>实习立项，学院要求搬出校区，只能在外边租房住。还好是个码农，可以靠实习工资基本贴补下租房的费用。</p>
+<h3 id="租房选择"><a href="#租房选择" class="headerlink" title="租房选择"></a>租房选择</h3><p>其实租房的时候，可选择的空间特别大，条件也特别多，如果漫无目的的去找房子很费时间很费力气，还很费鞋子。所有需要自己优先确定好3个自己最在意的事情，基本上按照这3个标准（就一个标准也行）然后排查一下就可以很快的定位出租房范围，然后价格差不多的情况下，中介靠谱就签了。</p>
+<p>我的三个标准：</p>
+<ul>
+<li>租房最好在公司附近，每天路上的时间一定一定不要超过1小时，半小时最好</li>
+<li>合租房间其他卧室正常（最好几室就几个人住）</li>
+<li>价格是实习工资的一半，要不就活不下去了</li>
+</ul>
+<p>第一个条件是比较坚决的，第二三个条件可以波动。</p>
+<h3 id="中介"><a href="#中介" class="headerlink" title="中介"></a>中介</h3><p>永丰南那里中润置家还是挺好的，至少我租了6个月的体验还算可以吧</p>
+<p>肖家河东西区那边就是合美家还可以，就是收服务费这个事情一定要搞清楚</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/leetcode_96_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -283,6 +510,91 @@
 <p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9ao389x1kj30ss09oabr.jpg" alt="image-20191125224443905"></p>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>重点感受下将一个大问题划分为小问题，并且存在较多重复子问题时候考虑dp</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numTrees</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        dp = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span> <span class="comment"># 当出现节点个数为0表示None 也算一个节点</span></span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,n+<span class="number">1</span>): <span class="comment"># i相当于 数字总数</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,i+<span class="number">1</span>): <span class="comment"># j 相当于每次作为根的数字</span></span><br><span class="line">                dp[i] += dp[j<span class="number">-1</span>]*dp[i-j] <span class="comment"># 以j为根，左侧总数*右侧总数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%BF%AB%E6%8E%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%BF%AB%E6%8E%92/" class="post-title-link" itemprop="url">面试题目：单链表快排</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-25 21:30:19" itemprop="dateCreated datePublished" datetime="2019-11-25T21:30:19+08:00">2019-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-29 10:33:54" itemprop="dateModified" datetime="2019-11-29T10:33:54+08:00">2019-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题目</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="单链表快排"><a href="#单链表快排" class="headerlink" title="单链表快排"></a>单链表快排</h1><p>微软小冰组实习生面试</p>
+<p>给一个单链表，按照快排的思想将单链表进行快速排序</p>
+<p>相似题目leetcode 148 排序链表（上面解法使用的是归并排序）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单链表的快速排序</span></span><br><span class="line"><span class="comment"># 微软小冰一面笔试题 已挂</span></span><br><span class="line"><span class="comment"># 思考问题复杂了，真正交换的过程不用考虑节点交换，只需要交换节点的值就可以了</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.next = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要数组，其中的left right 就是链表可以进行遍历</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    pivot = left.val</span><br><span class="line">    p = left  <span class="comment"># 用来返回中间</span></span><br><span class="line">    q = left  <span class="comment"># 用来遍历</span></span><br><span class="line">    <span class="keyword">while</span> q != right:  <span class="comment"># 注意此处的条件</span></span><br><span class="line">        <span class="keyword">if</span> q.val &lt; pivot:</span><br><span class="line">            p = p.next</span><br><span class="line">            <span class="comment"># swap 此处交换是 一个大值 和 一个小值的交换</span></span><br><span class="line">            <span class="keyword">if</span> p != q:</span><br><span class="line">                q.val, p.val = p.val, q.val</span><br><span class="line">        q = q.next</span><br><span class="line">    <span class="comment"># 交换一次  此处是pivot和目标位置的交换，交换后pivot被交换到了最终位置上</span></span><br><span class="line">    left.val, p.val = p.val, pivot</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left == right <span class="keyword">or</span> left.next == right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    mid = partition(left, right)</span><br><span class="line">    quickSort(left, mid)</span><br><span class="line">    quickSort(mid.next, right)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sort</span><span class="params">(head)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.next:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    quickSort(head, <span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printList</span><span class="params">(head)</span>:</span></span><br><span class="line">    tmp = []</span><br><span class="line">    p = head</span><br><span class="line">    <span class="keyword">while</span> p:</span><br><span class="line">        tmp.append(p.val)</span><br><span class="line">        p = p.next</span><br><span class="line"></span><br><span class="line">    print(tmp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 3 5 2 4 1</span></span><br><span class="line">    head = ListNode(<span class="number">3</span>)</span><br><span class="line">    head.next = ListNode(<span class="number">5</span>)</span><br><span class="line">    head.next.next = ListNode(<span class="number">2</span>)</span><br><span class="line">    head.next.next.next = ListNode(<span class="number">4</span>)</span><br><span class="line">    head.next.next.next.next =ListNode(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    printList(head)</span><br><span class="line">    sort(head)</span><br><span class="line">    printList(head)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -381,91 +693,6 @@
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: TreeNode)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        stack = []</span><br><span class="line">        cur = root</span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">            <span class="keyword">while</span> cur:</span><br><span class="line">                stack.append(cur)</span><br><span class="line">                cur = cur.left</span><br><span class="line">            </span><br><span class="line">            node = stack.pop()</span><br><span class="line">            res.append(node.val)</span><br><span class="line">            cur = node.right</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%BF%AB%E6%8E%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%BF%AB%E6%8E%92/" class="post-title-link" itemprop="url">面试题目：单链表快排</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-25 21:30:19" itemprop="dateCreated datePublished" datetime="2019-11-25T21:30:19+08:00">2019-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-29 10:33:54" itemprop="dateModified" datetime="2019-11-29T10:33:54+08:00">2019-11-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/" itemprop="url" rel="index">
-                    <span itemprop="name">面试题目</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="单链表快排"><a href="#单链表快排" class="headerlink" title="单链表快排"></a>单链表快排</h1><p>微软小冰组实习生面试</p>
-<p>给一个单链表，按照快排的思想将单链表进行快速排序</p>
-<p>相似题目leetcode 148 排序链表（上面解法使用的是归并排序）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单链表的快速排序</span></span><br><span class="line"><span class="comment"># 微软小冰一面笔试题 已挂</span></span><br><span class="line"><span class="comment"># 思考问题复杂了，真正交换的过程不用考虑节点交换，只需要交换节点的值就可以了</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.next = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要数组，其中的left right 就是链表可以进行遍历</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    pivot = left.val</span><br><span class="line">    p = left  <span class="comment"># 用来返回中间</span></span><br><span class="line">    q = left  <span class="comment"># 用来遍历</span></span><br><span class="line">    <span class="keyword">while</span> q != right:  <span class="comment"># 注意此处的条件</span></span><br><span class="line">        <span class="keyword">if</span> q.val &lt; pivot:</span><br><span class="line">            p = p.next</span><br><span class="line">            <span class="comment"># swap 此处交换是 一个大值 和 一个小值的交换</span></span><br><span class="line">            <span class="keyword">if</span> p != q:</span><br><span class="line">                q.val, p.val = p.val, q.val</span><br><span class="line">        q = q.next</span><br><span class="line">    <span class="comment"># 交换一次  此处是pivot和目标位置的交换，交换后pivot被交换到了最终位置上</span></span><br><span class="line">    left.val, p.val = p.val, pivot</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left == right <span class="keyword">or</span> left.next == right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    mid = partition(left, right)</span><br><span class="line">    quickSort(left, mid)</span><br><span class="line">    quickSort(mid.next, right)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sort</span><span class="params">(head)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.next:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    quickSort(head, <span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printList</span><span class="params">(head)</span>:</span></span><br><span class="line">    tmp = []</span><br><span class="line">    p = head</span><br><span class="line">    <span class="keyword">while</span> p:</span><br><span class="line">        tmp.append(p.val)</span><br><span class="line">        p = p.next</span><br><span class="line"></span><br><span class="line">    print(tmp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 3 5 2 4 1</span></span><br><span class="line">    head = ListNode(<span class="number">3</span>)</span><br><span class="line">    head.next = ListNode(<span class="number">5</span>)</span><br><span class="line">    head.next.next = ListNode(<span class="number">2</span>)</span><br><span class="line">    head.next.next.next = ListNode(<span class="number">4</span>)</span><br><span class="line">    head.next.next.next.next =ListNode(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    printList(head)</span><br><span class="line">    sort(head)</span><br><span class="line">    printList(head)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -835,260 +1062,6 @@ dp[n+1] = max(dp[n-1]+num[n+1],dp[n])</script><figure class="highlight python"><
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/leetcode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/20/leetcode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">Leetcode-62-不同路径</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-20 09:34:51 / Modified: 09:34:46" itemprop="dateCreated datePublished" datetime="2019-11-20T09:34:51+08:00">2019-11-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/leetcode-33/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/18/leetcode-33/" class="post-title-link" itemprop="url">Leetcode_33</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-18 14:56:51 / Modified: 15:08:37" itemprop="dateCreated datePublished" datetime="2019-11-18T14:56:51+08:00">2019-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h1><p>（腾讯视频NLP实习面试二面算法题）</p>
-<p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
-<p>( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</p>
-<p>搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。</p>
-<p>你可以假设数组中不存在重复的元素。</p>
-<p>你的算法时间复杂度必须是 O(log n) 级别。</p>
-<p>示例 1:</p>
-<p>输入: nums = [4,5,6,7,0,1,2], target = 0<br>输出: 4<br>示例 2:</p>
-<p>输入: nums = [4,5,6,7,0,1,2], target = 3<br>输出: -1</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>刚看到题，想到了剑指offer里面的那个题【旋转数组中的最小数字】，当时的思路是想直接找，但是发现判断条件依赖于 中间那个断开的地方<br>如果找到断开（旋转的地方）就很好解决了<br>所以这个题相当于两步，先找数组中的最小数字，再根据返回的最小数 二分全部 or 二分左 or 二分右</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">find_rotate_index</span><span class="params">(left, right)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] &lt; nums[right]:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">                pivot = (left + right) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> nums[pivot] &gt; nums[pivot + <span class="number">1</span>]:</span><br><span class="line">                    <span class="keyword">return</span> pivot + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> nums[pivot] &lt; nums[left]:</span><br><span class="line">                        right = pivot - <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        left = pivot + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(left, right)</span>:</span></span><br><span class="line">            <span class="string">"""</span></span><br><span class="line"><span class="string">            Binary search</span></span><br><span class="line"><span class="string">            """</span></span><br><span class="line">            <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">                pivot = (left + right) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> nums[pivot] == target:</span><br><span class="line">                    <span class="keyword">return</span> pivot</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> target &lt; nums[pivot]:</span><br><span class="line">                        right = pivot - <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        left = pivot + <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        n = len(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> nums[<span class="number">0</span>] == target <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        rotate_index = find_rotate_index(<span class="number">0</span>, n - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># if target is the smallest element</span></span><br><span class="line">        <span class="keyword">if</span> nums[rotate_index] == target:</span><br><span class="line">            <span class="keyword">return</span> rotate_index</span><br><span class="line">        <span class="comment"># if array is not rotated, search in the entire array</span></span><br><span class="line">        <span class="keyword">if</span> rotate_index == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> search(<span class="number">0</span>, n - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> target &lt; nums[<span class="number">0</span>]:</span><br><span class="line">            <span class="comment"># search on the right side</span></span><br><span class="line">            <span class="keyword">return</span> search(rotate_index, n - <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># search on the left side</span></span><br><span class="line">        <span class="keyword">return</span> search(<span class="number">0</span>, rotate_index)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/leetcode_1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/17/leetcode_1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-1-两数之和</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-17 14:27:19" itemprop="dateCreated datePublished" datetime="2019-11-17T14:27:19+08:00">2019-11-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-26 16:32:37" itemprop="dateModified" datetime="2019-11-26T16:32:37+08:00">2019-11-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例:</p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>python 使用字典来减少遍历时间</p>
-<p><strong>关键点</strong></p>
-<ul>
-<li>往字典存的过程是动态的从前向后的，也就是说 后边的每一次查找，其前面元素都放进字典里面了</li>
-<li>也对应了题目要求：不能重复利用这个数组中同样的元素。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> nums == <span class="literal">None</span> <span class="keyword">or</span> nums == []:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        d = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            err = target - value</span><br><span class="line">            <span class="keyword">if</span> err <span class="keyword">in</span> d:</span><br><span class="line">                <span class="keyword">return</span> [d[err], index]</span><br><span class="line">            <span class="comment"># 不在就加入字典</span></span><br><span class="line">            d[value] = index</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1137,7 +1110,7 @@ dp[n+1] = max(dp[n-1]+num[n+1],dp[n])</script><figure class="highlight python"><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-29T15:42:41.065Z</updated>
+  <updated>2019-11-30T17:14:25.326Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,84 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>归并排序</title>
+    <link href="http://yoursite.com/2019/12/01/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"/>
+    <id>http://yoursite.com/2019/12/01/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</id>
+    <published>2019-11-30T16:42:20.000Z</published>
+    <updated>2019-11-30T17:14:25.326Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>基于分治思想的排序算法，稳定的排序算法，时间复杂度$O(NlogN)$，空间复杂度为$O(N)$（需要一个备份数字来进行存储）。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;归并排序&quot;&gt;&lt;a href=&quot;#归并排序&quot; class=&quot;headerlink&quot; title=&quot;归并排序&quot;&gt;&lt;/a&gt;归并排序&lt;/h2&gt;&lt;p&gt;基于分治思想的排序算法，稳定的排序算法，时间复杂度$O(NlogN)$，空间复杂度为$O(N)$（需要一个备份数字来进行存储
+      
+    
+    </summary>
+    
+    
+      <category term="算法基础" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-222-完全二叉树的节点个数</title>
+    <link href="http://yoursite.com/2019/12/01/leetcode-222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/"/>
+    <id>http://yoursite.com/2019/12/01/leetcode-222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</id>
+    <published>2019-11-30T16:22:55.000Z</published>
+    <updated>2019-11-30T16:29:39.769Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="完全二叉树的节点个数"><a href="#完全二叉树的节点个数" class="headerlink" title="完全二叉树的节点个数"></a>完全二叉树的节点个数</h2><p>给出一个完全二叉树，求出该树的节点个数。</p><p>说明：</p><p>完全二叉树的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层，则该层包含 1~ 2h 个节点。</p><p>示例:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">    <span class="number">1</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"> / \  /</span><br><span class="line"><span class="number">4</span>  <span class="number">5</span> <span class="number">6</span></span><br><span class="line"></span><br><span class="line">输出: <span class="number">6</span></span><br></pre></td></tr></table></figure><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>一开始想法是，计算完全二叉树的节点个数是有技巧的，根据其最后一层的深度以及最后一层的叶子节点个数，是可以计算出完全二叉树的节点个数的。</p><blockquote><p>若最后一层深度为d，最后一层节点个数为N</p><p>$ total = 2^{d-1}-1+N$</p></blockquote><p>但是想到我都能遍历到叶子节点了，肯定也能遍历叶子节点上面的其他节点了，所以我只需要遍历一遍二叉树，就知道我的树节点个数了-_-！！！</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countNodes</span><span class="params">(self, root: TreeNode)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        queue = []</span><br><span class="line">        queue.append(root)</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> queue:</span><br><span class="line">            node = queue.pop(<span class="number">0</span>)</span><br><span class="line">            num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure><p>解法简单粗暴</p><p>优化解法</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;完全二叉树的节点个数&quot;&gt;&lt;a href=&quot;#完全二叉树的节点个数&quot; class=&quot;headerlink&quot; title=&quot;完全二叉树的节点个数&quot;&gt;&lt;/a&gt;完全二叉树的节点个数&lt;/h2&gt;&lt;p&gt;给出一个完全二叉树，求出该树的节点个数。&lt;/p&gt;
+&lt;p&gt;说明：&lt;/p&gt;
+&lt;p
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-117-填充每个节点的下一个右侧节点指针 II</title>
+    <link href="http://yoursite.com/2019/12/01/leetcode-117-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88II/"/>
+    <id>http://yoursite.com/2019/12/01/leetcode-117-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88II/</id>
+    <published>2019-11-30T16:11:42.000Z</published>
+    <updated>2019-11-30T16:17:24.303Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="填充每个节点的下一个右侧节点指针ii"><a href="#填充每个节点的下一个右侧节点指针ii" class="headerlink" title="填充每个节点的下一个右侧节点指针ii"></a>填充每个节点的下一个右侧节点指针ii</h2><p>给定一个二叉树</p><blockquote><p>struct Node {<br>  int val;<br>  Node <em>left;<br>  Node </em>right;<br>  Node *next;<br>}</p></blockquote><p>填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</p><p>初始状态下，所有 next 指针都被设置为 NULL。</p><p>进阶：</p><blockquote><p>你只能使用常量级额外空间。<br>使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</p></blockquote><h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>参考题目<a href="https://mereder.github.io/2019/11/27/leetcode-116-填充每个节点的下一个右侧节点指针/" target="_blank" rel="noopener">Leetcode-116-填充每个节点的下一个右侧节点指针</a></p><p>自己的解法还是依靠于层次遍历</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.left = left</span></span><br><span class="line"><span class="string">        self.right = right</span></span><br><span class="line"><span class="string">        self.next = next</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connect</span><span class="params">(self, root: <span class="string">'Node'</span>)</span> -&gt; 'Node':</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">        queue = []</span><br><span class="line">        queue.append(root)</span><br><span class="line">        cur = <span class="number">1</span></span><br><span class="line">        nxt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> queue:</span><br><span class="line">            node = queue.pop(<span class="number">0</span>)</span><br><span class="line">            cur -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">                nxt += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">                nxt += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> cur == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>,nxt):</span><br><span class="line">                    queue[index<span class="number">-1</span>].next = queue[index]</span><br><span class="line">                cur = nxt</span><br><span class="line">                nxt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;填充每个节点的下一个右侧节点指针ii&quot;&gt;&lt;a href=&quot;#填充每个节点的下一个右侧节点指针ii&quot; class=&quot;headerlink&quot; title=&quot;填充每个节点的下一个右侧节点指针ii&quot;&gt;&lt;/a&gt;填充每个节点的下一个右侧节点指针ii&lt;/h2&gt;&lt;p&gt;给定一个二叉
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>插入排序</title>
@@ -470,79 +548,6 @@
       <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
     
       <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-98-验证二叉搜索树</title>
-    <link href="http://yoursite.com/2019/11/26/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
-    <id>http://yoursite.com/2019/11/26/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</id>
-    <published>2019-11-26T07:27:15.000Z</published>
-    <updated>2019-11-26T07:37:42.934Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h2><p>首先二叉搜索树（二叉排序树，二叉查找树）的概念：</p><blockquote><p>它或者是一棵空树，</p><p>或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>按照概念，只需要递归判定就好了。</p><p>如果左节点符合，右节点符合，且根的值也符合 left&lt;root&lt;right，则符合。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValidBST</span><span class="params">(self, root: TreeNode)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> self.helper(root, <span class="number">-2</span>**<span class="number">32</span>, <span class="number">2</span>**<span class="number">32</span><span class="number">-1</span>)  <span class="comment"># 这个地方有trick 借用最大最小值来完成</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, root,left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> root.val &lt;= left <span class="keyword">or</span> root.val &gt;= right: <span class="comment"># 记得带上等号</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> self.helper(root.left,left,root.val) <span class="keyword">and</span> self.helper(root.right, root.val, right)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;验证二叉搜索树&quot;&gt;&lt;a href=&quot;#验证二叉搜索树&quot; class=&quot;headerlink&quot; title=&quot;验证二叉搜索树&quot;&gt;&lt;/a&gt;验证二叉搜索树&lt;/h2&gt;&lt;p&gt;首先二叉搜索树（二叉排序树，二叉查找树）的概念：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;它或者是一
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-95-不同的二叉搜索树（具体路径）</title>
-    <link href="http://yoursite.com/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/"/>
-    <id>http://yoursite.com/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/</id>
-    <published>2019-11-26T06:54:53.000Z</published>
-    <updated>2019-11-26T07:25:54.455Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="不同的二叉搜索树II"><a href="#不同的二叉搜索树II" class="headerlink" title="不同的二叉搜索树II"></a>不同的二叉搜索树II</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9bg9rbsntj30v20nq768.jpg" alt="image-20191126145946420"></p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>没有思路…. 看一下人家是怎么解决的</p><p>总的解决是两个部分</p><ul><li>先构建以i为根的树，构建过程可以依靠递归来实现</li><li>再遍历构建好的树，进行左—右的排列组合</li></ul><p>这样就完成了以i为根的所有可能情况的搜索，然后再按照这样的办法一次遍历1…N.</p><p>注意 要求的返回结果是 List[TreeNode]  相当于降低了难度，组装树的过程只需要考虑左右节点就可以了</p><p>==不要受题目描述的输出结果影响，实际输出只需要输出根节点就好了，系统内部应该会有一个遍历操作==</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generateTrees</span><span class="params">(self, n: int)</span> -&gt; List[TreeNode]:</span>    </span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span> :</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">return</span> self.helper(<span class="number">1</span>,n)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> left&gt;right:</span><br><span class="line">            <span class="keyword">return</span> [<span class="literal">None</span>]  <span class="comment"># 不可以直接返回None  函数之间返回的都是 []</span></span><br><span class="line">        </span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right+<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 1. 以为i根递归建树</span></span><br><span class="line">            left_tree = self.helper(left,i<span class="number">-1</span>)</span><br><span class="line">            right_tree = self.helper(i+<span class="number">1</span>,right)</span><br><span class="line"><span class="comment"># 2. 以i为根对左右两侧进行排列组合</span></span><br><span class="line">            <span class="keyword">for</span> l_tree <span class="keyword">in</span> left_tree:</span><br><span class="line">                <span class="keyword">for</span> r_tree <span class="keyword">in</span> right_tree:</span><br><span class="line">                    root = TreeNode(i)</span><br><span class="line">                    root.left = l_tree</span><br><span class="line">                    root.right = r_tree</span><br><span class="line">                    <span class="comment"># 3. 排好的结果加入结果集</span></span><br><span class="line">                    res.append(root)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res  <span class="comment"># 数据形式 [TreeNode1,TreeNode2,....TreeNode...]</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;不同的二叉搜索树II&quot;&gt;&lt;a href=&quot;#不同的二叉搜索树II&quot; class=&quot;headerlink&quot; title=&quot;不同的二叉搜索树II&quot;&gt;&lt;/a&gt;不同的二叉搜索树II&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/larg
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实习期间的租房体验</title>
-    <link href="http://yoursite.com/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/"/>
-    <id>http://yoursite.com/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/</id>
-    <published>2019-11-26T03:04:13.000Z</published>
-    <updated>2019-11-27T09:27:12.673Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="租房原因"><a href="#租房原因" class="headerlink" title="租房原因"></a>租房原因</h3><p>实习立项，学院要求搬出校区，只能在外边租房住。还好是个码农，可以靠实习工资基本贴补下租房的费用。</p><h3 id="租房选择"><a href="#租房选择" class="headerlink" title="租房选择"></a>租房选择</h3><p>其实租房的时候，可选择的空间特别大，条件也特别多，如果漫无目的的去找房子很费时间很费力气，还很费鞋子。所有需要自己优先确定好3个自己最在意的事情，基本上按照这3个标准（就一个标准也行）然后排查一下就可以很快的定位出租房范围，然后价格差不多的情况下，中介靠谱就签了。</p><p>我的三个标准：</p><ul><li>租房最好在公司附近，每天路上的时间一定一定不要超过1小时，半小时最好</li><li>合租房间其他卧室正常（最好几室就几个人住）</li><li>价格是实习工资的一半，要不就活不下去了</li></ul><p>第一个条件是比较坚决的，第二三个条件可以波动。</p><h3 id="中介"><a href="#中介" class="headerlink" title="中介"></a>中介</h3><p>永丰南那里中润置家还是挺好的，至少我租了6个月的体验还算可以吧</p><p>肖家河东西区那边就是合美家还可以，就是收服务费这个事情一定要搞清楚</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;租房原因&quot;&gt;&lt;a href=&quot;#租房原因&quot; class=&quot;headerlink&quot; title=&quot;租房原因&quot;&gt;&lt;/a&gt;租房原因&lt;/h3&gt;&lt;p&gt;实习立项，学院要求搬出校区，只能在外边租房住。还好是个码农，可以靠实习工资基本贴补下租房的费用。&lt;/p&gt;
-&lt;h3 id=&quot;租
-      
-    
-    </summary>
-    
     
     
   </entry>
