@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-01T16:32:46.006Z</updated>
+  <updated>2019-12-03T14:47:38.897Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,81 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode-3-无重复字符的最长子串</title>
+    <link href="http://yoursite.com/2019/12/03/leetcode-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
+    <id>http://yoursite.com/2019/12/03/leetcode-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</id>
+    <published>2019-12-03T12:38:13.000Z</published>
+    <updated>2019-12-03T14:47:38.897Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a>无重复字符的最长子串</h2><p><strong>滴滴算法工程师（EP组没记错的话  hhh）一面面试题目</strong></p><p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p><p>示例 1:</p><blockquote><p>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。<br>示例 2:</p><p> 输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。<br>示例 3:</p><p> 输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>     请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这个破题，前后看了好几遍才理解了最优解法的意义。</p><p>这里面主要是利用滑动窗口机制，那么还需要使用几个辅助变量来帮助实现这个思想</p><blockquote><p>d: 是一个字典用来存放&lt;字符,最后一次的位置&gt; 这个一方面 方便我们来查找重复字符 另一方面方便确认两个重复字符直接的距离</p><p>start: 是 我们找到的无重复字符串的开始</p><p>end：是我们找到的无重复字符串的结尾，同时也是遍历字符串的指针</p><p>mx：存储最长无重复字符串的长度</p></blockquote><p>无重复字符串的长度计算即:$end-start+1$</p><p>end是不断再向后走的，我们需要判断的是start应该放在什么位置。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> s[end] <span class="keyword">in</span> d:</span><br><span class="line">  start = max(d[char]+<span class="number">1</span>,start)</span><br></pre></td></tr></table></figure><ul><li><p>查看当前字符是否重复，如果重复再看是否在 无重复串中间：</p></li><li><p>如果 在 无重复串中间 即 start &lt; d[char] 需要更新无重复字符串的开始位置为 d[char]+1</p></li><li><p>如果 不在 无重复串中间，即 start &gt; d[char] 那么当前字符不会对我们的无重复字符串产生影响</p></li><li><p>相当于重新定义了 无重复字符串的开始位置，方便后边计算无重复字符串的长度</p></li></ul><blockquote><p>举个例子：</p><p>abcdc  当遍历到第二个c时，原本的无重复串为abcd ，此时重复字符c是在重复串中间的，那么需要更新我们的窗口，将start从a的下标调整到前一个c的下标+1</p><p>再举个例子</p><p>abcdba 接着上一个分析，当经过第二个b之后，无重复子串被置为 cdb，当处理最后一个a时，尽管前面有重复的a但是对于我们的无重复子串是没有影响的，可以直接加上，变成cdba。</p><p>每次更新start位置之后，无重复字符串长度为end-start+1，不一定都能得到最长的，所以每次都需要再跟max做个比较</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        d = &#123;&#125;  <span class="comment"># 记录字符以及字符最后一次出现的位置</span></span><br><span class="line">        mx = <span class="number">0</span>  <span class="comment"># 记录最长的长度</span></span><br><span class="line">        start = <span class="number">0</span> <span class="comment"># 记录无重复字符串的开始位置</span></span><br><span class="line">        end = <span class="number">0</span>  <span class="comment"># 记录无重复字符串的结束位置</span></span><br><span class="line">        <span class="keyword">while</span> end &lt; len(s): <span class="comment"># 遍历字符串</span></span><br><span class="line">            char = s[end]  <span class="comment"># 当前字符串</span></span><br><span class="line">            <span class="keyword">if</span> s[end] <span class="keyword">in</span> d:</span><br><span class="line">                <span class="comment"># 查看当前字符是否重复，如果重复再看是否在 无重复串中间：</span></span><br><span class="line">                <span class="comment"># 如果 在 无重复串中间 即 start &lt; d[char] 需要更新无重复字符串的开始位置为 d[char]+1</span></span><br><span class="line">                <span class="comment"># 如果 不在 无重复串中间，即 start &gt; d[char] 那么当前字符不会对我们的无重复字符串产生影响</span></span><br><span class="line">                <span class="comment"># 相当于重新定义了 无重复字符串的开始位置，方便后边计算无重复字符串的长度</span></span><br><span class="line">                start = max(d[char]+<span class="number">1</span>,start)</span><br><span class="line">            </span><br><span class="line">            mx = max(mx,end-start+<span class="number">1</span>)</span><br><span class="line">            <span class="comment"># 更新我的字典中，字符的位置信息</span></span><br><span class="line">            d[char] = end</span><br><span class="line">            end+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mx</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;无重复字符的最长子串&quot;&gt;&lt;a href=&quot;#无重复字符的最长子串&quot; class=&quot;headerlink&quot; title=&quot;无重复字符的最长子串&quot;&gt;&lt;/a&gt;无重复字符的最长子串&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;滴滴算法工程师（EP组没记错的话  hhh）一面面试题目&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-63-不同路径II</title>
+    <link href="http://yoursite.com/2019/12/03/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/"/>
+    <id>http://yoursite.com/2019/12/03/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/</id>
+    <published>2019-12-03T04:29:47.000Z</published>
+    <updated>2019-12-03T09:36:03.211Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="不同路径II"><a href="#不同路径II" class="headerlink" title="不同路径II"></a>不同路径II</h2><p><strong>作业帮算法实习生二面面试题</strong></p><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p><p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p><p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9jfbb1hcej30b4053gll.jpg" alt="img"></p><p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p><p>说明：m 和 n 的值均不超过 100。</p><p>示例 1:</p><blockquote><p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p><p>1.向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</p><p>2.向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</p></blockquote><h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>机器人走路问题，还是用动态规划来解决，最基本的动态规划递归状态是</p><script type="math/tex; mode=display">当前路径数 = 左侧格子路径+上边格子路径 \\n_{i,j} = n_{i,j-1} + n_{i-1,j} \\dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存在障碍那么就需要对障碍点进行下判断：</p><ul><li>第一步就是障碍点： 直接返回0</li><li>第一列或者第一行存在障碍点 那么后继的都应该为0</li><li>其他情况的障碍点 只需要存在就令该位置对应dp为0</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> obstacleGrid:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        m = len(obstacleGrid)</span><br><span class="line">        n = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> range(m)]</span><br><span class="line">        <span class="comment"># 特殊情况，起始位置就是障碍则为0 否则为1</span></span><br><span class="line">        <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># dp空间初始化进行赋值 第一行    </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[i][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = dp[i<span class="number">-1</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># dp 空间初始化进行赋值 第一列</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][j] == <span class="number">1</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j<span class="number">-1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 其他情况 需要进行遍历</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                <span class="comment"># 遇到障碍 dp = 0</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[i][j] == <span class="number">1</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">0</span></span><br><span class="line">               <span class="comment"># 非障碍，根据情况进行dp[i][j]的赋值</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">and</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">elif</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = max(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i][j] = dp[i<span class="number">-1</span>][j] + dp[i][j<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;不同路径II&quot;&gt;&lt;a href=&quot;#不同路径II&quot; class=&quot;headerlink&quot; title=&quot;不同路径II&quot;&gt;&lt;/a&gt;不同路径II&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;作业帮算法实习生二面面试题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一个机器人位于一个 m x n 
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>作业帮面经</title>
+    <link href="http://yoursite.com/2019/12/02/%E4%BD%9C%E4%B8%9A%E5%B8%AE%E9%9D%A2%E7%BB%8F/"/>
+    <id>http://yoursite.com/2019/12/02/%E4%BD%9C%E4%B8%9A%E5%B8%AE%E9%9D%A2%E7%BB%8F/</id>
+    <published>2019-12-02T15:31:22.523Z</published>
+    <updated>2019-12-02T15:57:07.517Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="作业帮算法实习生offer面经"><a href="#作业帮算法实习生offer面经" class="headerlink" title="作业帮算法实习生offer面经"></a>作业帮算法实习生offer面经</h1><h2 id="jd"><a href="#jd" class="headerlink" title="jd"></a>jd</h2><p>投递岗位</p><p>1、深入自然语言处理相关的核心技术研究，如对话系统、问答系统、阅读理解等NLP技术；</p><p>2、用机器学习/深度学习等技术解决分层模型、点击预估、流失预测等业务问题；</p><p>3、负责用户增长中的算法问题，提升约课、到课、转化、回捞等相关转化率；</p><p>4、将自然语言技术应用具体业务中，包括智能客服、催到课、用户意图分类等。</p><h2 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h2><p>写题：</p><p>1.旋转数组中找target （腾讯视频NLP二面题目） 面试官指导下磕磕绊绊写出来了，腾讯视频面试时候写出来是因为当时分开完成的，先写了找到断点的地方，然后再找target</p><p>（leetcode 33）</p><p>2.合并两个有序数组 easy</p><p>简单聊了聊项目 对于技术点没有深挖</p><h2 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h2><p>聊项目（前一段实习在网易的项目） 实现背景 实现策略（数据、算法） 实现结果</p><p>没有深挖技术点</p><p>思路题：</p><p>给了一个问题背景</p><p>护林员统计了一片森林的各种树的特征（树的种类啊 树的高度啊 树年龄 等等）</p><p>其中有一些数据的树高统计由于人为的失误导致数据异常，问如何检查异常的树高数据</p><p>当时的回答，就是离群点检测：</p><p>如何检测离群点，我给的方案是，首先可以做回归，比如给定一些基础特征，然后根据特征来预测树高</p><p>那么正常的值应该都在回归曲线附近，那么也需要一个超参数来衡量在什么范围内的数据是正常，什么范围外的数据是异常点</p><p>其次想到了对于异常点（离群点） 背景就是数据分布属于高斯分布的情况下，那么数据可以根据 </p><p>均值 +- n个标准差来做判断</p><p>==知识点待补充，如何来分析数据的离群点==</p><p>算法题：</p><p>给一个矩阵m*N，找从左上角到右下角的路径个数，其中会有一些路径是有障碍的 没有办法走过去。</p><p>（leetcode 62 不同路径II）</p><p>提问环节：</p><p>他们组主要做对话技术部分，之前的都已经搭好了，如果现在过去的话也是做基于分析badcase的解决提高对话的有效转化</p><p>聊了下这边的技术主要内容 他们月活大概 1.2亿 </p><p>业务的应用场景主要是 约课 和课程转化率</p><p>目前主要的操作都是自动化的， ASR 到信息理解 然后输出 语音内容 帮助客户完成课程转化或者付费内容的购买。</p><p>主要涉及的是对话技术、内容理解、用户拉新 和 约课（课程）转化</p><p>最后面完通过hr的交流，大概我当时面的是</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;作业帮算法实习生offer面经&quot;&gt;&lt;a href=&quot;#作业帮算法实习生offer面经&quot; class=&quot;headerlink&quot; title=&quot;作业帮算法实习生offer面经&quot;&gt;&lt;/a&gt;作业帮算法实习生offer面经&lt;/h1&gt;&lt;h2 id=&quot;jd&quot;&gt;&lt;a href=&quot;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Leetcode-53-最大子序和</title>
@@ -454,93 +529,6 @@
       
         &lt;h2 id=&quot;二叉树的最小高度&quot;&gt;&lt;a href=&quot;#二叉树的最小高度&quot; class=&quot;headerlink&quot; title=&quot;二叉树的最小高度&quot;&gt;&lt;/a&gt;二叉树的最小高度&lt;/h2&gt;&lt;p&gt;给定一个二叉树，找出其最小深度。&lt;/p&gt;
 &lt;p&gt;最小深度是从根节点到最近叶子节点的最短路径上
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-430-扁平化多级双向链表</title>
-    <link href="http://yoursite.com/2019/11/27/leetcode-430-%E6%89%81%E5%B9%B3%E5%8C%96%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/11/27/leetcode-430-%E6%89%81%E5%B9%B3%E5%8C%96%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</id>
-    <published>2019-11-26T16:38:59.859Z</published>
-    <updated>2019-11-27T15:38:23.946Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="扁平化多级双向链表"><a href="#扁平化多级双向链表" class="headerlink" title="扁平化多级双向链表"></a>扁平化多级双向链表</h2><p>您将获得一个双向链表，除了下一个和前一个指针之外，它还有一个子指针，可能指向单独的双向链表。这些子列表可能有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。</p><p>扁平化列表，使所有结点出现在单级双链表中。您将获得列表第一级的头部。</p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9csuhhhhgj30uw0degme.jpg" alt="截屏2019-11-27下午7.00.04"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9d0viqd2nj31190l5gmo.jpg" alt="img"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9d0vm9n9mj325905lmxs.jpg" alt="img"></p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>跟<a href="https://mereder.github.io/2019/11/26/leetcode-114-二叉树展开为链表/" target="_blank" rel="noopener">Leetcode-114-二叉树展开为链表</a>的整体解决方案是一样的，只不过需要注意下问题是双向链表。</p><p>坑：前后节点之间是有前后指针相连的，当对于child节点，其prev节点并没有直接指向父节点<strong>而是None</strong>，进行指针操作的时候注意</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val, prev, next, child):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.prev = prev</span></span><br><span class="line"><span class="string">        self.next = next</span></span><br><span class="line"><span class="string">        self.child = child</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, head: <span class="string">'Node'</span>)</span> -&gt; 'Node':</span></span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.child <span class="keyword">and</span> cur.next:</span><br><span class="line">              <span class="comment"># 1. 拿出子链表</span></span><br><span class="line">                p = cur.child</span><br><span class="line">                p.prev = cur</span><br><span class="line">                <span class="comment"># 2. 遍历子链表直到尾部</span></span><br><span class="line">                <span class="keyword">while</span> p.next:</span><br><span class="line">                    p = p.next</span><br><span class="line">                <span class="comment"># 3. 将原后续链表接入到子链表尾部</span></span><br><span class="line">                p.next = cur.next</span><br><span class="line">                cur.next.prev = p</span><br><span class="line">                <span class="comment"># 4. 调整子链表成为后续链表 并且child为None</span></span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表最后一个含有子链表，就直接调换下位置即可</span></span><br><span class="line">            <span class="keyword">elif</span> cur.child <span class="keyword">and</span> <span class="keyword">not</span> cur.next:</span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child.prev = cur <span class="comment"># 因为这个没有导致case 20/22  没完全通过</span></span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表后移动 一个</span></span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;扁平化多级双向链表&quot;&gt;&lt;a href=&quot;#扁平化多级双向链表&quot; class=&quot;headerlink&quot; title=&quot;扁平化多级双向链表&quot;&gt;&lt;/a&gt;扁平化多级双向链表&lt;/h2&gt;&lt;p&gt;您将获得一个双向链表，除了下一个和前一个指针之外，它还有一个子指针，可能指向单独的双
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Xgboost 原理分析</title>
-    <link href="http://yoursite.com/2019/11/26/xgboost/"/>
-    <id>http://yoursite.com/2019/11/26/xgboost/</id>
-    <published>2019-11-26T11:10:02.234Z</published>
-    <updated>2019-11-28T14:32:23.625Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>学的是什么？<ul><li>很多CART树</li><li>loss+regulization</li></ul></li><li>怎么学的？<ul><li>增量学习，每次只学一棵树，前面树固定</li><li>loss怎么写：泰勒展开</li><li>正则怎么做：</li></ul></li><li>还有哪些优化：<ul><li>shrinkage</li><li>列采样</li></ul></li><li>跟其他方法有何异同<ul><li>与gbdt的优缺点</li><li>与RF有什么优缺点</li></ul></li><li>怎么用<ul><li>几个关键参数：树的个数，树深， 叶子节点个数， </li></ul></li></ul><h2 id="学的是什么？"><a href="#学的是什么？" class="headerlink" title="学的是什么？"></a>学的是什么？</h2><p>对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;学的是什么？&lt;ul&gt;
-&lt;li&gt;很多CART树&lt;/li&gt;
-&lt;li&gt;loss+regulization&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;怎么学的？&lt;ul&gt;
-&lt;li&gt;增量学习，每次只学一棵树，前面树固定&lt;/li&gt;
-&lt;li&gt;loss怎么写：泰勒展开&lt;/li&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="ML" scheme="http://yoursite.com/categories/ML/"/>
-    
-      <category term="算法面试" scheme="http://yoursite.com/categories/ML/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-114-将二叉树展开为链表</title>
-    <link href="http://yoursite.com/2019/11/26/leetcode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/11/26/leetcode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8/</id>
-    <published>2019-11-26T09:21:00.000Z</published>
-    <updated>2019-11-26T09:21:50.822Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="二叉树展开为链表"><a href="#二叉树展开为链表" class="headerlink" title="二叉树展开为链表"></a>二叉树展开为链表</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9bkaid387j30vq0r4wft.jpg" alt="题目描述"></p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">如下过程生动的描述了节点的拼接过程</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">2</span>   <span class="number">5</span></span><br><span class="line"> / \   \</span><br><span class="line"><span class="number">3</span>   <span class="number">4</span>   <span class="number">6</span></span><br><span class="line"></span><br><span class="line">//将 <span class="number">1</span> 的左子树插入到右子树的地方</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>         <span class="number">5</span></span><br><span class="line">     / \         \</span><br><span class="line">    <span class="number">3</span>   <span class="number">4</span>         <span class="number">6</span>        </span><br><span class="line">//将原来的右子树接到左子树的最右边节点</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>          </span><br><span class="line">     / \          </span><br><span class="line">    <span class="number">3</span>   <span class="number">4</span>  </span><br><span class="line">         \</span><br><span class="line">          <span class="number">5</span></span><br><span class="line">           \</span><br><span class="line">            <span class="number">6</span></span><br><span class="line">            </span><br><span class="line"> //将 <span class="number">2</span> 的左子树插入到右子树的地方</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>          </span><br><span class="line">       \          </span><br><span class="line">        <span class="number">3</span>       <span class="number">4</span>  </span><br><span class="line">                 \</span><br><span class="line">                  <span class="number">5</span></span><br><span class="line">                   \</span><br><span class="line">                    <span class="number">6</span>   </span><br><span class="line">        </span><br><span class="line"> //将原来的右子树接到左子树的最右边节点</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">     \</span><br><span class="line">      <span class="number">2</span>          </span><br><span class="line">       \          </span><br><span class="line">        <span class="number">3</span>      </span><br><span class="line">         \</span><br><span class="line">          <span class="number">4</span>  </span><br><span class="line">           \</span><br><span class="line">            <span class="number">5</span></span><br><span class="line">             \</span><br><span class="line">              <span class="number">6</span>         </span><br><span class="line">  </span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">作者：windliang (leetcode 用户的分享)</span><br><span class="line">链接：https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-<span class="number">-26</span>/</span><br><span class="line">来源：力扣（LeetCode）</span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, root: TreeNode)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify root in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cur = root</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.left:   </span><br><span class="line">                <span class="comment"># 1. 找到最右点</span></span><br><span class="line">                before = cur.left</span><br><span class="line">                <span class="keyword">while</span> before.right:</span><br><span class="line">                    before = before.right</span><br><span class="line">                <span class="comment"># 2. 右子树插入到嘴有点</span></span><br><span class="line">                before.right = cur.right</span><br><span class="line">                <span class="comment"># 3. 左子树放到右子树位置</span></span><br><span class="line">                cur.right = cur.left</span><br><span class="line">                <span class="comment"># 4. 原左子树置为None</span></span><br><span class="line">                cur.left = <span class="literal">None</span></span><br><span class="line">                <span class="comment"># 5. 继续下一个节点</span></span><br><span class="line">                cur = cur.right</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.right</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;二叉树展开为链表&quot;&gt;&lt;a href=&quot;#二叉树展开为链表&quot; class=&quot;headerlink&quot; title=&quot;二叉树展开为链表&quot;&gt;&lt;/a&gt;二叉树展开为链表&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/006y8m
       
     
     </summary>

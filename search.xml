@@ -1,6 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-3-无重复字符的最长子串</title>
+    <url>/2019/12/03/leetcode-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</url>
+    <content><![CDATA[<h2 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a>无重复字符的最长子串</h2><p><strong>滴滴算法工程师（EP组没记错的话  hhh）一面面试题目</strong></p>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。<br>示例 2:</p>
+<p> 输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。<br>示例 3:</p>
+<p> 输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>     请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这个破题，前后看了好几遍才理解了最优解法的意义。</p>
+<p>这里面主要是利用滑动窗口机制，那么还需要使用几个辅助变量来帮助实现这个思想</p>
+<blockquote>
+<p>d: 是一个字典用来存放&lt;字符,最后一次的位置&gt; 这个一方面 方便我们来查找重复字符 另一方面方便确认两个重复字符直接的距离</p>
+<p>start: 是 我们找到的无重复字符串的开始</p>
+<p>end：是我们找到的无重复字符串的结尾，同时也是遍历字符串的指针</p>
+<p>mx：存储最长无重复字符串的长度</p>
+</blockquote>
+<p>无重复字符串的长度计算即:$end-start+1$</p>
+<p>end是不断再向后走的，我们需要判断的是start应该放在什么位置。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> s[end] <span class="keyword">in</span> d:</span><br><span class="line">  start = max(d[char]+<span class="number">1</span>,start)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>查看当前字符是否重复，如果重复再看是否在 无重复串中间：</p>
+</li>
+<li><p>如果 在 无重复串中间 即 start &lt; d[char] 需要更新无重复字符串的开始位置为 d[char]+1</p>
+</li>
+<li><p>如果 不在 无重复串中间，即 start &gt; d[char] 那么当前字符不会对我们的无重复字符串产生影响</p>
+</li>
+<li><p>相当于重新定义了 无重复字符串的开始位置，方便后边计算无重复字符串的长度</p>
+</li>
+</ul>
+<blockquote>
+<p>举个例子：</p>
+<p>abcdc  当遍历到第二个c时，原本的无重复串为abcd ，此时重复字符c是在重复串中间的，那么需要更新我们的窗口，将start从a的下标调整到前一个c的下标+1</p>
+<p>再举个例子</p>
+<p>abcdba 接着上一个分析，当经过第二个b之后，无重复子串被置为 cdb，当处理最后一个a时，尽管前面有重复的a但是对于我们的无重复子串是没有影响的，可以直接加上，变成cdba。</p>
+<p>每次更新start位置之后，无重复字符串长度为end-start+1，不一定都能得到最长的，所以每次都需要再跟max做个比较</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        d = &#123;&#125;  <span class="comment"># 记录字符以及字符最后一次出现的位置</span></span><br><span class="line">        mx = <span class="number">0</span>  <span class="comment"># 记录最长的长度</span></span><br><span class="line">        start = <span class="number">0</span> <span class="comment"># 记录无重复字符串的开始位置</span></span><br><span class="line">        end = <span class="number">0</span>  <span class="comment"># 记录无重复字符串的结束位置</span></span><br><span class="line">        <span class="keyword">while</span> end &lt; len(s): <span class="comment"># 遍历字符串</span></span><br><span class="line">            char = s[end]  <span class="comment"># 当前字符串</span></span><br><span class="line">            <span class="keyword">if</span> s[end] <span class="keyword">in</span> d:</span><br><span class="line">                <span class="comment"># 查看当前字符是否重复，如果重复再看是否在 无重复串中间：</span></span><br><span class="line">                <span class="comment"># 如果 在 无重复串中间 即 start &lt; d[char] 需要更新无重复字符串的开始位置为 d[char]+1</span></span><br><span class="line">                <span class="comment"># 如果 不在 无重复串中间，即 start &gt; d[char] 那么当前字符不会对我们的无重复字符串产生影响</span></span><br><span class="line">                <span class="comment"># 相当于重新定义了 无重复字符串的开始位置，方便后边计算无重复字符串的长度</span></span><br><span class="line">                start = max(d[char]+<span class="number">1</span>,start)</span><br><span class="line">            </span><br><span class="line">            mx = max(mx,end-start+<span class="number">1</span>)</span><br><span class="line">            <span class="comment"># 更新我的字典中，字符的位置信息</span></span><br><span class="line">            d[char] = end</span><br><span class="line">            end+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mx</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-63-不同路径II</title>
+    <url>/2019/12/03/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/</url>
+    <content><![CDATA[<h2 id="不同路径II"><a href="#不同路径II" class="headerlink" title="不同路径II"></a>不同路径II</h2><p><strong>作业帮算法实习生二面面试题</strong></p>
+<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9jfbb1hcej30b4053gll.jpg" alt="img"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
+<p>说明：m 和 n 的值均不超过 100。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
+<p>1.向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</p>
+<p>2.向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</p>
+</blockquote>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>机器人走路问题，还是用动态规划来解决，最基本的动态规划递归状态是</p>
+<script type="math/tex; mode=display">
+当前路径数 = 左侧格子路径+上边格子路径 \\
+n_{i,j} = n_{i,j-1} + n_{i-1,j} \\
+dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存在障碍那么就需要对障碍点进行下判断：</p>
+<ul>
+<li>第一步就是障碍点： 直接返回0</li>
+<li>第一列或者第一行存在障碍点 那么后继的都应该为0</li>
+<li>其他情况的障碍点 只需要存在就令该位置对应dp为0</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> obstacleGrid:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        m = len(obstacleGrid)</span><br><span class="line">        n = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> range(m)]</span><br><span class="line">        <span class="comment"># 特殊情况，起始位置就是障碍则为0 否则为1</span></span><br><span class="line">        <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># dp空间初始化进行赋值 第一行    </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[i][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = dp[i<span class="number">-1</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># dp 空间初始化进行赋值 第一列</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][j] == <span class="number">1</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j<span class="number">-1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 其他情况 需要进行遍历</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                <span class="comment"># 遇到障碍 dp = 0</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[i][j] == <span class="number">1</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">0</span></span><br><span class="line">               	<span class="comment"># 非障碍，根据情况进行dp[i][j]的赋值</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">and</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">elif</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = max(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i][j] = dp[i<span class="number">-1</span>][j] + dp[i][j<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>作业帮面经</title>
+    <url>/2019/12/02/%E4%BD%9C%E4%B8%9A%E5%B8%AE%E9%9D%A2%E7%BB%8F/</url>
+    <content><![CDATA[<h1 id="作业帮算法实习生offer面经"><a href="#作业帮算法实习生offer面经" class="headerlink" title="作业帮算法实习生offer面经"></a>作业帮算法实习生offer面经</h1><h2 id="jd"><a href="#jd" class="headerlink" title="jd"></a>jd</h2><p>投递岗位</p>
+<p>1、深入自然语言处理相关的核心技术研究，如对话系统、问答系统、阅读理解等NLP技术；</p>
+<p>2、用机器学习/深度学习等技术解决分层模型、点击预估、流失预测等业务问题；</p>
+<p>3、负责用户增长中的算法问题，提升约课、到课、转化、回捞等相关转化率；</p>
+<p>4、将自然语言技术应用具体业务中，包括智能客服、催到课、用户意图分类等。</p>
+<h2 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h2><p>写题：</p>
+<p>1.旋转数组中找target （腾讯视频NLP二面题目） 面试官指导下磕磕绊绊写出来了，腾讯视频面试时候写出来是因为当时分开完成的，先写了找到断点的地方，然后再找target</p>
+<p>（leetcode 33）</p>
+<p>2.合并两个有序数组 easy</p>
+<p>简单聊了聊项目 对于技术点没有深挖</p>
+<h2 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h2><p>聊项目（前一段实习在网易的项目） 实现背景 实现策略（数据、算法） 实现结果</p>
+<p>没有深挖技术点</p>
+<p>思路题：</p>
+<p>给了一个问题背景</p>
+<p>护林员统计了一片森林的各种树的特征（树的种类啊 树的高度啊 树年龄 等等）</p>
+<p>其中有一些数据的树高统计由于人为的失误导致数据异常，问如何检查异常的树高数据</p>
+<p>当时的回答，就是离群点检测：</p>
+<p>如何检测离群点，我给的方案是，首先可以做回归，比如给定一些基础特征，然后根据特征来预测树高</p>
+<p>那么正常的值应该都在回归曲线附近，那么也需要一个超参数来衡量在什么范围内的数据是正常，什么范围外的数据是异常点</p>
+<p>其次想到了对于异常点（离群点） 背景就是数据分布属于高斯分布的情况下，那么数据可以根据 </p>
+<p>均值 +- n个标准差来做判断</p>
+<p>==知识点待补充，如何来分析数据的离群点==</p>
+<p>算法题：</p>
+<p>给一个矩阵m*N，找从左上角到右下角的路径个数，其中会有一些路径是有障碍的 没有办法走过去。</p>
+<p>（leetcode 62 不同路径II）</p>
+<p>提问环节：</p>
+<p>他们组主要做对话技术部分，之前的都已经搭好了，如果现在过去的话也是做基于分析badcase的解决提高对话的有效转化</p>
+<p>聊了下这边的技术主要内容 他们月活大概 1.2亿 </p>
+<p>业务的应用场景主要是 约课 和课程转化率</p>
+<p>目前主要的操作都是自动化的， ASR 到信息理解 然后输出 语音内容 帮助客户完成课程转化或者付费内容的购买。</p>
+<p>主要涉及的是对话技术、内容理解、用户拉新 和 约课（课程）转化</p>
+<p>最后面完通过hr的交流，大概我当时面的是</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Leetcode-53-最大子序和</title>
     <url>/2019/12/01/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
     <content><![CDATA[<h2 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a>最大子序和</h2><p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
@@ -656,7 +772,28 @@ dp[n+1] = max(dp[n-1]+num[n+1],dp[n])</script><figure class="highlight python"><
   <entry>
     <title>Leetcode-62-不同路径</title>
     <url>/2019/11/20/leetcode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="不同路径"><a href="#不同路径" class="headerlink" title="不同路径"></a>不同路径</h2><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>问总共有多少条不同的路径？</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/robot_maze.png" alt="img"></p>
+<p>例如，上图是一个7 x 3 的网格。有多少可能的路径？</p>
+<p>说明：m 和 n 的值均不超过 100。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: m = 3, n = 2<br>输出: 3<br>解释:<br>从左上角开始，总共有 3 条路径可以到达右下角。</p>
+<p>向右 -&gt; 向右 -&gt; 向下</p>
+<p>向右 -&gt; 向下 -&gt; 向右</p>
+<p>向下 -&gt; 向右 -&gt; 向右</p>
+</blockquote>
+<p>示例 2:<br>&gt;</p>
+<blockquote>
+<p>输入: m = 7, n = 3<br>输出: 28</p>
+</blockquote>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>基于dp思想，其实就是对于第i行，第j列的点有多少种方案。</p>
+<p>因为移动只能向右或者向下，那么对于i,j点，只能来自于其上或者其左侧点，所以对于i,j点，的路径数:</p>
+<script type="math/tex; mode=display">
+dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePaths</span><span class="params">(self, m: int, n: int)</span> -&gt; int:</span></span><br><span class="line">        dp = [[<span class="number">0</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> range(m)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">            dp[<span class="number">0</span>][j] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j] + dp[i][j<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>算法刷题</category>
         <category>Leetcode</category>
@@ -665,7 +802,7 @@ dp[n+1] = max(dp[n-1]+num[n+1],dp[n])</script><figure class="highlight python"><
   <entry>
     <title>Leetcode_33</title>
     <url>/2019/11/18/leetcode-33/</url>
-    <content><![CDATA[<h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h1><p>（腾讯视频NLP实习面试二面算法题）</p>
+    <content><![CDATA[<h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h1><p><strong>腾讯视频NLP实习面试二面算法题</strong></p>
 <p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
 <p>( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</p>
 <p>搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。</p>
@@ -674,8 +811,26 @@ dp[n+1] = max(dp[n-1]+num[n+1],dp[n])</script><figure class="highlight python"><
 <p>示例 1:</p>
 <p>输入: nums = [4,5,6,7,0,1,2], target = 0<br>输出: 4<br>示例 2:</p>
 <p>输入: nums = [4,5,6,7,0,1,2], target = 3<br>输出: -1</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>刚看到题，想到了剑指offer里面的那个题【旋转数组中的最小数字】，当时的思路是想直接找，但是发现判断条件依赖于 中间那个断开的地方<br>如果找到断开（旋转的地方）就很好解决了<br>所以这个题相当于两步，先找数组中的最小数字，再根据返回的最小数 二分全部 or 二分左 or 二分右</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">find_rotate_index</span><span class="params">(left, right)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] &lt; nums[right]:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">                pivot = (left + right) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> nums[pivot] &gt; nums[pivot + <span class="number">1</span>]:</span><br><span class="line">                    <span class="keyword">return</span> pivot + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> nums[pivot] &lt; nums[left]:</span><br><span class="line">                        right = pivot - <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        left = pivot + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(left, right)</span>:</span></span><br><span class="line">            <span class="string">"""</span></span><br><span class="line"><span class="string">            Binary search</span></span><br><span class="line"><span class="string">            """</span></span><br><span class="line">            <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">                pivot = (left + right) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> nums[pivot] == target:</span><br><span class="line">                    <span class="keyword">return</span> pivot</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> target &lt; nums[pivot]:</span><br><span class="line">                        right = pivot - <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        left = pivot + <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        n = len(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> nums[<span class="number">0</span>] == target <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        rotate_index = find_rotate_index(<span class="number">0</span>, n - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># if target is the smallest element</span></span><br><span class="line">        <span class="keyword">if</span> nums[rotate_index] == target:</span><br><span class="line">            <span class="keyword">return</span> rotate_index</span><br><span class="line">        <span class="comment"># if array is not rotated, search in the entire array</span></span><br><span class="line">        <span class="keyword">if</span> rotate_index == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> search(<span class="number">0</span>, n - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> target &lt; nums[<span class="number">0</span>]:</span><br><span class="line">            <span class="comment"># search on the right side</span></span><br><span class="line">            <span class="keyword">return</span> search(rotate_index, n - <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># search on the left side</span></span><br><span class="line">        <span class="keyword">return</span> search(<span class="number">0</span>, rotate_index)</span><br></pre></td></tr></table></figure>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>刚看到题，想到了剑指offer里面的那个题【旋转数组中的最小数字】，当时的思路是想直接找，但是发现判断条件依赖于 中间那个断开的地方<br>如果找到断开（旋转的地方）就很好解决了<br>所以这个题相当于两步，先找数组中的最小数字，再根据返回的最小数 二分全部 or 二分左 or 二分右</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">find_rotate_index</span><span class="params">(left, right)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] &lt; nums[right]:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">                pivot = (left + right) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> nums[pivot] &gt; nums[pivot + <span class="number">1</span>]:</span><br><span class="line">                    <span class="keyword">return</span> pivot + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> nums[pivot] &lt; nums[left]:</span><br><span class="line">                        right = pivot - <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        left = pivot + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(left, right)</span>:</span></span><br><span class="line">            <span class="string">"""</span></span><br><span class="line"><span class="string">            Binary search</span></span><br><span class="line"><span class="string">            """</span></span><br><span class="line">            <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">                pivot = (left + right) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> nums[pivot] == target:</span><br><span class="line">                    <span class="keyword">return</span> pivot</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> target &lt; nums[pivot]:</span><br><span class="line">                        right = pivot - <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        left = pivot + <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        n = len(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> nums[<span class="number">0</span>] == target <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        rotate_index = find_rotate_index(<span class="number">0</span>, n - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># if target is the smallest element</span></span><br><span class="line">        <span class="keyword">if</span> nums[rotate_index] == target:</span><br><span class="line">            <span class="keyword">return</span> rotate_index</span><br><span class="line">        <span class="comment"># if array is not rotated, search in the entire array</span></span><br><span class="line">        <span class="keyword">if</span> rotate_index == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> search(<span class="number">0</span>, n - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> target &lt; nums[<span class="number">0</span>]:</span><br><span class="line">            <span class="comment"># search on the right side</span></span><br><span class="line">            <span class="keyword">return</span> search(rotate_index, n - <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># search on the left side</span></span><br><span class="line">        <span class="keyword">return</span> search(<span class="number">0</span>, rotate_index)</span><br></pre></td></tr></table></figure>
+<h3 id="更优的解法"><a href="#更优的解法" class="headerlink" title="更优的解法"></a>更优的解法</h3><p>不去找间断点，直接通过情况分类来处理</p>
+<ul>
+<li>前半部有序（指的是[3,4,5,6,7,0,12]，中间划开前面是[3,4,5,6]有序，后边是[7,0,1,2]不完全有序）<ul>
+<li>target落在有序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
+<li>target落在无序序列，即mid—right中，则left = mid+1</li>
+</ul>
+</li>
+<li>后半部有序（指的是[6,7,0,1,2,3,4,5],中间划开，前面是[6,7,0,1]不完全有序，后边是[2,3,4,5]有序）<ul>
+<li>target落在无序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
+<li>target落在有序序列，即mid—right中，则left = mid+1</li>
+</ul>
+</li>
+</ul>
+<p><strong>策略更像分治</strong>通过将一个旋转数组，划分成了一个有序数组和一个新的旋转数组，那么只需要继续解决这两个问题即可。</p>
+<blockquote>
+<p>eg: 【6,7,0,1,2,3,4,5】一次划分后：新的旋转数组[6,7,0,1]和一个有序数组[,2,3,4,5]</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">if</span> nums[mid] &gt;= nums[<span class="number">0</span>]:  <span class="comment"># 前半部有序</span></span><br><span class="line">                <span class="keyword">if</span> nums[left] &lt;= target &lt; nums[mid]:</span><br><span class="line">                    right = mid <span class="number">-1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>: 										<span class="comment"># 后半部有序</span></span><br><span class="line">                <span class="keyword">if</span> nums[mid] &lt; target &lt;= nums[right]:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right = mid - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>算法刷题</category>
