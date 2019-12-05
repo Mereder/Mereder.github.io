@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的">
+  <meta name="description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的  关于逻辑回归的几个问题 为什么使用梯度下降来求最优，为什么不直接用解析解直接得到">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Logistic Regression">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;28&#x2F;LR&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的">
+<meta property="og:description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的  关于逻辑回归的几个问题 为什么使用梯度下降来求最优，为什么不直接用解析解直接得到">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-28T14:37:58.553Z">
+<meta property="og:updated_time" content="2019-12-05T15:37:44.968Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/28/LR/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-28 22:33:02 / Modified: 22:37:58" itemprop="dateCreated datePublished" datetime="2019-11-28T22:33:02+08:00">2019-11-28</time>
+              <time title="Created: 2019-11-28 22:33:02" itemprop="dateCreated datePublished" datetime="2019-11-28T22:33:02+08:00">2019-11-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-05 23:37:44" itemprop="dateModified" datetime="2019-12-05T23:37:44+08:00">2019-12-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -276,6 +282,30 @@
 <li>可以写出逻辑回归的极大似然</li>
 <li>损失函数最终的化简结果</li>
 <li>梯度下降中的梯度怎么求出来的</li>
+</ul>
+<h3 id="关于逻辑回归的几个问题"><a href="#关于逻辑回归的几个问题" class="headerlink" title="关于逻辑回归的几个问题"></a>关于逻辑回归的几个问题</h3><ul>
+<li><p>为什么使用梯度下降来求最优，为什么不直接用解析解直接得到最优结果就好了呢？</p>
+<blockquote>
+<p>这个问题归结于解析解的计算问题上：</p>
+<p>$\theta = (XX^T)^{-1}X^TY$</p>
+<p>如果想一次性计算出参数的最优值，这个计算量是很庞大的，尤其计算机求矩阵的逆的计算量巨大，所以没有办法实现，只能依靠梯度下降这种方法，逐步到达最优</p>
+</blockquote>
+</li>
+<li><p>LR如何来进行过拟合限制，具体怎么操作的，为什么这样就可以达到抑制过拟合</p>
+<blockquote>
+<p>引入L2正则项</p>
+</blockquote>
+</li>
+<li><p>为什么用极大似然来操作，或者换句话问，为什么要用交叉熵损失，用均方误差不可以吗？</p>
+<blockquote>
+<p>不可以，我们平时做的都是凸优化，对于分类问题用均方误差，优化函数是非凸的？？</p>
+</blockquote>
+</li>
+<li><p>LR模型需要归一化嘛？为什么需要归一化，体现在哪里？</p>
+<blockquote>
+<p>LR肯定需要归一化，问题是出现在L2正则上，</p>
+</blockquote>
+</li>
 </ul>
 
     </div>
@@ -339,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于逻辑回归的几个问题"><span class="nav-number">1.1.</span> <span class="nav-text">关于逻辑回归的几个问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
