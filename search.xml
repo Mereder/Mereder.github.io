@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-26-删除排序数组中的重复项</title>
+    <url>/2019/12/05/leetcode-26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/</url>
+    <content><![CDATA[<h2 id="删除排序数组中的重复项"><a href="#删除排序数组中的重复项" class="headerlink" title="删除排序数组中的重复项"></a>删除排序数组中的重复项</h2><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>给定数组 nums = [1,1,2], </p>
+<p>函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 </p>
+<p>你不需要考虑数组中超出新长度后面的元素。<br>示例 2:</p>
+<p>给定 nums = [0,0,1,1,1,2,2,3,3,4],</p>
+<p>函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</p>
+<p>你不需要考虑数组中超出新长度后面的元素。</p>
+</blockquote>
+<p>说明:</p>
+<p> 为什么返回数值是整数，但输出的答案是数组呢?</p>
+<p>请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
+<p>你可以想象内部操作如下:(引用问题嘛，传值传引用)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝</span><br><span class="line">int len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">// 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>虽然是个easy的题，但是一开始确实没有很好的思路，其实每次做数组的题老是不会灵活的使用指针（也就是数组的下标），每次都是只有依次遍历的指针。没有灵活使用</p>
+<p>这个题使用两个指针(i慢，j快)</p>
+<ul>
+<li>i指针用来指示有效数字（即无重复数）</li>
+<li>j指针用来遍历数组所有数，重复就跳过，不重复就赋值到 i+1</li>
+</ul>
+<p>比较好的是数组是排好序的，所以单次遍历就能把重复数都找出来。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[j] != nums[i]:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                nums[i] = nums[j]</span><br><span class="line">        <span class="keyword">return</span> i + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-81-搜索旋转的排序数组II</title>
+    <url>/2019/12/05/leetcode-81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E7%9A%84%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/</url>
+    <content><![CDATA[<h2 id="搜索旋转的排序数组ii"><a href="#搜索旋转的排序数组ii" class="headerlink" title="搜索旋转的排序数组ii"></a>搜索旋转的排序数组ii</h2><p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
+<p>( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。</p>
+<p>编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。</p>
+<p>示例 1:</p>
+<p>输入: nums = [2,5,6,0,0,1,2], target = 0<br>输出: true<br>示例 2:</p>
+<p>输入: nums = [2,5,6,0,0,1,2], target = 3<br>输出: false<br>进阶:</p>
+<p>这是 搜索旋转排序数组 的延伸题目，本题中的 nums  可能包含重复元素。<br>这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>变数是出现<strong>重复的数</strong>了</p>
+<p>原本的思路是：</p>
+<ul>
+<li><p>如果 mid == target 直接返回</p>
+</li>
+<li><p>前半部有序（指的是[3,4,5,6,7,0,12]，中间划开前面是[3,4,5,6]有序，后边是[7,0,1,2]不完全有序）</p>
+<ul>
+<li>target落在有序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
+<li>target落在无序序列，即mid—right中，则left = mid+1</li>
+</ul>
+</li>
+<li>后半部有序（指的是[6,7,0,1,2,3,4,5],中间划开，前面是[6,7,0,1]不完全有序，后边是[2,3,4,5]有序）<ul>
+<li>target落在无序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
+<li>target落在有序序列，即mid—right中，则left = mid+1</li>
+</ul>
+</li>
+</ul>
+<p>当出现重复的数字，如果不出现在两端还好，没有影响</p>
+<p>原本只需要判断</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> nums[mid] == target:  <span class="comment"># 命中 返回</span></span><br><span class="line">    <span class="keyword">return</span> mid</span><br><span class="line"><span class="keyword">if</span> nums[mid] &gt;= nums[left]:  <span class="comment"># mid的位置，mid落在前半部还是后半部</span></span><br><span class="line">    <span class="string">'''前半部有序的操作'''</span></span><br><span class="line"><span class="keyword">else</span>: </span><br><span class="line">    <span class="string">'''后半部有序的操作'''</span></span><br></pre></td></tr></table></figure>
+<p>但是对应有重复数的出现，可能会存在下面的情况，即：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">left == mid == right </span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] <span class="keyword">or</span> [<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<p>此时分不清到底是前半部分有序还是后半部分有序，但是</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">left == mid == right 一定 != target</span><br></pre></td></tr></table></figure>
+<p>因为我们先判断了</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> nums[mid] == target:  <span class="comment"># 命中 返回</span></span><br><span class="line">		<span class="keyword">return</span> mid</span><br></pre></td></tr></table></figure>
+<p>既然左left右right 都不等，我们干脆往中间移动，去掉干扰项即可，即：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] <span class="number">1</span> <span class="keyword">or</span> <span class="number">5</span> [<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>操作之后，问题也就回到了我们熟悉的问题上。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span> </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="comment"># 不能确定哪一侧有序</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] == nums[mid] == nums[right]:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">            <span class="comment"># 在左侧序列，左侧是有序的</span></span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &gt;= nums[left]:</span><br><span class="line">                <span class="keyword">if</span> nums[left]&lt;= target &lt; nums[mid]:</span><br><span class="line">                    right = mid <span class="number">-1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">            <span class="comment"># 在右侧序列，右侧是有序的</span></span><br><span class="line">            <span class="keyword">else</span>: </span><br><span class="line">                <span class="keyword">if</span> nums[mid] &lt; target &lt;= nums[right]:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right = mid - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>新聚思（Synnex）</title>
     <url>/2019/12/04/Synnex/</url>
     <content><![CDATA[<h1 id="synnax实习总结"><a href="#synnax实习总结" class="headerlink" title="synnax实习总结"></a>synnax实习总结</h1><p>问题：</p>
@@ -989,7 +1068,7 @@ dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><tabl
   </entry>
   <entry>
     <title>Leetcode_33</title>
-    <url>/2019/11/18/leetcode-33/</url>
+    <url>/2019/11/18/leetcode-33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<h1 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h1><p><strong>腾讯视频NLP实习面试二面算法题</strong></p>
 <p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
 <p>( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</p>

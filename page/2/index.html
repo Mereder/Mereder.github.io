@@ -212,6 +212,217 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/leetcode-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/03/leetcode-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/" class="post-title-link" itemprop="url">Leetcode-3-无重复字符的最长子串</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-03 20:38:13 / Modified: 22:47:38" itemprop="dateCreated datePublished" datetime="2019-12-03T20:38:13+08:00">2019-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a>无重复字符的最长子串</h2><p><strong>滴滴算法工程师（EP组没记错的话  hhh）一面面试题目</strong></p>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。<br>示例 2:</p>
+<p> 输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。<br>示例 3:</p>
+<p> 输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>     请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这个破题，前后看了好几遍才理解了最优解法的意义。</p>
+<p>这里面主要是利用滑动窗口机制，那么还需要使用几个辅助变量来帮助实现这个思想</p>
+<blockquote>
+<p>d: 是一个字典用来存放&lt;字符,最后一次的位置&gt; 这个一方面 方便我们来查找重复字符 另一方面方便确认两个重复字符直接的距离</p>
+<p>start: 是 我们找到的无重复字符串的开始</p>
+<p>end：是我们找到的无重复字符串的结尾，同时也是遍历字符串的指针</p>
+<p>mx：存储最长无重复字符串的长度</p>
+</blockquote>
+<p>无重复字符串的长度计算即:$end-start+1$</p>
+<p>end是不断再向后走的，我们需要判断的是start应该放在什么位置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> s[end] <span class="keyword">in</span> d:</span><br><span class="line">  start = max(d[char]+<span class="number">1</span>,start)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>查看当前字符是否重复，如果重复再看是否在 无重复串中间：</p>
+</li>
+<li><p>如果 在 无重复串中间 即 start &lt; d[char] 需要更新无重复字符串的开始位置为 d[char]+1</p>
+</li>
+<li><p>如果 不在 无重复串中间，即 start &gt; d[char] 那么当前字符不会对我们的无重复字符串产生影响</p>
+</li>
+<li><p>相当于重新定义了 无重复字符串的开始位置，方便后边计算无重复字符串的长度</p>
+</li>
+</ul>
+<blockquote>
+<p>举个例子：</p>
+<p>abcdc  当遍历到第二个c时，原本的无重复串为abcd ，此时重复字符c是在重复串中间的，那么需要更新我们的窗口，将start从a的下标调整到前一个c的下标+1</p>
+<p>再举个例子</p>
+<p>abcdba 接着上一个分析，当经过第二个b之后，无重复子串被置为 cdb，当处理最后一个a时，尽管前面有重复的a但是对于我们的无重复子串是没有影响的，可以直接加上，变成cdba。</p>
+<p>每次更新start位置之后，无重复字符串长度为end-start+1，不一定都能得到最长的，所以每次都需要再跟max做个比较</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        d = &#123;&#125;  <span class="comment"># 记录字符以及字符最后一次出现的位置</span></span><br><span class="line">        mx = <span class="number">0</span>  <span class="comment"># 记录最长的长度</span></span><br><span class="line">        start = <span class="number">0</span> <span class="comment"># 记录无重复字符串的开始位置</span></span><br><span class="line">        end = <span class="number">0</span>  <span class="comment"># 记录无重复字符串的结束位置</span></span><br><span class="line">        <span class="keyword">while</span> end &lt; len(s): <span class="comment"># 遍历字符串</span></span><br><span class="line">            char = s[end]  <span class="comment"># 当前字符串</span></span><br><span class="line">            <span class="keyword">if</span> s[end] <span class="keyword">in</span> d:</span><br><span class="line">                <span class="comment"># 查看当前字符是否重复，如果重复再看是否在 无重复串中间：</span></span><br><span class="line">                <span class="comment"># 如果 在 无重复串中间 即 start &lt; d[char] 需要更新无重复字符串的开始位置为 d[char]+1</span></span><br><span class="line">                <span class="comment"># 如果 不在 无重复串中间，即 start &gt; d[char] 那么当前字符不会对我们的无重复字符串产生影响</span></span><br><span class="line">                <span class="comment"># 相当于重新定义了 无重复字符串的开始位置，方便后边计算无重复字符串的长度</span></span><br><span class="line">                start = max(d[char]+<span class="number">1</span>,start)</span><br><span class="line">            </span><br><span class="line">            mx = max(mx,end-start+<span class="number">1</span>)</span><br><span class="line">            <span class="comment"># 更新我的字典中，字符的位置信息</span></span><br><span class="line">            d[char] = end</span><br><span class="line">            end+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mx</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/03/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/" class="post-title-link" itemprop="url">Leetcode-63-不同路径II</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-03 12:29:47 / Modified: 17:36:03" itemprop="dateCreated datePublished" datetime="2019-12-03T12:29:47+08:00">2019-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="不同路径II"><a href="#不同路径II" class="headerlink" title="不同路径II"></a>不同路径II</h2><p><strong>作业帮算法实习生二面面试题</strong></p>
+<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9jfbb1hcej30b4053gll.jpg" alt="img"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
+<p>说明：m 和 n 的值均不超过 100。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
+<p>1.向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</p>
+<p>2.向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</p>
+</blockquote>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>机器人走路问题，还是用动态规划来解决，最基本的动态规划递归状态是</p>
+<script type="math/tex; mode=display">
+当前路径数 = 左侧格子路径+上边格子路径 \\
+n_{i,j} = n_{i,j-1} + n_{i-1,j} \\
+dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存在障碍那么就需要对障碍点进行下判断：</p>
+<ul>
+<li>第一步就是障碍点： 直接返回0</li>
+<li>第一列或者第一行存在障碍点 那么后继的都应该为0</li>
+<li>其他情况的障碍点 只需要存在就令该位置对应dp为0</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> obstacleGrid:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        m = len(obstacleGrid)</span><br><span class="line">        n = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> range(m)]</span><br><span class="line">        <span class="comment"># 特殊情况，起始位置就是障碍则为0 否则为1</span></span><br><span class="line">        <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># dp空间初始化进行赋值 第一行    </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[i][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = dp[i<span class="number">-1</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># dp 空间初始化进行赋值 第一列</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][j] == <span class="number">1</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j<span class="number">-1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 其他情况 需要进行遍历</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                <span class="comment"># 遇到障碍 dp = 0</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[i][j] == <span class="number">1</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">0</span></span><br><span class="line">               	<span class="comment"># 非障碍，根据情况进行dp[i][j]的赋值</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">and</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">elif</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = max(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i][j] = dp[i<span class="number">-1</span>][j] + dp[i][j<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -899,179 +1110,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/NB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/28/NB/" class="post-title-link" itemprop="url">Naive Bayes</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-28 22:38:27 / Modified: 23:46:53" itemprop="dateCreated datePublished" datetime="2019-11-28T22:38:27+08:00">2019-11-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法面试</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h2><p>基础知识点：</p>
-<ul>
-<li><p>为什么叫朴素（特征之间独立）</p>
-</li>
-<li><p>贝叶斯公式（）</p>
-<script type="math/tex; mode=display">
-P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_{j=1}^{n} P\left(B_{j}\right) P\left(A | B_{j}\right)}</script></li>
-</ul>
-<ul>
-<li><p>朴素贝叶斯算法的极大似然过程（就是统计做count）</p>
-</li>
-<li><p>朴素贝叶斯算法的贝叶斯估计（+1平滑，拉普拉斯平滑？）</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/LR/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/28/LR/" class="post-title-link" itemprop="url">Logistic Regression</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-28 22:33:02 / Modified: 22:37:58" itemprop="dateCreated datePublished" datetime="2019-11-28T22:33:02+08:00">2019-11-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法面试</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h2><p>机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。</p>
-<p>对于LR，需要重点掌握：</p>
-<ul>
-<li>对数几率的含义，以及为什么是逻辑<strong>回归</strong></li>
-<li>可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1）</li>
-<li>可以写出逻辑回归的极大似然</li>
-<li>损失函数最终的化简结果</li>
-<li>梯度下降中的梯度怎么求出来的</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1120,7 +1158,7 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1279,56 +1317,6 @@ window.addEventListener('pjax:success', () => {
   
 
   
-      
-<script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        extensions: ['[mhchem]/mhchem.js'],
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
 
   
 
