@@ -212,6 +212,527 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/" class="post-title-link" itemprop="url">leetcode-17-电话号码的组合</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-08 17:21:06 / Modified: 17:21:18" itemprop="dateCreated datePublished" datetime="2019-12-08T17:21:06+08:00">2019-12-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Leetcode-647-回文子串</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-08 16:25:59 / Modified: 17:21:20" itemprop="dateCreated datePublished" datetime="2019-12-08T16:25:59+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="回文子串"><a href="#回文子串" class="headerlink" title="回文子串"></a>回文子串</h2><p>给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。</p>
+<p>具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被计为是不同的子串。</p>
+<p>示例 1:</p>
+<p>输入: “abc”<br>输出: 3<br>解释: 三个回文子串: “a”, “b”, “c”.<br>示例 2:</p>
+<p>输入: “aaa”<br>输出: 6<br>说明: 6个回文子串: “a”, “a”, “a”, “aa”, “aa”, “aaa”.<br>注意:</p>
+<p>输入的字符串长度不会超过1000。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>处理回文问题最好用的一个方式就是中心扩散，即从中间向两边扩散。</p>
+<p>扩散的过程不仅可以记录回文子串内容，还可以记录长度，还可以记录个数（只要始末位置不一样就算一个回文串）</p>
+<p>本题就是让字符串中每一个字符都当一次中心，然后通过中心扩散来统计不同回文串的个数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countSubstrings</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> center <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            count += self.centerSpread(s,center,center) <span class="comment"># 奇数对称</span></span><br><span class="line">            count += self.centerSpread(s,center,center+<span class="number">1</span>) <span class="comment"># 偶数对称</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">centerSpread</span><span class="params">(self, s,l,r)</span>:</span> <span class="comment"># 中心扩散</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> l&gt;=<span class="number">0</span> <span class="keyword">and</span> r &lt; len(s) <span class="keyword">and</span> s[l] == s[r]:</span><br><span class="line">            l-=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">            count+=<span class="number">1</span> <span class="comment"># 起止位置不同就算一个</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/leetcode-18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-18-四数之和</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-08 15:43:45 / Modified: 15:50:31" itemprop="dateCreated datePublished" datetime="2019-12-08T15:43:45+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h2><p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
+<p>注意：</p>
+<p>答案中不可以包含重复的四元组。</p>
+<p>示例：</p>
+<p>给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。</p>
+<p>满足要求的四元组集合为：<br>[<br>  [-1,  0, 0, 1],<br>  [-2, -1, 1, 2],<br>  [-2,  0, 0, 2]<br>]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>跟三数之和思路是一样的，我们复习下：</p>
+<blockquote>
+<p>三数之和中，我们先通过预排序，让数组有序。然后固定一个数，然后移动剩下的两个数（双指针）</p>
+<p>即：预排序+固定一个+双指针</p>
+</blockquote>
+<p>对于四数之和，我们采用同样的方案，只不过这里需要更改的是，我们固定<strong>两个数</strong></p>
+<ul>
+<li>特判，特殊情况直接处理</li>
+<li>预排序</li>
+<li>固定一个数a<ul>
+<li>处理相同情况</li>
+<li>再固定一个数b<ul>
+<li>处理b的相同情况</li>
+<li>定义双指针</li>
+<li>双指针进行移动<ul>
+<li>4sum == target添加结果</li>
+<li>4sum &lt; target: 移动左指针</li>
+<li>4sum &gt; target: 移动右指针</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fourSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        </span><br><span class="line">        nums.sort()</span><br><span class="line">        res = []</span><br><span class="line">        n = len(nums)</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> range(n<span class="number">-3</span>):</span><br><span class="line">            <span class="keyword">if</span> a &gt; <span class="number">0</span> <span class="keyword">and</span> nums[a] == nums[a<span class="number">-1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> range(a+<span class="number">1</span>,n<span class="number">-2</span>):</span><br><span class="line">                <span class="keyword">if</span> b &gt; a+<span class="number">1</span> <span class="keyword">and</span> nums[b] == nums[b<span class="number">-1</span>]: <span class="comment"># 注意条件，一定是b &gt;a+1不能跟a再比较</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">                l = b+<span class="number">1</span></span><br><span class="line">                r = n<span class="number">-1</span></span><br><span class="line">                <span class="keyword">while</span> l &lt; r:</span><br><span class="line">                    <span class="keyword">if</span> nums[a]+nums[b]+nums[l]+nums[r] == target:</span><br><span class="line">                        res.append([nums[a],nums[b],nums[l],nums[r]])</span><br><span class="line">                        <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> nums[l] == nums[l+<span class="number">1</span>]:</span><br><span class="line">                            l+=<span class="number">1</span></span><br><span class="line">                        <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> nums[r] == nums[r<span class="number">-1</span>]:</span><br><span class="line">                            r-=<span class="number">1</span></span><br><span class="line">                        l+=<span class="number">1</span></span><br><span class="line">                        r-=<span class="number">1</span>  </span><br><span class="line">                    <span class="keyword">elif</span> nums[a]+nums[b]+nums[l]+nums[r] &lt; target:</span><br><span class="line">                        l += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>: </span><br><span class="line">                        r -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-1-两数之和</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-08 13:41:57 / Modified: 15:16:16" itemprop="dateCreated datePublished" datetime="2019-12-08T13:41:57+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例:</p>
+<p>给定 nums = [2, 7, 11, 15], target = 9</p>
+<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>暴力解法，直接两层循环，输出相加为target的组合，时间复杂度O(N^2)</p>
+<p>优化，采用空间换时间的策略，可以将数存储在字典(hash结构)中，然后直接索引就可以了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line">        d = &#123;&#125; <span class="comment"># 用来存储</span></span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> enumerate(nums): <span class="comment"># 一边遍历即可</span></span><br><span class="line">            err = target - value</span><br><span class="line">            <span class="keyword">if</span> err <span class="keyword">in</span> d: <span class="comment"># 检索到的直接返回</span></span><br><span class="line">                <span class="keyword">return</span> [d[err],index]</span><br><span class="line">            <span class="keyword">else</span>:        <span class="comment"># 不在字典的话就加入</span></span><br><span class="line">                d[value] = index</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-15-三数之和</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-08 11:07:20 / Modified: 13:39:15" itemprop="dateCreated datePublished" datetime="2019-12-08T11:07:20+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中<strong>不可以包含重复的</strong>三元组。</p>
+<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>暴力法，通过枚举所有的可能情况来看有没有可能和为0， 时间复杂度O(N^3)</p>
+<p>本题解题思路体现了很重要的一点，当复杂度高于排序的时间复杂度时候，可以通过预排序来降低时间复杂度。</p>
+<p>毕竟做一次排序的时间复杂度为O(NlogN)</p>
+<p>所有数字排序之后，就有了很好的特性<strong>有序</strong>。</p>
+<p>既然有序，我们想找三个数相加为0 ，首先确认一个数作为固定的，然后移动剩余两个数：</p>
+<ul>
+<li>3sum  &gt; 0 说明较大，则把较大一侧的数据向小方向挪一下</li>
+<li>3sum &lt; 0  说明较小，则把较小一侧的数据向大方向挪一下</li>
+<li>3sum == 0 则找到了一组合适的</li>
+</ul>
+<p>其中还有一些细节问题——不重复的数</p>
+<p>由于排序之后，重复数字都是挨在一起的，我们以其中一个数作为固定数之后，其他的都可以直接跳过。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="comment"># 预排序 很重要</span></span><br><span class="line">        nums.sort()</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; <span class="number">0</span> : <span class="comment"># 后边的数都是大于0的 相加不可能为0 </span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>]: <span class="comment"># 相同的数跳过 保证不重复</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            left = i+<span class="number">1</span></span><br><span class="line">            right = len(nums)<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[left] + nums[right]) == <span class="number">0</span>:</span><br><span class="line">                    res.append([nums[i],nums[left],nums[right]])</span><br><span class="line">                    <span class="comment"># 对于相等的数，也需要直接移动，否则会将重复结果记入</span></span><br><span class="line">                    <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[left] == nums[left+<span class="number">1</span>]:</span><br><span class="line">                        left += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[right] == nums[right<span class="number">-1</span>]:</span><br><span class="line">                        right -= <span class="number">1</span></span><br><span class="line">                    left += <span class="number">1</span>  <span class="comment"># 这个地方需要注意 要把数移动到下一个不一样的数那里 </span></span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> (nums[i] + nums[left] + nums[right]) &lt; <span class="number">0</span>:</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">Leetcode-992-K个不同整数的子数组</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-08 10:34:56 / Modified: 10:48:06" itemprop="dateCreated datePublished" datetime="2019-12-08T10:34:56+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="K个不同整数的子数组"><a href="#K个不同整数的子数组" class="headerlink" title="K个不同整数的子数组"></a>K个不同整数的子数组</h2><p>给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定独立的子数组为好子数组。</p>
+<p>（例如，[1,2,3,1,2] 中有 3 个不同的整数：1，2，以及 3。）</p>
+<p>返回 A 中好子数组的数目。</p>
+<blockquote>
+<p>示例 1：</p>
+<p>输出：A = [1,2,1,2,3], K = 2<br>输入：7<br>解释：恰好由 2 个不同整数组成的子数组：[1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2].<br>示例 2：</p>
+<p>输入：A = [1,2,1,3,4], K = 3<br>输出：3<br>解释：恰好由 3 个不同整数组成的子数组：[1,2,1,3], [2,1,3], [1,3,4].</p>
+</blockquote>
+<p>提示：</p>
+<blockquote>
+<p>1 &lt;= A.length &lt;= 20000<br>1 &lt;= A[i] &lt;= A.length<br>1 &lt;= K &lt;= A.length</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>方案比较巧妙的办法是：</p>
+<p>K个不同整数的子数组 = 用至多K个不同整数的结果 -  至多K-1个不同整数的结果</p>
+<blockquote>
+<p>以【1，2，3】为例，K=3时候，</p>
+<p>至多K个包含:[1],[2],[3],[1,2],[2,3],[1,3],[1,2,3]</p>
+<p>至多K-1个包含: [1],[2],[3],[1,2],[2,3],[1,3]</p>
+<p>做差结果 就是 [1,2,3]</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subarraysWithKDistinct</span><span class="params">(self, A: <span class="string">'List[int]'</span>, K: <span class="string">'int'</span>)</span> -&gt; 'int':</span></span><br><span class="line">        <span class="keyword">return</span> self.subarraysWithAtMostKDistinct(A, K) - </span><br><span class="line">      										self.subarraysWithAtMostKDistinct(A, K<span class="number">-1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subarraysWithAtMostKDistinct</span><span class="params">(self, s, k)</span>:</span></span><br><span class="line">        lookup = collections.defaultdict(int) <span class="comment"># 字典记录整数情况，为1是表示出现一次，为0表示没有</span></span><br><span class="line">        l, r, counter, res = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> r &lt; len(s):</span><br><span class="line">            lookup[s[r]] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> lookup[s[r]] == <span class="number">1</span>:   <span class="comment"># 通过右移来扩展 包含不同整数</span></span><br><span class="line">                counter += <span class="number">1</span></span><br><span class="line">            r += <span class="number">1</span>   </span><br><span class="line">            <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> counter &gt; k: <span class="comment"># 一旦满足k个就进行左移，循环跳出的时候，正好是K个不同整数</span></span><br><span class="line">                lookup[s[l]] -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> lookup[s[l]] == <span class="number">0</span>:</span><br><span class="line">                    counter -= <span class="number">1</span></span><br><span class="line">                l += <span class="number">1</span></span><br><span class="line">            res += r - l </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/07/leetcode-6-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -605,659 +1126,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/06/leetcode-32-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/06/leetcode-32-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/" class="post-title-link" itemprop="url">Leetcode-32-最长有效括号</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-06 23:17:50" itemprop="dateCreated datePublished" datetime="2019-12-06T23:17:50+08:00">2019-12-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-07 16:39:35" itemprop="dateModified" datetime="2019-12-07T16:39:35+08:00">2019-12-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="最长有效括号"><a href="#最长有效括号" class="headerlink" title="最长有效括号"></a>最长有效括号</h2><p>给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: “(()”<br>输出: 2<br>解释: 最长有效括号子串为 “()”<br>示例 2:</p>
-<p>输入: “)()())”<br>输出: 4<br>解释: 最长有效括号子串为 “()()”</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="简单粗暴没通过"><a href="#简单粗暴没通过" class="headerlink" title="简单粗暴没通过"></a>简单粗暴没通过</h4><p>上来最简单的肯定是 暴力解法啊，就是罗列所有可能的字符情况，然后逐个判断是否有效。</p>
-<p>然后就挂了… 超出时间限制，case中218/230，有一部分通不过。于是想了几个简单的优化方法</p>
-<ul>
-<li>有效字符串肯定是以’(‘开头，以’)’结尾</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestValidParentheses</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">valid</span><span class="params">(s)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> s: 空返回</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> len(s)%<span class="number">2</span>==<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">                <span class="keyword">if</span> i == <span class="string">'('</span>:</span><br><span class="line">                    count+=<span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> i == <span class="string">')'</span>:</span><br><span class="line">                    count-=<span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> count&lt;<span class="number">0</span>:<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> count == <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        mx = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 枚举的过程</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">'('</span>: <span class="comment"># 优化</span></span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,len(s)):</span><br><span class="line">                    <span class="keyword">if</span> s[j] == <span class="string">')'</span>:  <span class="comment"># 优化</span></span><br><span class="line">                        <span class="keyword">if</span> valid(s[i:j+<span class="number">1</span>]):</span><br><span class="line">                            l = j-i+<span class="number">1</span></span><br><span class="line">                            mx = max(mx,l)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> mx</span><br></pre></td></tr></table></figure>
-<h4 id="最优化想到dp"><a href="#最优化想到dp" class="headerlink" title="最优化想到dp"></a>最优化想到dp</h4><p>首先由于括号匹配的特殊性，最长的有效括号肯定是以’)’结尾的，所以我们只需要dp来统计’)’为尾的情况的最大值。</p>
-<p>然后就需要考虑下转移状态，也就是说第i个位置以’)结尾’的最长有效长度怎么计算的问题：</p>
-<p>只需要考虑两种情况，即i-1位置是’(‘还是’)’：</p>
-<p>当i-1位置为’(‘：</p>
-<blockquote>
-<p>那么构成 ….()，肯定是在前面的基础上能+2，前面如果都无效那就是0+2，前面如果也有效就是前面的长度+2。这里所说的前面就是 dp[i-2]的结果</p>
-</blockquote>
-<p>当i-1位置为’)’:</p>
-<blockquote>
-<p>那么就构成….))，这个怎么计算有效呢？就需要参考dp[i-1]的长度，实际问题就变成了….(有效))，如果前面有效的子串前面还有个’(‘那就可以在前面有效子串的基础上长度+2，<strong>注意</strong>，还需要再加上再前面的有效子串的长度，举个栗子！！！<br>01234567<br>( ) ( (  ) ( ) )，当第7位时，由于第6位是’)’，且第6位已经计算好了结果为dp[6]=4，即从下标3，4，5，6这四个有效长度，此时计算第七位时，会直接用： 当前位置7-前面有效长度4-1=2，此时下标2为’(‘，与7匹配上，所以后边总的有效长度为 4+2，此时！！！ 前面也是有效的括号即dp[1]=2，那么总的结果应该是4+2+2</p>
-<p>即dp[7] = dp[6]+2+dp[7-dp[6]-2]</p>
-<p>(有空了一定画个图)</p>
-</blockquote>
-<ul>
-<li>以’)’结尾考虑：<ul>
-<li>其前一位为’(‘: dp[i] = dp[i-2] + 2</li>
-<li>其前一位为’)’ 且 i-dp[i-1] -1 为’(‘：dp[i] = dp[i-1]+2 + dp[i-dp[i-1]-2]</li>
-</ul>
-</li>
-<li>以’(‘结尾不考虑</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestValidParentheses</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        dp = [<span class="number">0</span>]*len(s)</span><br><span class="line">        mx = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">')'</span>: <span class="comment"># 只需要判断 ')即可'</span></span><br><span class="line">                <span class="keyword">if</span> s[i<span class="number">-1</span>] == <span class="string">'('</span>:</span><br><span class="line">                    <span class="keyword">if</span> i<span class="number">-2</span> &gt; <span class="number">0</span>:</span><br><span class="line">                        dp[i] = dp[i<span class="number">-2</span>] + <span class="number">2</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i] = <span class="number">2</span></span><br><span class="line">                <span class="keyword">elif</span> s[i<span class="number">-1</span>] == <span class="string">')'</span>:</span><br><span class="line">                    <span class="keyword">if</span> i-dp[i<span class="number">-1</span>] &gt; <span class="number">0</span> <span class="keyword">and</span> s[i-dp[i<span class="number">-1</span>]<span class="number">-1</span>] == <span class="string">'('</span>:</span><br><span class="line">                      	<span class="comment"># dp[i-1]+2表示新形成的有效子串长度，dp[i-dp[i-1]-2]表示之前有效子串</span></span><br><span class="line">                        dp[i] = dp[i<span class="number">-1</span>] + <span class="number">2</span> + dp[i-dp[i<span class="number">-1</span>]<span class="number">-2</span>]</span><br><span class="line">                        </span><br><span class="line">                mx = max(mx,dp[i])</span><br><span class="line">        <span class="keyword">return</span> mx</span><br></pre></td></tr></table></figure>
-<p>其实最后只要中间过程的最大值，所以不会像一般dp过程，dp数组的最后一个元素才是结果。</p>
-<h4 id="更优的解法"><a href="#更优的解法" class="headerlink" title="更优的解法"></a>更优的解法</h4><p>从左向右遍历一次，遇到’(‘，left++，遇到’)’，right++，当left==right时，取max(2*left,max),当right&gt;left，说明字符串无效，令left=right = 0</p>
-<p>上述过程再从右向左重复一次，不同之处是，从右向左过程，当left&gt;right时，说明字符串无效，令left=right=0</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestValidParentheses</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = <span class="number">0</span></span><br><span class="line">        mx = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 从左到右</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">'('</span>:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> left == right:</span><br><span class="line">                mx = max(left*<span class="number">2</span>,mx)</span><br><span class="line">            <span class="keyword">elif</span> right &gt; left:</span><br><span class="line">                left, right = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="comment"># 从右到左</span></span><br><span class="line">        left,right = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">'('</span>:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> left == right:</span><br><span class="line">                mx = max(left*<span class="number">2</span>,mx)</span><br><span class="line">            <span class="keyword">if</span> left &gt; right:</span><br><span class="line">                left,right = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> mx</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/06/leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/06/leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/" class="post-title-link" itemprop="url">Leetcode-20-有效括号</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-06 17:41:07 / Modified: 18:19:14" itemprop="dateCreated datePublished" datetime="2019-12-06T17:41:07+08:00">2019-12-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="有效括号"><a href="#有效括号" class="headerlink" title="有效括号"></a>有效括号</h2><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
-<p>有效字符串需满足：</p>
-<p>左括号必须用相同类型的右括号闭合。<br>左括号必须以正确的顺序闭合。<br>注意空字符串可被认为是有效字符串。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: “()”<br>输出: true<br>示例 2:</p>
-<p>输入: “()[]{}”<br>输出: true<br>示例 3:</p>
-<p>输入: “(]”<br>输出: false<br>示例 4:</p>
-<p>输入: “([)]”<br>输出: false<br>示例 5:</p>
-<p>输入: “{[]}”<br>输出: true</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先说只有一种类型的括号的话，我们的解决方案（这也是<a href="https://mereder.github.io/2019/11/29/leetcode-22-括号生成/" target="_blank" rel="noopener">Leetcode-22-括号生成</a>题目中的一个步骤）。</p>
-<p>如果只有一种括号，我们在遍历字符串的时候，只需要注意两个问题：</p>
-<ul>
-<li>遍历过程中 左边个数&gt;=右边个数</li>
-<li>遍历结束后 左边个数 == 右边个数</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">valid</span><span class="params">(s)</span>:</span></span><br><span class="line">  	count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">      <span class="keyword">if</span> i == <span class="string">'('</span>:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">      <span class="keyword">elif</span> i == <span class="string">')'</span>:</span><br><span class="line">        count -= <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> count &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">    	<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">   	<span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-<p>对应这个问题，上述方法就行不通了，因为涉及到三种不同的符号，单考虑一种括号的顺序正确是没用的，还需要考虑到括号之间的交叉，比如:</p>
-<blockquote>
-<p>{ [ } ]</p>
-</blockquote>
-<p>单个符号的顺序没有问题，但是总的就是不正确的括号。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9n5vtuvdhj30v40h2myu.jpg" alt="Leetcode官方解答"></p>
-<p>我们可以看到，如果一整个字符串都是有效的，那么其子字符串肯定也是有效的，那么最小的子问题就是一对相邻括号是匹配的。</p>
-<p>那么可以通过删除掉匹配到的括号，逐步将问题解决。具体操作。</p>
-<p><strong>（图来自Leetcode官方解答，他们的图画的真的好，就拿过来了）</strong></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9n66bcjb7j30ls04ct8u.jpg" alt="image-20191206181715420"></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9n675t327j30i404m3yp.jpg" alt="image-201912061817155"></p>
-<p>这样可以通过栈来解决，匹配到的就出栈，否则就进栈</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValid</span><span class="params">(self, s: str)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(a, b)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> a==<span class="string">'('</span> <span class="keyword">and</span> b == <span class="string">')'</span>: <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> a == <span class="string">'['</span> <span class="keyword">and</span> b == <span class="string">']'</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> a == <span class="string">'&#123;'</span> <span class="keyword">and</span> b == <span class="string">'&#125;'</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        stack = []</span><br><span class="line">        stack.append(s[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(s)):</span><br><span class="line">            <span class="keyword">if</span> stack <span class="keyword">and</span> match(stack[<span class="number">-1</span>], s[i]):</span><br><span class="line">                stack.pop()</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                stack.append(s[i])</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> stack:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/05/leetcode-26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/05/leetcode-26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" class="post-title-link" itemprop="url">Leetcode-26-删除排序数组中的重复项</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-05 19:53:14 / Modified: 20:06:35" itemprop="dateCreated datePublished" datetime="2019-12-05T19:53:14+08:00">2019-12-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="删除排序数组中的重复项"><a href="#删除排序数组中的重复项" class="headerlink" title="删除排序数组中的重复项"></a>删除排序数组中的重复项</h2><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。</p>
-<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>给定数组 nums = [1,1,2], </p>
-<p>函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 </p>
-<p>你不需要考虑数组中超出新长度后面的元素。<br>示例 2:</p>
-<p>给定 nums = [0,0,1,1,1,2,2,3,3,4],</p>
-<p>函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</p>
-<p>你不需要考虑数组中超出新长度后面的元素。</p>
-</blockquote>
-<p>说明:</p>
-<p> 为什么返回数值是整数，但输出的答案是数组呢?</p>
-<p>请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
-<p>你可以想象内部操作如下:(引用问题嘛，传值传引用)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝</span><br><span class="line">int len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">// 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>虽然是个easy的题，但是一开始确实没有很好的思路，其实每次做数组的题老是不会灵活的使用指针（也就是数组的下标），每次都是只有依次遍历的指针。没有灵活使用</p>
-<p>这个题使用两个指针(i慢，j快)</p>
-<ul>
-<li>i指针用来指示有效数字（即无重复数）</li>
-<li>j指针用来遍历数组所有数，重复就跳过，不重复就赋值到 i+1</li>
-</ul>
-<p>比较好的是数组是排好序的，所以单次遍历就能把重复数都找出来。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[j] != nums[i]:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                nums[i] = nums[j]</span><br><span class="line">        <span class="keyword">return</span> i + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/05/leetcode-81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E7%9A%84%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/05/leetcode-81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E7%9A%84%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/" class="post-title-link" itemprop="url">Leetcode-81-搜索旋转的排序数组II</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-05 17:54:56 / Modified: 19:32:29" itemprop="dateCreated datePublished" datetime="2019-12-05T17:54:56+08:00">2019-12-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="搜索旋转的排序数组ii"><a href="#搜索旋转的排序数组ii" class="headerlink" title="搜索旋转的排序数组ii"></a>搜索旋转的排序数组ii</h2><p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
-<p>( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。</p>
-<p>编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。</p>
-<p>示例 1:</p>
-<p>输入: nums = [2,5,6,0,0,1,2], target = 0<br>输出: true<br>示例 2:</p>
-<p>输入: nums = [2,5,6,0,0,1,2], target = 3<br>输出: false<br>进阶:</p>
-<p>这是 搜索旋转排序数组 的延伸题目，本题中的 nums  可能包含重复元素。<br>这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>变数是出现<strong>重复的数</strong>了</p>
-<p>原本的思路是：</p>
-<ul>
-<li><p>如果 mid == target 直接返回</p>
-</li>
-<li><p>前半部有序（指的是[3,4,5,6,7,0,12]，中间划开前面是[3,4,5,6]有序，后边是[7,0,1,2]不完全有序）</p>
-<ul>
-<li>target落在有序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
-<li>target落在无序序列，即mid—right中，则left = mid+1</li>
-</ul>
-</li>
-<li>后半部有序（指的是[6,7,0,1,2,3,4,5],中间划开，前面是[6,7,0,1]不完全有序，后边是[2,3,4,5]有序）<ul>
-<li>target落在无序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
-<li>target落在有序序列，即mid—right中，则left = mid+1</li>
-</ul>
-</li>
-</ul>
-<p>当出现重复的数字，如果不出现在两端还好，没有影响</p>
-<p>原本只需要判断</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> nums[mid] == target:  <span class="comment"># 命中 返回</span></span><br><span class="line">    <span class="keyword">return</span> mid</span><br><span class="line"><span class="keyword">if</span> nums[mid] &gt;= nums[left]:  <span class="comment"># mid的位置，mid落在前半部还是后半部</span></span><br><span class="line">    <span class="string">'''前半部有序的操作'''</span></span><br><span class="line"><span class="keyword">else</span>: </span><br><span class="line">    <span class="string">'''后半部有序的操作'''</span></span><br></pre></td></tr></table></figure>
-<p>但是对应有重复数的出现，可能会存在下面的情况，即：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">left == mid == right </span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] <span class="keyword">or</span> [<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
-<p>此时分不清到底是前半部分有序还是后半部分有序，但是</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left == mid == right 一定 != target</span><br></pre></td></tr></table></figure>
-<p>因为我们先判断了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> nums[mid] == target:  <span class="comment"># 命中 返回</span></span><br><span class="line">		<span class="keyword">return</span> mid</span><br></pre></td></tr></table></figure>
-<p>既然左left右right 都不等，我们干脆往中间移动，去掉干扰项即可，即：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] <span class="number">1</span> <span class="keyword">or</span> <span class="number">5</span> [<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] <span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>操作之后，问题也就回到了我们熟悉的问题上。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span> </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="comment"># 不能确定哪一侧有序</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] == nums[mid] == nums[right]:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">            <span class="comment"># 在左侧序列，左侧是有序的</span></span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &gt;= nums[left]:</span><br><span class="line">                <span class="keyword">if</span> nums[left]&lt;= target &lt; nums[mid]:</span><br><span class="line">                    right = mid <span class="number">-1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">            <span class="comment"># 在右侧序列，右侧是有序的</span></span><br><span class="line">            <span class="keyword">else</span>: </span><br><span class="line">                <span class="keyword">if</span> nums[mid] &lt; target &lt;= nums[right]:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right = mid - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/Synnex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/04/Synnex/" class="post-title-link" itemprop="url">新聚思（Synnex）</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-04 20:26:09 / Modified: 20:28:47" itemprop="dateCreated datePublished" datetime="2019-12-04T20:26:09+08:00">2019-12-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
-                    <span itemprop="name">实习面试经验</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="synnax实习总结"><a href="#synnax实习总结" class="headerlink" title="synnax实习总结"></a>synnax实习总结</h1><p>问题：</p>
-<p>lr 推 还可以</p>
-<p>svm推 …</p>
-<p>xgboost 推…</p>
-<p>编程：</p>
-<p>kmeans  </p>
-<p>堆排序</p>
-<p>鸡蛋落地问题</p>
-<p>概率题：  </p>
-<p>圆上3点 构成锐角三角形的概率</p>
-<p>spark  </p>
-<p>完全阵亡</p>
-<p>实际业务场景应用问题</p>
-<p>文本分类 的全流程</p>
-<p><strong>以上问题都是笔试题（是的我在现场笔试了一个小时）</strong></p>
-<p>其他一些细节问题</p>
-<p>transformer 的问题 每个细节问题 </p>
-<p>mutil过程具体怎么操作的  </p>
-<p>为啥除以dk</p>
-<p>add 和norm 具体操作 为什么 有什么作用</p>
-<p>decoder中 的mask Attention 怎么操作的</p>
-<p>实习问题：</p>
-<p>1.薪资问题  </p>
-<p>实习薪资：保密 :smile_cat:</p>
-<p>2.团队规模 </p>
-<p>400人左右 其中it技术100多人， 算法团队20人这样吧</p>
-<p>有transfer北美的机会</p>
-<p>3.发展问题</p>
-<p>工程师会需要有夜班嘛 对应时差 </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%9D%A2%E7%BB%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/04/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">京东搜索排序面经-已过</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-04 20:17:02" itemprop="dateCreated datePublished" datetime="2019-12-04T20:17:02+08:00">2019-12-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-07 20:30:38" itemprop="dateModified" datetime="2019-12-07T20:30:38+08:00">2019-12-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
-                    <span itemprop="name">实习面试经验</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="京东搜索排序面经"><a href="#京东搜索排序面经" class="headerlink" title="京东搜索排序面经"></a>京东搜索排序面经</h2><h3 id="jd"><a href="#jd" class="headerlink" title="jd"></a>jd</h3><p>招聘岗位：算法实习生（能获得导师许可并保证至少6个月的实习）</p>
-<p>工作地点：北辰世纪中心，位于北京朝阳区奥林匹克公园附近</p>
-<p>【工作内容】</p>
-<ol>
-<li>基于京东海量的用户和商家数据，应用机器学习算法，优化搜索排序</li>
-</ol>
-<p>【任职要求】</p>
-<ol>
-<li><p>对机器学习、数据挖掘、深度学习等算法领域有研究热情和扎实的基础</p>
-</li>
-<li><p>计算机、数学及相关专业研究生、博士生</p>
-</li>
-<li><p>熟悉python、C++与Linux开发 </p>
-</li>
-<li><p>良好的沟通协调能力，较好的主动性和求知欲</p>
-</li>
-<li><p>熟悉tensorflow、pytorch、caffe等学习框架优先</p>
-</li>
-<li><p>熟悉强化学习及相关框架，或对其有强烈兴趣者优先</p>
-</li>
-</ol>
-<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>一面：</p>
-<p>主要是聊项目经历 说一下项目</p>
-<p>基本套路 讲一下项目背景 讲一下项目的基本过程 讲一下其中的亮点  难点 与反思 </p>
-<p>其实后边三个是更重要的  </p>
-<p><strong>问了神经网络防止过拟合的方法！！！</strong></p>
-<p>题目一： 从m个数中随机等概率抽取n个数（面试官让我实现random.choice）</p>
-<p>题目二：找出一个数组中，超过一半的个数的元素</p>
-<p><a href="https://mereder.github.io/2019/12/04/leetcode-169-多数元素/" target="_blank" rel="noopener">Leetcode-169-多数元素</a></p>
-<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>主要问我的都是算法点吧…</p>
-<p>决策树怎么进行特征选择，信息增益怎么算，信息增益比怎么算</p>
-<p>其中着重讲了神经网络的参数更新过程（前向传播，反向传播，要写链式求导）</p>
-<p>Xgboost，让我手推一边，能推到哪里就写到哪里，然后讲一下整个表达式中的各个含义</p>
-<p>笔试题目：</p>
-<p><a href="https://mereder.github.io/2019/11/29/插入排序/" target="_blank" rel="noopener">插入排序</a></p>
-<h3 id="三面交叉面"><a href="#三面交叉面" class="headerlink" title="三面交叉面"></a>三面交叉面</h3><p>来的面试官是这边做知识图谱的一位，全程都属于聊天状态。</p>
-<p>抛给我的问题都算是思考类型的吧</p>
-<p>笔试题目：给出括号的对数，问有多少种不同的排列方式</p>
-<p><a href="https://mereder.github.io/2019/11/29/leetcode-22-括号生成" target="_blank" rel="noopener">Leetcode-22-括号生成</a></p>
-<h3 id="四面leader"><a href="#四面leader" class="headerlink" title="四面leader"></a>四面leader</h3><p>应该是这个组的老大吧，他说他手下大概20多个人。</p>
-<p>老大过来跟我说了下他们这边主要做什么</p>
-<p>然后搜索流量占了京东app流量的一半以上，dau6000W，检索条数更是十亿级别吧。</p>
-<p>然后说了说自己从nlp转到推荐或者搜索的初衷</p>
-<p>老大说，还挺好…不用再给你洗脑了。（没太明白）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1306,7 +1174,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1315,6 +1183,10 @@
           
         <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
