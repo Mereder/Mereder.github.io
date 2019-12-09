@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-51-N皇后</title>
+    <url>/2019/12/09/leetcode-51-N%E7%9A%87%E5%90%8E/</url>
+    <content><![CDATA[<h2 id="N皇后"><a href="#N皇后" class="headerlink" title="N皇后"></a>N皇后</h2><p>n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9qs3y3nfhj307607o748.jpg" alt="img"></p>
+<p>上图为 8 皇后问题的一种解法。</p>
+<p>给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。</p>
+<p>每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: 4<br>输出: [<br> [“.Q..”,  // 解法 1<br>  “…Q”,<br>  “Q…”,<br>  “..Q.”],</p>
+<p> [“..Q.”,  // 解法 2<br>  “Q…”,<br>  “…Q”,<br>  “.Q..”]<br>]<br>解释: 4 皇后问题存在两个不同的解法。</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>刚刚掌握了回溯法的套路，然后就打算拿个hard的题目试试，就发现了这个N皇后问题，发现自己拿回溯法套路完全套不上去，问题出在：</p>
+<ul>
+<li>递归的是什么？ </li>
+<li>状态怎么表示？！！！这个也是最大的问题</li>
+</ul>
+<p>看完官方题解之后，大呼 秒啊~</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9qs80oinhj307e06t0st.jpg" alt="秒啊"></p>
+<p>首先说递归的是什么，我们要找的就是皇后的排列位置，也就是说，每一行肯定会放一个皇后，那么具体这个皇后放在哪个位置（哪一列上）就需要通过其他条件来判，比如第一行第一个皇后可以随便放，但是第二行的皇后再放的时候就需要考虑，是否会被前面放置的皇后打到….依次类推，直到最后一行也放置好一个皇后为止。</p>
+<p>由此可以看到，回溯的depth是指行数（0——N-1），而在一行内，还需要罗列每一个位置即坐标对从（depth,0）….(depth,N-1)</p>
+<p>再看看状态转移怎么表示，我们的目的是找到一种表示，能够来表示，当某一个皇后落位之后，其影响的其他位置都不可以有棋子。</p>
+<blockquote>
+<p>西洋棋中，皇后的特性是，可以横着，竖着，斜着</p>
+</blockquote>
+<p>我们已经通过递归的特性使得每一行不会有重复的了，所以我们需要一个表示列的状态，确保每一列只可以有一个。其次，对于斜着，有两个方向，一种是平行于主对角线，另一种是平行于辅对角线。</p>
+<p>！！！trick来啦</p>
+<p>对于平行于主对角线上的元素，其$row-col$都是一个常量</p>
+<blockquote>
+<p>举个例子：主对角线上(0,0)(1,1)…(n-1,n-1)    行标-列标=0</p>
+<p>那么平行于主对角线的一条比如:(1,0),(2,1)….(n-1,n-2)  行标-列标 = 1</p>
+</blockquote>
+<p>那么我们只需要确定同一个斜线上只有一个皇后就好了</p>
+<p>同样，对于平行于辅对角线，其$row+col$都是一个常量</p>
+<p>下面进行我们的操作：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">solveNQueens</span><span class="params">(self, n: int)</span> -&gt; List[List[str]]:</span></span><br><span class="line">        <span class="comment"># 两个trick： 通过这两个trick 可以很快的得出 某一条线路能否放一个皇后</span></span><br><span class="line">        <span class="comment"># 同一条主对角线（平行于主对角线）上的元素，都符合 row-col = constant</span></span><br><span class="line">        <span class="comment"># 同一条副对角线（平行于副对角线）上的元素，都符合 row+col = constant</span></span><br><span class="line">        <span class="comment"># 不在同一列就是通过 列的来判断</span></span><br><span class="line">        stack = []   <span class="comment"># 用来存储一个临时结果</span></span><br><span class="line">        res = []	<span class="comment"># 用来存储最终结果</span></span><br><span class="line">        main_diagonal = [<span class="number">0</span>]*(<span class="number">2</span>*n)  <span class="comment"># 定义的主对角线状态存放</span></span><br><span class="line">        sub_diagonal = [<span class="number">0</span>]*(<span class="number">2</span>*n)		<span class="comment"># 定义辅对角线的状态存放</span></span><br><span class="line">        lie = [<span class="number">0</span>]*n						<span class="comment"># 定义对列的状态存放</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">add_position</span><span class="params">(row,col)</span>:</span></span><br><span class="line">            lie[col] = <span class="number">1</span></span><br><span class="line">            main_diagonal[row-col] = <span class="number">1</span></span><br><span class="line">            sub_diagonal[row+col] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">remove_positon</span><span class="params">(row,col)</span>:</span></span><br><span class="line">            lie[col] = <span class="number">0</span></span><br><span class="line">            main_diagonal[row-col] = <span class="number">0</span></span><br><span class="line">            sub_diagonal[row+col] = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">(row,col)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> (lie[col]+main_diagonal[row-col]+sub_diagonal[row+col]) == <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">add_result</span><span class="params">()</span>:</span></span><br><span class="line">            tmp = []</span><br><span class="line">            <span class="comment"># i 行 j列</span></span><br><span class="line">            <span class="keyword">for</span> i,j <span class="keyword">in</span> sorted(stack):</span><br><span class="line">                tmp.append(<span class="string">'.'</span>*j+<span class="string">'Q'</span>+<span class="string">'.'</span>*(n-j<span class="number">-1</span>))</span><br><span class="line">            res.append(tmp)</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">backtrack1</span><span class="params">(row)</span>:</span></span><br><span class="line">            <span class="comment"># 逐行确定，每一行肯定可以确定一个位置（列）</span></span><br><span class="line">            <span class="comment"># 下面就是经典的回溯框架（套路）</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n): </span><br><span class="line">              	<span class="comment"># 1. 检查是否满足可以进入的条件（本题就是可以放置皇后）</span></span><br><span class="line">                <span class="keyword">if</span> check(row, i):</span><br><span class="line">                  	<span class="comment"># 2. 将可以的结果加入stack中进行记录</span></span><br><span class="line">                    stack.append((row, i))</span><br><span class="line">                    <span class="comment"># 3. 记录状态加入</span></span><br><span class="line">                    add_position(row, i)</span><br><span class="line">										<span class="comment"># 4. 对于是否满足条件，如果满足条件则将结果进行输出</span></span><br><span class="line">                    <span class="comment">#    不满足继续进行递归</span></span><br><span class="line">                    <span class="keyword">if</span> row == n<span class="number">-1</span>:</span><br><span class="line">                        add_result()</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        backtrack(row+<span class="number">1</span>)</span><br><span class="line">                    <span class="comment"># 5. 回弹过程，拿掉前面加入的记录</span></span><br><span class="line">                    stack.pop()</span><br><span class="line">                    <span class="comment"># 6. 更改记录状态</span></span><br><span class="line">                    remove_positon(row,i)</span><br><span class="line">         </span><br><span class="line">        <span class="comment"># 回溯更经常将递归结束条件写在外边</span></span><br><span class="line">         <span class="function"><span class="keyword">def</span> <span class="title">backtrack2</span><span class="params">(row)</span>:</span></span><br><span class="line">            <span class="comment"># 1. 递归结束条件</span></span><br><span class="line">            <span class="keyword">if</span> row == n:  <span class="comment"># !!!!注意这个地方与上边的区别，</span></span><br><span class="line">                add_result()</span><br><span class="line">                <span class="keyword">return</span>    </span><br><span class="line">            <span class="comment"># 逐行确定，每一行肯定可以确定一个位置（列）</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n): </span><br><span class="line">                <span class="comment"># 2. 检查是否满足可以进入的条件（本题就是可以放置皇后）</span></span><br><span class="line">                <span class="keyword">if</span> check(row, i):</span><br><span class="line">                  	<span class="comment"># 3. 将可以的结果加入stack中进行记录</span></span><br><span class="line">                    stack.append((row, i))</span><br><span class="line">                    <span class="comment"># 4. 记录状态加入</span></span><br><span class="line">                    add_position(row, i)</span><br><span class="line">										<span class="comment"># 5. 递归下一层</span></span><br><span class="line">                    backtrack(row+<span class="number">1</span>)</span><br><span class="line">                    <span class="comment"># 6. 回弹过程，拿掉前面加入的记录</span></span><br><span class="line">                    stack.pop()</span><br><span class="line">                    <span class="comment"># 7. 更改记录状态</span></span><br><span class="line">                    remove_positon(row,i)</span><br><span class="line"></span><br><span class="line">        backtrack1(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># backtrack2(0)</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>专业书籍书单</title>
+    <url>/2019/12/09/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E4%B9%A6%E5%8D%95/</url>
+    <content><![CDATA[<h2 id="专业书籍书单"><a href="#专业书籍书单" class="headerlink" title="专业书籍书单"></a>专业书籍书单</h2><p>如果仔细的品味完这些书，保证自己的能力能得到质的飞越！！！</p>
+<h3 id="基本刷题"><a href="#基本刷题" class="headerlink" title="基本刷题"></a>基本刷题</h3><ul>
+<li>[ ] Leetcode（142/1200）</li>
+<li>[x] 剑指offer</li>
+<li>[ ] 编程思想</li>
+</ul>
+<h3 id="机器学习大方向"><a href="#机器学习大方向" class="headerlink" title="机器学习大方向"></a>机器学习大方向</h3><ul>
+<li>[ ] 统计学习方法</li>
+<li>[ ] 机器学习（西瓜书）</li>
+<li><p>[ ] 百面机器学习</p>
+</li>
+<li><p>[ ] 强化学习精要</p>
+</li>
+</ul>
+<h3 id="算法工程师基本技能"><a href="#算法工程师基本技能" class="headerlink" title="算法工程师基本技能"></a>算法工程师基本技能</h3><ul>
+<li><p>大数据方向</p>
+</li>
+<li><p>[ ] Spark内核机制解析以及性能调优</p>
+</li>
+<li><p>[ ] Hive编程指南</p>
+</li>
+</ul>
+<h3 id="其他维度的培养"><a href="#其他维度的培养" class="headerlink" title="其他维度的培养"></a>其他维度的培养</h3><ul>
+<li>[ ] 产品思维</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>机器学习中的各种评价指标</title>
+    <url>/2019/12/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%90%84%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2>]]></content>
+  </entry>
+  <entry>
+    <title>Leetcode-46-全排列</title>
+    <url>/2019/12/09/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97/</url>
+    <content><![CDATA[<h2 id="Leetcode-46-全排列"><a href="#Leetcode-46-全排列" class="headerlink" title="Leetcode-46-全排列"></a>Leetcode-46-全排列</h2><p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
+<p>示例:</p>
+<p>输入: [1,2,3]<br>输出:<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><strong>回溯方法</strong>：“不撞南墙不回头”</p>
+<ul>
+<li><p>思考怎么撞到南墙——通过递归来达到</p>
+</li>
+<li><p>思考回溯的“南墙”是什么——递归的终止条件</p>
+</li>
+<li>思考回头的话怎么回头——状态记录</li>
+</ul>
+<blockquote>
+<p>res: 结果集，[[],[],[]…] 的数据形式</p>
+<p>used: 用来进行状态记录，使用过的将不能再使用，用来保证全排列过程，前面出现的字符，后边不在出现</p>
+<p>stack: 用来存放结果，其中包含了回溯的加入和回退过程，</p>
+<p>depth: 用来记录递归的深度（全排列字符串的个数），当depth等于字符串长度时，也就是某一种排列形成，我们将其排列结果加入到结果集中</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span>  <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        used = [<span class="literal">False</span>]*len(nums)</span><br><span class="line">        stack = []</span><br><span class="line">        self.helper(res,stack,<span class="number">0</span>, nums, used)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, res, stack, depth, nums, used)</span>:</span></span><br><span class="line">        <span class="comment"># 迭代出口  回溯所说的：撞到南墙</span></span><br><span class="line">        <span class="keyword">if</span> depth == len(nums):</span><br><span class="line">            res.append(stack.copy()) <span class="comment"># 需要copy否则stack是动态变化的 会在res中变化</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">              	<span class="comment"># 不断前进过程</span></span><br><span class="line">                stack.append(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line">								<span class="comment"># 递归操作，递归深度不断加深</span></span><br><span class="line">                self.helper(res,stack,depth+<span class="number">1</span>,nums,used)</span><br><span class="line">								<span class="comment"># 一旦撞到南墙，则开始回头</span></span><br><span class="line">                stack.pop()</span><br><span class="line">                used[i] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>回溯</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode-17-电话号码的组合</title>
     <url>/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/</url>
     <content><![CDATA[<h2 id="电话号码的组合"><a href="#电话号码的组合" class="headerlink" title="电话号码的组合"></a>电话号码的组合</h2><p>给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。</p>
@@ -89,49 +197,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Leetcode-1-两数之和</title>
-    <url>/2019/12/08/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例:</p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>暴力解法，直接两层循环，输出相加为target的组合，时间复杂度O(N^2)</p>
-<p>优化，采用空间换时间的策略，可以将数存储在字典(hash结构)中，然后直接索引就可以了</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line">        d = &#123;&#125; <span class="comment"># 用来存储</span></span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> enumerate(nums): <span class="comment"># 一边遍历即可</span></span><br><span class="line">            err = target - value</span><br><span class="line">            <span class="keyword">if</span> err <span class="keyword">in</span> d: <span class="comment"># 检索到的直接返回</span></span><br><span class="line">                <span class="keyword">return</span> [d[err],index]</span><br><span class="line">            <span class="keyword">else</span>:        <span class="comment"># 不在字典的话就加入</span></span><br><span class="line">                d[value] = index</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法刷题</category>
-        <category>Leetcode</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Leetcode-15-三数之和</title>
-    <url>/2019/12/08/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中<strong>不可以包含重复的</strong>三元组。</p>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>暴力法，通过枚举所有的可能情况来看有没有可能和为0， 时间复杂度O(N^3)</p>
-<p>本题解题思路体现了很重要的一点，当复杂度高于排序的时间复杂度时候，可以通过预排序来降低时间复杂度。</p>
-<p>毕竟做一次排序的时间复杂度为O(NlogN)</p>
-<p>所有数字排序之后，就有了很好的特性<strong>有序</strong>。</p>
-<p>既然有序，我们想找三个数相加为0 ，首先确认一个数作为固定的，然后移动剩余两个数：</p>
-<ul>
-<li>3sum  &gt; 0 说明较大，则把较大一侧的数据向小方向挪一下</li>
-<li>3sum &lt; 0  说明较小，则把较小一侧的数据向大方向挪一下</li>
-<li>3sum == 0 则找到了一组合适的</li>
-</ul>
-<p>其中还有一些细节问题——不重复的数</p>
-<p>由于排序之后，重复数字都是挨在一起的，我们以其中一个数作为固定数之后，其他的都可以直接跳过。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="comment"># 预排序 很重要</span></span><br><span class="line">        nums.sort()</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; <span class="number">0</span> : <span class="comment"># 后边的数都是大于0的 相加不可能为0 </span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>]: <span class="comment"># 相同的数跳过 保证不重复</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            left = i+<span class="number">1</span></span><br><span class="line">            right = len(nums)<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[left] + nums[right]) == <span class="number">0</span>:</span><br><span class="line">                    res.append([nums[i],nums[left],nums[right]])</span><br><span class="line">                    <span class="comment"># 对于相等的数，也需要直接移动，否则会将重复结果记入</span></span><br><span class="line">                    <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[left] == nums[left+<span class="number">1</span>]:</span><br><span class="line">                        left += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[right] == nums[right<span class="number">-1</span>]:</span><br><span class="line">                        right -= <span class="number">1</span></span><br><span class="line">                    left += <span class="number">1</span>  <span class="comment"># 这个地方需要注意 要把数移动到下一个不一样的数那里 </span></span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> (nums[i] + nums[left] + nums[right]) &lt; <span class="number">0</span>:</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法刷题</category>
-        <category>Leetcode</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Leetcode-992-K个不同整数的子数组</title>
     <url>/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<h2 id="K个不同整数的子数组"><a href="#K个不同整数的子数组" class="headerlink" title="K个不同整数的子数组"></a>K个不同整数的子数组</h2><p>给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定独立的子数组为好子数组。</p>
@@ -161,6 +226,7 @@
         <category>Leetcode</category>
       </categories>
       <tags>
+        <tag>滑动窗口</tag>
         <tag>还没搞懂</tag>
       </tags>
   </entry>
@@ -268,6 +334,9 @@
         <category>算法刷题</category>
         <category>Leetcode</category>
       </categories>
+      <tags>
+        <tag>滑动窗口</tag>
+      </tags>
   </entry>
   <entry>
     <title>Leetcode-76-最小覆盖子串</title>
@@ -297,6 +366,9 @@
         <category>算法刷题</category>
         <category>Leetcode</category>
       </categories>
+      <tags>
+        <tag>滑动窗口</tag>
+      </tags>
   </entry>
   <entry>
     <title>Leetcode-32-最长有效括号</title>
@@ -760,6 +832,9 @@
         <category>算法刷题</category>
         <category>Leetcode</category>
       </categories>
+      <tags>
+        <tag>滑动窗口</tag>
+      </tags>
   </entry>
   <entry>
     <title>Leetcode-63-不同路径II</title>
@@ -1018,9 +1093,33 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
 <p>不可以，我们平时做的都是凸优化，对于分类问题用均方误差，优化函数是非凸的？？</p>
 </blockquote>
 </li>
-<li><p>LR模型需要归一化嘛？为什么需要归一化，体现在哪里？</p>
+<li><p>LR模型需要归一化嘛？为什么需要归一化，体现在哪里？归一化的类型都有什么？</p>
 <blockquote>
-<p>LR肯定需要归一化，问题是出现在L2正则上，</p>
+<p>LR肯定需要归一化，</p>
+<p>为什么需要归一化呢，重点问题出现在进行梯度下降过程，如果两个特征的的特征空间不是一致的，那么梯度下降过程很可能走的是“之字形”（优化的是个椭圆形的，每次优化都是垂直等高线向下），那么不会收敛或者很难收敛，进行特征归一化之后，特征空间都是相同的，那么优化的方向是一致的（优化的等高线是个圆形，垂直圆一直向圆心）</p>
+<p>问题是出现在L2正则上，</p>
+<p>归一化的类型有：</p>
+<p>线性归一化： 这种归一化方法比较适用在数值比较集中的情况。这种方法有个缺陷，如果max和min不稳定，很容易使得归一化结果不稳定，使得后续使用效果也不稳定。实际使用中可以用经验常量值来替代max和min。</p>
+<script type="math/tex; mode=display">
+x^{\prime}=\frac{x-\min (x)}{\max (x)-\min (x)}</script><p>标准差归一化：经过处理的数据符合标准正态分布，即均值为0，标准差为1，其转化函数为：</p>
+<script type="math/tex; mode=display">
+x^{*}=\frac{x-\mu}{\sigma}</script><p>非线性归一化：</p>
+<p>经常用在数据分化比较大的场景，有些数值很大，有些很小。通过一些数学函数，将原始值进行映射。该方法包括 log、指数，正切等。需要根据数据分布的情况，决定非线性函数的曲线，比如log(V, 2)还是log(V, 10)等。</p>
+</blockquote>
+</li>
+<li><p>LR的特征离散化</p>
+<blockquote>
+<h4 id="为什么LR把特征离散化后效果更好？离散化的好处有哪些？"><a href="#为什么LR把特征离散化后效果更好？离散化的好处有哪些？" class="headerlink" title="为什么LR把特征离散化后效果更好？离散化的好处有哪些？"></a>为什么LR把特征离散化后效果更好？离散化的好处有哪些？</h4><p>逻辑回归属于广义线性模型，表达能力受限；<br>在工业界，很少直接将连续值作为逻辑回归模型的特征输入，而是将连续特征离散化为一系列0、1特征交给逻辑回归模型，这样做的优势有以下几点：</p>
+<ol>
+<li>逻辑回归属于广义线性模型，表达能力受限；单变量离散化为N个后，每个变量有单独的权重，相当于为模型引入了非线性，能够提升模型表达能力，加大拟合；</li>
+<li>离散化后可以进行特征交叉，由M+N个变量变为M*N个变量，进一步引入非线性，提升表达能力；</li>
+<li>特征离散化以后，起到了简化了逻辑回归模型的作用，降低了模型过拟合的风险。</li>
+<li>离散特征的增加和减少都很容易，易于模型的快速迭代；</li>
+<li>稀疏向量内积乘法运算速度快，计算结果方便存储，容易扩展；</li>
+<li>离散化后的特征对异常数据有很强的鲁棒性：比如一个特征是年龄&gt;30是1，否则0。如果特征没有离散化，一个异常数据“年龄300岁”会给模型造成很大的干扰；</li>
+<li>特征离散化后，模型会更稳定，比如如果对用户年龄离散化，20-30作为一个区间，不会因为一个用户年龄长了一岁就变成一个完全不同的人。当然处于区间相邻处的样本会刚好相反，所以怎么划分区间是门学问；</li>
+</ol>
+<p>李沐曾经说过：模型是使用离散特征还是连续特征，其实是一个“海量离散特征+简单模型” 同 “少量连续特征+复杂模型”的权衡。既可以离散化用线性模型，也可以用连续特征加深度学习。就看是喜欢折腾特征还是折腾模型了。</p>
 </blockquote>
 </li>
 </ul>
@@ -1185,7 +1284,7 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
 <p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9d0vm9n9mj325905lmxs.jpg" alt="img"></p>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>跟<a href="https://mereder.github.io/2019/11/26/leetcode-114-二叉树展开为链表/" target="_blank" rel="noopener">Leetcode-114-二叉树展开为链表</a>的整体解决方案是一样的，只不过需要注意下问题是双向链表。</p>
 <p>坑：前后节点之间是有前后指针相连的，当对于child节点，其prev节点并没有直接指向父节点<strong>而是None</strong>，进行指针操作的时候注意</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val, prev, next, child):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.prev = prev</span></span><br><span class="line"><span class="string">        self.next = next</span></span><br><span class="line"><span class="string">        self.child = child</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, head: <span class="string">'Node'</span>)</span> -&gt; 'Node':</span></span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.child <span class="keyword">and</span> cur.next:</span><br><span class="line">              	<span class="comment"># 1. 拿出子链表</span></span><br><span class="line">                p = cur.child</span><br><span class="line">                p.prev = cur</span><br><span class="line">                <span class="comment"># 2. 遍历子链表直到尾部</span></span><br><span class="line">                <span class="keyword">while</span> p.next:</span><br><span class="line">                    p = p.next</span><br><span class="line">                <span class="comment"># 3. 将原后续链表接入到子链表尾部</span></span><br><span class="line">                p.next = cur.next</span><br><span class="line">                cur.next.prev = p</span><br><span class="line">                <span class="comment"># 4. 调整子链表成为后续链表 并且child为None</span></span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表最后一个含有子链表，就直接调换下位置即可</span></span><br><span class="line">            <span class="keyword">elif</span> cur.child <span class="keyword">and</span> <span class="keyword">not</span> cur.next:</span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child.prev = cur <span class="comment"># 因为这个没有导致case 20/22  没完全通过</span></span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表后移动 一个</span></span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val, prev, next, child):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.prev = prev</span></span><br><span class="line"><span class="string">        self.next = next</span></span><br><span class="line"><span class="string">        self.child = child</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, head: <span class="string">'Node'</span>)</span> -&gt; 'Node':</span></span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.child <span class="keyword">and</span> cur.next:</span><br><span class="line">              	<span class="comment"># 1. 拿出子链表，同时子链的prev连上cur</span></span><br><span class="line">                p = cur.child</span><br><span class="line">                p.prev = cur</span><br><span class="line">                <span class="comment"># 2. 遍历子链表直到尾部</span></span><br><span class="line">                <span class="keyword">while</span> p.next:</span><br><span class="line">                    p = p.next</span><br><span class="line">                <span class="comment"># 3. 将原后续链表接入到子链表尾部</span></span><br><span class="line">                p.next = cur.next</span><br><span class="line">                cur.next.prev = p</span><br><span class="line">                <span class="comment"># 4. 调整子链表成为后续链表 并且child为None</span></span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表最后一个含有子链表，就直接调换下位置即可</span></span><br><span class="line">            <span class="keyword">elif</span> cur.child <span class="keyword">and</span> <span class="keyword">not</span> cur.next:</span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child.prev = cur <span class="comment"># 因为这个没有导致case 20/22  没完全通过</span></span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表后移动 一个</span></span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>算法刷题</category>
@@ -1280,7 +1379,7 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
   </entry>
   <entry>
     <title>Leetcode-95-不同的二叉搜索树（具体路径）</title>
-    <url>/2019/11/26/leetcode_95_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/</url>
+    <url>/2019/11/26/leetcode-95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/</url>
     <content><![CDATA[<h2 id="不同的二叉搜索树II"><a href="#不同的二叉搜索树II" class="headerlink" title="不同的二叉搜索树II"></a>不同的二叉搜索树II</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9bg9rbsntj30v20nq768.jpg" alt="image-20191126145946420"></p>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>没有思路…. 看一下人家是怎么解决的</p>
 <p>总的解决是两个部分</p>
@@ -1312,7 +1411,7 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
   </entry>
   <entry>
     <title>Leetcode-96-不同的二叉搜索树</title>
-    <url>/2019/11/25/leetcode_96_%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <url>/2019/11/25/leetcode-96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
     <content><![CDATA[<h1 id="不同的二叉搜索树"><a href="#不同的二叉搜索树" class="headerlink" title="不同的二叉搜索树"></a>不同的二叉搜索树</h1><p>给定一个整数 n，求以 1 … n 为节点组成的二叉搜索树有多少种？</p>
 <p>示例:</p>
 <p>输入: 3<br>输出: 5<br>解释:<br>给定 n = 3, 一共有 5 种不同结构的二叉搜索树:</p>
@@ -1330,7 +1429,7 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
   </entry>
   <entry>
     <title>Leetcode-94-二叉树中序遍历</title>
-    <url>/2019/11/25/leetcode_94_%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F/</url>
+    <url>/2019/11/25/leetcode-94-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F/</url>
     <content><![CDATA[<h1 id="二叉树中序遍历"><a href="#二叉树中序遍历" class="headerlink" title="二叉树中序遍历"></a>二叉树中序遍历</h1><p>给定一个二叉树，返回它的中序 遍历。</p>
 <p>示例:</p>
 <p>输入: [1,null,2,3]<br>   1<br>    \<br>     2<br>    /<br>   3</p>
@@ -1374,24 +1473,25 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
       </categories>
   </entry>
   <entry>
-    <title>leetcode_1104_二叉树寻路</title>
-    <url>/2019/11/25/leetcode_1104_%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AF%BB%E8%B7%AF/</url>
+    <title>leetcode-1104-二叉树寻路</title>
+    <url>/2019/11/25/leetcode-1104-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AF%BB%E8%B7%AF/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>Leetcode-15-三数之和</title>
-    <url>/2019/11/25/leetcode_15_%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <url>/2019/11/25/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h1><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
 <p>注意：答案中不可以包含重复的三元组。</p>
 <p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
 <p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>完全已于2Sum的思路</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>完全异于2Sum的思路</p>
 <ul>
 <li><p>特殊情况处理None等。。。</p>
 </li>
 <li><p>首先通过排序使数字基本有序</p>
 <blockquote>
 <p>预排序，通过预排序方便处理重复的情况，这样相同的数字都在一块，跳过则方便。而且本身是$O(n^3)$的时间复杂度，用一个排序才$O(nlogn)$还是划得来</p>
+<p>本题解题思路体现了很重要的一点，当复杂度高于排序的时间复杂度时候，可以通过预排序来降低时间复杂度。毕竟做一次排序的时间复杂度为O(NlogN)，所有数字排序之后，就有了很好的特性<strong>有序</strong>。</p>
 </blockquote>
 </li>
 <li><p>遍历排序后的数组</p>
@@ -1424,8 +1524,8 @@ P\left(B_{i} | A\right)=\frac{P\left(B_{i}\right) P\left(A | B_{i}\right)}{\sum_
   </entry>
   <entry>
     <title>打家劫舍系列题组(198/213/337)</title>
-    <url>/2019/11/21/leetcode-213/</url>
-    <content><![CDATA[<h1 id="打家劫舍系列"><a href="#打家劫舍系列" class="headerlink" title="打家劫舍系列"></a>打家劫舍系列</h1><p>这个题可以深刻的领悟到dp过程中的一个思想：就是对于某一个状态，我存在两种选择，要或者不要</p>
+    <url>/2019/11/21/leetcode-213-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E7%B3%BB%E5%88%97/</url>
+    <content><![CDATA[<h1 id="打家劫舍系列"><a href="#打家劫舍系列" class="headerlink" title="打家劫舍系列"></a>打家劫舍系列</h1><p>这个题可以深刻的领悟到dp过程中的一个思想：就是对于某一个状态，我存在两种选择，要或者不要 </p>
 <p>如果要 考虑要的情况，如果不要考虑不要的情况。</p>
 <h2 id="Leetcode-198-easy"><a href="#Leetcode-198-easy" class="headerlink" title="Leetcode 198 easy"></a>Leetcode 198 easy</h2><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
 <p>给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。</p>
@@ -1547,7 +1647,7 @@ dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><tabl
   </entry>
   <entry>
     <title>Leetcode-1-两数之和</title>
-    <url>/2019/11/17/leetcode_1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <url>/2019/11/17/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
 <p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
 <p>示例:</p>

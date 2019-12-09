@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="逻辑回归机器学习最基础的东西，基本上也涵盖了一个机器学习算法的方方面面，可谓麻雀虽小五脏俱全。 对于LR，需要重点掌握：  对数几率的含义，以及为什么是逻辑回归 可以写出逻辑回归的概率分布函数（我的理解就是个分段函数，y取0或y取1） 可以写出逻辑回归的极大似然 损失函数最终的化简结果 梯度下降中的梯度怎么求出来的  关于逻辑回归的几个问题 为什么使用梯度下降来求最优，为什么不直接用解析解直接得到">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-05T15:37:44.968Z">
+<meta property="og:updated_time" content="2019-12-09T05:53:42.210Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/28/LR/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-05 23:37:44" itemprop="dateModified" datetime="2019-12-05T23:37:44+08:00">2019-12-05</time>
+                <time title="Modified: 2019-12-09 13:53:42" itemprop="dateModified" datetime="2019-12-09T13:53:42+08:00">2019-12-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -301,9 +301,33 @@
 <p>不可以，我们平时做的都是凸优化，对于分类问题用均方误差，优化函数是非凸的？？</p>
 </blockquote>
 </li>
-<li><p>LR模型需要归一化嘛？为什么需要归一化，体现在哪里？</p>
+<li><p>LR模型需要归一化嘛？为什么需要归一化，体现在哪里？归一化的类型都有什么？</p>
 <blockquote>
-<p>LR肯定需要归一化，问题是出现在L2正则上，</p>
+<p>LR肯定需要归一化，</p>
+<p>为什么需要归一化呢，重点问题出现在进行梯度下降过程，如果两个特征的的特征空间不是一致的，那么梯度下降过程很可能走的是“之字形”（优化的是个椭圆形的，每次优化都是垂直等高线向下），那么不会收敛或者很难收敛，进行特征归一化之后，特征空间都是相同的，那么优化的方向是一致的（优化的等高线是个圆形，垂直圆一直向圆心）</p>
+<p>问题是出现在L2正则上，</p>
+<p>归一化的类型有：</p>
+<p>线性归一化： 这种归一化方法比较适用在数值比较集中的情况。这种方法有个缺陷，如果max和min不稳定，很容易使得归一化结果不稳定，使得后续使用效果也不稳定。实际使用中可以用经验常量值来替代max和min。</p>
+<script type="math/tex; mode=display">
+x^{\prime}=\frac{x-\min (x)}{\max (x)-\min (x)}</script><p>标准差归一化：经过处理的数据符合标准正态分布，即均值为0，标准差为1，其转化函数为：</p>
+<script type="math/tex; mode=display">
+x^{*}=\frac{x-\mu}{\sigma}</script><p>非线性归一化：</p>
+<p>经常用在数据分化比较大的场景，有些数值很大，有些很小。通过一些数学函数，将原始值进行映射。该方法包括 log、指数，正切等。需要根据数据分布的情况，决定非线性函数的曲线，比如log(V, 2)还是log(V, 10)等。</p>
+</blockquote>
+</li>
+<li><p>LR的特征离散化</p>
+<blockquote>
+<h4 id="为什么LR把特征离散化后效果更好？离散化的好处有哪些？"><a href="#为什么LR把特征离散化后效果更好？离散化的好处有哪些？" class="headerlink" title="为什么LR把特征离散化后效果更好？离散化的好处有哪些？"></a>为什么LR把特征离散化后效果更好？离散化的好处有哪些？</h4><p>逻辑回归属于广义线性模型，表达能力受限；<br>在工业界，很少直接将连续值作为逻辑回归模型的特征输入，而是将连续特征离散化为一系列0、1特征交给逻辑回归模型，这样做的优势有以下几点：</p>
+<ol>
+<li>逻辑回归属于广义线性模型，表达能力受限；单变量离散化为N个后，每个变量有单独的权重，相当于为模型引入了非线性，能够提升模型表达能力，加大拟合；</li>
+<li>离散化后可以进行特征交叉，由M+N个变量变为M*N个变量，进一步引入非线性，提升表达能力；</li>
+<li>特征离散化以后，起到了简化了逻辑回归模型的作用，降低了模型过拟合的风险。</li>
+<li>离散特征的增加和减少都很容易，易于模型的快速迭代；</li>
+<li>稀疏向量内积乘法运算速度快，计算结果方便存储，容易扩展；</li>
+<li>离散化后的特征对异常数据有很强的鲁棒性：比如一个特征是年龄&gt;30是1，否则0。如果特征没有离散化，一个异常数据“年龄300岁”会给模型造成很大的干扰；</li>
+<li>特征离散化后，模型会更稳定，比如如果对用户年龄离散化，20-30作为一个区间，不会因为一个用户年龄长了一岁就变成一个完全不同的人。当然处于区间相邻处的样本会刚好相反，所以怎么划分区间是门学问；</li>
+</ol>
+<p>李沐曾经说过：模型是使用离散特征还是连续特征，其实是一个“海量离散特征+简单模型” 同 “少量连续特征+复杂模型”的权衡。既可以离散化用线性模型，也可以用连续特征加深度学习。就看是喜欢折腾特征还是折腾模型了。</p>
 </blockquote>
 </li>
 </ul>
@@ -369,7 +393,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于逻辑回归的几个问题"><span class="nav-number">1.1.</span> <span class="nav-text">关于逻辑回归的几个问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于逻辑回归的几个问题"><span class="nav-number">1.1.</span> <span class="nav-text">关于逻辑回归的几个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么LR把特征离散化后效果更好？离散化的好处有哪些？"><span class="nav-number">1.1.1.</span> <span class="nav-text">为什么LR把特征离散化后效果更好？离散化的好处有哪些？</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -383,7 +407,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -394,7 +418,7 @@
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

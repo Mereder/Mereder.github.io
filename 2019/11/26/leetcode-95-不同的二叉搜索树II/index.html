@@ -51,18 +51,20 @@
   };
 </script>
 
-  <meta name="description" content="两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 思路暴力解法，直">
+  <meta name="description" content="不同的二叉搜索树II 思路没有思路…. 看一下人家是怎么解决的 总的解决是两个部分  先构建以i为根的树，构建过程可以依靠递归来实现 再遍历构建好的树，进行左—右的排列组合  这样就完成了以i为根的所有可能情况的搜索，然后再按照这样的办法一次遍历1…N. 注意 要求的返回结果是 List[TreeNode]  相当于降低了难度，组装树的过程只需要考虑左右节点就可以了 ==不要受题目描述的输出结果影">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-1-两数之和">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;08&#x2F;leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C&#x2F;index.html">
+<meta property="og:title" content="Leetcode-95-不同的二叉搜索树（具体路径）">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;leetcode-95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 思路暴力解法，直">
+<meta property="og:description" content="不同的二叉搜索树II 思路没有思路…. 看一下人家是怎么解决的 总的解决是两个部分  先构建以i为根的树，构建过程可以依靠递归来实现 再遍历构建好的树，进行左—右的排列组合  这样就完成了以i为根的所有可能情况的搜索，然后再按照这样的办法一次遍历1…N. 注意 要求的返回结果是 List[TreeNode]  相当于降低了难度，组装树的过程只需要考虑左右节点就可以了 ==不要受题目描述的输出结果影">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-08T07:16:16.316Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g9bg9rbsntj30v20nq768.jpg">
+<meta property="og:updated_time" content="2019-12-09T03:01:39.797Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g9bg9rbsntj30v20nq768.jpg">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/08/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+<link rel="canonical" href="http://yoursite.com/2019/11/26/leetcode-95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/">
 
 
 <script id="page-configurations">
@@ -76,7 +78,7 @@
   };
 </script>
 
-  <title>Leetcode-1-两数之和 | Mereder</title>
+  <title>Leetcode-95-不同的二叉搜索树（具体路径） | Mereder</title>
   
 
 
@@ -213,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/leetcode-95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -226,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Leetcode-1-两数之和
+          Leetcode-95-不同的二叉搜索树（具体路径）
         </h1>
 
         <div class="post-meta">
@@ -235,27 +237,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-12-08 13:41:57 / Modified: 15:16:16" itemprop="dateCreated datePublished" datetime="2019-12-08T13:41:57+08:00">2019-12-08</time>
+              <time title="Created: 2019-11-26 14:54:53" itemprop="dateCreated datePublished" datetime="2019-11-26T14:54:53+08:00">2019-11-26</time>
             </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-09 11:01:39" itemprop="dateModified" datetime="2019-12-09T11:01:39+08:00">2019-12-09</time>
               </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
 
           
 
@@ -268,14 +259,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例:</p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>暴力解法，直接两层循环，输出相加为target的组合，时间复杂度O(N^2)</p>
-<p>优化，采用空间换时间的策略，可以将数存储在字典(hash结构)中，然后直接索引就可以了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line">        d = &#123;&#125; <span class="comment"># 用来存储</span></span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> enumerate(nums): <span class="comment"># 一边遍历即可</span></span><br><span class="line">            err = target - value</span><br><span class="line">            <span class="keyword">if</span> err <span class="keyword">in</span> d: <span class="comment"># 检索到的直接返回</span></span><br><span class="line">                <span class="keyword">return</span> [d[err],index]</span><br><span class="line">            <span class="keyword">else</span>:        <span class="comment"># 不在字典的话就加入</span></span><br><span class="line">                d[value] = index</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+        <h2 id="不同的二叉搜索树II"><a href="#不同的二叉搜索树II" class="headerlink" title="不同的二叉搜索树II"></a>不同的二叉搜索树II</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9bg9rbsntj30v20nq768.jpg" alt="image-20191126145946420"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>没有思路…. 看一下人家是怎么解决的</p>
+<p>总的解决是两个部分</p>
+<ul>
+<li>先构建以i为根的树，构建过程可以依靠递归来实现</li>
+<li>再遍历构建好的树，进行左—右的排列组合</li>
+</ul>
+<p>这样就完成了以i为根的所有可能情况的搜索，然后再按照这样的办法一次遍历1…N.</p>
+<p>注意 要求的返回结果是 List[TreeNode]  相当于降低了难度，组装树的过程只需要考虑左右节点就可以了</p>
+<p>==不要受题目描述的输出结果影响，实际输出只需要输出根节点就好了，系统内部应该会有一个遍历操作==</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generateTrees</span><span class="params">(self, n: int)</span> -&gt; List[TreeNode]:</span>    </span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span> :</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">return</span> self.helper(<span class="number">1</span>,n)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> left&gt;right:</span><br><span class="line">            <span class="keyword">return</span> [<span class="literal">None</span>]  <span class="comment"># 不可以直接返回None  函数之间返回的都是 []</span></span><br><span class="line">        </span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right+<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 1. 以为i根递归建树</span></span><br><span class="line">            left_tree = self.helper(left,i<span class="number">-1</span>)</span><br><span class="line">            right_tree = self.helper(i+<span class="number">1</span>,right)</span><br><span class="line">						<span class="comment"># 2. 以i为根对左右两侧进行排列组合</span></span><br><span class="line">            <span class="keyword">for</span> l_tree <span class="keyword">in</span> left_tree:</span><br><span class="line">                <span class="keyword">for</span> r_tree <span class="keyword">in</span> right_tree:</span><br><span class="line">                    root = TreeNode(i)</span><br><span class="line">                    root.left = l_tree</span><br><span class="line">                    root.right = r_tree</span><br><span class="line">                    <span class="comment"># 3. 排好的结果加入结果集</span></span><br><span class="line">                    res.append(root)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res  <span class="comment"># 数据形式 [TreeNode1,TreeNode2,....TreeNode...]</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -289,16 +283,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/12/08/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" rel="next" title="Leetcode-15-三数之和">
-                  <i class="fa fa-chevron-left"></i> Leetcode-15-三数之和
+                <a href="/2019/11/26/%E5%AE%9E%E4%B9%A0%E7%A7%9F%E6%88%BF/" rel="next" title="实习期间的租房体验">
+                  <i class="fa fa-chevron-left"></i> 实习期间的租房体验
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/12/08/leetcode-18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/" rel="prev" title="Leetcode-18-四数之和">
-                  Leetcode-18-四数之和 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/26/leetcode-98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="prev" title="Leetcode-98-验证二叉搜索树">
+                  Leetcode-98-验证二叉搜索树 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -338,7 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两数之和"><span class="nav-number">1.</span> <span class="nav-text">两数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不同的二叉搜索树II"><span class="nav-number">1.</span> <span class="nav-text">不同的二叉搜索树II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -352,7 +346,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -363,7 +357,7 @@
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
