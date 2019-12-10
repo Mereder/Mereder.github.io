@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>头条广告算法面经</title>
+    <url>/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/</url>
+    <content><![CDATA[<h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p>
+<p>写题 </p>
+<p>迭代二分，递归二分</p>
+<p>关于业务上的问题：</p>
+<blockquote>
+<p>这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）</p>
+</blockquote>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>项目问题</p>
+<p>什么是极大似然估计</p>
+<p>什么是中心极限定理</p>
+<p>（面试官感觉百度过来的）</p>
+<p>写题：</p>
+<p>将ip地址转为一个int32的数</p>
+<blockquote>
+<p>255.255.255.0 是一个字符串 要求最终返回的结果是一个int32</p>
+<p>解法就是个位运算， 移位再加下一个</p>
+</blockquote>
+<p>紧接着 问了一个经典百度问题 hhhh</p>
+<p>1T文件，存储的是ip地址，给一个128MB的内存，问如何统计出出现次数最高的前10个</p>
+<p>这个问题真的得好好分析一下，现场分析的有点混乱。重点是前面的问题是可以拿过来利用的，就是一个ip地址对应一个唯一的int32  </p>
+<blockquote>
+<p>提了拆成不同文件，来计数，提了计数后通过堆排来过滤</p>
+</blockquote>
+<p>再一个问题：</p>
+<p>给1，2，3三个数，然后给一个数组，这个数组就是由这三个数组成的，其中某个数可能重复很多，问如何排序</p>
+<p>举个栗子[1,2,3,1,2,3,1,2,3] 排序后：[1,1,1,2,2,2,3,3,3]</p>
+<blockquote>
+<p>当时的思路就是 快排呗…结果被面试官嘲笑了，我就给你限制到这三个数</p>
+<p>后来想了下，三个变量来记录1，2，3的个数就可以了，完事之后可以通过计数器，输出相应个数的对应值。</p>
+</blockquote>
+<p>然后面试题进一步进阶为：</p>
+<p>现在不上三个数了，现在有一堆实例，他们都是从一个对象具体来的，比如 一个物体，其中某一个属性的值有1，2，3三种，请根据这个属性值对所有实例进行排序。</p>
+<blockquote>
+<p>这样就不能用上边的方法了，因为1跟1都是一样的，但是这里只对一个属性就行排，每个实例中除了该属性可能一样，其他都不一样。问怎么排序</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>实习面试经验</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-11-盛最多水的问题</title>
+    <url>/2019/12/10/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="盛最多水的问题"><a href="#盛最多水的问题" class="headerlink" title="盛最多水的问题"></a>盛最多水的问题</h2>]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-148-排序链表</title>
+    <url>/2019/12/10/leetcode-148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h2 id="排序链表"><a href="#排序链表" class="headerlink" title="排序链表"></a>排序链表</h2><p>在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: 4-&gt;2-&gt;1-&gt;3<br>输出: 1-&gt;2-&gt;3-&gt;4<br>示例 2:</p>
+<p>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>思路很简单，基于归并排序过程。那么就涉及到两个过程，一个是划分，一个是合并</p>
+<ul>
+<li>链表的划分依靠于快慢指针，得到一半一半的链表</li>
+<li>链表的合并就是基于合并两个有序链表</li>
+</ul>
+<p>思路较为简单，但是写的过程有一些小坑，即时避开。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortList</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">return</span> self.helper(head)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, head)</span>:</span></span><br><span class="line">      	<span class="comment"># 小坑1：不仅仅要看空指针 还有处理单头  否则会死循环</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.next:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        <span class="comment"># 快慢指针</span></span><br><span class="line">        slow = head</span><br><span class="line">        fast = head</span><br><span class="line">        p = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> fast <span class="keyword">and</span> fast.next:</span><br><span class="line">            p = slow</span><br><span class="line">            slow = slow.next</span><br><span class="line">            fast = fast.next.next</span><br><span class="line">        <span class="comment"># ！！！ 最坑的地方</span></span><br><span class="line">        <span class="comment"># 目的是为了断开链表，一定要通过 next为空来断开</span></span><br><span class="line">        <span class="comment"># 原本写的  tail = slow , slow = None </span></span><br><span class="line">        p.next = <span class="literal">None</span></span><br><span class="line">				</span><br><span class="line">        <span class="comment"># 处理左侧</span></span><br><span class="line">        left = self.helper(head)</span><br><span class="line">        <span class="comment"># 处理右侧</span></span><br><span class="line">        right = self.helper(slow)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#######合并两个有序链表过程#########</span></span><br><span class="line">				<span class="comment"># 哑头，方便处理</span></span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p1 = left</span><br><span class="line">        p2 = right</span><br><span class="line">        p3 = dummy</span><br><span class="line">        <span class="keyword">while</span> p1 <span class="keyword">and</span> p2:</span><br><span class="line">            <span class="keyword">if</span> p1.val &lt; p2.val:</span><br><span class="line">                p3.next = p1</span><br><span class="line">                p1 = p1.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p3.next = p2</span><br><span class="line">                p2 = p2.next</span><br><span class="line">            </span><br><span class="line">            p3 = p3.next</span><br><span class="line">        <span class="keyword">if</span> p1:</span><br><span class="line">            p3.next = p1</span><br><span class="line">        <span class="keyword">if</span> p2:</span><br><span class="line">            p3.next = p2</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>也是链表排序，同样满足题意：基于快排的链表排序</p>
+<p><a href="https://mereder.github.io/2019/11/25/单链表的快排/" target="_blank" rel="noopener">单链表快排</a></p>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-51-N皇后</title>
     <url>/2019/12/09/leetcode-51-N%E7%9A%87%E5%90%8E/</url>
     <content><![CDATA[<h2 id="N皇后"><a href="#N皇后" class="headerlink" title="N皇后"></a>N皇后</h2><p>n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>

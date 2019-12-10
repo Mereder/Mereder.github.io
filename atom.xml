@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-09T15:46:25.874Z</updated>
+  <updated>2019-12-10T15:41:52.458Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,84 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>头条广告算法面经</title>
+    <link href="http://yoursite.com/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/"/>
+    <id>http://yoursite.com/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/</id>
+    <published>2019-12-10T14:58:21.000Z</published>
+    <updated>2019-12-10T15:41:52.458Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p><p>写题 </p><p>迭代二分，递归二分</p><p>关于业务上的问题：</p><blockquote><p>这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）</p></blockquote><h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>项目问题</p><p>什么是极大似然估计</p><p>什么是中心极限定理</p><p>（面试官感觉百度过来的）</p><p>写题：</p><p>将ip地址转为一个int32的数</p><blockquote><p>255.255.255.0 是一个字符串 要求最终返回的结果是一个int32</p><p>解法就是个位运算， 移位再加下一个</p></blockquote><p>紧接着 问了一个经典百度问题 hhhh</p><p>1T文件，存储的是ip地址，给一个128MB的内存，问如何统计出出现次数最高的前10个</p><p>这个问题真的得好好分析一下，现场分析的有点混乱。重点是前面的问题是可以拿过来利用的，就是一个ip地址对应一个唯一的int32  </p><blockquote><p>提了拆成不同文件，来计数，提了计数后通过堆排来过滤</p></blockquote><p>再一个问题：</p><p>给1，2，3三个数，然后给一个数组，这个数组就是由这三个数组成的，其中某个数可能重复很多，问如何排序</p><p>举个栗子[1,2,3,1,2,3,1,2,3] 排序后：[1,1,1,2,2,2,3,3,3]</p><blockquote><p>当时的思路就是 快排呗…结果被面试官嘲笑了，我就给你限制到这三个数</p><p>后来想了下，三个变量来记录1，2，3的个数就可以了，完事之后可以通过计数器，输出相应个数的对应值。</p></blockquote><p>然后面试题进一步进阶为：</p><p>现在不上三个数了，现在有一堆实例，他们都是从一个对象具体来的，比如 一个物体，其中某一个属性的值有1，2，3三种，请根据这个属性值对所有实例进行排序。</p><blockquote><p>这样就不能用上边的方法了，因为1跟1都是一样的，但是这里只对一个属性就行排，每个实例中除了该属性可能一样，其他都不一样。问怎么排序</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;头条广告算法面经&quot;&gt;&lt;a href=&quot;#头条广告算法面经&quot; class=&quot;headerlink&quot; title=&quot;头条广告算法面经&quot;&gt;&lt;/a&gt;头条广告算法面经&lt;/h2&gt;&lt;h3 id=&quot;一面&quot;&gt;&lt;a href=&quot;#一面&quot; class=&quot;headerlink&quot; titl
+      
+    
+    </summary>
+    
+    
+      <category term="实习面试经验" scheme="http://yoursite.com/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-11-盛最多水的问题</title>
+    <link href="http://yoursite.com/2019/12/10/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/12/10/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/</id>
+    <published>2019-12-10T14:54:30.000Z</published>
+    <updated>2019-12-10T14:56:15.845Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="盛最多水的问题"><a href="#盛最多水的问题" class="headerlink" title="盛最多水的问题"></a>盛最多水的问题</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;盛最多水的问题&quot;&gt;&lt;a href=&quot;#盛最多水的问题&quot; class=&quot;headerlink&quot; title=&quot;盛最多水的问题&quot;&gt;&lt;/a&gt;盛最多水的问题&lt;/h2&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-148-排序链表</title>
+    <link href="http://yoursite.com/2019/12/10/leetcode-148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/12/10/leetcode-148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</id>
+    <published>2019-12-09T16:40:28.000Z</published>
+    <updated>2019-12-10T04:02:11.295Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="排序链表"><a href="#排序链表" class="headerlink" title="排序链表"></a>排序链表</h2><p>在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p><blockquote><p>示例 1:</p><p>输入: 4-&gt;2-&gt;1-&gt;3<br>输出: 1-&gt;2-&gt;3-&gt;4<br>示例 2:</p><p>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>思路很简单，基于归并排序过程。那么就涉及到两个过程，一个是划分，一个是合并</p><ul><li>链表的划分依靠于快慢指针，得到一半一半的链表</li><li>链表的合并就是基于合并两个有序链表</li></ul><p>思路较为简单，但是写的过程有一些小坑，即时避开。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortList</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">return</span> self.helper(head)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, head)</span>:</span></span><br><span class="line">      <span class="comment"># 小坑1：不仅仅要看空指针 还有处理单头  否则会死循环</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.next:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        <span class="comment"># 快慢指针</span></span><br><span class="line">        slow = head</span><br><span class="line">        fast = head</span><br><span class="line">        p = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> fast <span class="keyword">and</span> fast.next:</span><br><span class="line">            p = slow</span><br><span class="line">            slow = slow.next</span><br><span class="line">            fast = fast.next.next</span><br><span class="line">        <span class="comment"># ！！！ 最坑的地方</span></span><br><span class="line">        <span class="comment"># 目的是为了断开链表，一定要通过 next为空来断开</span></span><br><span class="line">        <span class="comment"># 原本写的  tail = slow , slow = None </span></span><br><span class="line">        p.next = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 处理左侧</span></span><br><span class="line">        left = self.helper(head)</span><br><span class="line">        <span class="comment"># 处理右侧</span></span><br><span class="line">        right = self.helper(slow)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#######合并两个有序链表过程#########</span></span><br><span class="line"><span class="comment"># 哑头，方便处理</span></span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p1 = left</span><br><span class="line">        p2 = right</span><br><span class="line">        p3 = dummy</span><br><span class="line">        <span class="keyword">while</span> p1 <span class="keyword">and</span> p2:</span><br><span class="line">            <span class="keyword">if</span> p1.val &lt; p2.val:</span><br><span class="line">                p3.next = p1</span><br><span class="line">                p1 = p1.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p3.next = p2</span><br><span class="line">                p2 = p2.next</span><br><span class="line">            </span><br><span class="line">            p3 = p3.next</span><br><span class="line">        <span class="keyword">if</span> p1:</span><br><span class="line">            p3.next = p1</span><br><span class="line">        <span class="keyword">if</span> p2:</span><br><span class="line">            p3.next = p2</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>也是链表排序，同样满足题意：基于快排的链表排序</p><p><a href="https://mereder.github.io/2019/11/25/单链表的快排/" target="_blank" rel="noopener">单链表快排</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;排序链表&quot;&gt;&lt;a href=&quot;#排序链表&quot; class=&quot;headerlink&quot; title=&quot;排序链表&quot;&gt;&lt;/a&gt;排序链表&lt;/h2&gt;&lt;p&gt;在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;示例 1
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Leetcode-51-N皇后</title>
@@ -471,82 +549,6 @@
     
     
       <category term="实习面试经验" scheme="http://yoursite.com/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>京东搜索排序面经-已过</title>
-    <link href="http://yoursite.com/2019/12/04/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%9D%A2%E7%BB%8F/"/>
-    <id>http://yoursite.com/2019/12/04/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%9D%A2%E7%BB%8F/</id>
-    <published>2019-12-04T12:17:02.000Z</published>
-    <updated>2019-12-07T12:30:38.695Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="京东搜索排序面经"><a href="#京东搜索排序面经" class="headerlink" title="京东搜索排序面经"></a>京东搜索排序面经</h2><h3 id="jd"><a href="#jd" class="headerlink" title="jd"></a>jd</h3><p>招聘岗位：算法实习生（能获得导师许可并保证至少6个月的实习）</p><p>工作地点：北辰世纪中心，位于北京朝阳区奥林匹克公园附近</p><p>【工作内容】</p><ol><li>基于京东海量的用户和商家数据，应用机器学习算法，优化搜索排序</li></ol><p>【任职要求】</p><ol><li><p>对机器学习、数据挖掘、深度学习等算法领域有研究热情和扎实的基础</p></li><li><p>计算机、数学及相关专业研究生、博士生</p></li><li><p>熟悉python、C++与Linux开发 </p></li><li><p>良好的沟通协调能力，较好的主动性和求知欲</p></li><li><p>熟悉tensorflow、pytorch、caffe等学习框架优先</p></li><li><p>熟悉强化学习及相关框架，或对其有强烈兴趣者优先</p></li></ol><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>一面：</p><p>主要是聊项目经历 说一下项目</p><p>基本套路 讲一下项目背景 讲一下项目的基本过程 讲一下其中的亮点  难点 与反思 </p><p>其实后边三个是更重要的  </p><p><strong>问了神经网络防止过拟合的方法！！！</strong></p><p>题目一： 从m个数中随机等概率抽取n个数（面试官让我实现random.choice）</p><p>题目二：找出一个数组中，超过一半的个数的元素</p><p><a href="https://mereder.github.io/2019/12/04/leetcode-169-多数元素/" target="_blank" rel="noopener">Leetcode-169-多数元素</a></p><h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>主要问我的都是算法点吧…</p><p>决策树怎么进行特征选择，信息增益怎么算，信息增益比怎么算</p><p>其中着重讲了神经网络的参数更新过程（前向传播，反向传播，要写链式求导）</p><p>Xgboost，让我手推一边，能推到哪里就写到哪里，然后讲一下整个表达式中的各个含义</p><p>笔试题目：</p><p><a href="https://mereder.github.io/2019/11/29/插入排序/" target="_blank" rel="noopener">插入排序</a></p><h3 id="三面交叉面"><a href="#三面交叉面" class="headerlink" title="三面交叉面"></a>三面交叉面</h3><p>来的面试官是这边做知识图谱的一位，全程都属于聊天状态。</p><p>抛给我的问题都算是思考类型的吧</p><p>笔试题目：给出括号的对数，问有多少种不同的排列方式</p><p><a href="https://mereder.github.io/2019/11/29/leetcode-22-括号生成" target="_blank" rel="noopener">Leetcode-22-括号生成</a></p><h3 id="四面leader"><a href="#四面leader" class="headerlink" title="四面leader"></a>四面leader</h3><p>应该是这个组的老大吧，他说他手下大概20多个人。</p><p>老大过来跟我说了下他们这边主要做什么</p><p>然后搜索流量占了京东app流量的一半以上，dau6000W，检索条数更是十亿级别吧。</p><p>然后说了说自己从nlp转到推荐或者搜索的初衷</p><p>老大说，还挺好…不用再给你洗脑了。（没太明白）</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;京东搜索排序面经&quot;&gt;&lt;a href=&quot;#京东搜索排序面经&quot; class=&quot;headerlink&quot; title=&quot;京东搜索排序面经&quot;&gt;&lt;/a&gt;京东搜索排序面经&lt;/h2&gt;&lt;h3 id=&quot;jd&quot;&gt;&lt;a href=&quot;#jd&quot; class=&quot;headerlink&quot; titl
-      
-    
-    </summary>
-    
-    
-      <category term="实习面试经验" scheme="http://yoursite.com/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-169-多数元素</title>
-    <link href="http://yoursite.com/2019/12/04/leetcode-169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/"/>
-    <id>http://yoursite.com/2019/12/04/leetcode-169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/</id>
-    <published>2019-12-04T11:51:15.000Z</published>
-    <updated>2019-12-04T12:06:04.653Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="多数元素（超过数组一半的元素）"><a href="#多数元素（超过数组一半的元素）" class="headerlink" title="多数元素（超过数组一半的元素）"></a>多数元素（超过数组一半的元素）</h2><p>给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。</p><p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p><blockquote><p>示例 1:</p><p>输入: [3,2,3]<br>输出: 3<br>示例 2:</p><p>输入: [2,2,1,1,1,2,2]<br>输出: 2</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>解题方法有很多，最直观的一种就是计数呗，看哪个元素的总数和超过了数组的一半。这种方法就需要考虑用什么来存储计数的结果，当然hash是最好的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        hash=&#123;&#125;</span><br><span class="line">        n=len(nums)</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>]</span><br><span class="line">        max_count=n//<span class="number">2</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span>(nums[i] <span class="keyword">not</span> <span class="keyword">in</span> hash):</span><br><span class="line">                hash[nums[i]]=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                hash[nums[i]]+=<span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span>(hash[nums[i]]&gt;max_count):</span><br><span class="line">                    <span class="keyword">return</span> nums[i]</span><br></pre></td></tr></table></figure><p>还有一种想法，直接排序，那中间位置的元素肯定是超过数组一半的那个，那这样又涉及到排序算法。最快就是</p><p>$nlogn$ 进而想到，其实我们不用完全将数组排好序，只要我们找到中间的那个位置的元素就可以了，如何做到呢？我们知道快排有个良好的特性：每一轮快排结束后，一个元素会被放到最终的位置上，那么我们根据这个特性，只需要找到位于中间位置的那个元素就可以了</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span></span><br><span class="line">        mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">          <span class="comment">#类似剪枝过程，如果mid不在范围内的一侧就不用去遍历了。</span></span><br><span class="line">            index = self.partition(nums,left,right)</span><br><span class="line">            <span class="keyword">if</span> index == mid:</span><br><span class="line">                <span class="keyword">return</span> nums[mid]</span><br><span class="line">            <span class="keyword">elif</span> index &lt; mid:</span><br><span class="line">                left = index+<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right = index<span class="number">-1</span></span><br><span class="line">        <span class="keyword">return</span> nums[mid]</span><br><span class="line">            </span><br><span class="line"><span class="comment"># 快排基础，用来找一次快排将某个元素确定的下标</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(self,nums,left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> left == right:</span><br><span class="line">            <span class="keyword">return</span> left</span><br><span class="line">        pivot = nums[right]</span><br><span class="line">        slow = left<span class="number">-1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &lt; pivot:</span><br><span class="line">                slow += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> slow != i:</span><br><span class="line">                    nums[i],nums[slow] = nums[slow],nums[i]</span><br><span class="line">        slow += <span class="number">1</span></span><br><span class="line">        nums[slow],nums[right] = pivot,nums[slow]</span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure><p><strong>更巧妙的办法</strong>：摩尔投票法</p><p>基本思想就是，占大多数的元素个数总和肯定比其他元素总和要高。</p><p>count来计数，对于重叠的元素++，对于不同的元素—，当count为0时需要重新选一个值作为计数的基础元素</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">majorityElement</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        res = nums[<span class="number">0</span>]</span><br><span class="line">        count = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">            <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">                count = <span class="number">1</span></span><br><span class="line">                res = nums[i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> nums[i] == res:</span><br><span class="line">                    count+=<span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    count-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;多数元素（超过数组一半的元素）&quot;&gt;&lt;a href=&quot;#多数元素（超过数组一半的元素）&quot; class=&quot;headerlink&quot; title=&quot;多数元素（超过数组一半的元素）&quot;&gt;&lt;/a&gt;多数元素（超过数组一半的元素）&lt;/h2&gt;&lt;p&gt;给定一个大小为 n 的数组，找到其中
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-82-删除排序链表中的重复元素ii</title>
-    <link href="http://yoursite.com/2019/12/04/leetcode-82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/"/>
-    <id>http://yoursite.com/2019/12/04/leetcode-82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/</id>
-    <published>2019-12-04T06:15:31.000Z</published>
-    <updated>2019-12-04T10:34:58.418Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="删除排序链表中的重复元素ii"><a href="#删除排序链表中的重复元素ii" class="headerlink" title="删除排序链表中的重复元素ii"></a>删除排序链表中的重复元素ii</h2><p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。</p><blockquote><p>示例 1:</p><p>输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5<br>输出: 1-&gt;2-&gt;5</p><p>示例 2:</p><p>输入: 1-&gt;1-&gt;1-&gt;2-&gt;3<br>输出: 2-&gt;3</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>相比于easy题目<a href="">Leetcode-83-删除排序链表中的重复元素</a></p><p>本题的难度在于不仅仅要删除后边的重复数，连本位置的重复数也要删掉。</p><p>所以需要找到所有相同的数，然后进行链表的一次删除操作（排序链表，相同的数在一起，一次删除操作即可）。</p><p>简单的地方仍在于给的是排序链表</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteDuplicates</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> <span class="keyword">not</span> head.next:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        <span class="comment"># 哑变量，方便处理头部删除 前一个题不需要是因为头部不会进行删除</span></span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        dummy.next = head</span><br><span class="line">        p = dummy<span class="comment"># 作为有效链表的尾部，后边只会接上不重复的数</span></span><br><span class="line">        q = dummy.next<span class="comment"># 重复数的指针，如果有重复则会一直遍历到不重复的数或者None停止</span></span><br><span class="line">        <span class="keyword">while</span> q.next:</span><br><span class="line">            tmp = q.val</span><br><span class="line">            <span class="keyword">if</span> q.next.val == tmp: <span class="comment"># 存在重复情况，进入操作</span></span><br><span class="line">                <span class="keyword">while</span> q <span class="keyword">and</span> q.val == tmp: <span class="comment"># 不为空并且值重复</span></span><br><span class="line">                    q = q.next</span><br><span class="line">                p.next = q</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> q:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:<span class="comment"># 前后两个数不重复，则继续向后遍历</span></span><br><span class="line">                p = p.next</span><br><span class="line">                q = q.next</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;删除排序链表中的重复元素ii&quot;&gt;&lt;a href=&quot;#删除排序链表中的重复元素ii&quot; class=&quot;headerlink&quot; title=&quot;删除排序链表中的重复元素ii&quot;&gt;&lt;/a&gt;删除排序链表中的重复元素ii&lt;/h2&gt;&lt;p&gt;给定一个排序链表，删除所有含有重复数字的节点
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
     
     
   </entry>
