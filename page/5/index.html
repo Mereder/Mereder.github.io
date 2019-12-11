@@ -212,6 +212,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/%E5%A0%86%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/28/%E5%A0%86%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">堆排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-28 22:05:24" itemprop="dateCreated datePublished" datetime="2019-11-28T22:05:24+08:00">2019-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-05 23:17:15" itemprop="dateModified" datetime="2019-12-05T23:17:15+08:00">2019-12-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">算法基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>几个重要的排序算法中比较常用的或者经常写的</p>
+<p>主要过程就是：</p>
+<ul>
+<li>最大堆调整（Max Heapify）：将堆的末端子节点作调整，使得子节点永远小于父节点</li>
+<li>创建最大堆（Build Max Heap）：将堆中的所有数据重新排序</li>
+<li>堆排序（HeapSort）：移除位在第一个数据的根节点，并做最大堆调整的递归运算 </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 大顶推  将最大值往上挪  最小值在叶子节点</span></span><br><span class="line"><span class="comment"># 1. 大顶堆的一次调整过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">headAdjust</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="comment"># 函数内的临时变量</span></span><br><span class="line">    root = start</span><br><span class="line">    child = <span class="number">2</span>*root+<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> child &lt; end:</span><br><span class="line">        <span class="comment"># 找左右叶子节点中值较大的一个</span></span><br><span class="line">        <span class="keyword">if</span> child+<span class="number">1</span> &lt; end <span class="keyword">and</span> nums[child+<span class="number">1</span>] &gt; nums[child]:</span><br><span class="line">            child = child + <span class="number">1</span></span><br><span class="line">        <span class="comment"># 若 某一个叶节点值确实 大于根 则进行操作</span></span><br><span class="line">        <span class="keyword">if</span> nums[root] &lt; nums[child]:</span><br><span class="line">            <span class="comment"># 交换 根 和 叶的值</span></span><br><span class="line">            nums[root], nums[child] = nums[child], nums[root]</span><br><span class="line">            <span class="comment"># 调换了叶子节点的值，继续调整以叶子节点为根的分支</span></span><br><span class="line">            root = child</span><br><span class="line">            child = <span class="number">2</span>*root+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="comment"># 从第一个非叶子节点开始 从下向上调整树为大顶堆</span></span><br><span class="line">    start = n &gt;&gt; <span class="number">1</span> - <span class="number">1</span></span><br><span class="line">    <span class="comment"># 2. 从下到上建造大顶堆</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(start,<span class="number">-1</span>,<span class="number">-1</span>):   <span class="comment"># 从start 到0</span></span><br><span class="line">        headAdjust(nums,i,n)</span><br><span class="line">    <span class="comment"># 此时已经  调整为大顶堆</span></span><br><span class="line">    <span class="comment"># 3. 堆排序过程：不断将最大值交换到数组尾部，然后再调整堆</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        nums[<span class="number">0</span>],nums[i] = nums[i], nums[<span class="number">0</span>]</span><br><span class="line">        headAdjust(nums,<span class="number">0</span>,i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试阶段</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = [<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">2</span>,<span class="number">10</span>]</span><br><span class="line">    print(a)</span><br><span class="line">    heapSort(a)</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
+<h3 id="主要应用场景"><a href="#主要应用场景" class="headerlink" title="主要应用场景"></a>主要应用场景</h3><p>1.面试直接写堆排序的过程</p>
+<p>2.海量数据中取最小（或最大 topK问题）</p>
+<blockquote>
+<p>维护一个k大小的堆，如果堆不满直接加入，若满堆，则根堆内最值比较，选择替换堆内元素 或者 不替换</p>
+<p>若不是海量数据取topk， 可以考虑 快排形式</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/leetcode-74-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -998,92 +1087,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B9%8B%E5%AD%97%E5%BD%A2%E9%81%8D%E5%8E%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/26/leetcode-103-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B9%8B%E5%AD%97%E5%BD%A2%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">Leetcode-103-二叉树之字形遍历</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-26 16:13:50 / Modified: 16:34:38" itemprop="dateCreated datePublished" datetime="2019-11-26T16:13:50+08:00">2019-11-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="二叉树锯齿形遍历（之字形）"><a href="#二叉树锯齿形遍历（之字形）" class="headerlink" title="二叉树锯齿形遍历（之字形）"></a>二叉树锯齿形遍历（之字形）</h2><p>给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。</p>
-<p>例如：<br>给定二叉树 [3,9,20,null,null,15,7],</p>
-<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9big7ti98j30uw0hw0to.jpg" alt="image-20191126161510462"></p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>trick：</p>
-<ul>
-<li><p>使用两个栈 一个栈负责左-&gt;右压栈，一个栈负责右-&gt;左压栈</p>
-</li>
-<li><p>flag来区分对哪个栈进行操作</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">zigzagLevelOrder</span><span class="params">(self, root: TreeNode)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        s1 = [] <span class="comment"># 左右压  出栈先右</span></span><br><span class="line">        s2 = [] <span class="comment"># 右左压  出栈先左</span></span><br><span class="line">        tmp = []</span><br><span class="line">        s1.append(root)</span><br><span class="line">        flag =<span class="literal">True</span>  <span class="comment"># 表示flag非空</span></span><br><span class="line">        <span class="keyword">while</span> s1 <span class="keyword">or</span> s2:</span><br><span class="line">            <span class="keyword">if</span> flag:</span><br><span class="line">                node = s1.pop()</span><br><span class="line">                tmp.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    s2.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    s2.append(node.right)</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> s1:</span><br><span class="line">                    res.append(tmp)</span><br><span class="line">                    tmp = []</span><br><span class="line">                    flag = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                node = s2.pop()</span><br><span class="line">                tmp.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    s1.append(node.right)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    s1.append(node.left)</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> s2:</span><br><span class="line">                    flag = <span class="literal">True</span></span><br><span class="line">                    res.append(tmp)</span><br><span class="line">                    tmp = []</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1132,14 +1135,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
