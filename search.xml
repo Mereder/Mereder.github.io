@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>评价指标准召</title>
+    <url>/2019/12/15/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%87%86%E5%8F%AC/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Dropout学习与总结</title>
+    <url>/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/</url>
+    <content><![CDATA[<h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>关于一个新东西的三连：是什么，为什么，怎么用</p>
+<h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>Dropout 是训练<strong>深度</strong>神经网络时采取的一种手段，来预防过拟合。在训练过程中，随机的以一定的概率“临时”抛弃掉某些节点。具体来讲，dropout作用于每个<strong>小batch</strong>训练数据，由于其随机丢弃部分神经元的机制，相当于每次迭代都在训练不同的神经网络结构。</p>
+<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>Dropout为什么会有这样的效果呢？类比bagging方法，其实达到了集成学习的效果。从bagging的集成角度来讲，传统意义上的bagging集成方法涉及多个模型的训练与评估，当网络参数规模庞大时，这种集成方式需要消耗大量的运算时间和空间。而Dropout是在小批量上进行操作，类似一种轻量级的bagging集成近似，能够实现指数级数量神经网络的训练与评估。</p>
+<p>原理就是，在dropout具体实现过程中，要求每个神经元节点激活值以一定的概率p被“丢弃”（被置0）。对于有N个神经元节点的神经网络，使用Dropout 可以看做是有$2^n$ 个模型的集成（即每个神经元都可以选择 存在或者不存在），他们共享部分权值，并且具有相同的网络层数，而且模型整体的参数数目不变，大大简化了运算。每次训练都会随机挑选一批不同的神经元进行组合优化，这个过程会减弱全体神经元之间的联合适用性，减少过拟合的风险，增强泛化能力</p>
+<h3 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h3><p>主要涉及两个过程一个是训练过程，一个是预测过程，在训练过程我们采取了概率p来丢弃神经元，那么在运行预测过程（一次前向传播）的时候，我们不在对神经元进行丢弃，相反，我们使用概率p乘在每个神经元上，以恢复训练过程中，某神经元只有概率p存在神经网络中。</p>
+<p>使用Dropout前的前向传播：</p>
+<script type="math/tex; mode=display">
+z_{i}^{(l+1)} = w_{i}^{(l+1)}y^l+b_{i}^{(l+1)} \\ 
+y_{i}^{(l+1)} = f(z_i^{l+1}) \\
+f是激活函数</script><p>使用dropout后的前向传播</p>
+<script type="math/tex; mode=display">
+r_{i}^{(l)} \sim Bernoulli(p) \\
+\hat{y}^{(l)} = r^{(l)} \dot \ y^{(l)}  \\
+z_{i}^{(l+1)} = w_{i}^{(l+1)}y^{(l)}+b_{i}^{(l+1)} \\ 
+y_{i}^{(l+1)} = f(z_i^{(l+1)}) \\
+f是激活函数</script><p>由此可见，是先对前一层的神经元进行“丢弃”再执行传播操作。</p>
+<h3 id="一些细节的理解"><a href="#一些细节的理解" class="headerlink" title="一些细节的理解"></a>一些细节的理解</h3><p>每次dropout的是神经元，并不是权值，也就是说权值参数矩阵始终是在更新的。每一次计算$W^T X$的时候，其中X中部分神经元被置为0。这样相当于“丢弃”了这部分神经元。</p>
+<p>训练过程，对于未被丢弃的神经元，还需要乘以$\frac{1}{1-p}$使得总体的分布情况保持一致。</p>
+<p>预测过程，对于全部的神经元，都需要乘以概率p，来恢复训练过程中，某个神经元以概率p存在神经网络中。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+  </entry>
+  <entry>
     <title>中心极限定理</title>
     <url>/2019/12/11/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h2 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h2><h3 id="数学表述"><a href="#数学表述" class="headerlink" title="数学表述"></a>数学表述</h3><h3 id="独立同分布的中心极限定理"><a href="#独立同分布的中心极限定理" class="headerlink" title="独立同分布的中心极限定理"></a>独立同分布的中心极限定理</h3><p>设随机变量X1，X2，……Xn，……独立同分布，并且具有有限的数学期望和方差：E(Xi)=μ，D(Xi)=σ20(k=1,2….)，则对任意x，分布函数</p>
@@ -15,6 +47,8 @@
 <p>从数学公式到例子的理解，重点应该关注下 什么叫随机变量，随机变量也是一个样本的分布情况，</p>
 <h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>这个例子讲的挺明白，但是目前跟中心极限定理的数学表达还对不上</p>
 <p><a href="https://blog.csdn.net/mingyuli/article/details/81141758" target="_blank" rel="noopener">https://blog.csdn.net/mingyuli/article/details/81141758</a></p>
+<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><p>对于一份数据集，其分布可能并不是正太分布的。但是我们可以通过采样操作，比如每次采样n=50个，一共采样m个样本集，那么这个样本集的分布是符合正太分布的。</p>
+<p>比如整个数据集合的均值可能为1，方差为2。我们抽出来了m个样本，可能这m个样本中，有的样本均值为0，有的样本均值为0.9，有的为1.2有的为2.0 。但是这m个样本的分布是符合正太分布的。</p>
 ]]></content>
       <categories>
         <category>概率与统计面试题</category>
@@ -171,9 +205,31 @@
 ]]></content>
   </entry>
   <entry>
-    <title>机器学习中的各种评价指标</title>
-    <url>/2019/12/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%90%84%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
-    <content><![CDATA[<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2>]]></content>
+    <title>机器学习中的评价指标——ROC,AUC</title>
+    <url>/2019/12/09/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87AUC/</url>
+    <content><![CDATA[<h2 id="ROC"><a href="#ROC" class="headerlink" title="ROC"></a>ROC</h2><p>ROC曲线是 receiver operating characteristic curve的简称。（受试者工作特征曲线）</p>
+<p>其横坐标为<strong>假阳性率(False Positive Rate,FPR)</strong>， 纵坐标为<strong>真阳性率(True Positive Rate, TPR)</strong></p>
+<script type="math/tex; mode=display">
+FPR = \frac{FP}{N} \\
+TPR = \frac{TP}{P} \\</script><p>对于假阳性率、真阳性率，需要一点实际例子来进行理解。拿我之前做过的识别三俗文章的例子来理解。对于一批样本100个，其中三俗文章（正例）有6篇，非三俗文章（负例）94篇，我们建立一个简单的文本分类模型来识别这批数据，我们分类器的结果是，100篇中，判为三俗的有8篇，但是真正三俗的仅为5篇，剩余92篇均判为非三俗，其中有1篇判错。</p>
+<p>模型整体准确率为：</p>
+<script type="math/tex; mode=display">
+\frac{5+91}{100} = 96\%</script><p>针对三俗类别来说的精确率为:</p>
+<script type="math/tex; mode=display">
+\frac{5}{8} = 62.5\% \\ 
+即 分类正确的正样本个数占分类器判定为正样本个数的比例</script><p>针对三俗类别来说的召回率为:</p>
+<script type="math/tex; mode=display">
+\frac{5}{6} = 83.3\% 
+即分类正确的正样本个数占实际正样本个数的比例</script><p>假阳性率为:</p>
+<script type="math/tex; mode=display">
+FPR = \frac{3}{94}  \\
+即 被误判为三俗的样本，占真实非三俗样本总数的比例</script><p>真阳性率为：</p>
+<script type="math/tex; mode=display">
+TPR = \frac{5}{6} \\
+即分类正确的三俗样本，占实际三俗样本个数的比例，跟召回率一样</script><h3 id="如何绘制ROC曲线"><a href="#如何绘制ROC曲线" class="headerlink" title="如何绘制ROC曲线"></a>如何绘制ROC曲线</h3><p>关键点在于：<strong>每个截断点都对于一个TPR和FPR</strong></p>
+<p>绘制ROC曲线的过程，就是不断枚举截断点（分类阈值）的过程，通过动态调整截断点，从最高分的得分开始，逐渐调整到最低点，其中每一个截断点都对应一个坐标（FPR,TPR），将这些点连成线就构成了ROC曲线。</p>
+<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。</p>
+]]></content>
   </entry>
   <entry>
     <title>Leetcode-46-全排列</title>
@@ -699,6 +755,15 @@
 <p>基本套路 讲一下项目背景 讲一下项目的基本过程 讲一下其中的亮点  难点 与反思 </p>
 <p>其实后边三个是更重要的  </p>
 <p><strong>问了神经网络防止过拟合的方法！！！</strong></p>
+<blockquote>
+<ol>
+<li>参数正则化， L1 L2</li>
+<li>dropout</li>
+<li>early stoping</li>
+<li>参数(权值共享)</li>
+<li>BatchNormaliaztion</li>
+</ol>
+</blockquote>
 <p>题目一： 从m个数中随机等概率抽取n个数（面试官让我实现random.choice）</p>
 <p>题目二：找出一个数组中，超过一半的个数的元素</p>
 <p><a href="https://mereder.github.io/2019/12/04/leetcode-169-多数元素/" target="_blank" rel="noopener">Leetcode-169-多数元素</a></p>
@@ -819,7 +884,7 @@
 <p>4、将自然语言技术应用具体业务中，包括智能客服、催到课、用户意图分类等。</p>
 <h2 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h2><p>写题：</p>
 <p>1.旋转数组中找target （腾讯视频NLP二面题目） 面试官指导下磕磕绊绊写出来了，腾讯视频面试时候写出来是因为当时分开完成的，先写了找到断点的地方，然后再找target</p>
-<p><a href="https://mereder.github.io/2019/11/18/leetcode-33/" target="_blank" rel="noopener">Leetcode-33-搜索选装数组</a></p>
+<p><a href="https://mereder.github.io/2019/11/18/leetcode-33/" target="_blank" rel="noopener">Leetcode-33-搜索旋转数组</a></p>
 <p>2.合并两个有序数组 easy</p>
 <p>简单聊了聊项目 对于技术点没有深挖</p>
 <h2 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h2><p>聊项目（前一段实习在网易的项目） 实现背景 实现策略（数据、算法） 实现结果</p>
