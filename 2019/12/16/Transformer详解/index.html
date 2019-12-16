@@ -51,17 +51,18 @@
   };
 </script>
 
-  <meta name="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+  <meta name="description" content="Transformer 详解这个基本是面试重点 今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
 <meta name="keywords" content="Python">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mereder">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98&#x2F;%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE&#x2F;index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer详解">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;16&#x2F;Transformer%E8%AF%A6%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="NLP初学者，推荐新手，刚入门ML和DL">
+<meta property="og:description" content="Transformer 详解这个基本是面试重点 今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-16T15:44:21.312Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/">
+<link rel="canonical" href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/">
 
 
 <script id="page-configurations">
@@ -69,13 +70,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Category: 面试题目 | Mereder</title>
+  <title>Transformer详解 | Mereder</title>
   
 
 
@@ -207,50 +208,94 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">面试题目
-          <small>Category</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Transformer详解
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-16 23:42:37 / Modified: 23:44:21" itemprop="dateCreated datePublished" datetime="2019-12-16T23:42:37+08:00">2019-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点</p>
+<p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
+<p>针对的归一化维度是不一样的。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-25T21:30:19+08:00"
-              content="2019-11-25">
-          11-25
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/25/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E5%BF%AB%E6%8E%92/" itemprop="url">
-            <span itemprop="name">面试题目：单链表快排</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/" rel="next" title="百度信息流算法？面经">
+                  <i class="fa fa-chevron-left"></i> 百度信息流算法？面经
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -279,6 +324,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-详解"><span class="nav-number">1.</span> <span class="nav-text">Transformer 详解</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

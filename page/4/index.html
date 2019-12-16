@@ -212,6 +212,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/%E5%B0%8F%E7%B1%B3%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/03/%E5%B0%8F%E7%B1%B3%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">小米桌面信息流推荐算法面经——已过</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-03 23:44:54" itemprop="dateCreated datePublished" datetime="2019-12-03T23:44:54+08:00">2019-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-05 23:10:50" itemprop="dateModified" datetime="2019-12-05T23:10:50+08:00">2019-12-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">实习面试经验</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="小米桌面信息流推荐算法工程师"><a href="#小米桌面信息流推荐算法工程师" class="headerlink" title="小米桌面信息流推荐算法工程师"></a>小米桌面信息流推荐算法工程师</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>主要聊一下项目 （经典必问问题：项目背景，项目意义指标等，难点，亮点）</p>
+<p>全流程推一边 xgboost 完事</p>
+<p>写题： 将 一个m*n的矩阵中，有个别的数值为0，将0所在的行和列全都置为0.</p>
+<p>基本方法就是 暴力解决， 遍历矩阵的时间复杂度就是O(m*n) 对于一个位置为0，将其行列置为0的时间复杂度是O(m+n)</p>
+<p>但是面试官要求，时间复杂度为O(1)，所以需要考虑下</p>
+<p>磕磕绊绊吧 最终没有完全写出来但是跟真正的解法已经很接近了</p>
+<p>事后补充：<a href="https://mereder.github.io/2019/12/04/leetcode-73-矩阵置0/" target="_blank" rel="noopener">73. 矩阵置零</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setZeroes</span><span class="params">(self, matrix: List[List[int]])</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        first_row = <span class="literal">False</span></span><br><span class="line">        first_col = <span class="literal">False</span></span><br><span class="line">        m = len(matrix)</span><br><span class="line">        n = len(matrix[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="keyword">if</span> matrix[i][<span class="number">0</span>] == <span class="number">0</span>:</span><br><span class="line">                first_col = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> matrix[<span class="number">0</span>][j] == <span class="number">0</span>:</span><br><span class="line">                first_row = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                <span class="keyword">if</span> matrix[i][j] == <span class="number">0</span>:</span><br><span class="line">                    matrix[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">                    matrix[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">if</span> matrix[i][<span class="number">0</span>] == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                    matrix[i][j] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> matrix[<span class="number">0</span>][j] == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">                    matrix[i][j] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> first_row:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">                matrix[<span class="number">0</span>][i] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> first_col:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">                matrix[i][<span class="number">0</span>] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>聊下项目</p>
+<p>问下transformer 的结构 以及基本的理解</p>
+<p>问下lr基本的内容</p>
+<p>问下 除了bert这一种预训练词向量外 还有没有了解别的。</p>
+<p>（这个地方有必要好好把word2vec、elmo、gpt这些重新学习下）</p>
+<p>写题：</p>
+<p>链表重复数删除，将一个单链表中，重复的数进行删除。</p>
+<p><a href="https://mereder.github.io/2019/12/04/leetcode-82-删除排序链表中的重复元素ii/" target="_blank" rel="noopener">Leetcode-82-删除排序链表中的重复元素ii</a></p>
+<p>交流下基本问题：</p>
+<p>Dau1800W 桌面信息流 推荐上层在北京这边，内容理解在武汉。他们主要做推荐侧…</p>
+<p>其实我个人觉得小米这边对于自己学技术来说这边还是蛮合适的，尤其是晓伟哥跟我说，推荐的技术要比搜索更复杂一些的时候，觉得最后选择京东搜索排序那边可能并不是一个最好的选择吧？….</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/leetcode-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1063,84 +1157,6 @@ dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存�
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/28/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">快速排序</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-28 23:01:25 / Modified: 23:07:55" itemprop="dateCreated datePublished" datetime="2019-11-28T23:01:25+08:00">2019-11-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">算法基础</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>先留几个坑，有空回来填：</p>
-<ul>
-<li>快排的时间复杂度平均为$NlogN$，最差退化为$N^2$</li>
-<li>快排是不稳定排序算法，即相同值的前后顺序可能会发生变化</li>
-<li>快排的优化是：1.先将数组乱序random.shuffle(in place)  2.枢值的选取随机</li>
-</ul>
-<p>基本面试最最最基础的问题了</p>
-<p>尤其是其中的partition函数，更是很多其他算法题的应用基础</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这个跟市面上大多数partition不太一样</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition1</span><span class="params">(nums,left,right)</span>:</span></span><br><span class="line">    <span class="comment"># 选一个枢值</span></span><br><span class="line">    pivot = nums[right]</span><br><span class="line">    slow = left - <span class="number">1</span>   <span class="comment"># slow指针用来记录较小元素</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(left,right+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; pivot:</span><br><span class="line">            slow += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> slow != i:</span><br><span class="line">                nums[slow],nums[i] = nums[i],nums[slow]</span><br><span class="line">    <span class="comment"># 经过上面的遍历过程，slow指向小于pivot的最后一个，所以还需要将slow++ 才是pivot的位置</span></span><br><span class="line">    slow += <span class="number">1</span></span><br><span class="line">    nums[slow], nums[right] = pivot, nums[slow]</span><br><span class="line">    <span class="keyword">return</span> slow</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(nums,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &gt; right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    index = partition1(nums,left,right)</span><br><span class="line">    quick_sort(nums, left, index<span class="number">-1</span>)</span><br><span class="line">    quick_sort(nums, index+<span class="number">1</span>,right)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    quick_sort(nums,<span class="number">0</span>,len(nums)<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">10</span>]</span><br><span class="line">    print(a)</span><br><span class="line">    quickSort(a)</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1189,14 +1205,14 @@ dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

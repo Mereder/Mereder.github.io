@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-15T09:21:33.876Z</updated>
+  <updated>2019-12-16T15:44:21.312Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,45 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>评价指标准召</title>
-    <link href="http://yoursite.com/2019/12/15/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%87%86%E5%8F%AC/"/>
-    <id>http://yoursite.com/2019/12/15/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%87%86%E5%8F%AC/</id>
-    <published>2019-12-15T09:21:12.889Z</published>
-    <updated>2019-12-15T09:21:33.876Z</updated>
+    <title>Transformer详解</title>
+    <link href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/</id>
+    <published>2019-12-16T15:42:37.000Z</published>
+    <updated>2019-12-16T15:44:21.312Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点</p><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p><p>针对的归一化维度是不一样的。</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Transformer-详解&quot;&gt;&lt;a href=&quot;#Transformer-详解&quot; class=&quot;headerlink&quot; title=&quot;Transformer 详解&quot;&gt;&lt;/a&gt;Transformer 详解&lt;/h2&gt;&lt;p&gt;这个基本是面试重点&lt;/p&gt;
+&lt;p&gt;今天又理解
+      
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/categories/NLP/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>百度信息流算法？面经</title>
+    <link href="http://yoursite.com/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/"/>
+    <id>http://yoursite.com/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/</id>
+    <published>2019-12-16T10:18:07.000Z</published>
+    <updated>2019-12-16T15:41:31.886Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="百度信息流算法？面经"><a href="#百度信息流算法？面经" class="headerlink" title="百度信息流算法？面经"></a>百度信息流算法？面经</h2><p>为什么要给标题打个问号呢？ 因为我是真的好奇，我自己投的到底是不是算法工程师…因为二面面试官为我的问题，真的是之前面别的地方从来没有问过的…也算给自己提个醒吧…算法工程师不仅仅需要掌握那些玄幻的算法什么….更重要的还是工程师嘛。。。</p><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>简单的自我介绍，说下自己之前做的项目，然后：</p><p>会不会c c++ java，我说自己java还可以，面试官紧接着问java的字符串的三种形态 stringbuffer  stringbuild什么的清楚嘛？</p><p>我：java写但是确实仅限于写题，具体的一些细节和底层的东西确实没有接触过。也就在大二时候用过，最近可能确实很久没用了，不太熟悉。。。</p><p>面试官：你用c写个堆排序吧…</p><p>（其实堆排序自己写起来问题倒是不大，但是c语言…用久了python 根本不记得c的一些写法了，包括最开始变量定义都写错了，也算完整写下来了吧….）</p><p>然后面试官问了一个算法设计题目：</p><blockquote><p>给你一批数据，有id和score，然你根据score的值大小进行加权采样，即根据score分数，从中抽取n个样本</p><p>Id score</p><p>0    3</p><p>1    5</p><p>2    10</p><p>3    1</p><p>。。。</p></blockquote><p>问怎么实现？</p><p>我提的思路是，可以根据score的分数对样本进行copy，也就是说对于score=3，那我就把id复制3次，对于score=10，我就把对应id复制10次，再将复制之后的整体数据进行打散，然后再随机抽取n个，由于样本中的样本分布已经被之前的操作所改变，所以完全可以达到加权采样的效果。但是这样操作的问题就是，如果数据量很大，那么你都进行复制，数据量会更大，其实是不太友好的。</p><p>然后看我简历有awk 和Linux，问了几个简单的命令。</p><p>一面给的评价还是positive的吧，问题不太大。</p><h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>（我开始还以为是压力面，但是谁知道 人家真的就是二面….）</p><p>简单的聊一下项目，问下我的研究生的方向（本人研究生方向是云计算与服务工程，但是自己并没有去做相关的内容）然后针对项目中的知识点进行细致的提问，比如 lstm+crf 如果只有lstm会怎样，只有crf会怎样。项目没有问很多吧。</p><p>然后就是写题其实题目也很简单，写一个单链表的反转….问题就是，只能用c来实现，c语言确实很久没有写了，导致写出来的代码不伦不类，很被动。</p><p>然后写完单链表的反转之后他对代码不是很满意…确实很多c语言的写法可能都记不清楚了，又写了一个快排，快排的partition我也是写了一个可能跟他印象中不一样的（这会面试体验挺不好的…跟你印象中的不一样就不对了?）然后说我写的c语言不行…然后开始问我c语言的基础，全局变量和局部变量区别，说到了堆栈，就问我堆栈具体怎么实现的。</p><p>从这开始就进入了完全被动状态…甚至怀疑自己投错了岗位</p><p>问我怎么理解类，类有哪些特性</p><p>开始问数据库的一些知识：数据一致性，数据一致性是通过什么来实现的？（这个完全没有印象）</p><p>操作系统的进程线程的区别（这个还好）</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实总体面完的感觉还是很糟糕的，原因一方面是感觉跟之前面其他公司的感觉完全不一样，没有推算法 没有将项目，没有机器学习相关，直接全是计算机基础。另一方面就是，自己的计算机基础真的是糟糕…可能这也是自己着力避开这些，想通过算法工程师来解决吧…但是说到底这些都是计算机专业的基础课…虽然学过忘记了…还是尽量多复习复习吧，明年秋招，尽量别被这种问题卡主。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;百度信息流算法？面经&quot;&gt;&lt;a href=&quot;#百度信息流算法？面经&quot; class=&quot;headerlink&quot; title=&quot;百度信息流算法？面经&quot;&gt;&lt;/a&gt;百度信息流算法？面经&lt;/h2&gt;&lt;p&gt;为什么要给标题打个问号呢？ 因为我是真的好奇，我自己投的到底是不是算法工程师
+      
     
     </summary>
     
@@ -499,33 +531,6 @@
       
         &lt;h2 id=&quot;最长有效括号&quot;&gt;&lt;a href=&quot;#最长有效括号&quot; class=&quot;headerlink&quot; title=&quot;最长有效括号&quot;&gt;&lt;/a&gt;最长有效括号&lt;/h2&gt;&lt;p&gt;给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。&lt;/p&gt;
 &lt;blockqu
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-20-有效括号</title>
-    <link href="http://yoursite.com/2019/12/06/leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/"/>
-    <id>http://yoursite.com/2019/12/06/leetcode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</id>
-    <published>2019-12-06T09:41:07.000Z</published>
-    <updated>2019-12-06T10:19:14.117Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="有效括号"><a href="#有效括号" class="headerlink" title="有效括号"></a>有效括号</h2><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p><p>有效字符串需满足：</p><p>左括号必须用相同类型的右括号闭合。<br>左括号必须以正确的顺序闭合。<br>注意空字符串可被认为是有效字符串。</p><blockquote><p>示例 1:</p><p>输入: “()”<br>输出: true<br>示例 2:</p><p>输入: “()[]{}”<br>输出: true<br>示例 3:</p><p>输入: “(]”<br>输出: false<br>示例 4:</p><p>输入: “([)]”<br>输出: false<br>示例 5:</p><p>输入: “{[]}”<br>输出: true</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先说只有一种类型的括号的话，我们的解决方案（这也是<a href="https://mereder.github.io/2019/11/29/leetcode-22-括号生成/" target="_blank" rel="noopener">Leetcode-22-括号生成</a>题目中的一个步骤）。</p><p>如果只有一种括号，我们在遍历字符串的时候，只需要注意两个问题：</p><ul><li>遍历过程中 左边个数&gt;=右边个数</li><li>遍历结束后 左边个数 == 右边个数</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">valid</span><span class="params">(s)</span>:</span></span><br><span class="line">  count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">      <span class="keyword">if</span> i == <span class="string">'('</span>:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">      <span class="keyword">elif</span> i == <span class="string">')'</span>:</span><br><span class="line">        count -= <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> count &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">   <span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure><p>对应这个问题，上述方法就行不通了，因为涉及到三种不同的符号，单考虑一种括号的顺序正确是没用的，还需要考虑到括号之间的交叉，比如:</p><blockquote><p>{ [ } ]</p></blockquote><p>单个符号的顺序没有问题，但是总的就是不正确的括号。</p><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9n5vtuvdhj30v40h2myu.jpg" alt="Leetcode官方解答"></p><p>我们可以看到，如果一整个字符串都是有效的，那么其子字符串肯定也是有效的，那么最小的子问题就是一对相邻括号是匹配的。</p><p>那么可以通过删除掉匹配到的括号，逐步将问题解决。具体操作。</p><p><strong>（图来自Leetcode官方解答，他们的图画的真的好，就拿过来了）</strong></p><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9n66bcjb7j30ls04ct8u.jpg" alt="image-20191206181715420"></p><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9n675t327j30i404m3yp.jpg" alt="image-201912061817155"></p><p>这样可以通过栈来解决，匹配到的就出栈，否则就进栈</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isValid</span><span class="params">(self, s: str)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(a, b)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> a==<span class="string">'('</span> <span class="keyword">and</span> b == <span class="string">')'</span>: <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> a == <span class="string">'['</span> <span class="keyword">and</span> b == <span class="string">']'</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> a == <span class="string">'&#123;'</span> <span class="keyword">and</span> b == <span class="string">'&#125;'</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        stack = []</span><br><span class="line">        stack.append(s[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(s)):</span><br><span class="line">            <span class="keyword">if</span> stack <span class="keyword">and</span> match(stack[<span class="number">-1</span>], s[i]):</span><br><span class="line">                stack.pop()</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                stack.append(s[i])</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> stack:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;有效括号&quot;&gt;&lt;a href=&quot;#有效括号&quot; class=&quot;headerlink&quot; title=&quot;有效括号&quot;&gt;&lt;/a&gt;有效括号&lt;/h2&gt;&lt;p&gt;给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。&lt;/p&gt;
-&lt;p&gt;有效字符串需满
       
     
     </summary>
