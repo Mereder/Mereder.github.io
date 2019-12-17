@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="头条广告算法面经一面LR推 写题  迭代二分，递归二分 关于业务上的问题：  这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）  二面项目问题 什么是极大似然估计 什么是中心极限定理 （面试官感觉百度过来的） 写题： 将ip地址转为一个int32的数  255.255.255.0 是一个字符串 要求最终返回的结果是一个int32 解法">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-11T14:48:49.464Z">
+<meta property="og:updated_time" content="2019-12-17T15:52:30.831Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-11 22:48:49" itemprop="dateModified" datetime="2019-12-11T22:48:49+08:00">2019-12-11</time>
+                <time title="Modified: 2019-12-17 23:52:30" itemprop="dateModified" datetime="2019-12-17T23:52:30+08:00">2019-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -304,6 +304,32 @@
 <p>这样就不能用上边的方法了，因为1跟1都是一样的，但是这里只对一个属性就行排，每个实例中除了该属性可能一样，其他都不一样。问怎么排序</p>
 </blockquote>
 <p>这个回答的就不是很好了</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>之后在网上看到的有人分享的</p>
+<p>一面：</p>
+<p>1、 给一个有序数组，没有重复值，给一个数组sum，从数组中找出和为sum的两个数，打印出所有可能的组合。</p>
+<p>2、 两个字符串的公共子串（连续的）长度。</p>
+<p>3、 数据倾斜的一道题。</p>
+<p>4、 问wide和deep之间的区别。</p>
+<p>5、 问AUC如何计算。</p>
+<p>6、 问youtube deep network里面如何解决softmax处理对象数量巨大的问题，提到了霍夫曼树和负采样，然后问负采样怎么回事儿，然后问如何解决大数据量下的负采样。</p>
+<p>7、 问youtube deep network里产生了用户和物品向量后，如何应用到在线的，主要想问如何快速获取用户喜欢的物品，是论文题提到的一个工程方法，提前简历好相应的索引。</p>
+<p>二面</p>
+<p>1、 将一颗二叉树转成双向链表。</p>
+<p>2、 用mapreduce或spark实现itemCF中物品相似度的计算。</p>
+<p>3、 如何解决L1正则不可导的那一点。</p>
+<p>4、 FM和LR的区别，主要讲FM的特点。</p>
+<p>5、 问AUC。</p>
+<p>6、 问LR为什么不能用MSE，然后引导我回答出来的，先让我写LR的损失，然后让我推导一下使用MSE之后的梯度，观察有什么劣势。</p>
+<p>7、 问AdaGrid算法原理及其特点（都是围绕学习率的，我只回答出了一个，实际上有两个，然后面试官给我讲解了一下）。</p>
+<p>三面</p>
+<p>问第三个项目的几个点：</p>
+<p>AUC</p>
+<p>线上优化器</p>
+<p>神经网络优化器</p>
+<p>CTR模型：注重wide&amp;Deep中wide与deep之间的区别</p>
+<p>论文</p>
+<p>算法题：</p>
+<p>K个排序的列表，融合成一个有序列表</p>
 
     </div>
 
@@ -366,7 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#头条广告算法面经"><span class="nav-number">1.</span> <span class="nav-text">头条广告算法面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面"><span class="nav-number">1.1.</span> <span class="nav-text">一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面"><span class="nav-number">1.2.</span> <span class="nav-text">二面</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#头条广告算法面经"><span class="nav-number">1.</span> <span class="nav-text">头条广告算法面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面"><span class="nav-number">1.1.</span> <span class="nav-text">一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面"><span class="nav-number">1.2.</span> <span class="nav-text">二面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">2.</span> <span class="nav-text">附录</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,14 +406,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
