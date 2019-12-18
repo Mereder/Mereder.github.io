@@ -212,6 +212,187 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">百度信息流算法？面经</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-16 18:18:07 / Modified: 23:41:31" itemprop="dateCreated datePublished" datetime="2019-12-16T18:18:07+08:00">2019-12-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="百度信息流算法？面经"><a href="#百度信息流算法？面经" class="headerlink" title="百度信息流算法？面经"></a>百度信息流算法？面经</h2><p>为什么要给标题打个问号呢？ 因为我是真的好奇，我自己投的到底是不是算法工程师…因为二面面试官为我的问题，真的是之前面别的地方从来没有问过的…也算给自己提个醒吧…算法工程师不仅仅需要掌握那些玄幻的算法什么….更重要的还是工程师嘛。。。</p>
+<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>简单的自我介绍，说下自己之前做的项目，然后：</p>
+<p>会不会c c++ java，我说自己java还可以，面试官紧接着问java的字符串的三种形态 stringbuffer  stringbuild什么的清楚嘛？</p>
+<p>我：java写但是确实仅限于写题，具体的一些细节和底层的东西确实没有接触过。也就在大二时候用过，最近可能确实很久没用了，不太熟悉。。。</p>
+<p>面试官：你用c写个堆排序吧…</p>
+<p>（其实堆排序自己写起来问题倒是不大，但是c语言…用久了python 根本不记得c的一些写法了，包括最开始变量定义都写错了，也算完整写下来了吧….）</p>
+<p>然后面试官问了一个算法设计题目：</p>
+<blockquote>
+<p>给你一批数据，有id和score，然你根据score的值大小进行加权采样，即根据score分数，从中抽取n个样本</p>
+<p>Id score</p>
+<p>0    3</p>
+<p>1    5</p>
+<p>2    10</p>
+<p>3    1</p>
+<p>。。。</p>
+</blockquote>
+<p>问怎么实现？</p>
+<p>我提的思路是，可以根据score的分数对样本进行copy，也就是说对于score=3，那我就把id复制3次，对于score=10，我就把对应id复制10次，再将复制之后的整体数据进行打散，然后再随机抽取n个，由于样本中的样本分布已经被之前的操作所改变，所以完全可以达到加权采样的效果。但是这样操作的问题就是，如果数据量很大，那么你都进行复制，数据量会更大，其实是不太友好的。</p>
+<p>然后看我简历有awk 和Linux，问了几个简单的命令。</p>
+<p>一面给的评价还是positive的吧，问题不太大。</p>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>（我开始还以为是压力面，但是谁知道 人家真的就是二面….）</p>
+<p>简单的聊一下项目，问下我的研究生的方向（本人研究生方向是云计算与服务工程，但是自己并没有去做相关的内容）然后针对项目中的知识点进行细致的提问，比如 lstm+crf 如果只有lstm会怎样，只有crf会怎样。项目没有问很多吧。</p>
+<p>然后就是写题其实题目也很简单，写一个单链表的反转….问题就是，只能用c来实现，c语言确实很久没有写了，导致写出来的代码不伦不类，很被动。</p>
+<p>然后写完单链表的反转之后他对代码不是很满意…确实很多c语言的写法可能都记不清楚了，又写了一个快排，快排的partition我也是写了一个可能跟他印象中不一样的（这会面试体验挺不好的…跟你印象中的不一样就不对了?）然后说我写的c语言不行…然后开始问我c语言的基础，全局变量和局部变量区别，说到了堆栈，就问我堆栈具体怎么实现的。</p>
+<p>从这开始就进入了完全被动状态…甚至怀疑自己投错了岗位</p>
+<p>问我怎么理解类，类有哪些特性</p>
+<p>开始问数据库的一些知识：数据一致性，数据一致性是通过什么来实现的？（这个完全没有印象）</p>
+<p>操作系统的进程线程的区别（这个还好）</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实总体面完的感觉还是很糟糕的，原因一方面是感觉跟之前面其他公司的感觉完全不一样，没有推算法 没有将项目，没有机器学习相关，直接全是计算机基础。另一方面就是，自己的计算机基础真的是糟糕…可能这也是自己着力避开这些，想通过算法工程师来解决吧…但是说到底这些都是计算机专业的基础课…虽然学过忘记了…还是尽量多复习复习吧，明年秋招，尽量别被这种问题卡主。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/" class="post-title-link" itemprop="url">Dropout学习与总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-14 16:16:48" itemprop="dateCreated datePublished" datetime="2019-12-14T16:16:48+08:00">2019-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-15 17:09:36" itemprop="dateModified" datetime="2019-12-15T17:09:36+08:00">2019-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>关于一个新东西的三连：是什么，为什么，怎么用</p>
+<h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>Dropout 是训练<strong>深度</strong>神经网络时采取的一种手段，来预防过拟合。在训练过程中，随机的以一定的概率“临时”抛弃掉某些节点。具体来讲，dropout作用于每个<strong>小batch</strong>训练数据，由于其随机丢弃部分神经元的机制，相当于每次迭代都在训练不同的神经网络结构。</p>
+<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>Dropout为什么会有这样的效果呢？类比bagging方法，其实达到了集成学习的效果。从bagging的集成角度来讲，传统意义上的bagging集成方法涉及多个模型的训练与评估，当网络参数规模庞大时，这种集成方式需要消耗大量的运算时间和空间。而Dropout是在小批量上进行操作，类似一种轻量级的bagging集成近似，能够实现指数级数量神经网络的训练与评估。</p>
+<p>原理就是，在dropout具体实现过程中，要求每个神经元节点激活值以一定的概率p被“丢弃”（被置0）。对于有N个神经元节点的神经网络，使用Dropout 可以看做是有$2^n$ 个模型的集成（即每个神经元都可以选择 存在或者不存在），他们共享部分权值，并且具有相同的网络层数，而且模型整体的参数数目不变，大大简化了运算。每次训练都会随机挑选一批不同的神经元进行组合优化，这个过程会减弱全体神经元之间的联合适用性，减少过拟合的风险，增强泛化能力</p>
+<h3 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h3><p>主要涉及两个过程一个是训练过程，一个是预测过程，在训练过程我们采取了概率p来丢弃神经元，那么在运行预测过程（一次前向传播）的时候，我们不在对神经元进行丢弃，相反，我们使用概率p乘在每个神经元上，以恢复训练过程中，某神经元只有概率p存在神经网络中。</p>
+<p>使用Dropout前的前向传播：</p>
+<script type="math/tex; mode=display">
+z_{i}^{(l+1)} = w_{i}^{(l+1)}y^l+b_{i}^{(l+1)} \\ 
+y_{i}^{(l+1)} = f(z_i^{l+1}) \\
+f是激活函数</script><p>使用dropout后的前向传播</p>
+<script type="math/tex; mode=display">
+r_{i}^{(l)} \sim Bernoulli(p) \\
+\hat{y}^{(l)} = r^{(l)} \dot \ y^{(l)}  \\
+z_{i}^{(l+1)} = w_{i}^{(l+1)}y^{(l)}+b_{i}^{(l+1)} \\ 
+y_{i}^{(l+1)} = f(z_i^{(l+1)}) \\
+f是激活函数</script><p>由此可见，是先对前一层的神经元进行“丢弃”再执行传播操作。</p>
+<h3 id="一些细节的理解"><a href="#一些细节的理解" class="headerlink" title="一些细节的理解"></a>一些细节的理解</h3><p>每次dropout的是神经元，并不是权值，也就是说权值参数矩阵始终是在更新的。每一次计算$W^T X$的时候，其中X中部分神经元被置为0。这样相当于“丢弃”了这部分神经元。</p>
+<p>训练过程，对于未被丢弃的神经元，还需要乘以$\frac{1}{1-p}$使得总体的分布情况保持一致。</p>
+<p>预测过程，对于全部的神经元，都需要乘以概率p，来恢复训练过程中，某个神经元以概率p存在神经网络中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -970,185 +1151,6 @@ TPR = \frac{5}{6} \\
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/" class="post-title-link" itemprop="url">Leetcode-17-电话号码的组合</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-08 19:16:13 / Modified: 19:35:12" itemprop="dateCreated datePublished" datetime="2019-12-08T19:16:13+08:00">2019-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="电话号码的组合"><a href="#电话号码的组合" class="headerlink" title="电话号码的组合"></a>电话号码的组合</h2><p>给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。</p>
-<p>给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9pj84tjdlj30dv0ckdhp.jpg" alt="img"></p>
-<p>示例:</p>
-<p>输入：”23”<br>输出：[“ad”, “ae”, “af”, “bd”, “be”, “bf”, “cd”, “ce”, “cf”].<br>说明:<br>尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先肯定需要一个映射表的，来映射数字到字母组的关系。</p>
-<p>其次，根据数字的顺序，字母也是有前后顺序的。感觉上写几层循环枚举就可以解决了，但是进一步发现，循环的层数是不确定的，所以用递归来解决。</p>
-<p>递归：</p>
-<ul>
-<li>递归的出口就是，生成的字符串长度与数字长度相等</li>
-<li>每次递归的操作：<ul>
-<li>将字符拼入待生成字符串</li>
-<li>递归进入下一层，将当前生成字符串传入，且数字字符串向下移动一位</li>
-<li>将拼入的字符删掉（回溯的过程）</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span><span class="params">(self, digits: str)</span> -&gt; List[str]:</span></span><br><span class="line">        table = &#123;<span class="string">'2'</span>:<span class="string">'abc'</span>,</span><br><span class="line">                 <span class="string">'3'</span>:<span class="string">"def"</span>,</span><br><span class="line">                 <span class="string">'4'</span>:<span class="string">"ghi"</span>,</span><br><span class="line">                 <span class="string">'5'</span>:<span class="string">"jkl"</span>,</span><br><span class="line">            		 <span class="string">'6'</span>:<span class="string">"mno"</span>,</span><br><span class="line">                 <span class="string">'7'</span>:<span class="string">"pqrs"</span>,</span><br><span class="line">                 <span class="string">'8'</span>:<span class="string">"tuv"</span>,</span><br><span class="line">                 <span class="string">'9'</span>:<span class="string">"wxyz"</span>&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        res = []</span><br><span class="line">        self.helper(table,res, <span class="string">''</span>,digits,<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, table, res, string, digits,index)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(string) == len(digits):</span><br><span class="line">            res.append(string)</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        tmp = string</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> table[digits[index]]:</span><br><span class="line">            tmp += ch</span><br><span class="line">            self.helper(table,res,tmp,digits,index+<span class="number">1</span>)</span><br><span class="line">            tmp = tmp[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-<p><strong>剑指</strong>上面记得有一段，大部分递归问题都可以通过画成树状结构来进行分析。其实这个题也是，从根到叶子节点的一条完整路径就是一个可能的结果。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Leetcode-647-回文子串</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-08 16:25:59 / Modified: 17:21:20" itemprop="dateCreated datePublished" datetime="2019-12-08T16:25:59+08:00">2019-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="回文子串"><a href="#回文子串" class="headerlink" title="回文子串"></a>回文子串</h2><p>给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。</p>
-<p>具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被计为是不同的子串。</p>
-<p>示例 1:</p>
-<p>输入: “abc”<br>输出: 3<br>解释: 三个回文子串: “a”, “b”, “c”.<br>示例 2:</p>
-<p>输入: “aaa”<br>输出: 6<br>说明: 6个回文子串: “a”, “a”, “a”, “aa”, “aa”, “aaa”.<br>注意:</p>
-<p>输入的字符串长度不会超过1000。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>处理回文问题最好用的一个方式就是中心扩散，即从中间向两边扩散。</p>
-<p>扩散的过程不仅可以记录回文子串内容，还可以记录长度，还可以记录个数（只要始末位置不一样就算一个回文串）</p>
-<p>本题就是让字符串中每一个字符都当一次中心，然后通过中心扩散来统计不同回文串的个数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countSubstrings</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> center <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            count += self.centerSpread(s,center,center) <span class="comment"># 奇数对称</span></span><br><span class="line">            count += self.centerSpread(s,center,center+<span class="number">1</span>) <span class="comment"># 偶数对称</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">centerSpread</span><span class="params">(self, s,l,r)</span>:</span> <span class="comment"># 中心扩散</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> l&gt;=<span class="number">0</span> <span class="keyword">and</span> r &lt; len(s) <span class="keyword">and</span> s[l] == s[r]:</span><br><span class="line">            l-=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">            count+=<span class="number">1</span> <span class="comment"># 起止位置不同就算一个</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1197,14 +1199,14 @@ TPR = \frac{5}{6} \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

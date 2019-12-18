@@ -51,18 +51,18 @@
   };
 </script>
 
-  <meta name="description" content="二分搜索二分搜索可以认为是一种最简单，最常用的一种算法，这种搜索方法的前提是，数组有序。 有序并不是绝对意义上的有序，比如搜索旋转数组，其基本思想也是通过二分来实现的，而那道题给的数组就是在有序的基础上进行了一次旋转 基本二分搜索基本的二分法是有框架的 123456def binarySearch(nums):  	# 初始化    left = 0    right = len(nums)">
+  <meta name="description" content="装水问题一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来 （or 一个能装3斤水一个能装5斤水） 思路A桶4斤，B桶9斤 只能有几种操作：  Fill A Fill B Empty A Empty B A-B B-A  我们的操作序列如下： 123456781.fill B -&amp;gt; A:0 B:92.B-A 	 -&amp;gt; A:4 B:53.emp">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二分搜索真的那么简单吗？">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;17&#x2F;%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2&#x2F;index.html">
+<meta property="og:title" content="两个水桶的装水问题">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;18&#x2F;%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="二分搜索二分搜索可以认为是一种最简单，最常用的一种算法，这种搜索方法的前提是，数组有序。 有序并不是绝对意义上的有序，比如搜索旋转数组，其基本思想也是通过二分来实现的，而那道题给的数组就是在有序的基础上进行了一次旋转 基本二分搜索基本的二分法是有框架的 123456def binarySearch(nums):  	# 初始化    left = 0    right = len(nums)">
+<meta property="og:description" content="装水问题一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来 （or 一个能装3斤水一个能装5斤水） 思路A桶4斤，B桶9斤 只能有几种操作：  Fill A Fill B Empty A Empty B A-B B-A  我们的操作序列如下： 123456781.fill B -&amp;gt; A:0 B:92.B-A 	 -&amp;gt; A:4 B:53.emp">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-18T15:29:21.326Z">
+<meta property="og:updated_time" content="2019-12-18T15:51:34.335Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/">
+<link rel="canonical" href="http://yoursite.com/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -76,7 +76,7 @@
   };
 </script>
 
-  <title>二分搜索真的那么简单吗？ | Mereder</title>
+  <title>两个水桶的装水问题 | Mereder</title>
   
 
 
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          二分搜索真的那么简单吗？
+          两个水桶的装水问题
         </h1>
 
         <div class="post-meta">
@@ -235,24 +235,18 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-12-17 23:45:50" itemprop="dateCreated datePublished" datetime="2019-12-17T23:45:50+08:00">2019-12-17</time>
+              <time title="Created: 2019-12-18 23:33:15 / Modified: 23:51:34" itemprop="dateCreated datePublished" datetime="2019-12-18T23:33:15+08:00">2019-12-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-18 23:29:21" itemprop="dateModified" datetime="2019-12-18T23:29:21+08:00">2019-12-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">算法基础</span>
+                  <a href="/categories/%E6%99%BA%E5%8A%9B%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">智力题</span>
                   </a>
                 </span>
             </span>
@@ -268,10 +262,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>二分搜索可以认为是一种最简单，最常用的一种算法，这种搜索方法的前提是，数组<strong>有序</strong>。</p>
-<p>有序并不是绝对意义上的有序，比如搜索旋转数组，其基本思想也是通过二分来实现的，而那道题给的数组就是在有序的基础上进行了一次旋转</p>
-<h3 id="基本二分搜索"><a href="#基本二分搜索" class="headerlink" title="基本二分搜索"></a>基本二分搜索</h3><p>基本的二分法是有框架的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span><span class="params">(nums)</span>:</span></span><br><span class="line">  	<span class="comment"># 初始化</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = len(nums)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> left</span><br></pre></td></tr></table></figure>
+        <h2 id="装水问题"><a href="#装水问题" class="headerlink" title="装水问题"></a>装水问题</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来</p>
+<p>（or 一个能装3斤水一个能装5斤水）</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>A桶4斤，B桶9斤</p>
+<p>只能有几种操作：</p>
+<blockquote>
+<p>Fill A</p>
+<p>Fill B</p>
+<p>Empty A</p>
+<p>Empty B</p>
+<p>A-B</p>
+<p>B-A</p>
+</blockquote>
+<p>我们的操作序列如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.fill B -&gt; A:0 B:9</span><br><span class="line">2.B-A 	 -&gt; A:4 B:5</span><br><span class="line">3.empty A-&gt; A:0 B:5</span><br><span class="line">4.B-A		 -&gt; A:4 B:1</span><br><span class="line">5.empty A-&gt; A:0 B:1</span><br><span class="line">6.B-A  	 -&gt; A:1 B:0</span><br><span class="line">7.fill B -&gt; A:1 B:9</span><br><span class="line">8.B-A  	 -&gt; A:4 B:6</span><br></pre></td></tr></table></figure>
+<p>即此时B桶内为6斤水，完成目标</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水</p>
+<p>1),要求写出算法，目标是如何装出6斤水</p>
+<p>2),假设两个桶容量任意，比如X斤和Y斤,目标是Z斤;要求写出算法</p>
 
     </div>
 
@@ -285,17 +293,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/12/17/%E4%B8%80%E4%BA%9B%E6%AF%94%E8%BE%83%E5%A5%BD%E7%9A%84%E6%96%87%E7%AB%A0/" rel="next" title="一些比较好的文章">
-                  <i class="fa fa-chevron-left"></i> 一些比较好的文章
+                <a href="/2019/12/18/Hive/" rel="next" title="Hive 日常使用">
+                  <i class="fa fa-chevron-left"></i> Hive 日常使用
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/12/18/Hive/" rel="prev" title="Hive 日常使用">
-                  Hive 日常使用 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -334,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二分搜索"><span class="nav-number">1.</span> <span class="nav-text">二分搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本二分搜索"><span class="nav-number">1.1.</span> <span class="nav-text">基本二分搜索</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#装水问题"><span class="nav-number">1.</span> <span class="nav-text">装水问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展"><span class="nav-number">2.</span> <span class="nav-text">拓展</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

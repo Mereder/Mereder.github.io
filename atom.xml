@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-17T15:46:21.793Z</updated>
+  <updated>2019-12-18T15:51:34.335Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,70 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>两个水桶的装水问题</title>
+    <link href="http://yoursite.com/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/</id>
+    <published>2019-12-18T15:33:15.000Z</published>
+    <updated>2019-12-18T15:51:34.335Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="装水问题"><a href="#装水问题" class="headerlink" title="装水问题"></a>装水问题</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来</p><p>（or 一个能装3斤水一个能装5斤水）</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>A桶4斤，B桶9斤</p><p>只能有几种操作：</p><blockquote><p>Fill A</p><p>Fill B</p><p>Empty A</p><p>Empty B</p><p>A-B</p><p>B-A</p></blockquote><p>我们的操作序列如下：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.fill B -&gt; A:0 B:9</span><br><span class="line">2.B-A  -&gt; A:4 B:5</span><br><span class="line">3.empty A-&gt; A:0 B:5</span><br><span class="line">4.B-A -&gt; A:4 B:1</span><br><span class="line">5.empty A-&gt; A:0 B:1</span><br><span class="line">6.B-A   -&gt; A:1 B:0</span><br><span class="line">7.fill B -&gt; A:1 B:9</span><br><span class="line">8.B-A   -&gt; A:4 B:6</span><br></pre></td></tr></table></figure><p>即此时B桶内为6斤水，完成目标</p><h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水</p><p>1),要求写出算法，目标是如何装出6斤水</p><p>2),假设两个桶容量任意，比如X斤和Y斤,目标是Z斤;要求写出算法</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;装水问题&quot;&gt;&lt;a href=&quot;#装水问题&quot; class=&quot;headerlink&quot; title=&quot;装水问题&quot;&gt;&lt;/a&gt;装水问题&lt;/h2&gt;&lt;p&gt;一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来&lt;/p&gt;
+&lt;p&gt;（or 一个能
+      
+    
+    </summary>
+    
+    
+      <category term="智力题" scheme="http://yoursite.com/categories/%E6%99%BA%E5%8A%9B%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hive 日常使用</title>
+    <link href="http://yoursite.com/2019/12/18/Hive/"/>
+    <id>http://yoursite.com/2019/12/18/Hive/</id>
+    <published>2019-12-18T06:26:53.000Z</published>
+    <updated>2019-12-18T06:29:12.160Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="命令行执行hive操作"><a href="#命令行执行hive操作" class="headerlink" title="命令行执行hive操作"></a>命令行执行hive操作</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -e "set hive.cli.print.header=True; select * from 表名 limit 2"</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;命令行执行hive操作&quot;&gt;&lt;a href=&quot;#命令行执行hive操作&quot; class=&quot;headerlink&quot; title=&quot;命令行执行hive操作&quot;&gt;&lt;/a&gt;命令行执行hive操作&lt;/h3&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;tabl
+      
+    
+    </summary>
+    
+    
+      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>二分搜索真的那么简单吗？</title>
     <link href="http://yoursite.com/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/"/>
     <id>http://yoursite.com/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/</id>
     <published>2019-12-17T15:45:50.000Z</published>
-    <updated>2019-12-17T15:46:21.793Z</updated>
+    <updated>2019-12-18T15:29:21.326Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>二分搜索可以认为是一种最简单，最常用的一种算法，这种搜索方法的前提是，数组<strong>有序</strong>。</p><p>有序并不是绝对意义上的有序，比如搜索旋转数组，其基本思想也是通过二分来实现的，而那道题给的数组就是在有序的基础上进行了一次旋转</p><h3 id="基本二分搜索"><a href="#基本二分搜索" class="headerlink" title="基本二分搜索"></a>基本二分搜索</h3><p>基本的二分法是有框架的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span><span class="params">(nums)</span>:</span></span><br><span class="line">  <span class="comment"># 初始化</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = len(nums)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> left</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;二分搜索&quot;&gt;&lt;a href=&quot;#二分搜索&quot; class=&quot;headerlink&quot; title=&quot;二分搜索&quot;&gt;&lt;/a&gt;二分搜索&lt;/h2&gt;&lt;p&gt;二分搜索可以认为是一种最简单，最常用的一种算法，这种搜索方法的前提是，数组&lt;strong&gt;有序&lt;/strong&gt;。&lt;/p&gt;
+
+      
     
     </summary>
     
@@ -156,9 +213,9 @@
     <link href="http://yoursite.com/2019/12/16/Apache%20pig/"/>
     <id>http://yoursite.com/2019/12/16/Apache%20pig/</id>
     <published>2019-12-16T15:42:37.000Z</published>
-    <updated>2019-12-17T07:27:26.323Z</updated>
+    <updated>2019-12-18T14:26:43.261Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p><p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p><p>是一种简单的分析工具， 其基础是运行在hadoop基础上，那么就涉及到基础的文件加载和存储问题</p><h3 id="pig加载数据"><a href="#pig加载数据" class="headerlink" title="pig加载数据"></a>pig加载数据</h3><p>加载数据的目的是将raw data 加载进pig的关系中</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">relation_name = LOAD 'input_file_path' USING function as schema;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"></span><br><span class="line">student = LOAD 'hdfs://localhost:9000/pig_data/student_data.txt' </span><br><span class="line">   USING PigStorage(',')</span><br><span class="line">   as ( id:int, firstname:chararray, lastname:chararray, phone:chararray, </span><br><span class="line">   city:chararray );</span><br></pre></td></tr></table></figure><ul><li><strong>relation_name</strong> - 我们必须提到要存储数据的关系。</li><li><strong>Input file path</strong> - 我们必须提到存储文件的HDFS目录。（在MapReduce模式下）</li><li><strong>function</strong> - 我们必须从Apache Pig提供的一组加载函数中选择一个函数（ <strong>BinStorage，JsonLoader，PigStorage，TextLoader</strong> ）。</li><li><strong>Schema</strong> - 我们必须定义数据的模式，可以定义所需的模式如下 -</li></ul><h3 id="pig-存储数据"><a href="#pig-存储数据" class="headerlink" title="pig 存储数据"></a>pig 存储数据</h3><p>是将转化为关系的数据，存储在hdfs上（local也可以）</p><h3 id="FOREACH-GENERATE的使用"><a href="#FOREACH-GENERATE的使用" class="headerlink" title="FOREACH, GENERATE的使用"></a>FOREACH, GENERATE的使用</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p><p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p><p>是一种简单的分析工具， 其基础是运行在hadoop基础上，那么就涉及到基础的文件加载和存储问题</p><h3 id="pig加载数据"><a href="#pig加载数据" class="headerlink" title="pig加载数据"></a>pig加载数据</h3><p>加载数据的目的是将raw data 加载进pig的关系中</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">relation_name = LOAD 'input_file_path' USING function as schema;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"></span><br><span class="line">student = LOAD 'hdfs://localhost:9000/pig_data/student_data.txt' </span><br><span class="line">   USING PigStorage(',')</span><br><span class="line">   as ( id:int, firstname:chararray, lastname:chararray, phone:chararray, </span><br><span class="line">   city:chararray );</span><br></pre></td></tr></table></figure><ul><li><strong>relation_name</strong> - 我们必须提到要存储数据的关系。</li><li><strong>Input file path</strong> - 我们必须提到存储文件的HDFS目录。（在MapReduce模式下）</li><li><strong>function</strong> - 我们必须从Apache Pig提供的一组加载函数中选择一个函数（ <strong>BinStorage，JsonLoader，PigStorage，TextLoader</strong> ）。</li><li><strong>Schema</strong> - 我们必须定义数据的模式，可以定义所需的模式如下 -</li></ul><p>还有一种是加载hive表</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = load 'hive表' using</span><br></pre></td></tr></table></figure><h3 id="pig-存储数据"><a href="#pig-存储数据" class="headerlink" title="pig 存储数据"></a>pig 存储数据</h3><p>是将转化为关系的数据，存储在hdfs上（local也可以）</p><h3 id="FOREACH-GENERATE的使用"><a href="#FOREACH-GENERATE的使用" class="headerlink" title="FOREACH, GENERATE的使用"></a>FOREACH, GENERATE的使用</h3>]]></content>
     
     <summary type="html">
     
@@ -171,7 +228,7 @@
     </summary>
     
     
-      <category term="NLP" scheme="http://yoursite.com/categories/NLP/"/>
+      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
     
     
   </entry>
@@ -448,60 +505,6 @@
     
     
       <category term="回溯" scheme="http://yoursite.com/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-17-电话号码的组合</title>
-    <link href="http://yoursite.com/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/"/>
-    <id>http://yoursite.com/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/</id>
-    <published>2019-12-08T11:16:13.000Z</published>
-    <updated>2019-12-08T11:35:12.570Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="电话号码的组合"><a href="#电话号码的组合" class="headerlink" title="电话号码的组合"></a>电话号码的组合</h2><p>给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。</p><p>给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9pj84tjdlj30dv0ckdhp.jpg" alt="img"></p><p>示例:</p><p>输入：”23”<br>输出：[“ad”, “ae”, “af”, “bd”, “be”, “bf”, “cd”, “ce”, “cf”].<br>说明:<br>尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先肯定需要一个映射表的，来映射数字到字母组的关系。</p><p>其次，根据数字的顺序，字母也是有前后顺序的。感觉上写几层循环枚举就可以解决了，但是进一步发现，循环的层数是不确定的，所以用递归来解决。</p><p>递归：</p><ul><li>递归的出口就是，生成的字符串长度与数字长度相等</li><li>每次递归的操作：<ul><li>将字符拼入待生成字符串</li><li>递归进入下一层，将当前生成字符串传入，且数字字符串向下移动一位</li><li>将拼入的字符删掉（回溯的过程）</li></ul></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span><span class="params">(self, digits: str)</span> -&gt; List[str]:</span></span><br><span class="line">        table = &#123;<span class="string">'2'</span>:<span class="string">'abc'</span>,</span><br><span class="line">                 <span class="string">'3'</span>:<span class="string">"def"</span>,</span><br><span class="line">                 <span class="string">'4'</span>:<span class="string">"ghi"</span>,</span><br><span class="line">                 <span class="string">'5'</span>:<span class="string">"jkl"</span>,</span><br><span class="line">             <span class="string">'6'</span>:<span class="string">"mno"</span>,</span><br><span class="line">                 <span class="string">'7'</span>:<span class="string">"pqrs"</span>,</span><br><span class="line">                 <span class="string">'8'</span>:<span class="string">"tuv"</span>,</span><br><span class="line">                 <span class="string">'9'</span>:<span class="string">"wxyz"</span>&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        res = []</span><br><span class="line">        self.helper(table,res, <span class="string">''</span>,digits,<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, table, res, string, digits,index)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(string) == len(digits):</span><br><span class="line">            res.append(string)</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        tmp = string</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> table[digits[index]]:</span><br><span class="line">            tmp += ch</span><br><span class="line">            self.helper(table,res,tmp,digits,index+<span class="number">1</span>)</span><br><span class="line">            tmp = tmp[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><p><strong>剑指</strong>上面记得有一段，大部分递归问题都可以通过画成树状结构来进行分析。其实这个题也是，从根到叶子节点的一条完整路径就是一个可能的结果。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;电话号码的组合&quot;&gt;&lt;a href=&quot;#电话号码的组合&quot; class=&quot;headerlink&quot; title=&quot;电话号码的组合&quot;&gt;&lt;/a&gt;电话号码的组合&lt;/h2&gt;&lt;p&gt;给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。&lt;/p&gt;
-&lt;p&gt;给出数字到字母的映
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-647-回文子串</title>
-    <link href="http://yoursite.com/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/</id>
-    <published>2019-12-08T08:25:59.000Z</published>
-    <updated>2019-12-08T09:21:20.277Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="回文子串"><a href="#回文子串" class="headerlink" title="回文子串"></a>回文子串</h2><p>给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。</p><p>具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被计为是不同的子串。</p><p>示例 1:</p><p>输入: “abc”<br>输出: 3<br>解释: 三个回文子串: “a”, “b”, “c”.<br>示例 2:</p><p>输入: “aaa”<br>输出: 6<br>说明: 6个回文子串: “a”, “a”, “a”, “aa”, “aa”, “aaa”.<br>注意:</p><p>输入的字符串长度不会超过1000。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>处理回文问题最好用的一个方式就是中心扩散，即从中间向两边扩散。</p><p>扩散的过程不仅可以记录回文子串内容，还可以记录长度，还可以记录个数（只要始末位置不一样就算一个回文串）</p><p>本题就是让字符串中每一个字符都当一次中心，然后通过中心扩散来统计不同回文串的个数：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countSubstrings</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> center <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            count += self.centerSpread(s,center,center) <span class="comment"># 奇数对称</span></span><br><span class="line">            count += self.centerSpread(s,center,center+<span class="number">1</span>) <span class="comment"># 偶数对称</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">centerSpread</span><span class="params">(self, s,l,r)</span>:</span> <span class="comment"># 中心扩散</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> l&gt;=<span class="number">0</span> <span class="keyword">and</span> r &lt; len(s) <span class="keyword">and</span> s[l] == s[r]:</span><br><span class="line">            l-=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">            count+=<span class="number">1</span> <span class="comment"># 起止位置不同就算一个</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;回文子串&quot;&gt;&lt;a href=&quot;#回文子串&quot; class=&quot;headerlink&quot; title=&quot;回文子串&quot;&gt;&lt;/a&gt;回文子串&lt;/h2&gt;&lt;p&gt;给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。&lt;/p&gt;
-&lt;p&gt;具有不同开始位置或结束位置的子串，即使是由相同的
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
     
   </entry>
   
