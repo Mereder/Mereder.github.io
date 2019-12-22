@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="Transformer 详解这个基本是面试重点 今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
+  <meta name="description" content="Transformer 详解这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题 EmbeddingEncoderDecoder今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformer详解">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;16&#x2F;Transformer%E8%AF%A6%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="Transformer 详解这个基本是面试重点 今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
+<meta property="og:description" content="Transformer 详解这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题 EmbeddingEncoderDecoder今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-17T03:32:12.473Z">
+<meta property="og:updated_time" content="2019-12-22T08:11:05.662Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-17 11:32:12" itemprop="dateModified" datetime="2019-12-17T11:32:12+08:00">2019-12-17</time>
+                <time title="Modified: 2019-12-22 16:11:05" itemprop="dateModified" datetime="2019-12-22T16:11:05+08:00">2019-12-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,8 +268,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点</p>
-<p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
+        <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题</p>
+<h3 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h3><h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
 <p>针对的归一化维度是不一样的。</p>
 
     </div>
@@ -333,7 +333,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-详解"><span class="nav-number">1.</span> <span class="nav-text">Transformer 详解</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-详解"><span class="nav-number">1.</span> <span class="nav-text">Transformer 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding"><span class="nav-number">1.1.</span> <span class="nav-text">Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">1.2.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decoder"><span class="nav-number">1.3.</span> <span class="nav-text">Decoder</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -347,7 +347,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
