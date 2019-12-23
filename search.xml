@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-263-丑数</title>
+    <url>/2019/12/23/leetcode-263-%E4%B8%91%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h2><p>编写一个程序判断给定的数是否为丑数。</p>
+<p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
+<p>示例 1:</p>
+<p>输入: 6<br>输出: true<br>解释: 6 = 2 × 3<br>示例 2:</p>
+<p>输入: 8<br>输出: true<br>解释: 8 = 2 × 2 × 2<br>示例 3:</p>
+<p>输入: 14<br>输出: false<br>解释: 14 不是丑数，因为它包含了另外一个质因数 7。<br>说明：</p>
+<p>1 是丑数。<br>输入不会超过 32 位有符号整数的范围: [−231,  231 − 1]。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>丑数的定义已经说明白了，<code>只包含质因数2，3，5的正整数，1也是丑数</code></p>
+<p>给我们一个数，只需要不断用丑数的质因数去除待测试的数即可，如果最后的结果是1则是丑数，否则不是</p>
+<p>（0这个数十个坑，记得排除）</p>
+<p>递归解法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isUgly</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> num%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">5</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-23-合并K个排序链表</title>
+    <url>/2019/12/23/leetcode-23-%E5%90%88%E5%B9%B6K%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h2 id="合并K个排序链表"><a href="#合并K个排序链表" class="headerlink" title="合并K个排序链表"></a>合并K个排序链表</h2><p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p>示例:</p>
+<p>输入:<br>[<br>  1-&gt;4-&gt;5,<br>  1-&gt;3-&gt;4,<br>  2-&gt;6<br>]<br>输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这个题目其实比较简单，因为其子问题就是合并两个排序链表，这个是比较简单的。如果已经能解决两个链表了，那么K个链表也好解决。这里我们采用的<strong>分治</strong>的策略。</p>
+<p>对于k个链表，我们最终可以分别两两合并，然后再将合并的结果再两两合并…</p>
+<p>这个过程不就是归并排序的过程嘛…</p>
+<blockquote>
+<p>我们回想下归并排序的过程</p>
+<p>给定：[5,2,3,4,1,6]</p>
+<p>[5] [2] [3] [4] [1] [6]  两两合并</p>
+<p>[2,5],[3,4],[1,6] 再两两合并</p>
+<p>[2,3,4,5],[1,6] 再两两合并</p>
+<p>[1,2,3,4,5,6] </p>
+</blockquote>
+<p>归并排序我们操作的是两个元素比较大小然后决定谁在前谁在后，而本题我们解决的是链表，只需要把基本操作换成链表的合并即可。</p>
+<p>模板：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSort</span><span class="params">()</span>:</span></span><br><span class="line">  	divide(全部)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">divide</span><span class="params">()</span>:</span></span><br><span class="line">    终止条件...</span><br><span class="line">    </span><br><span class="line">    中间 =  (左+右)/<span class="number">2</span></span><br><span class="line">    左结果 = divide 左边</span><br><span class="line">    有结果 = divide 右边</span><br><span class="line">  	合并 左结果，右结果</span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">()</span>:</span></span><br><span class="line">  	进行合并操作</span><br></pre></td></tr></table></figure>
+<p>根据上边的模板</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeKLists</span><span class="params">(self, lists)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type lists: List[ListNode]</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> lists:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="comment"># divide 整个数组</span></span><br><span class="line">        <span class="keyword">return</span> self.divide(lists,<span class="number">0</span>,len(lists)<span class="number">-1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 划分操作</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">divide</span><span class="params">(self, lists, left, right)</span>:</span></span><br><span class="line">      	<span class="comment"># 终止条件: 仅一个元素</span></span><br><span class="line">        <span class="keyword">if</span> left == right:</span><br><span class="line">            <span class="keyword">return</span> lists[left]</span><br><span class="line">        <span class="comment"># 找中间</span></span><br><span class="line">        mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">        <span class="comment"># 左结果 = divide 左边</span></span><br><span class="line">        l1 = self.divide(lists, left, mid)</span><br><span class="line">				<span class="comment"># 右结果 = divide 右边</span></span><br><span class="line">        l2 = self.divide(lists, mid+<span class="number">1</span>, right)</span><br><span class="line">        <span class="comment"># 合并（左结果，右结果）</span></span><br><span class="line">        <span class="keyword">return</span> self.merge2Lists(l1,l2)</span><br><span class="line">		<span class="comment"># 合并操作：本题的合并操作是 链表级别的</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge2Lists</span><span class="params">(self, left, right)</span>:</span></span><br><span class="line">        p1 = left</span><br><span class="line">        p2 = right</span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p = dummy</span><br><span class="line">        <span class="keyword">while</span> p1 <span class="keyword">and</span> p2:</span><br><span class="line">            <span class="keyword">if</span> p1.val &lt; p2.val:</span><br><span class="line">                p.next = p1</span><br><span class="line">                p1 = p1.next</span><br><span class="line">            <span class="keyword">elif</span> p1.val &gt;= p2.val:</span><br><span class="line">                p.next = p2</span><br><span class="line">                p2 = p2.next</span><br><span class="line">            p = p.next</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> p1:</span><br><span class="line">            p.next = p1</span><br><span class="line">        <span class="keyword">if</span> p2:</span><br><span class="line">            p.next = p2</span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-2-两数相加</title>
     <url>/2019/12/22/leetcode-2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
     <content><![CDATA[<h2 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h2><p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
@@ -49,6 +98,7 @@
     <title>HDFS 操作指令</title>
     <url>/2019/12/22/hadoop%20hdfs%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>其操作指令大部分跟linux下的命令差不多。</p>
+<p><a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html</a></p>
 <h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hadoop fs -test -e  file_path</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检测路径是否存在</span></span><br><span class="line">其对应返回这可以同 shell $?  来捕捉</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -106,13 +156,49 @@
   <entry>
     <title>Hive 日常使用</title>
     <url>/2019/12/18/Hive/</url>
-    <content><![CDATA[<h3 id="命令行执行hive操作"><a href="#命令行执行hive操作" class="headerlink" title="命令行执行hive操作"></a>命令行执行hive操作</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive -e "set hive.cli.print.header=True; select * from 表名 limit 2"</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="命令行执行hive操作"><a href="#命令行执行hive操作" class="headerlink" title="命令行执行hive操作"></a>命令行执行hive操作</h3><p>其中设置显示表头，<code>set hive.cli.print.header=True</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive -e "set hive.cli.print.header=True; select * from 表名 limit 2"</span><br></pre></td></tr></table></figure>
 <h3 id="hive-建表"><a href="#hive-建表" class="headerlink" title="hive 建表"></a>hive 建表</h3><p>建表分为内部表和外部表，内部表的意思是指元数据和对应表都在内部，如果删除表之后，对应的元数据和表数据都会被删除。</p>
 <p>外部表是通过<code>external</code> 来修饰的，其表的元数据也是存放在内部，但是对应数据是存储在hdfs上的，当删除表后，对应元数据会进行删除，而数据仍会保留在hdfs上。所以建表的时候需要指定好<code>location</code></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> table_name</span><br></pre></td></tr></table></figure>
-<h3 id="显示建表语句"><a href="#显示建表语句" class="headerlink" title="显示建表语句"></a>显示建表语句</h3><p>目的是为了获取创建表时候的相关信息</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span>  table_name</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> table_name</span><br><span class="line">( <span class="keyword">query</span> <span class="keyword">string</span>,</span><br><span class="line"> 	<span class="keyword">id</span>		<span class="keyword">string</span>,</span><br><span class="line"> 	pvid 	<span class="keyword">string</span>,</span><br><span class="line"> 	logid <span class="keyword">string</span>,</span><br><span class="line">  wid	  <span class="built_in">bigint</span>,</span><br><span class="line">  pos   <span class="built_in">int</span>,</span><br><span class="line">  extras <span class="keyword">map</span>&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;,</span><br><span class="line"> 	label <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line">partitioned <span class="keyword">by</span> (dt <span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="hive-表的导入"><a href="#hive-表的导入" class="headerlink" title="hive 表的导入"></a>hive 表的导入</h3><h3 id="显示建表语句"><a href="#显示建表语句" class="headerlink" title="显示建表语句"></a>显示建表语句</h3><p>目的是为了获取创建表时候的相关信息</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> table_name</span><br></pre></td></tr></table></figure>
 <h3 id="显示数据库的所有表"><a href="#显示数据库的所有表" class="headerlink" title="显示数据库的所有表"></a>显示数据库的所有表</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span> <span class="keyword">in</span> db_name</span><br></pre></td></tr></table></figure>
+<h3 id="insert-用法问题"><a href="#insert-用法问题" class="headerlink" title="insert 用法问题"></a>insert 用法问题</h3><p>insert into 和 insert overwrite 只能用一种字段</p>
+<p>其中 Insert into 是<strong>增量加入</strong>，新加入的数据会append 到表的后边</p>
+<p>Insert overwrite 是表示<strong>覆盖</strong>，新加入的数据直接覆盖原数据表</p>
+<h3 id="Drop-删除表-or-清空表"><a href="#Drop-删除表-or-清空表" class="headerlink" title="Drop 删除表 or 清空表"></a>Drop 删除表 or 清空表</h3><p>Drop 表示删除表，结构+数据都删除</p>
+<p>truncate 表示清空表，会保留表结构</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> table_name </span><br><span class="line"><span class="keyword">or</span> </span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> table_name</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> table_name;</span><br></pre></td></tr></table></figure>
+<h3 id="row-number的使用"><a href="#row-number的使用" class="headerlink" title="row_number的使用"></a>row_number的使用</h3><p>row_number()    是用来给 行进行编号的</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> *,row_number() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> score) <span class="keyword">rank</span> <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+<p>相当于查询原有表的基础上，再添加一列记录行号，这个行号如何统计呢？</p>
+<p>就看<code>over</code>内的含义，按照partition by的字段(id)进行分组，然后按照<code>score</code>的大小进行排序，然后进行编号，并将编好的序号作为<code>rank</code>列进行返回，这个列的别名是可以修改的。</p>
+<p>举个例子：</p>
+<blockquote>
+<p>Id, score,xxx</p>
+<p>A1 , 10, xxx</p>
+<p>A2 ,11,xxx</p>
+<p>A1 ,9,xxx</p>
+<p>A3 ,0,xxx</p>
+<p>A2, 10,xxx</p>
+</blockquote>
+<p>操作之后的效果为</p>
+<blockquote>
+<p>Id, score,xxx,rank</p>
+<p>A1 , 9, xxx,1</p>
+<p>A1 ,10,xxx,2</p>
+<p>A2 ,10,xxx,1</p>
+<p>A2, 11,xxx,2</p>
+<p>A3 ,0,xxx,1</p>
+</blockquote>
+<h3 id="CTAS：create-table-as-select"><a href="#CTAS：create-table-as-select" class="headerlink" title="CTAS：create table as select"></a>CTAS：create table as select</h3><p>重点操作，可以将select的结果存储到新建的表中。CTAS的操作是<strong>原子性</strong>的，也就是意味着这个新建的表直到所有的填充操作都做完之前是看不到的。</p>
+<p><strong>注意</strong>：不能create external 表</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--- 基本操作</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table_name </span><br><span class="line">	<span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span></span><br><span class="line">	<span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\t'</span></span><br><span class="line">	<span class="keyword">LINES</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\n'</span></span><br><span class="line">	<span class="keyword">store</span> <span class="keyword">as</span> textfile</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name ....</span><br></pre></td></tr></table></figure>
+<h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>这个操作也很坑，select部分只能有 groupby的字段以及，groupby字段的聚合函数</p>
+<p>下面这样的就会报错</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>daily</category>
@@ -1672,7 +1758,7 @@ dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存�
 </blockquote>
 <p>但是想到我都能遍历到叶子节点了，肯定也能遍历叶子节点上面的其他节点了，所以我只需要遍历一遍二叉树，就知道我的树节点个数了-_-！！！</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countNodes</span><span class="params">(self, root: TreeNode)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        queue = []</span><br><span class="line">        queue.append(root)</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> queue:</span><br><span class="line">            node = queue.pop(<span class="number">0</span>)</span><br><span class="line">            num += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                queue.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                queue.append(node.right)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
-<p>解法简单粗暴</p>
+<p>解法简单粗暴：时间复杂度是O(N)，N是叶子节点个数</p>
 <p>优化解法</p>
 ]]></content>
       <categories>
