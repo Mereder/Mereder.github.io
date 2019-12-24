@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="命令行执行hive操作其中设置显示表头，set hive.cli.print.header=True 1hive -e &quot;set hive.cli.print.header=True; select * from 表名 limit 2&quot; hive 建表建表分为内部表和外部表，内部表的意思是指元数据和对应表都在内部，如果删除表之后，对应的元数据和表数据都会被删除。 外部表是通过external 来修">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-23T14:57:47.278Z">
+<meta property="og:updated_time" content="2019-12-24T09:46:22.241Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/18/Hive/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-23 22:57:47" itemprop="dateModified" datetime="2019-12-23T22:57:47+08:00">2019-12-23</time>
+                <time title="Modified: 2019-12-24 17:46:22" itemprop="dateModified" datetime="2019-12-24T17:46:22+08:00">2019-12-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -308,9 +308,30 @@
 <h3 id="CTAS：create-table-as-select"><a href="#CTAS：create-table-as-select" class="headerlink" title="CTAS：create table as select"></a>CTAS：create table as select</h3><p>重点操作，可以将select的结果存储到新建的表中。CTAS的操作是<strong>原子性</strong>的，也就是意味着这个新建的表直到所有的填充操作都做完之前是看不到的。</p>
 <p><strong>注意</strong>：不能create external 表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- 基本操作</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table_name </span><br><span class="line">	<span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span></span><br><span class="line">	<span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\t'</span></span><br><span class="line">	<span class="keyword">LINES</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\n'</span></span><br><span class="line">	<span class="keyword">store</span> <span class="keyword">as</span> textfile</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name ....</span><br></pre></td></tr></table></figure>
-<h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>这个操作也很坑，select部分只能有 groupby的字段以及，groupby字段的聚合函数</p>
+<h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>这个操作也很坑，select部分只能有 group by的字段以及，groupby字段的聚合函数</p>
+<p>即hive中限制了 出现在select后边的列必须是出现在group by 后面的，即select列必须是作为分组依据的列。</p>
 <p>下面这样的就会报错</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+<h3 id="列反向选择"><a href="#列反向选择" class="headerlink" title="列反向选择"></a>列反向选择</h3><p>如果我们的场景是：想选择除了某列外的其他所有列，原来的写法就只能把所有需要的列都一一列出来。</p>
+<p>hive 提供了正则查询的方法，只需要把不需要查找的列排除在外就可以了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">`(name|dt)?+.+`</span> <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+<p>上述方法就是select了排除了 <code>name</code>,<code>dt</code>两列的其他所有列</p>
+<p>这里有个问题需要注意， 上边使用的 是``符号，不是单引号，所以需要设定</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.support.quoted.identifiers=<span class="keyword">None</span>;</span><br><span class="line"><span class="keyword">select</span> ....</span><br></pre></td></tr></table></figure>
+<h3 id="hive-分区表的问题"><a href="#hive-分区表的问题" class="headerlink" title="hive 分区表的问题"></a>hive 分区表的问题</h3><p>创建分区表的时候需要指定 <code>PARTITIONED BY (dt string)</code>相当于也定义了一列，这一列用来做分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> table_name</span><br><span class="line">( <span class="keyword">query</span> <span class="keyword">string</span>,</span><br><span class="line"> 	<span class="keyword">id</span>		<span class="keyword">string</span>,</span><br><span class="line"> 	pvid 	<span class="keyword">string</span>,</span><br><span class="line"> 	logid <span class="keyword">string</span>,</span><br><span class="line">  wid	  <span class="built_in">bigint</span>,</span><br><span class="line">  pos   <span class="built_in">int</span>,</span><br><span class="line">  extras <span class="keyword">map</span>&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;,</span><br><span class="line"> 	label <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line">partitioned <span class="keyword">by</span> (dt <span class="keyword">string</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">format</span> <span class="keyword">delimited</span></span><br><span class="line"><span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="string">'\t'</span></span><br><span class="line"><span class="keyword">lines</span> <span class="keyword">terminated</span> <span class="string">'\n'</span></span><br><span class="line"><span class="keyword">stored</span> <span class="keyword">as</span> textfile</span><br><span class="line">location <span class="string">'app_path'</span></span><br></pre></td></tr></table></figure>
+<p>同样在使用分区表的时候，插入会有同样的问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">table</span> table_name <span class="keyword">partition</span> (dt=<span class="string">'2019-12-08'</span>)</span><br><span class="line"><span class="keyword">select</span> *(除了dt以外的列) <span class="keyword">from</span> table_name2</span><br></pre></td></tr></table></figure>
+<h3 id="Order-by排序"><a href="#Order-by排序" class="headerlink" title="Order by排序"></a>Order by排序</h3><p>标准用法:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> col1,col2...  [<span class="keyword">asc</span>|<span class="keyword">desc</span>]</span><br></pre></td></tr></table></figure>
+<p>相关问题：</p>
+<ul>
+<li>order by 为全局排序</li>
+<li>order by 需要reducer操作，且只有一个reducer不能配置，因为多个reducer无法完成全局排序</li>
+</ul>
+<h3 id="collect-list-和-collect-set用法"><a href="#collect-list-和-collect-set用法" class="headerlink" title="collect_list 和 collect_set用法"></a>collect_list 和 collect_set用法</h3><p>都是将分组中的某列转为一个数组返回，不同的是，collect_list不去重，collect_set去重</p>
+<p>按照group by的id方式聚合，然后对col列进行collect_list</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> collect_list(<span class="keyword">col</span>) <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -373,7 +394,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行执行hive操作"><span class="nav-number">1.</span> <span class="nav-text">命令行执行hive操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-建表"><span class="nav-number">2.</span> <span class="nav-text">hive 建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-表的导入"><span class="nav-number">3.</span> <span class="nav-text">hive 表的导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示建表语句"><span class="nav-number">4.</span> <span class="nav-text">显示建表语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示数据库的所有表"><span class="nav-number">5.</span> <span class="nav-text">显示数据库的所有表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert-用法问题"><span class="nav-number">6.</span> <span class="nav-text">insert 用法问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Drop-删除表-or-清空表"><span class="nav-number">7.</span> <span class="nav-text">Drop 删除表 or 清空表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#row-number的使用"><span class="nav-number">8.</span> <span class="nav-text">row_number的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CTAS：create-table-as-select"><span class="nav-number">9.</span> <span class="nav-text">CTAS：create table as select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Group-by"><span class="nav-number">10.</span> <span class="nav-text">Group by</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行执行hive操作"><span class="nav-number">1.</span> <span class="nav-text">命令行执行hive操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-建表"><span class="nav-number">2.</span> <span class="nav-text">hive 建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-表的导入"><span class="nav-number">3.</span> <span class="nav-text">hive 表的导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示建表语句"><span class="nav-number">4.</span> <span class="nav-text">显示建表语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示数据库的所有表"><span class="nav-number">5.</span> <span class="nav-text">显示数据库的所有表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert-用法问题"><span class="nav-number">6.</span> <span class="nav-text">insert 用法问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Drop-删除表-or-清空表"><span class="nav-number">7.</span> <span class="nav-text">Drop 删除表 or 清空表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#row-number的使用"><span class="nav-number">8.</span> <span class="nav-text">row_number的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CTAS：create-table-as-select"><span class="nav-number">9.</span> <span class="nav-text">CTAS：create table as select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Group-by"><span class="nav-number">10.</span> <span class="nav-text">Group by</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列反向选择"><span class="nav-number">11.</span> <span class="nav-text">列反向选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive-分区表的问题"><span class="nav-number">12.</span> <span class="nav-text">hive 分区表的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Order-by排序"><span class="nav-number">13.</span> <span class="nav-text">Order by排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collect-list-和-collect-set用法"><span class="nav-number">14.</span> <span class="nav-text">collect_list 和 collect_set用法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -387,7 +408,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

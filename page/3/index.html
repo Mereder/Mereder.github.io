@@ -212,6 +212,143 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">头条广告算法面经</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-10 22:58:21" itemprop="dateCreated datePublished" datetime="2019-12-10T22:58:21+08:00">2019-12-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-17 23:52:30" itemprop="dateModified" datetime="2019-12-17T23:52:30+08:00">2019-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">实习面试经验</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p>
+<p>写题 </p>
+<p>迭代二分，递归二分</p>
+<p>关于业务上的问题：</p>
+<blockquote>
+<p>这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）</p>
+</blockquote>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>项目问题</p>
+<p>什么是极大似然估计</p>
+<p>什么是中心极限定理</p>
+<p>（面试官感觉百度过来的）</p>
+<p>写题：</p>
+<p>将ip地址转为一个int32的数</p>
+<blockquote>
+<p>255.255.255.0 是一个字符串 要求最终返回的结果是一个int32</p>
+<p>解法就是个位运算， 移位再加下一个</p>
+</blockquote>
+<p>紧接着 问了一个经典百度问题 hhhh</p>
+<p>1T文件，存储的是ip地址，给一个128MB的内存，问如何统计出出现次数最高的前10个</p>
+<p>这个问题真的得好好分析一下，现场分析的有点混乱。重点是前面的问题是可以拿过来利用的，就是一个ip地址对应一个唯一的int32  </p>
+<blockquote>
+<p>提了拆成不同文件，来计数，提了计数后通过堆排来过滤</p>
+</blockquote>
+<p>再一个问题：</p>
+<p>给1，2，3三个数，然后给一个数组，这个数组就是由这三个数组成的，其中某个数可能重复很多，问如何排序</p>
+<p>举个栗子[1,2,3,1,2,3,1,2,3] 排序后：[1,1,1,2,2,2,3,3,3]</p>
+<blockquote>
+<p>当时的思路就是 快排呗…结果被面试官嘲笑了，我就给你限制到这三个数</p>
+<p>后来想了下，三个变量来记录1，2，3的个数就可以了，完事之后可以通过计数器，输出相应个数的对应值。</p>
+</blockquote>
+<p>然后面试题进一步进阶为：</p>
+<p>现在不上三个数了，现在有一堆实例，他们都是从一个对象具体来的，比如 一个物体，其中某一个属性的值有1，2，3三种，请根据这个属性值对所有实例进行排序。</p>
+<blockquote>
+<p>这样就不能用上边的方法了，因为1跟1都是一样的，但是这里只对一个属性就行排，每个实例中除了该属性可能一样，其他都不一样。问怎么排序</p>
+</blockquote>
+<p>这个回答的就不是很好了</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>之后在网上看到的有人分享的</p>
+<p>一面：</p>
+<p>1、 给一个有序数组，没有重复值，给一个数组sum，从数组中找出和为sum的两个数，打印出所有可能的组合。</p>
+<p>2、 两个字符串的公共子串（连续的）长度。</p>
+<p>3、 数据倾斜的一道题。</p>
+<p>4、 问wide和deep之间的区别。</p>
+<p>5、 问AUC如何计算。</p>
+<p>6、 问youtube deep network里面如何解决softmax处理对象数量巨大的问题，提到了霍夫曼树和负采样，然后问负采样怎么回事儿，然后问如何解决大数据量下的负采样。</p>
+<p>7、 问youtube deep network里产生了用户和物品向量后，如何应用到在线的，主要想问如何快速获取用户喜欢的物品，是论文题提到的一个工程方法，提前简历好相应的索引。</p>
+<p>二面</p>
+<p>1、 将一颗二叉树转成双向链表。</p>
+<p>2、 用mapreduce或spark实现itemCF中物品相似度的计算。</p>
+<p>3、 如何解决L1正则不可导的那一点。</p>
+<p>4、 FM和LR的区别，主要讲FM的特点。</p>
+<p>5、 问AUC。</p>
+<p>6、 问LR为什么不能用MSE，然后引导我回答出来的，先让我写LR的损失，然后让我推导一下使用MSE之后的梯度，观察有什么劣势。</p>
+<p>7、 问AdaGrid算法原理及其特点（都是围绕学习率的，我只回答出了一个，实际上有两个，然后面试官给我讲解了一下）。</p>
+<p>三面</p>
+<p>问第三个项目的几个点：</p>
+<p>AUC</p>
+<p>线上优化器</p>
+<p>神经网络优化器</p>
+<p>CTR模型：注重wide&amp;Deep中wide与deep之间的区别</p>
+<p>论文</p>
+<p>算法题：</p>
+<p>K个排序的列表，融合成一个有序列表</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1042,108 +1179,6 @@ TPR = \frac{5}{6} \\
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">Leetcode-992-K个不同整数的子数组</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-08 10:34:56" itemprop="dateCreated datePublished" datetime="2019-12-08T10:34:56+08:00">2019-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-09 10:57:55" itemprop="dateModified" datetime="2019-12-09T10:57:55+08:00">2019-12-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="K个不同整数的子数组"><a href="#K个不同整数的子数组" class="headerlink" title="K个不同整数的子数组"></a>K个不同整数的子数组</h2><p>给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定独立的子数组为好子数组。</p>
-<p>（例如，[1,2,3,1,2] 中有 3 个不同的整数：1，2，以及 3。）</p>
-<p>返回 A 中好子数组的数目。</p>
-<blockquote>
-<p>示例 1：</p>
-<p>输出：A = [1,2,1,2,3], K = 2<br>输入：7<br>解释：恰好由 2 个不同整数组成的子数组：[1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2].<br>示例 2：</p>
-<p>输入：A = [1,2,1,3,4], K = 3<br>输出：3<br>解释：恰好由 3 个不同整数组成的子数组：[1,2,1,3], [2,1,3], [1,3,4].</p>
-</blockquote>
-<p>提示：</p>
-<blockquote>
-<p>1 &lt;= A.length &lt;= 20000<br>1 &lt;= A[i] &lt;= A.length<br>1 &lt;= K &lt;= A.length</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>方案比较巧妙的办法是：</p>
-<p>K个不同整数的子数组 = 用至多K个不同整数的结果 -  至多K-1个不同整数的结果</p>
-<blockquote>
-<p>以【1，2，3】为例，K=3时候，</p>
-<p>至多K个包含:[1],[2],[3],[1,2],[2,3],[1,3],[1,2,3]</p>
-<p>至多K-1个包含: [1],[2],[3],[1,2],[2,3],[1,3]</p>
-<p>做差结果 就是 [1,2,3]</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subarraysWithKDistinct</span><span class="params">(self, A: <span class="string">'List[int]'</span>, K: <span class="string">'int'</span>)</span> -&gt; 'int':</span></span><br><span class="line">        <span class="keyword">return</span> self.subarraysWithAtMostKDistinct(A, K) - </span><br><span class="line">      										self.subarraysWithAtMostKDistinct(A, K<span class="number">-1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subarraysWithAtMostKDistinct</span><span class="params">(self, s, k)</span>:</span></span><br><span class="line">        lookup = collections.defaultdict(int) <span class="comment"># 字典记录整数情况，为1是表示出现一次，为0表示没有</span></span><br><span class="line">        l, r, counter, res = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> r &lt; len(s):</span><br><span class="line">            lookup[s[r]] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> lookup[s[r]] == <span class="number">1</span>:   <span class="comment"># 通过右移来扩展 包含不同整数</span></span><br><span class="line">                counter += <span class="number">1</span></span><br><span class="line">            r += <span class="number">1</span>   </span><br><span class="line">            <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> counter &gt; k: <span class="comment"># 一旦满足k个就进行左移，循环跳出的时候，正好是K个不同整数</span></span><br><span class="line">                lookup[s[l]] -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> lookup[s[l]] == <span class="number">0</span>:</span><br><span class="line">                    counter -= <span class="number">1</span></span><br><span class="line">                l += <span class="number">1</span></span><br><span class="line">            res += r - l </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1192,7 +1227,7 @@ TPR = \frac{5}{6} \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
