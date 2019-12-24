@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-313-超级丑数</title>
+    <url>/2019/12/25/leetcode-313-%E8%B6%85%E7%BA%A7%E4%B8%91%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="超级丑数"><a href="#超级丑数" class="headerlink" title="超级丑数"></a>超级丑数</h2><p>编写一段程序来查找第 n 个超级丑数。</p>
+<p>超级丑数是指其所有质因数都是长度为 k 的质数列表 primes 中的正整数。</p>
+<p>示例:</p>
+<p>输入: n = 12, primes = [2,7,13,19]<br>输出: 32<br>解释: 给定长度为 4 的质数列表 primes = [2,7,13,19]，前 12 个超级丑数序列为：[1,2,4,7,8,13,14,16,19,26,28,32] 。<br>说明:</p>
+<blockquote>
+<p>1 是任何给定 primes 的超级丑数。</p>
+<p>给定 primes 中的数字以升序排列。<br>0 &lt; k ≤ 100, 0 &lt; n ≤ 106, 0 &lt; primes[i] &lt; 1000 。<br>第 n 个超级丑数确保在 32 位有符整数范围内。</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>原本丑数就是质因数只有2，3，5的数字，这个题目扩展为丑数为一个list的质因数</p>
+<p>思路都是一样的，只不过需要维护一个list的指针，以及一个丑数序列</p>
+<p><code>p_list</code>是对应<code>primes</code>数组每个元素对应的指针数组</p>
+<p><code>ugly</code>来记录超级丑数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nthSuperUglyNumber</span><span class="params">(self, n, primes)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :type primes: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> primes:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        length = len(primes)</span><br><span class="line">        p_list = [<span class="number">0</span>]*length</span><br><span class="line">        ugly = [<span class="number">0</span>]*n</span><br><span class="line">        ugly[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            min_value = <span class="number">2</span>**<span class="number">32</span></span><br><span class="line">            <span class="comment"># 找下一个丑数</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(length): <span class="comment"># 升序排列的</span></span><br><span class="line">                <span class="keyword">if</span> primes[j]*ugly[p_list[j]] &lt;= min_value:</span><br><span class="line">                    min_value = primes[j]*ugly[p_list[j]]</span><br><span class="line">            <span class="comment"># 满足条件的指针+1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(length):</span><br><span class="line">                <span class="keyword">if</span> primes[j]*ugly[p_list[j]] == min_value:</span><br><span class="line">                    p_list[j] += <span class="number">1</span></span><br><span class="line">            ugly[i] = min_value</span><br><span class="line">        </span><br><span class="line">     		<span class="keyword">return</span> ugly[n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-264-丑数II</title>
     <url>/2019/12/24/leetcode-264-%E4%B8%91%E6%95%B0II/</url>
     <content><![CDATA[<h2 id="丑数II"><a href="#丑数II" class="headerlink" title="丑数II"></a>丑数II</h2><p>编写一个程序，找出第 n 个丑数。</p>
