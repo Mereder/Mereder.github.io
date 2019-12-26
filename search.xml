@@ -691,7 +691,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Transformer详解</title>
+    <title>Apach pig 日常使用总结</title>
     <url>/2019/12/16/Apache%20pig/</url>
     <content><![CDATA[<h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p>
 <p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p>
