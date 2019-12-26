@@ -212,6 +212,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/18/Hive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/18/Hive/" class="post-title-link" itemprop="url">Hive 日常使用</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-18 14:26:53" itemprop="dateCreated datePublished" datetime="2019-12-18T14:26:53+08:00">2019-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-26 14:35:50" itemprop="dateModified" datetime="2019-12-26T14:35:50+08:00">2019-12-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="命令行执行hive操作"><a href="#命令行执行hive操作" class="headerlink" title="命令行执行hive操作"></a>命令行执行hive操作</h3><p>其中设置显示表头，<code>set hive.cli.print.header=True</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -e "set hive.cli.print.header=True; select * from 表名 limit 2"</span><br></pre></td></tr></table></figure>
+<h3 id="hive-建表"><a href="#hive-建表" class="headerlink" title="hive 建表"></a>hive 建表</h3><p>建表分为内部表和外部表，内部表的意思是指元数据和对应表都在内部，如果删除表之后，对应的元数据和表数据都会被删除。</p>
+<p>外部表是通过<code>external</code> 来修饰的，其表的元数据也是存放在内部，但是对应数据是存储在hdfs上的，当删除表后，对应元数据会进行删除，而数据仍会保留在hdfs上。所以建表的时候需要指定好<code>location</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> table_name</span><br><span class="line">( <span class="keyword">query</span> <span class="keyword">string</span>,</span><br><span class="line"> 	<span class="keyword">id</span>		<span class="keyword">string</span>,</span><br><span class="line"> 	pvid 	<span class="keyword">string</span>,</span><br><span class="line"> 	logid <span class="keyword">string</span>,</span><br><span class="line">  wid	  <span class="built_in">bigint</span>,</span><br><span class="line">  pos   <span class="built_in">int</span>,</span><br><span class="line">  extras <span class="keyword">map</span>&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;,</span><br><span class="line"> 	label <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line">partitioned <span class="keyword">by</span> (dt <span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="hive-表的导入"><a href="#hive-表的导入" class="headerlink" title="hive 表的导入"></a>hive 表的导入</h3><h3 id="显示建表语句"><a href="#显示建表语句" class="headerlink" title="显示建表语句"></a>显示建表语句</h3><p>目的是为了获取创建表时候的相关信息</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> table_name</span><br></pre></td></tr></table></figure>
+<h3 id="显示数据库的所有表"><a href="#显示数据库的所有表" class="headerlink" title="显示数据库的所有表"></a>显示数据库的所有表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span> <span class="keyword">in</span> db_name</span><br></pre></td></tr></table></figure>
+<h3 id="insert-用法问题"><a href="#insert-用法问题" class="headerlink" title="insert 用法问题"></a>insert 用法问题</h3><p>insert into 和 insert overwrite 只能用一种字段</p>
+<p>其中 Insert into 是<strong>增量加入</strong>，新加入的数据会append 到表的后边</p>
+<p>Insert overwrite 是表示<strong>覆盖</strong>，新加入的数据直接覆盖原数据表</p>
+<h3 id="Drop-删除表-or-清空表"><a href="#Drop-删除表-or-清空表" class="headerlink" title="Drop 删除表 or 清空表"></a>Drop 删除表 or 清空表</h3><p>Drop 表示删除表，结构+数据都删除</p>
+<p>truncate 表示清空表，会保留表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> table_name </span><br><span class="line"><span class="keyword">or</span> </span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> table_name</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> table_name;</span><br></pre></td></tr></table></figure>
+<h3 id="row-number的使用"><a href="#row-number的使用" class="headerlink" title="row_number的使用"></a>row_number的使用</h3><p>row_number()    是用来给 行进行编号的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *,row_number() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> score) <span class="keyword">rank</span> <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+<p>相当于查询原有表的基础上，再添加一列记录行号，这个行号如何统计呢？</p>
+<p>就看<code>over</code>内的含义，按照partition by的字段(id)进行分组，然后按照<code>score</code>的大小进行排序，然后进行编号，并将编好的序号作为<code>rank</code>列进行返回，这个列的别名是可以修改的。</p>
+<p>举个例子：</p>
+<blockquote>
+<p>Id, score,xxx</p>
+<p>A1 , 10, xxx</p>
+<p>A2 ,11,xxx</p>
+<p>A1 ,9,xxx</p>
+<p>A3 ,0,xxx</p>
+<p>A2, 10,xxx</p>
+</blockquote>
+<p>操作之后的效果为</p>
+<blockquote>
+<p>Id, score,xxx,rank</p>
+<p>A1 , 9, xxx,1</p>
+<p>A1 ,10,xxx,2</p>
+<p>A2 ,10,xxx,1</p>
+<p>A2, 11,xxx,2</p>
+<p>A3 ,0,xxx,1</p>
+</blockquote>
+<h3 id="CTAS：create-table-as-select"><a href="#CTAS：create-table-as-select" class="headerlink" title="CTAS：create table as select"></a>CTAS：create table as select</h3><p>重点操作，可以将select的结果存储到新建的表中。CTAS的操作是<strong>原子性</strong>的，也就是意味着这个新建的表直到所有的填充操作都做完之前是看不到的。</p>
+<p><strong>注意</strong>：不能create external 表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- 基本操作</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table_name </span><br><span class="line">	<span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span></span><br><span class="line">	<span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\t'</span></span><br><span class="line">	<span class="keyword">LINES</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\n'</span></span><br><span class="line">	<span class="keyword">store</span> <span class="keyword">as</span> textfile</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name ....</span><br></pre></td></tr></table></figure>
+<h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>这个操作也很坑，select部分只能有 group by的字段以及，groupby字段的聚合函数</p>
+<p>即hive中限制了 出现在select后边的列必须是出现在group by 后面的，即select列必须是作为分组依据的列。</p>
+<p>下面这样的就会报错</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+<h3 id="列反向选择"><a href="#列反向选择" class="headerlink" title="列反向选择"></a>列反向选择</h3><p>如果我们的场景是：想选择除了某列外的其他所有列，原来的写法就只能把所有需要的列都一一列出来。</p>
+<p>hive 提供了正则查询的方法，只需要把不需要查找的列排除在外就可以了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">`(name|dt)?+.+`</span> <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+<p>上述方法就是select了排除了 <code>name</code>,<code>dt</code>两列的其他所有列</p>
+<p>这里有个问题需要注意， 上边使用的 是``符号，不是单引号，所以需要设定</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.support.quoted.identifiers=<span class="keyword">None</span>;</span><br><span class="line"><span class="keyword">select</span> ....</span><br></pre></td></tr></table></figure>
+<h3 id="hive-分区表的问题"><a href="#hive-分区表的问题" class="headerlink" title="hive 分区表的问题"></a>hive 分区表的问题</h3><p>创建分区表的时候需要指定 <code>PARTITIONED BY (dt string)</code>相当于也定义了一列，这一列用来做分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> table_name</span><br><span class="line">( <span class="keyword">query</span> <span class="keyword">string</span>,</span><br><span class="line"> 	<span class="keyword">id</span>		<span class="keyword">string</span>,</span><br><span class="line"> 	pvid 	<span class="keyword">string</span>,</span><br><span class="line"> 	logid <span class="keyword">string</span>,</span><br><span class="line">  wid	  <span class="built_in">bigint</span>,</span><br><span class="line">  pos   <span class="built_in">int</span>,</span><br><span class="line">  extras <span class="keyword">map</span>&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;,</span><br><span class="line"> 	label <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line">partitioned <span class="keyword">by</span> (dt <span class="keyword">string</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">format</span> <span class="keyword">delimited</span></span><br><span class="line"><span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="string">'\t'</span></span><br><span class="line"><span class="keyword">lines</span> <span class="keyword">terminated</span> <span class="string">'\n'</span></span><br><span class="line"><span class="keyword">stored</span> <span class="keyword">as</span> textfile</span><br><span class="line">location <span class="string">'app_path'</span></span><br></pre></td></tr></table></figure>
+<p>同样在使用分区表的时候，插入会有同样的问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">table</span> table_name <span class="keyword">partition</span> (dt=<span class="string">'2019-12-08'</span>)</span><br><span class="line"><span class="keyword">select</span> *(除了dt以外的列) <span class="keyword">from</span> table_name2</span><br></pre></td></tr></table></figure>
+<h3 id="Order-by排序"><a href="#Order-by排序" class="headerlink" title="Order by排序"></a>Order by排序</h3><p>标准用法:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> col1,col2...  [<span class="keyword">asc</span>|<span class="keyword">desc</span>]</span><br></pre></td></tr></table></figure>
+<p>相关问题：</p>
+<ul>
+<li>order by 为全局排序</li>
+<li>order by 需要reducer操作，且只有一个reducer不能配置，因为多个reducer无法完成全局排序</li>
+</ul>
+<h3 id="collect-list-和-collect-set用法"><a href="#collect-list-和-collect-set用法" class="headerlink" title="collect_list 和 collect_set用法"></a>collect_list 和 collect_set用法</h3><p>都是将分组中的某列转为一个数组返回，不同的是，collect_list不去重，collect_set去重</p>
+<p>按照group by的id方式聚合，然后对col列进行collect_list</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> collect_list(<span class="keyword">col</span>) <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+<p>距离</p>
+<h3 id="开启动态分区调整"><a href="#开启动态分区调整" class="headerlink" title="开启动态分区调整"></a>开启动态分区调整</h3><h3 id="array使用"><a href="#array使用" class="headerlink" title="array使用"></a>array使用</h3><p>业务场景需要将几列数据统一到一列作为特征。array可以直接使用，定义特征即可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	<span class="keyword">id</span>,</span><br><span class="line">	collect_list(<span class="built_in">array</span>(gender,age,ect)) <span class="keyword">as</span> profile,</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">from</span> table_name</span><br><span class="line">	<span class="keyword">group</span> <span class="keyword">by</span></span><br></pre></td></tr></table></figure>
+<h3 id="case-when用法"><a href="#case-when用法" class="headerlink" title="case when用法"></a>case when用法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case when id &gt; 10 then 1 else 0 end</span><br></pre></td></tr></table></figure>
+<p>上述实现的功能就是 将id大于10的变为1，否则变为0，主要写法，一定要记得<code>end</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -806,10 +950,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-12-17 13:18:36 / Modified: 23:26:35" itemprop="dateCreated datePublished" datetime="2019-12-17T13:18:36+08:00">2019-12-17</time>
+              <time title="Created: 2019-12-17 13:18:36" itemprop="dateCreated datePublished" datetime="2019-12-17T13:18:36+08:00">2019-12-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-25 10:57:48" itemprop="dateModified" datetime="2019-12-25T10:57:48+08:00">2019-12-25</time>
+              </span>
 
           
 
@@ -825,6 +975,14 @@
           <h2 id="Shell命令基础"><a href="#Shell命令基础" class="headerlink" title="Shell命令基础"></a>Shell命令基础</h2><p>日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识</p>
 <h3 id="source-用法"><a href="#source-用法" class="headerlink" title="source 用法"></a>source 用法</h3><p>激活脚本，比如.sh文件中定义了一些变量，完全可以通过source一个.sh文件来使得脚本中定义的变量生效</p>
 <p>但是有个问题，这个生效的声明周期仅限于在该会话内，再开一个终端是不能用的</p>
+<h3 id="df-和-du"><a href="#df-和-du" class="headerlink" title="df 和 du"></a>df 和 du</h3><ul>
+<li>du: disk-usage 显示文件或者目录所占磁盘空间</li>
+</ul>
+<p>du工作原理，会对待统计文件逐个调用<code>fstat</code>这个系统调用</p>
+<ul>
+<li>df:disk-free  检查磁盘空间（所以并不能看某个目录的占得磁盘大小）</li>
+</ul>
+<h3 id="查看文件挂载在哪里"><a href="#查看文件挂载在哪里" class="headerlink" title="查看文件挂载在哪里"></a>查看文件挂载在哪里</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h &lt;path&gt; 即可查看</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1174,100 +1332,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/" class="post-title-link" itemprop="url">Dropout学习与总结</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-14 16:16:48" itemprop="dateCreated datePublished" datetime="2019-12-14T16:16:48+08:00">2019-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-15 17:09:36" itemprop="dateModified" datetime="2019-12-15T17:09:36+08:00">2019-12-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>关于一个新东西的三连：是什么，为什么，怎么用</p>
-<h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>Dropout 是训练<strong>深度</strong>神经网络时采取的一种手段，来预防过拟合。在训练过程中，随机的以一定的概率“临时”抛弃掉某些节点。具体来讲，dropout作用于每个<strong>小batch</strong>训练数据，由于其随机丢弃部分神经元的机制，相当于每次迭代都在训练不同的神经网络结构。</p>
-<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>Dropout为什么会有这样的效果呢？类比bagging方法，其实达到了集成学习的效果。从bagging的集成角度来讲，传统意义上的bagging集成方法涉及多个模型的训练与评估，当网络参数规模庞大时，这种集成方式需要消耗大量的运算时间和空间。而Dropout是在小批量上进行操作，类似一种轻量级的bagging集成近似，能够实现指数级数量神经网络的训练与评估。</p>
-<p>原理就是，在dropout具体实现过程中，要求每个神经元节点激活值以一定的概率p被“丢弃”（被置0）。对于有N个神经元节点的神经网络，使用Dropout 可以看做是有$2^n$ 个模型的集成（即每个神经元都可以选择 存在或者不存在），他们共享部分权值，并且具有相同的网络层数，而且模型整体的参数数目不变，大大简化了运算。每次训练都会随机挑选一批不同的神经元进行组合优化，这个过程会减弱全体神经元之间的联合适用性，减少过拟合的风险，增强泛化能力</p>
-<h3 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h3><p>主要涉及两个过程一个是训练过程，一个是预测过程，在训练过程我们采取了概率p来丢弃神经元，那么在运行预测过程（一次前向传播）的时候，我们不在对神经元进行丢弃，相反，我们使用概率p乘在每个神经元上，以恢复训练过程中，某神经元只有概率p存在神经网络中。</p>
-<p>使用Dropout前的前向传播：</p>
-<script type="math/tex; mode=display">
-z_{i}^{(l+1)} = w_{i}^{(l+1)}y^l+b_{i}^{(l+1)} \\ 
-y_{i}^{(l+1)} = f(z_i^{l+1}) \\
-f是激活函数</script><p>使用dropout后的前向传播</p>
-<script type="math/tex; mode=display">
-r_{i}^{(l)} \sim Bernoulli(p) \\
-\hat{y}^{(l)} = r^{(l)} \dot \ y^{(l)}  \\
-z_{i}^{(l+1)} = w_{i}^{(l+1)}y^{(l)}+b_{i}^{(l+1)} \\ 
-y_{i}^{(l+1)} = f(z_i^{(l+1)}) \\
-f是激活函数</script><p>由此可见，是先对前一层的神经元进行“丢弃”再执行传播操作。</p>
-<h3 id="一些细节的理解"><a href="#一些细节的理解" class="headerlink" title="一些细节的理解"></a>一些细节的理解</h3><p>每次dropout的是神经元，并不是权值，也就是说权值参数矩阵始终是在更新的。每一次计算$W^T X$的时候，其中X中部分神经元被置为0。这样相当于“丢弃”了这部分神经元。</p>
-<p>训练过程，对于未被丢弃的神经元，还需要乘以$\frac{1}{1-p}$使得总体的分布情况保持一致。</p>
-<p>预测过程，对于全部的神经元，都需要乘以概率p，来恢复训练过程中，某个神经元以概率p存在神经网络中。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1316,7 +1380,7 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1327,7 +1391,7 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
