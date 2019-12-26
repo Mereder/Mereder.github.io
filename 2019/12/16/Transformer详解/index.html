@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="Transformer 详解这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题 EmbeddingEncoderDecoder今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
+  <meta name="description" content="Transformer 详解这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题。 说在前面：  重点讲解Transformer、BERT部分，transformer-XL、XLNet优化部分做介绍  一个概念：什么是自回归，什么是自编码？ 常规的语言模型从左到右或从右向左都属于自回归模型，就是只依赖于上文或只依赖于下文 GPT就是典型的自回归（">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformer详解">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;16&#x2F;Transformer%E8%AF%A6%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="Transformer 详解这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题 EmbeddingEncoderDecoder今天又理解了一个  Layernormalization和 batchnormalization的区别 针对的归一化维度是不一样的。">
+<meta property="og:description" content="Transformer 详解这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题。 说在前面：  重点讲解Transformer、BERT部分，transformer-XL、XLNet优化部分做介绍  一个概念：什么是自回归，什么是自编码？ 常规的语言模型从左到右或从右向左都属于自回归模型，就是只依赖于上文或只依赖于下文 GPT就是典型的自回归（">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-22T08:11:05.662Z">
+<meta property="og:updated_time" content="2019-12-26T16:18:11.181Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-22 16:11:05" itemprop="dateModified" datetime="2019-12-22T16:11:05+08:00">2019-12-22</time>
+                <time title="Modified: 2019-12-27 00:18:11" itemprop="dateModified" datetime="2019-12-27T00:18:11+08:00">2019-12-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,8 +268,97 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题</p>
-<h3 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h3><h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
+        <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题。</p>
+<h3 id="说在前面："><a href="#说在前面：" class="headerlink" title="说在前面："></a>说在前面：</h3><p>  重点讲解Transformer、BERT部分，transformer-XL、XLNet优化部分做介绍</p>
+<ol>
+<li><p>一个概念：什么是自回归，什么是自编码？</p>
+<p>常规的语言模型从左到右或从右向左都属于自回归模型，就是只依赖于上文或只依赖于下文</p>
+<p>GPT就是典型的自回归（从左到右），ELMo也是，只不过其将两个方向的LSTM的hidden state 进行了concat，以来表示上下文。这种自回归方式主要适合生成类任务：文本摘要，机器翻译</p>
+<p>BERT 属于去噪声自编码（Denoising Autoencoder）自编码的过程是可以见到上下文的。什么是去噪自编码呢。以BERT为例子，就是在预训练的过程中引入噪声（mask）然后masked LM的目的就是通过上下文来预测mask，达到去噪的目的。这种模式在阅读理解、SQuAD等任务上表现很好，因为这些任务是允许看到上下文的。</p>
+</li>
+<li><p>Transformer重要参考资料（阅读顺序排列）：</p>
+<p>Attention is all your need论文、The Illustrated Transformer（详细讲解Transformer流程）、</p>
+<p>The Annotated Transformer（transformer Pytorch版实现）、Transfomer Google官方实现</p>
+<p>（Tensor2Tensor）</p>
+<p>阅读之后至少清楚模型内部的数据（向量或矩阵）的流动（训练阶段的流动方式、测试阶段的流动方式）</p>
+<ol>
+<li><p>position encoding<br>理解实现方式、解决的问题</p>
+</li>
+<li><p>Multi-head attention</p>
+<p>理解QKV的生成过程、</p>
+<p><strong>重点</strong>理解</p>
+<p>Multi-head是如何实现的、了解整个模型需要学习的参数是哪些</p>
+<ol>
+<li>self-attention<br>理解计算原理、实现方法、重点了解矩阵之间计算</li>
+<li>masked self-attention<br>理解mask的作用，mask的实现方式。清楚masked self-attention 和 self-attention 的差别</li>
+<li>encoder-decoder attention<br>理解该部分attention 的数据来源</li>
+</ol>
+</li>
+<li><p>一些细节</p>
+<ol>
+<li>add&amp;Norm 也是有学习参数的</li>
+<li>最后decoder的输出层还有一个Linear+softmax</li>
+<li>在测试阶段Greedy decoding策略 和 Beam Search策略</li>
+</ol>
+</li>
+<li><p>问题</p>
+<ol>
+<li>重点明白Transformer的不能解决长文本依赖的问题（受制于实现过程的内存限制、否则其序列长度是可以不受限制的）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Transformer-XL</p>
+<p>重要参考资料：</p>
+<p>Transformer论文、官方简要+动图、官方代码（未看）</p>
+<ol>
+<li>理解Transformer的操作过程（训练、测试），知道Transformer的弊端</li>
+<li>重点理解下 Transformer 的主要组件是 decoder-only (就是只使用transformer的decoder 部分，不是完整的transformer的 encoder+decoder结构)</li>
+<li>清楚下Transformer-XL解决Transformer存在问题的总体思想</li>
+<li>Segment-lever Recurrence 的实现方式</li>
+<li>Relative Positional Encoding 的实现方式</li>
+</ol>
+</li>
+<li><p>BERT</p>
+<p>重要参考资料：</p>
+<p>BERT原文、illustrated-bert（捎带GPT ELMo）、官方源码、BERT文本分类</p>
+<ol>
+<li><p>背景知识<br>自编码、自回归<br>了解GPT、ELMo 跟BERT的关系</p>
+</li>
+<li><p>理解BERT用的只是Transformer的encoder（可以见到上下文，只部分mask）</p>
+</li>
+<li><p>embedding<br>了解BERT的丰富Embedding（token+segment+position）</p>
+</li>
+<li><p>两个创新点：<br>重点明白Masked LM 的实现，以及Loss 计算方式<br>重点明白Next Sequence Prediction的原理，以及Loss计算方式</p>
+</li>
+<li><p>应用<br>了解BERT对各任务的应用场景：sequence level  和 token level</p>
+</li>
+<li><p>一些问题<br>BERT切词方式：在源码的 tokenization.py<br>BERT的pre-traing 和 fine-tuning过程不一致问题<br>BERT还可以做feature-based 形式，后边拼接自己的模型</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>XLNet</p>
+<p>重要参考资料：</p>
+<p>XLNet原文、跟其他模型对比and论文解读、XLNet与Bert对比</p>
+<ol>
+<li>背景知识：BERT+Transformer-XL</li>
+<li>主要方法：<br>Permutation Language Modeling 方式 用自回归的方式达到见到上下文信息<br>Architecture:Two_Stream Self-Attention for target-Aware representations(本次分享未涉及到)<br>从Transformer-XL 借鉴经验</li>
+<li>XLNet 未讲解部分，还需要大家之后单独了解下</li>
+</ol>
+</li>
+<li><p>思考</p>
+<ol>
+<li>NLP -&gt; Nvidia League Player</li>
+<li>刷榜模型或方法层出不穷</li>
+<li>实际工作中有哪些可以展开的工作</li>
+</ol>
+</li>
+</ol>
+<h3 id="Embedding层"><a href="#Embedding层" class="headerlink" title="Embedding层"></a>Embedding层</h3><p>Transformer的embedding层比较特殊的地方就是引入了Position embedding，为什么需要这样一个embedding？原因是由于后边进行self-attention的时候，每个词之间都可以进行交互，这样解决了长期依赖的问题，但是由于缺少了原有语言的顺序，那么<code>i am a boy</code>和<code>am boy a i</code>是没有区别的了，反正两两之间都会计算score.</p>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>Encoder是个模块，简单的理解实际上就两部分，一部分是Mult-head Attention 另一部分是一个Positionwise FeedForward，当然还有两个小模块add&amp;norm。</p>
+<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
 <p>针对的归一化维度是不一样的。</p>
 
     </div>
@@ -333,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-详解"><span class="nav-number">1.</span> <span class="nav-text">Transformer 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding"><span class="nav-number">1.1.</span> <span class="nav-text">Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">1.2.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decoder"><span class="nav-number">1.3.</span> <span class="nav-text">Decoder</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-详解"><span class="nav-number">1.</span> <span class="nav-text">Transformer 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说在前面："><span class="nav-number">1.1.</span> <span class="nav-text">说在前面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding层"><span class="nav-number">1.2.</span> <span class="nav-text">Embedding层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">1.3.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decoder"><span class="nav-number">1.4.</span> <span class="nav-text">Decoder</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
