@@ -212,6 +212,342 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-title-link" itemprop="url">Git 常用工作流</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-17 11:46:48 / Modified: 11:47:13" itemprop="dateCreated datePublished" datetime="2019-12-17T11:46:48+08:00">2019-12-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="git-基本工作流"><a href="#git-基本工作流" class="headerlink" title="git 基本工作流"></a>git 基本工作流</h3><p>初级 以及讲解  配合业务 使用</p>
+<ul>
+<li><p>从线上拉回代码</p>
+</li>
+<li><p>开发前建立一个分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b marys-feature</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后进行开发</p>
+</li>
+<li><p>然后将开发的结果push上去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后进行 git push -u origin  branch_name</p>
+</li>
+<li><p>提  merger request </p>
+</li>
+</ul>
+<h3 id="更换branch名字"><a href="#更换branch名字" class="headerlink" title="更换branch名字"></a>更换branch名字</h3><p>git branch -m oldname newname</p>
+<p>然后再走一遍新的工作流，将新的branch 上传至 origin</p>
+<p><a href="https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#小红开始开发一个新功能" target="_blank" rel="noopener">https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#%E5%B0%8F%E7%BA%A2%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD</a></p>
+<h3 id="只克隆branch-到本地"><a href="#只克隆branch-到本地" class="headerlink" title="只克隆branch 到本地"></a>只克隆branch 到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b branch_name  git_address</span><br></pre></td></tr></table></figure>
+<h3 id="完整地址"><a href="#完整地址" class="headerlink" title="完整地址"></a>完整地址</h3><p><a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Apache%20pig/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/16/Apache%20pig/" class="post-title-link" itemprop="url">Apach pig 日常使用总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-16 23:42:37" itemprop="dateCreated datePublished" datetime="2019-12-16T23:42:37+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-27 00:06:43" itemprop="dateModified" datetime="2019-12-27T00:06:43+08:00">2019-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p>
+<p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p>
+<p>是一种简单的分析工具， 其基础是运行在hadoop基础上，那么就涉及到基础的文件加载和存储问题</p>
+<h3 id="pig加载数据"><a href="#pig加载数据" class="headerlink" title="pig加载数据"></a>pig加载数据</h3><p>加载数据的目的是将raw data 加载进pig的关系中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">relation_name = LOAD 'input_file_path' USING function as schema;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"></span><br><span class="line">student = LOAD 'hdfs://localhost:9000/pig_data/student_data.txt' </span><br><span class="line">   USING PigStorage(',')</span><br><span class="line">   as ( id:int, firstname:chararray, lastname:chararray, phone:chararray, </span><br><span class="line">   city:chararray );</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>relation_name</strong> - 我们必须提到要存储数据的关系。</li>
+<li><strong>Input file path</strong> - 我们必须提到存储文件的HDFS目录。（在MapReduce模式下）</li>
+<li><strong>function</strong> - 我们必须从Apache Pig提供的一组加载函数中选择一个函数（ <strong>BinStorage，JsonLoader，PigStorage，TextLoader</strong> ）。</li>
+<li><strong>Schema</strong> - 我们必须定义数据的模式，可以定义所需的模式如下 -</li>
+</ul>
+<p>还有一种是加载hive表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = load 'hive表' using</span><br></pre></td></tr></table></figure>
+<h3 id="pig-存储数据"><a href="#pig-存储数据" class="headerlink" title="pig 存储数据"></a>pig 存储数据</h3><p>是将转化为关系的数据，存储在hdfs上（local也可以）</p>
+<h3 id="FOREACH-GENERATE的使用"><a href="#FOREACH-GENERATE的使用" class="headerlink" title="FOREACH, GENERATE的使用"></a>FOREACH, GENERATE的使用</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Transformer详解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-16 23:42:37" itemprop="dateCreated datePublished" datetime="2019-12-16T23:42:37+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-27 00:18:11" itemprop="dateModified" datetime="2019-12-27T00:18:11+08:00">2019-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题。</p>
+<h3 id="说在前面："><a href="#说在前面：" class="headerlink" title="说在前面："></a>说在前面：</h3><p>  重点讲解Transformer、BERT部分，transformer-XL、XLNet优化部分做介绍</p>
+<ol>
+<li><p>一个概念：什么是自回归，什么是自编码？</p>
+<p>常规的语言模型从左到右或从右向左都属于自回归模型，就是只依赖于上文或只依赖于下文</p>
+<p>GPT就是典型的自回归（从左到右），ELMo也是，只不过其将两个方向的LSTM的hidden state 进行了concat，以来表示上下文。这种自回归方式主要适合生成类任务：文本摘要，机器翻译</p>
+<p>BERT 属于去噪声自编码（Denoising Autoencoder）自编码的过程是可以见到上下文的。什么是去噪自编码呢。以BERT为例子，就是在预训练的过程中引入噪声（mask）然后masked LM的目的就是通过上下文来预测mask，达到去噪的目的。这种模式在阅读理解、SQuAD等任务上表现很好，因为这些任务是允许看到上下文的。</p>
+</li>
+<li><p>Transformer重要参考资料（阅读顺序排列）：</p>
+<p>Attention is all your need论文、The Illustrated Transformer（详细讲解Transformer流程）、</p>
+<p>The Annotated Transformer（transformer Pytorch版实现）、Transfomer Google官方实现</p>
+<p>（Tensor2Tensor）</p>
+<p>阅读之后至少清楚模型内部的数据（向量或矩阵）的流动（训练阶段的流动方式、测试阶段的流动方式）</p>
+<ol>
+<li><p>position encoding<br>理解实现方式、解决的问题</p>
+</li>
+<li><p>Multi-head attention</p>
+<p>理解QKV的生成过程、</p>
+<p><strong>重点</strong>理解</p>
+<p>Multi-head是如何实现的、了解整个模型需要学习的参数是哪些</p>
+<ol>
+<li>self-attention<br>理解计算原理、实现方法、重点了解矩阵之间计算</li>
+<li>masked self-attention<br>理解mask的作用，mask的实现方式。清楚masked self-attention 和 self-attention 的差别</li>
+<li>encoder-decoder attention<br>理解该部分attention 的数据来源</li>
+</ol>
+</li>
+<li><p>一些细节</p>
+<ol>
+<li>add&amp;Norm 也是有学习参数的</li>
+<li>最后decoder的输出层还有一个Linear+softmax</li>
+<li>在测试阶段Greedy decoding策略 和 Beam Search策略</li>
+</ol>
+</li>
+<li><p>问题</p>
+<ol>
+<li>重点明白Transformer的不能解决长文本依赖的问题（受制于实现过程的内存限制、否则其序列长度是可以不受限制的）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Transformer-XL</p>
+<p>重要参考资料：</p>
+<p>Transformer论文、官方简要+动图、官方代码（未看）</p>
+<ol>
+<li>理解Transformer的操作过程（训练、测试），知道Transformer的弊端</li>
+<li>重点理解下 Transformer 的主要组件是 decoder-only (就是只使用transformer的decoder 部分，不是完整的transformer的 encoder+decoder结构)</li>
+<li>清楚下Transformer-XL解决Transformer存在问题的总体思想</li>
+<li>Segment-lever Recurrence 的实现方式</li>
+<li>Relative Positional Encoding 的实现方式</li>
+</ol>
+</li>
+<li><p>BERT</p>
+<p>重要参考资料：</p>
+<p>BERT原文、illustrated-bert（捎带GPT ELMo）、官方源码、BERT文本分类</p>
+<ol>
+<li><p>背景知识<br>自编码、自回归<br>了解GPT、ELMo 跟BERT的关系</p>
+</li>
+<li><p>理解BERT用的只是Transformer的encoder（可以见到上下文，只部分mask）</p>
+</li>
+<li><p>embedding<br>了解BERT的丰富Embedding（token+segment+position）</p>
+</li>
+<li><p>两个创新点：<br>重点明白Masked LM 的实现，以及Loss 计算方式<br>重点明白Next Sequence Prediction的原理，以及Loss计算方式</p>
+</li>
+<li><p>应用<br>了解BERT对各任务的应用场景：sequence level  和 token level</p>
+</li>
+<li><p>一些问题<br>BERT切词方式：在源码的 tokenization.py<br>BERT的pre-traing 和 fine-tuning过程不一致问题<br>BERT还可以做feature-based 形式，后边拼接自己的模型</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>XLNet</p>
+<p>重要参考资料：</p>
+<p>XLNet原文、跟其他模型对比and论文解读、XLNet与Bert对比</p>
+<ol>
+<li>背景知识：BERT+Transformer-XL</li>
+<li>主要方法：<br>Permutation Language Modeling 方式 用自回归的方式达到见到上下文信息<br>Architecture:Two_Stream Self-Attention for target-Aware representations(本次分享未涉及到)<br>从Transformer-XL 借鉴经验</li>
+<li>XLNet 未讲解部分，还需要大家之后单独了解下</li>
+</ol>
+</li>
+<li><p>思考</p>
+<ol>
+<li>NLP -&gt; Nvidia League Player</li>
+<li>刷榜模型或方法层出不穷</li>
+<li>实际工作中有哪些可以展开的工作</li>
+</ol>
+</li>
+</ol>
+<h3 id="Embedding层"><a href="#Embedding层" class="headerlink" title="Embedding层"></a>Embedding层</h3><p>Transformer的embedding层比较特殊的地方就是引入了Position embedding，为什么需要这样一个embedding？原因是由于后边进行self-attention的时候，每个词之间都可以进行交互，这样解决了长期依赖的问题，但是由于缺少了原有语言的顺序，那么<code>i am a boy</code>和<code>am boy a i</code>是没有区别的了，反正两两之间都会计算score.</p>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>Encoder是个模块，简单的理解实际上就两部分，一部分是Mult-head Attention 另一部分是一个Positionwise FeedForward，当然还有两个小模块add&amp;norm。</p>
+<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
+<p>针对的归一化维度是不一样的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -889,285 +1225,11 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E4%B9%A6%E5%8D%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E4%B9%A6%E5%8D%95/" class="post-title-link" itemprop="url">专业书籍书单</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-09 20:54:40" itemprop="dateCreated datePublished" datetime="2019-12-09T20:54:40+08:00">2019-12-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-22 15:06:10" itemprop="dateModified" datetime="2019-12-22T15:06:10+08:00">2019-12-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="专业书籍书单"><a href="#专业书籍书单" class="headerlink" title="专业书籍书单"></a>专业书籍书单</h2><p>如果仔细的品味完这些书，保证自己的能力能得到质的飞越！！！</p>
-<h3 id="基本刷题"><a href="#基本刷题" class="headerlink" title="基本刷题"></a>基本刷题</h3><ul>
-<li>[ ] Leetcode（147/1200）</li>
-<li>[x] 剑指offer</li>
-<li>[ ] 编程思想</li>
-</ul>
-<h3 id="机器学习大方向"><a href="#机器学习大方向" class="headerlink" title="机器学习大方向"></a>机器学习大方向</h3><ul>
-<li>[ ] 统计学习方法</li>
-<li>[ ] 机器学习（西瓜书）</li>
-<li><p>[ ] 百面机器学习</p>
-</li>
-<li><p>[ ] 强化学习精要</p>
-</li>
-</ul>
-<h3 id="算法工程师基本技能"><a href="#算法工程师基本技能" class="headerlink" title="算法工程师基本技能"></a>算法工程师基本技能</h3><ul>
-<li><p>编程语言</p>
-<ul>
-<li>python 核心编程</li>
-<li>java ？？？ </li>
-</ul>
-</li>
-<li><p>大数据方向</p>
-</li>
-<li><p>[ ] Spark内核机制解析以及性能调优</p>
-</li>
-<li><p>[ ] Hive编程指南</p>
-</li>
-</ul>
-<h3 id="其他维度的培养"><a href="#其他维度的培养" class="headerlink" title="其他维度的培养"></a>其他维度的培养</h3><ul>
-<li>[ ] 产品思维</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87AUC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87AUC/" class="post-title-link" itemprop="url">机器学习中的评价指标——ROC,AUC</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-09 13:50:32" itemprop="dateCreated datePublished" datetime="2019-12-09T13:50:32+08:00">2019-12-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-15 22:41:30" itemprop="dateModified" datetime="2019-12-15T22:41:30+08:00">2019-12-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="ROC"><a href="#ROC" class="headerlink" title="ROC"></a>ROC</h2><p>ROC曲线是 receiver operating characteristic curve的简称。（受试者工作特征曲线）</p>
-<p>其横坐标为<strong>假阳性率(False Positive Rate,FPR)</strong>， 纵坐标为<strong>真阳性率(True Positive Rate, TPR)</strong></p>
-<script type="math/tex; mode=display">
-FPR = \frac{FP}{N} \\
-TPR = \frac{TP}{P} \\</script><p>对于假阳性率、真阳性率，需要一点实际例子来进行理解。拿我之前做过的识别三俗文章的例子来理解。对于一批样本100个，其中三俗文章（正例）有6篇，非三俗文章（负例）94篇，我们建立一个简单的文本分类模型来识别这批数据，我们分类器的结果是，100篇中，判为三俗的有8篇，但是真正三俗的仅为5篇，剩余92篇均判为非三俗，其中有1篇判错。</p>
-<p>模型整体准确率为：</p>
-<script type="math/tex; mode=display">
-\frac{5+91}{100} = 96\%</script><p>针对三俗类别来说的精确率为:</p>
-<script type="math/tex; mode=display">
-\frac{5}{8} = 62.5\% \\ 
-即 分类正确的正样本个数占分类器判定为正样本个数的比例</script><p>针对三俗类别来说的召回率为:</p>
-<script type="math/tex; mode=display">
-\frac{5}{6} = 83.3\% 
-即分类正确的正样本个数占实际正样本个数的比例</script><p>假阳性率为:</p>
-<script type="math/tex; mode=display">
-FPR = \frac{3}{94}  \\
-即 被误判为三俗的样本，占真实非三俗样本总数的比例</script><p>真阳性率为：</p>
-<script type="math/tex; mode=display">
-TPR = \frac{5}{6} \\
-即分类正确的三俗样本，占实际三俗样本个数的比例，跟召回率一样</script><h3 id="如何绘制ROC曲线"><a href="#如何绘制ROC曲线" class="headerlink" title="如何绘制ROC曲线"></a>如何绘制ROC曲线</h3><p>关键点在于：<strong>每个截断点都对于一个TPR和FPR</strong></p>
-<p>绘制ROC曲线的过程，就是不断枚举截断点（分类阈值）的过程，通过动态调整截断点，从最高分的得分开始，逐渐调整到最低点，其中每一个截断点都对应一个坐标（FPR,TPR），将这些点连成线就构成了ROC曲线。</p>
-<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97/" class="post-title-link" itemprop="url">Leetcode-46-全排列</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-09 11:02:54 / Modified: 12:39:53" itemprop="dateCreated datePublished" datetime="2019-12-09T11:02:54+08:00">2019-12-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Leetcode-46-全排列"><a href="#Leetcode-46-全排列" class="headerlink" title="Leetcode-46-全排列"></a>Leetcode-46-全排列</h2><p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
-<p>示例:</p>
-<p>输入: [1,2,3]<br>输出:<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><strong>回溯方法</strong>：“不撞南墙不回头”</p>
-<ul>
-<li><p>思考怎么撞到南墙——通过递归来达到</p>
-</li>
-<li><p>思考回溯的“南墙”是什么——递归的终止条件</p>
-</li>
-<li>思考回头的话怎么回头——状态记录</li>
-</ul>
-<blockquote>
-<p>res: 结果集，[[],[],[]…] 的数据形式</p>
-<p>used: 用来进行状态记录，使用过的将不能再使用，用来保证全排列过程，前面出现的字符，后边不在出现</p>
-<p>stack: 用来存放结果，其中包含了回溯的加入和回退过程，</p>
-<p>depth: 用来记录递归的深度（全排列字符串的个数），当depth等于字符串长度时，也就是某一种排列形成，我们将其排列结果加入到结果集中</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span>  <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        used = [<span class="literal">False</span>]*len(nums)</span><br><span class="line">        stack = []</span><br><span class="line">        self.helper(res,stack,<span class="number">0</span>, nums, used)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, res, stack, depth, nums, used)</span>:</span></span><br><span class="line">        <span class="comment"># 迭代出口  回溯所说的：撞到南墙</span></span><br><span class="line">        <span class="keyword">if</span> depth == len(nums):</span><br><span class="line">            res.append(stack.copy()) <span class="comment"># 需要copy否则stack是动态变化的 会在res中变化</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">              	<span class="comment"># 不断前进过程</span></span><br><span class="line">                stack.append(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line">								<span class="comment"># 递归操作，递归深度不断加深</span></span><br><span class="line">                self.helper(res,stack,depth+<span class="number">1</span>,nums,used)</span><br><span class="line">								<span class="comment"># 一旦撞到南墙，则开始回头</span></span><br><span class="line">                stack.pop()</span><br><span class="line">                used[i] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1211,7 +1273,7 @@ TPR = \frac{5}{6} \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

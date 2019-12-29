@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-26T16:23:14.084Z</updated>
+  <updated>2019-12-29T15:29:13.199Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,85 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode-47-全排列II</title>
+    <link href="http://yoursite.com/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/"/>
+    <id>http://yoursite.com/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/</id>
+    <published>2019-12-29T14:25:00.000Z</published>
+    <updated>2019-12-29T15:29:13.199Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="全排列II"><a href="#全排列II" class="headerlink" title="全排列II"></a>全排列II</h2><p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p><p>示例:</p><p>输入: [1,1,2]<br>输出:<br>[<br>  [1,1,2],<br>  [1,2,1],<br>  [2,1,1]<br>]</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>加入限制：<strong>含重复元素</strong></p><p>含重复元素带来的问题就是，会导致出现重复的排列。我们需要做的就是<strong>剪枝</strong></p><p>具体的剪枝操作如何进行呢？</p><p>回到重复元素问题，如果是数组含有重复元素，我们最好的办法是通过hash去重，或者通过预排序，预排序将重复元素都放在一起，也比较好操作。这里我们的结果都是list，list是不能进行hash的，所以使用预排序的方法。这里跟<strong>3sum</strong>的题有异曲同工之妙，通过预排序让问题更加好解决。</p><p>预排序之后呢？</p><p>预排序之后，重复元素好处理了，那么我们进行剪枝时候，可以利用排序数组的性质，将存在的重复情况跳过</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i<span class="number">-1</span>]==nums[i]:</span><br><span class="line">    <span class="keyword">continue</span></span><br></pre></td></tr></table></figure><p>这里因为是回溯+剪枝，还需要考虑下状态问题，沿用<a href="">Leetcode-46-全排列</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i<span class="number">-1</span>] ==nums[i] <span class="keyword">and</span> <span class="keyword">not</span> used[i<span class="number">-1</span>]:</span><br><span class="line">    <span class="keyword">continue</span></span><br></pre></td></tr></table></figure><p>当前位置如果是重复元素，并且之前的元素已经是False了，即说明已经遍历过了，那么当前元素(i)可以continue。</p><p>为什么之前相同元素状态是False就表示已经遍历过呢？因为for i 的循环是表示在同一层，前面的元素先于后边的元素进行遍历，如果前面的元素是False，肯定使用经过遍历再回溯修改状态为False，那么同一层的相同元素就没有必要再遍历了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">permuteUnique</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        </span><br><span class="line">        nums.sort()</span><br><span class="line">        result = []</span><br><span class="line">        stack = []</span><br><span class="line">        used = [<span class="literal">False</span>]*len(nums)</span><br><span class="line"></span><br><span class="line">        self.helper(<span class="number">0</span>, nums, stack, used, result)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, depth, nums, stack, used, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> depth == len(nums):</span><br><span class="line">            result.append(stack.copy())</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">                <span class="comment"># 1.i &gt;0 i-1才不会越界</span></span><br><span class="line">                <span class="comment"># nums[i-1] == nums[i] 重复元素 且 nums[i-1]没有被遍历 则 证明会有重复排列</span></span><br><span class="line">                <span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>] <span class="keyword">and</span> used[i<span class="number">-1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                stack.append(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">                self.helper(depth+<span class="number">1</span>, nums, stack, used, result)</span><br><span class="line"></span><br><span class="line">                stack.pop()</span><br><span class="line">                used[i] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;全排列II&quot;&gt;&lt;a href=&quot;#全排列II&quot; class=&quot;headerlink&quot; title=&quot;全排列II&quot;&gt;&lt;/a&gt;全排列II&lt;/h2&gt;&lt;p&gt;给定一个可包含重复数字的序列，返回所有不重复的全排列。&lt;/p&gt;
+&lt;p&gt;示例:&lt;/p&gt;
+&lt;p&gt;输入: [1,1,2]&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-60-第K个排列</title>
+    <link href="http://yoursite.com/2019/12/29/leetcode-60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/"/>
+    <id>http://yoursite.com/2019/12/29/leetcode-60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/</id>
+    <published>2019-12-29T07:53:07.000Z</published>
+    <updated>2019-12-29T08:26:08.465Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a>第K个排列</h2><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p><p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p><p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p><p>说明：</p><p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。<br>示例 1:</p><p>输入: n = 3, k = 3<br>输出: “213”<br>示例 2:</p><p>输入: n = 4, k = 9<br>输出: “2314”</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>延续全排列的办法，将全部排列都求出之后，找到第K个排列即可，当然，这道题这么做直接<strong>超时</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        nums = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>)]</span><br><span class="line">        result = []</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line">        used = [<span class="literal">False</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        self.helper(<span class="number">0</span>,nums,stack,used,result)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(result[k<span class="number">-1</span>])</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, length, nums, stack,used, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> length == len(nums):</span><br><span class="line">            result.append(stack)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">                stack += str(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line">                self.helper(length+<span class="number">1</span>,nums,stack,used,result)</span><br><span class="line"></span><br><span class="line">                used[i] = <span class="literal">False</span></span><br><span class="line">                stack = stack[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1gadnuwrckbj30m807s3yx.jpg" alt="image-20191229161342833"></p><h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><strong>回溯+剪枝</strong>，当严格意义上来讲，并没有回溯的过程，更多的体现在<strong>剪枝</strong>上</p><p>回溯：我们需要修改状态，然后操作，之后进行回溯，再修改状态。对应排列问题就是进入时候<code>used[i]=Ture</code>,回溯<code>used[i]=False。</code></p><p>剪枝：对不满足条件的状况不再进行dfs搜索解，直接跳过。</p><p>本题的剪枝条件是<strong>个数限制</strong>。因为就是数字的全排列，那么以任一一个数字开头的可能情况都是可以计算的。以<code>n=3</code>为例。</p><blockquote><p>n = 3,可能解为[‘123’,’132’,’213’,’231’,’312’,’321’]  即 3! 等于 6</p><p>当第一位确认为‘1’时，后面只能选’2’,’3’  则 2！=2</p><p>如果我们的输入为n=3,k=3</p><p>由于第一位为’1’时候，可能解为2！=2 &lt; k=3 则不必再对’1’为第一位的情况展开搜索 直接跳过</p><p>此时注意跳过后k = k-2 =1。</p><p>接下来第一位为’2’时候，可能解为2!=2 &gt; k=1，则第k个解就在这个里面，我们只需要对该情况进行搜索即可</p></blockquote><p>上面举的例子只是考虑了第一位的情况（对应递归树就是第一层），之后的每一层都是一样的，也都是进行剪枝判断就可以了。时间并没有回溯的过程。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_factorial</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        res = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n:</span><br><span class="line">            res *= n</span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> n==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        used = [<span class="literal">False</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.helper(<span class="number">0</span>,n,k,stack,used)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self,depth, n, k, stack,used)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> depth == n:</span><br><span class="line">            <span class="keyword">return</span> stack</span><br><span class="line"></span><br><span class="line">        before = self.get_factorial(n-depth<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">          <span class="comment"># 第一次剪枝：去过的不能再去</span></span><br><span class="line">            <span class="keyword">if</span> used[i]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 第二次剪枝：解的个数&lt;k</span></span><br><span class="line">            <span class="keyword">if</span> before &lt; k:</span><br><span class="line">                k -= before</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment">### 并没有回溯过程</span></span><br><span class="line">            stack += str(i)</span><br><span class="line">            used[i] = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> self.helper(depth+<span class="number">1</span>, n, k, stack, used)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;第K个排列&quot;&gt;&lt;a href=&quot;#第K个排列&quot; class=&quot;headerlink&quot; title=&quot;第K个排列&quot;&gt;&lt;/a&gt;第K个排列&lt;/h2&gt;&lt;p&gt;给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。&lt;/p&gt;
+&lt;p&gt;按大小顺序列出所有排列情况，并一一标
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git日常使用</title>
+    <link href="http://yoursite.com/2019/12/27/git%E6%97%A5%E5%B8%B8/"/>
+    <id>http://yoursite.com/2019/12/27/git%E6%97%A5%E5%B8%B8/</id>
+    <published>2019-12-27T06:29:47.000Z</published>
+    <updated>2019-12-27T06:30:23.890Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="git-日常使用"><a href="#git-日常使用" class="headerlink" title="git 日常使用"></a>git 日常使用</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;git-日常使用&quot;&gt;&lt;a href=&quot;#git-日常使用&quot; class=&quot;headerlink&quot; title=&quot;git 日常使用&quot;&gt;&lt;/a&gt;git 日常使用&lt;/h2&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>BeautifulSoup 4 部分使用笔记</title>
@@ -446,79 +525,6 @@
     
     </summary>
     
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Git 常用工作流</title>
-    <link href="http://yoursite.com/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/"/>
-    <id>http://yoursite.com/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</id>
-    <published>2019-12-17T03:46:48.000Z</published>
-    <updated>2019-12-17T03:47:13.829Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="git-基本工作流"><a href="#git-基本工作流" class="headerlink" title="git 基本工作流"></a>git 基本工作流</h3><p>初级 以及讲解  配合业务 使用</p><ul><li><p>从线上拉回代码</p></li><li><p>开发前建立一个分支</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b marys-feature</span><br></pre></td></tr></table></figure></li><li><p>然后进行开发</p></li><li><p>然后将开发的结果push上去</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure></li><li><p>然后进行 git push -u origin  branch_name</p></li><li><p>提  merger request </p></li></ul><h3 id="更换branch名字"><a href="#更换branch名字" class="headerlink" title="更换branch名字"></a>更换branch名字</h3><p>git branch -m oldname newname</p><p>然后再走一遍新的工作流，将新的branch 上传至 origin</p><p><a href="https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#小红开始开发一个新功能" target="_blank" rel="noopener">https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#%E5%B0%8F%E7%BA%A2%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD</a></p><h3 id="只克隆branch-到本地"><a href="#只克隆branch-到本地" class="headerlink" title="只克隆branch 到本地"></a>只克隆branch 到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b branch_name  git_address</span><br></pre></td></tr></table></figure><h3 id="完整地址"><a href="#完整地址" class="headerlink" title="完整地址"></a>完整地址</h3><p><a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;git-基本工作流&quot;&gt;&lt;a href=&quot;#git-基本工作流&quot; class=&quot;headerlink&quot; title=&quot;git 基本工作流&quot;&gt;&lt;/a&gt;git 基本工作流&lt;/h3&gt;&lt;p&gt;初级 以及讲解  配合业务 使用&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;从线上拉回代码&lt;/
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Apach pig 日常使用总结</title>
-    <link href="http://yoursite.com/2019/12/16/Apache%20pig/"/>
-    <id>http://yoursite.com/2019/12/16/Apache%20pig/</id>
-    <published>2019-12-16T15:42:37.000Z</published>
-    <updated>2019-12-26T16:06:43.331Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p><p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p><p>是一种简单的分析工具， 其基础是运行在hadoop基础上，那么就涉及到基础的文件加载和存储问题</p><h3 id="pig加载数据"><a href="#pig加载数据" class="headerlink" title="pig加载数据"></a>pig加载数据</h3><p>加载数据的目的是将raw data 加载进pig的关系中</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">relation_name = LOAD 'input_file_path' USING function as schema;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"></span><br><span class="line">student = LOAD 'hdfs://localhost:9000/pig_data/student_data.txt' </span><br><span class="line">   USING PigStorage(',')</span><br><span class="line">   as ( id:int, firstname:chararray, lastname:chararray, phone:chararray, </span><br><span class="line">   city:chararray );</span><br></pre></td></tr></table></figure><ul><li><strong>relation_name</strong> - 我们必须提到要存储数据的关系。</li><li><strong>Input file path</strong> - 我们必须提到存储文件的HDFS目录。（在MapReduce模式下）</li><li><strong>function</strong> - 我们必须从Apache Pig提供的一组加载函数中选择一个函数（ <strong>BinStorage，JsonLoader，PigStorage，TextLoader</strong> ）。</li><li><strong>Schema</strong> - 我们必须定义数据的模式，可以定义所需的模式如下 -</li></ul><p>还有一种是加载hive表</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = load 'hive表' using</span><br></pre></td></tr></table></figure><h3 id="pig-存储数据"><a href="#pig-存储数据" class="headerlink" title="pig 存储数据"></a>pig 存储数据</h3><p>是将转化为关系的数据，存储在hdfs上（local也可以）</p><h3 id="FOREACH-GENERATE的使用"><a href="#FOREACH-GENERATE的使用" class="headerlink" title="FOREACH, GENERATE的使用"></a>FOREACH, GENERATE的使用</h3>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Apach-Pig&quot;&gt;&lt;a href=&quot;#Apach-Pig&quot; class=&quot;headerlink&quot; title=&quot;Apach Pig&quot;&gt;&lt;/a&gt;Apach Pig&lt;/h2&gt;&lt;p&gt;最近需要用到pig这个东西，故做简单的学习记录&lt;/p&gt;
-&lt;p&gt;首先 pig的基本组成
-      
-    
-    </summary>
-    
-    
-      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Transformer详解</title>
-    <link href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/</id>
-    <published>2019-12-16T15:42:37.000Z</published>
-    <updated>2019-12-26T16:18:11.181Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题。</p><h3 id="说在前面："><a href="#说在前面：" class="headerlink" title="说在前面："></a>说在前面：</h3><p>  重点讲解Transformer、BERT部分，transformer-XL、XLNet优化部分做介绍</p><ol><li><p>一个概念：什么是自回归，什么是自编码？</p><p>常规的语言模型从左到右或从右向左都属于自回归模型，就是只依赖于上文或只依赖于下文</p><p>GPT就是典型的自回归（从左到右），ELMo也是，只不过其将两个方向的LSTM的hidden state 进行了concat，以来表示上下文。这种自回归方式主要适合生成类任务：文本摘要，机器翻译</p><p>BERT 属于去噪声自编码（Denoising Autoencoder）自编码的过程是可以见到上下文的。什么是去噪自编码呢。以BERT为例子，就是在预训练的过程中引入噪声（mask）然后masked LM的目的就是通过上下文来预测mask，达到去噪的目的。这种模式在阅读理解、SQuAD等任务上表现很好，因为这些任务是允许看到上下文的。</p></li><li><p>Transformer重要参考资料（阅读顺序排列）：</p><p>Attention is all your need论文、The Illustrated Transformer（详细讲解Transformer流程）、</p><p>The Annotated Transformer（transformer Pytorch版实现）、Transfomer Google官方实现</p><p>（Tensor2Tensor）</p><p>阅读之后至少清楚模型内部的数据（向量或矩阵）的流动（训练阶段的流动方式、测试阶段的流动方式）</p><ol><li><p>position encoding<br>理解实现方式、解决的问题</p></li><li><p>Multi-head attention</p><p>理解QKV的生成过程、</p><p><strong>重点</strong>理解</p><p>Multi-head是如何实现的、了解整个模型需要学习的参数是哪些</p><ol><li>self-attention<br>理解计算原理、实现方法、重点了解矩阵之间计算</li><li>masked self-attention<br>理解mask的作用，mask的实现方式。清楚masked self-attention 和 self-attention 的差别</li><li>encoder-decoder attention<br>理解该部分attention 的数据来源</li></ol></li><li><p>一些细节</p><ol><li>add&amp;Norm 也是有学习参数的</li><li>最后decoder的输出层还有一个Linear+softmax</li><li>在测试阶段Greedy decoding策略 和 Beam Search策略</li></ol></li><li><p>问题</p><ol><li>重点明白Transformer的不能解决长文本依赖的问题（受制于实现过程的内存限制、否则其序列长度是可以不受限制的）</li></ol></li></ol></li><li><p>Transformer-XL</p><p>重要参考资料：</p><p>Transformer论文、官方简要+动图、官方代码（未看）</p><ol><li>理解Transformer的操作过程（训练、测试），知道Transformer的弊端</li><li>重点理解下 Transformer 的主要组件是 decoder-only (就是只使用transformer的decoder 部分，不是完整的transformer的 encoder+decoder结构)</li><li>清楚下Transformer-XL解决Transformer存在问题的总体思想</li><li>Segment-lever Recurrence 的实现方式</li><li>Relative Positional Encoding 的实现方式</li></ol></li><li><p>BERT</p><p>重要参考资料：</p><p>BERT原文、illustrated-bert（捎带GPT ELMo）、官方源码、BERT文本分类</p><ol><li><p>背景知识<br>自编码、自回归<br>了解GPT、ELMo 跟BERT的关系</p></li><li><p>理解BERT用的只是Transformer的encoder（可以见到上下文，只部分mask）</p></li><li><p>embedding<br>了解BERT的丰富Embedding（token+segment+position）</p></li><li><p>两个创新点：<br>重点明白Masked LM 的实现，以及Loss 计算方式<br>重点明白Next Sequence Prediction的原理，以及Loss计算方式</p></li><li><p>应用<br>了解BERT对各任务的应用场景：sequence level  和 token level</p></li><li><p>一些问题<br>BERT切词方式：在源码的 tokenization.py<br>BERT的pre-traing 和 fine-tuning过程不一致问题<br>BERT还可以做feature-based 形式，后边拼接自己的模型</p></li></ol></li></ol><ol><li><p>XLNet</p><p>重要参考资料：</p><p>XLNet原文、跟其他模型对比and论文解读、XLNet与Bert对比</p><ol><li>背景知识：BERT+Transformer-XL</li><li>主要方法：<br>Permutation Language Modeling 方式 用自回归的方式达到见到上下文信息<br>Architecture:Two_Stream Self-Attention for target-Aware representations(本次分享未涉及到)<br>从Transformer-XL 借鉴经验</li><li>XLNet 未讲解部分，还需要大家之后单独了解下</li></ol></li><li><p>思考</p><ol><li>NLP -&gt; Nvidia League Player</li><li>刷榜模型或方法层出不穷</li><li>实际工作中有哪些可以展开的工作</li></ol></li></ol><h3 id="Embedding层"><a href="#Embedding层" class="headerlink" title="Embedding层"></a>Embedding层</h3><p>Transformer的embedding层比较特殊的地方就是引入了Position embedding，为什么需要这样一个embedding？原因是由于后边进行self-attention的时候，每个词之间都可以进行交互，这样解决了长期依赖的问题，但是由于缺少了原有语言的顺序，那么<code>i am a boy</code>和<code>am boy a i</code>是没有区别的了，反正两两之间都会计算score.</p><h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>Encoder是个模块，简单的理解实际上就两部分，一部分是Mult-head Attention 另一部分是一个Positionwise FeedForward，当然还有两个小模块add&amp;norm。</p><h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p><p>针对的归一化维度是不一样的。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Transformer-详解&quot;&gt;&lt;a href=&quot;#Transformer-详解&quot; class=&quot;headerlink&quot; title=&quot;Transformer 详解&quot;&gt;&lt;/a&gt;Transformer 详解&lt;/h2&gt;&lt;p&gt;这个基本是面试重点，在理解这个transfo
-      
-    
-    </summary>
-    
-    
-      <category term="NLP" scheme="http://yoursite.com/categories/NLP/"/>
     
     
   </entry>
