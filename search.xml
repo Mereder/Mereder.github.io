@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-31-下一个排列</title>
+    <url>/2019/12/31/leetcode-31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>training loss nan问题</title>
+    <url>/2019/12/30/Training%20loss%20nan/</url>
+    <content><![CDATA[<h2 id="Training-loss-nan"><a href="#Training-loss-nan" class="headerlink" title="Training loss nan"></a>Training loss nan</h2><p>训练模型时候发现 training loss nan 了，简单查了下，会有很多情况导致。</p>
+<p>我的问题就是数据有脏数据 nan的 inf的 等等…</p>
+<p>总结的话就是发现nan之后 先check下数据！！！</p>
+]]></content>
+      <categories>
+        <category>daily</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-47-全排列II</title>
     <url>/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/</url>
     <content><![CDATA[<h2 id="全排列II"><a href="#全排列II" class="headerlink" title="全排列II"></a>全排列II</h2><p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p>
@@ -2474,6 +2494,13 @@ x^{*}=\frac{x-\mu}{\sigma}</script><p>非线性归一化：</p>
 </li>
 </ul>
 <h2 id="学的是什么？"><a href="#学的是什么？" class="headerlink" title="学的是什么？"></a>学的是什么？</h2><p>对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习</p>
+<h2 id="怎么学"><a href="#怎么学" class="headerlink" title="怎么学"></a>怎么学</h2><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h2 id="与其他方法异同"><a href="#与其他方法异同" class="headerlink" title="与其他方法异同"></a>与其他方法异同</h2><h3 id="XGB与GBDT的区别"><a href="#XGB与GBDT的区别" class="headerlink" title="XGB与GBDT的区别"></a>XGB与GBDT的区别</h3><ul>
+<li>传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。</li>
+<li>传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。顺便提一下，xgboost工具支持自定义代价函数，只要函数可一阶和二阶求导。</li>
+<li>xgboost在代价函数里加入了正则项，用于控制模型的复杂度。正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。从Bias-variance tradeoff角度来讲，正则项降低了模型的variance，使学习出来的模型更加简单，防止过拟合，这也是xgboost优于传统GBDT的一个特性。</li>
+<li>Shrinkage（缩减），相当于学习速率（xgboost中的eta）。xgboost在进行完一次迭代后，会将叶子节点的权重乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。实际应用中，一般把eta设置得小一点，然后迭代次数设置得大一点。（补充：传统GBDT的实现也有学习速率）</li>
+<li>列抽样（column subsampling）。xgboost借鉴了随机森林的做法，支持列抽样，不仅能降低过拟合，还能减少计算，这也是xgboost异于传统gbdt的一个特性。</li>
+</ul>
 ]]></content>
       <categories>
         <category>ML</category>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-29T15:29:13.199Z</updated>
+  <updated>2019-12-31T15:34:59.738Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode-31-下一个排列</title>
+    <link href="http://yoursite.com/2019/12/31/leetcode-31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/"/>
+    <id>http://yoursite.com/2019/12/31/leetcode-31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/</id>
+    <published>2019-12-31T02:25:36.000Z</published>
+    <updated>2019-12-31T15:34:59.738Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>training loss nan问题</title>
+    <link href="http://yoursite.com/2019/12/30/Training%20loss%20nan/"/>
+    <id>http://yoursite.com/2019/12/30/Training%20loss%20nan/</id>
+    <published>2019-12-30T09:43:23.000Z</published>
+    <updated>2019-12-30T09:45:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Training-loss-nan"><a href="#Training-loss-nan" class="headerlink" title="Training loss nan"></a>Training loss nan</h2><p>训练模型时候发现 training loss nan 了，简单查了下，会有很多情况导致。</p><p>我的问题就是数据有脏数据 nan的 inf的 等等…</p><p>总结的话就是发现nan之后 先check下数据！！！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Training-loss-nan&quot;&gt;&lt;a href=&quot;#Training-loss-nan&quot; class=&quot;headerlink&quot; title=&quot;Training loss nan&quot;&gt;&lt;/a&gt;Training loss nan&lt;/h2&gt;&lt;p&gt;训练模型时候发现 t
+      
+    
+    </summary>
+    
+    
+      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Leetcode-47-全排列II</title>
@@ -481,50 +524,6 @@
       <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
     
       <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>京东搜索架构</title>
-    <link href="http://yoursite.com/2019/12/17/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%9E%B6%E6%9E%84/"/>
-    <id>http://yoursite.com/2019/12/17/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%9E%B6%E6%9E%84/</id>
-    <published>2019-12-17T09:03:00.059Z</published>
-    <updated>2019-12-17T14:45:04.894Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="京东搜索架构"><a href="#京东搜索架构" class="headerlink" title="京东搜索架构"></a>京东搜索架构</h2><h3 id="召回过程"><a href="#召回过程" class="headerlink" title="召回过程"></a>召回过程</h3><p>分词—— 倒排索引——倒排链表</p><p>大量空 query  做负反馈调节</p><p>倒排链 没有交集的 返回空query</p><p>搜索意图识别、纠错、term weight</p><p>倒排 keyword-&gt;sku result   用于召回阶段</p><p>正排 skuid-&gt; 商品详情 用于粗排精排</p><p>召回（捞）的过程： KNN 召回（H）+个性化召回（C）</p><p>相关性召回</p><p>粗排：</p><p>质量、热度、品牌、个人偏好</p><p>25个分片 每个分片保留300个  最后保留7500个商品</p><p>精排：</p><p>入口 7500的数量</p><p>95%的用户 前10页  85%用户不会超过前4页  </p><p>GMV 流水 或者 营收</p><p>list = 30 精排结果返回 目前支持最高30个 </p><p><strong>优质增量，不截断</strong></p><p><strong>1️⃣</strong>拼购精选、2️⃣hotscore大于50、</p><p>3️⃣战略单品、4️⃣医药o2o</p><p>手机壳</p><p>推荐/搜索/广告 公司流量的三驾马车</p><h4 id="意图理解"><a href="#意图理解" class="headerlink" title="意图理解"></a>意图理解</h4><p>query process-&gt; 运营干预 —&gt; op-web()yemian</p><p>意图识别，只靠单纯的pair对是实现不了的 还需要结合 用户维度的特征：时间地点画像 ，指导搜索引擎如何来返回结果</p><p>运营干预的理解：</p><blockquote><p>结合国家政策或者时事热点，来限制搜索意图。比如港独的产品，是如何做到下架的</p></blockquote><p>透传？</p><p>H-search： 深度学习 修饰词</p><p>C-search：个性化 search</p><h3 id="多次阶段——漏斗模型"><a href="#多次阶段——漏斗模型" class="headerlink" title="多次阶段——漏斗模型"></a>多次阶段——漏斗模型</h3><p>2次召回截断</p><p>第三次截断为粗排序 粗排结果为7500个</p><p>第四次精排</p><h3 id="工程架构"><a href="#工程架构" class="headerlink" title="工程架构"></a>工程架构</h3><p>缓存问题</p><blockquote><p>一级缓存，1分钟，针对单页，解决10%的流量</p><p>二级缓存，翻页缓存，应对同一用户翻页请求，缓存10页，失效1分钟；导航区缓存，包含品牌、分类、属性汇总，失效30分钟。 服务器上给用户维护了（单商品的变化，对品牌分类汇总信息的冲击不大）</p><p>三级缓存，</p></blockquote><h3 id="产品思维"><a href="#产品思维" class="headerlink" title="产品思维"></a>产品思维</h3><p>马太效应问题</p><p>爆款产品的解决：不投广告也照样top排序，所以出现爆款产品并不是一件很好的事情</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;京东搜索架构&quot;&gt;&lt;a href=&quot;#京东搜索架构&quot; class=&quot;headerlink&quot; title=&quot;京东搜索架构&quot;&gt;&lt;/a&gt;京东搜索架构&lt;/h2&gt;&lt;h3 id=&quot;召回过程&quot;&gt;&lt;a href=&quot;#召回过程&quot; class=&quot;headerlink&quot; title=&quot;召
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Shell 命令基础</title>
-    <link href="http://yoursite.com/2019/12/17/shell%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/2019/12/17/shell%E5%9F%BA%E7%A1%80/</id>
-    <published>2019-12-17T05:18:36.000Z</published>
-    <updated>2019-12-25T02:57:48.999Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Shell命令基础"><a href="#Shell命令基础" class="headerlink" title="Shell命令基础"></a>Shell命令基础</h2><p>日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识</p><h3 id="source-用法"><a href="#source-用法" class="headerlink" title="source 用法"></a>source 用法</h3><p>激活脚本，比如.sh文件中定义了一些变量，完全可以通过source一个.sh文件来使得脚本中定义的变量生效</p><p>但是有个问题，这个生效的声明周期仅限于在该会话内，再开一个终端是不能用的</p><h3 id="df-和-du"><a href="#df-和-du" class="headerlink" title="df 和 du"></a>df 和 du</h3><ul><li>du: disk-usage 显示文件或者目录所占磁盘空间</li></ul><p>du工作原理，会对待统计文件逐个调用<code>fstat</code>这个系统调用</p><ul><li>df:disk-free  检查磁盘空间（所以并不能看某个目录的占得磁盘大小）</li></ul><h3 id="查看文件挂载在哪里"><a href="#查看文件挂载在哪里" class="headerlink" title="查看文件挂载在哪里"></a>查看文件挂载在哪里</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h &lt;path&gt; 即可查看</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Shell命令基础&quot;&gt;&lt;a href=&quot;#Shell命令基础&quot; class=&quot;headerlink&quot; title=&quot;Shell命令基础&quot;&gt;&lt;/a&gt;Shell命令基础&lt;/h2&gt;&lt;p&gt;日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知
-      
-    
-    </summary>
-    
     
     
   </entry>
