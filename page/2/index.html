@@ -212,6 +212,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/leetcode-263-%E4%B8%91%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/23/leetcode-263-%E4%B8%91%E6%95%B0/" class="post-title-link" itemprop="url">Leetcode-263-丑数</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-23 23:30:43 / Modified: 23:33:22" itemprop="dateCreated datePublished" datetime="2019-12-23T23:30:43+08:00">2019-12-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h2><p>编写一个程序判断给定的数是否为丑数。</p>
+<p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
+<p>示例 1:</p>
+<p>输入: 6<br>输出: true<br>解释: 6 = 2 × 3<br>示例 2:</p>
+<p>输入: 8<br>输出: true<br>解释: 8 = 2 × 2 × 2<br>示例 3:</p>
+<p>输入: 14<br>输出: false<br>解释: 14 不是丑数，因为它包含了另外一个质因数 7。<br>说明：</p>
+<p>1 是丑数。<br>输入不会超过 32 位有符号整数的范围: [−231,  231 − 1]。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>丑数的定义已经说明白了，<code>只包含质因数2，3，5的正整数，1也是丑数</code></p>
+<p>给我们一个数，只需要不断用丑数的质因数去除待测试的数即可，如果最后的结果是1则是丑数，否则不是</p>
+<p>（0这个数十个坑，记得排除）</p>
+<p>递归解法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isUgly</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> num%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">5</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/leetcode-23-%E5%90%88%E5%B9%B6K%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -767,7 +854,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-26 14:35:50" itemprop="dateModified" datetime="2019-12-26T14:35:50+08:00">2019-12-26</time>
+                <time title="Modified: 2020-01-02 17:46:13" itemprop="dateModified" datetime="2020-01-02T17:46:13+08:00">2020-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -861,6 +948,14 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	<span class="keyword">id</span>,</span><br><span class="line">	collect_list(<span class="built_in">array</span>(gender,age,ect)) <span class="keyword">as</span> profile,</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">from</span> table_name</span><br><span class="line">	<span class="keyword">group</span> <span class="keyword">by</span></span><br></pre></td></tr></table></figure>
 <h3 id="case-when用法"><a href="#case-when用法" class="headerlink" title="case when用法"></a>case when用法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case when id &gt; 10 then 1 else 0 end</span><br></pre></td></tr></table></figure>
 <p>上述实现的功能就是 将id大于10的变为1，否则变为0，主要写法，一定要记得<code>end</code></p>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>1.先链接from 的数据源（若有join，先执行on后条件，再链接数据源）</p>
+<p>2.执行where</p>
+<p>3.执行groupby</p>
+<p>4.执行having</p>
+<p>5.执行order by</p>
+<p>写代码时候 最好也按照这个顺序书写</p>
+<h3 id="hive-表数据类型一定要对齐！！！max-string-的坑"><a href="#hive-表数据类型一定要对齐！！！max-string-的坑" class="headerlink" title="hive 表数据类型一定要对齐！！！max(string)的坑"></a>hive 表数据类型一定要对齐！！！max(string)的坑</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">	a.id,</span><br><span class="line">	a.hot_fea,</span><br><span class="line">  b.hot_fea_max </span><br><span class="line"><span class="keyword">from</span> table_test a</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span></span><br><span class="line">	<span class="keyword">max</span>(hot_fea) hot_fea_mx,</span><br><span class="line"><span class="keyword">from</span> table_test) b</span><br><span class="line"><span class="keyword">where</span> a.id=<span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="number">123</span>, <span class="number">250</span>, <span class="number">99</span> 分别对应<span class="keyword">id</span>, hot_fea, hot_fea_mx</span><br></pre></td></tr></table></figure>
+<p>出现了数值比max还大的情况。原因就是<strong>max的列是string的</strong></p>
 
       
     </div>
@@ -1259,95 +1354,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/leetcode-34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/17/leetcode-34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA/" class="post-title-link" itemprop="url">Leetcode-34-在排序数组中查找第一个和最后一个位置</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-17 23:11:03 / Modified: 23:43:23" itemprop="dateCreated datePublished" datetime="2019-12-17T23:11:03+08:00">2019-12-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="在排序数组中查找第一个和最后一个位置"><a href="#在排序数组中查找第一个和最后一个位置" class="headerlink" title="在排序数组中查找第一个和最后一个位置"></a>在排序数组中查找第一个和最后一个位置</h2><p>给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。</p>
-<p>你的算法时间复杂度必须是 O(log n) 级别。</p>
-<p>如果数组中不存在目标值，返回 [-1, -1]。</p>
-<p>示例 1:</p>
-<p>输入: nums = [5,7,7,8,8,10], target = 8<br>输出: [3,4]<br>示例 2:</p>
-<p>输入: nums = [5,7,7,8,8,10], target = 6<br>输出: [-1,-1]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>其实就是个二分查找的变形！！！二分的框架是很简单，但是其细节问题非常致命，简单举几个例子，右边界什么时候是n什么时候是n-1，缩小范围后，什么时候是right = mid-1，什么时候是right=mid。。。。等等</p>
-<p>其实这些问题都是一个最重要的概念没有搞清楚，即<strong>查找区域</strong>。</p>
-<blockquote>
-<p>自己还是觉得大佬的表述更加的逻辑清楚，自己讲出来就不是那么回事了</p>
-<p><a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/er-fen-cha-zhao-suan-fa-xi-jie-xiang-jie-by-labula/" target="_blank" rel="noopener">二分查找算法细节详解</a></p>
-</blockquote>
-<p>如何界定我们的查找区域也就限制了我们一系列的操作。</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchRange</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> [<span class="number">-1</span>,<span class="number">-1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">findfirst</span><span class="params">(nums,target)</span>:</span></span><br><span class="line">            left = <span class="number">0</span></span><br><span class="line">            right = len(nums)</span><br><span class="line">        </span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                    right = mid</span><br><span class="line">                <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">                    left = mid+<span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[mid] &gt; target:</span><br><span class="line">                    right = mid</span><br><span class="line">            <span class="keyword">if</span> left == len(nums):</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] != target:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">            <span class="keyword">return</span> left</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">findlast</span><span class="params">(nums,target)</span>:</span></span><br><span class="line">            left = <span class="number">0</span></span><br><span class="line">            right = len(nums)</span><br><span class="line">        </span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                    left = mid+<span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">                    left = mid+<span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[mid] &gt; target:</span><br><span class="line">                    right = mid</span><br><span class="line">            <span class="keyword">if</span> left == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">            <span class="keyword">if</span> nums[left<span class="number">-1</span>] != target:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">            <span class="keyword">return</span> left<span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [findfirst(nums,target),findlast(nums,target)]</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1396,7 +1402,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

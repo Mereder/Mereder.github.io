@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-1138-字母板上的路径</title>
+    <url>/2020/01/02/leetcode-1138-%E5%AD%97%E6%AF%8D%E6%9D%BF%E4%B8%8A%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<h2 id="字母板上的路径"><a href="#字母板上的路径" class="headerlink" title="字母板上的路径"></a>字母板上的路径</h2><p>我们从一块字母板上的位置 (0, 0) 出发，该坐标对应的字符为 board[0][0]。</p>
+<p>在本题里，字母板为board = [“abcde”, “fghij”, “klmno”, “pqrst”, “uvwxy”, “z”].</p>
+<p>我们可以按下面的指令规则行动：</p>
+<p>如果方格存在，’U’ 意味着将我们的位置上移一行；<br>如果方格存在，’D’ 意味着将我们的位置下移一行；<br>如果方格存在，’L’ 意味着将我们的位置左移一列；<br>如果方格存在，’R’ 意味着将我们的位置右移一列；<br>‘!’ 会把在我们当前位置 (r, c) 的字符 board[r][c] 添加到答案中。<br>返回指令序列，用最小的行动次数让答案和目标 target 相同。你可以返回任何达成目标的路径。</p>
+<blockquote>
+<p>示例 1：</p>
+<p>输入：target = “leet”<br>输出：”DDR!UURRR!!DDD!”<br>示例 2：</p>
+<p>输入：target = “code”<br>输出：”RR!DDRR!UUL!R!”</p>
+<p>提示：</p>
+<p>1 &lt;= target.length &lt;= 100<br>target 仅含有小写英文字母。</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>注意遍历的顺序：先 左和上  再右和下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">alphabetBoardPath</span><span class="params">(self, target)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> target:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        result = <span class="string">''</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> target:</span><br><span class="line">            error = ord(char) - ord(<span class="string">'a'</span>)</span><br><span class="line">            row = error // <span class="number">5</span></span><br><span class="line">            col = error % <span class="number">5</span></span><br><span class="line">            <span class="keyword">if</span> col &lt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(j-col):</span><br><span class="line">                    result += <span class="string">'L'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &lt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(i-row):</span><br><span class="line">                    result += <span class="string">'U'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &gt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(row-i):</span><br><span class="line">                    result += <span class="string">'D'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> col &gt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(col-j):</span><br><span class="line">                    result += <span class="string">'R'</span></span><br><span class="line"></span><br><span class="line">            result += <span class="string">'!'</span></span><br><span class="line">            i = row</span><br><span class="line">            j = col</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-31-下一个排列</title>
     <url>/2019/12/31/leetcode-31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/</url>
     <content><![CDATA[<h2 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a>下一个排列</h2><p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
@@ -465,6 +487,14 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	<span class="keyword">id</span>,</span><br><span class="line">	collect_list(<span class="built_in">array</span>(gender,age,ect)) <span class="keyword">as</span> profile,</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">from</span> table_name</span><br><span class="line">	<span class="keyword">group</span> <span class="keyword">by</span></span><br></pre></td></tr></table></figure>
 <h3 id="case-when用法"><a href="#case-when用法" class="headerlink" title="case when用法"></a>case when用法</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">case when id &gt; 10 then 1 else 0 end</span><br></pre></td></tr></table></figure>
 <p>上述实现的功能就是 将id大于10的变为1，否则变为0，主要写法，一定要记得<code>end</code></p>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>1.先链接from 的数据源（若有join，先执行on后条件，再链接数据源）</p>
+<p>2.执行where</p>
+<p>3.执行groupby</p>
+<p>4.执行having</p>
+<p>5.执行order by</p>
+<p>写代码时候 最好也按照这个顺序书写</p>
+<h3 id="hive-表数据类型一定要对齐！！！max-string-的坑"><a href="#hive-表数据类型一定要对齐！！！max-string-的坑" class="headerlink" title="hive 表数据类型一定要对齐！！！max(string)的坑"></a>hive 表数据类型一定要对齐！！！max(string)的坑</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">	a.id,</span><br><span class="line">	a.hot_fea,</span><br><span class="line">  b.hot_fea_max </span><br><span class="line"><span class="keyword">from</span> table_test a</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span></span><br><span class="line">	<span class="keyword">max</span>(hot_fea) hot_fea_mx,</span><br><span class="line"><span class="keyword">from</span> table_test) b</span><br><span class="line"><span class="keyword">where</span> a.id=<span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="number">123</span>, <span class="number">250</span>, <span class="number">99</span> 分别对应<span class="keyword">id</span>, hot_fea, hot_fea_mx</span><br></pre></td></tr></table></figure>
+<p>出现了数值比max还大的情况。原因就是<strong>max的列是string的</strong></p>
 ]]></content>
       <categories>
         <category>daily</category>
