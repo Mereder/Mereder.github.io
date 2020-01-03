@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-216-组合总和III</title>
+    <url>/2020/01/03/leetcode-216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII/</url>
+    <content><![CDATA[<h2 id="组合总和III"><a href="#组合总和III" class="headerlink" title="组合总和III"></a>组合总和III</h2><p>找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。</p>
+<p>说明：</p>
+<p>所有数字都是正整数。<br>解集不能包含重复的组合。<br>示例 1:</p>
+<p>输入: k = 3, n = 7<br>输出: [[1,2,4]]<br>示例 2:</p>
+<p>输入: k = 3, n = 9<br>输出: [[1,2,6], [1,3,5], [2,3,4]]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>回溯+剪枝，轻车熟路</p>
+<p>清楚每一次递归的元素是什么，基本都是有几个必要的元素</p>
+<blockquote>
+<p>结果集、栈、递归控制元素</p>
+</blockquote>
+<p>对应本体 结果集就是result</p>
+<p>栈就是用来存储结果的stack</p>
+<p>控制元素本体就是n,k</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-39-组合总和</title>
+    <url>/2020/01/03/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/</url>
+    <content><![CDATA[<h2 id="组合总和"><a href="#组合总和" class="headerlink" title="组合总和"></a>组合总和</h2><p>给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p>candidates 中的数字可以无限制重复被选取。</p>
+<p>说明：</p>
+<p>所有数字（包括 target）都是正整数。<br>解集不能包含重复的组合。<br>示例 1:</p>
+<p>输入: candidates = [2,3,6,7], target = 7,<br>所求解集为:<br>[<br>  [7],<br>  [2,2,3]<br>]<br>示例 2:</p>
+<p>输入: candidates = [2,3,5], target = 8,<br>所求解集为:<br>[<br>  [2,2,2,2],<br>  [2,3,3],<br>  [3,5]<br>]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>可能确实刷题刷出来感觉了，拿到题第一时间就想到了用 回溯来做，具体细节当然要使用一些剪枝。</p>
+<p>既然使用回溯来做，最好要画图分析下（递归的过程都可以画成树）</p>
+<p>（假装这里有个图）</p>
+<p>搞清楚</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combinationSum</span><span class="params">(self, candidates: List[int], target: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        result = []</span><br><span class="line">        stack = []</span><br><span class="line">        self.helper(candidates, target, result, stack, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, candidates, target, result, stack, start)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> target &lt; <span class="number">0</span>:  <span class="comment"># 剪枝</span></span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> target == <span class="number">0</span>:  <span class="comment"># 找到一个结果集</span></span><br><span class="line">            result.append(stack.copy())</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(start,len(candidates)):</span><br><span class="line">            stack.append(candidates[index])</span><br><span class="line">						<span class="comment"># 由于允许有重复 所以下一个位置还是从index 开始</span></span><br><span class="line">            self.helper(candidates, target-candidates[index], result, stack, index)</span><br><span class="line"></span><br><span class="line">            stack.pop()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-1138-字母板上的路径</title>
     <url>/2020/01/02/leetcode-1138-%E5%AD%97%E6%AF%8D%E6%9D%BF%E4%B8%8A%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
     <content><![CDATA[<h2 id="字母板上的路径"><a href="#字母板上的路径" class="headerlink" title="字母板上的路径"></a>字母板上的路径</h2><p>我们从一块字母板上的位置 (0, 0) 出发，该坐标对应的字符为 board[0][0]。</p>
@@ -14,8 +57,10 @@
 <p>提示：</p>
 <p>1 &lt;= target.length &lt;= 100<br>target 仅含有小写英文字母。</p>
 </blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>注意遍历的顺序：先 左和上  再右和下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">alphabetBoardPath</span><span class="params">(self, target)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> target:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        result = <span class="string">''</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> target:</span><br><span class="line">            error = ord(char) - ord(<span class="string">'a'</span>)</span><br><span class="line">            row = error // <span class="number">5</span></span><br><span class="line">            col = error % <span class="number">5</span></span><br><span class="line">            <span class="keyword">if</span> col &lt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(j-col):</span><br><span class="line">                    result += <span class="string">'L'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &lt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(i-row):</span><br><span class="line">                    result += <span class="string">'U'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &gt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(row-i):</span><br><span class="line">                    result += <span class="string">'D'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> col &gt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(col-j):</span><br><span class="line">                    result += <span class="string">'R'</span></span><br><span class="line"></span><br><span class="line">            result += <span class="string">'!'</span></span><br><span class="line">            i = row</span><br><span class="line">            j = col</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[<span class="string">"abcde"</span>, </span><br><span class="line"> <span class="string">"fghij"</span>, </span><br><span class="line"> <span class="string">"klmno"</span>, </span><br><span class="line"> <span class="string">"pqrst"</span>, </span><br><span class="line"> <span class="string">"uvwxy"</span>, </span><br><span class="line"> <span class="string">"z"</span>].</span><br></pre></td></tr></table></figure>
+<p>注意遍历的顺序：先 左和上  再右和下</p>
+<p>原因是：最后一个z的位置 比较特殊，如果想到z位置，只能从z的上面才能到，z的右侧，z的下面都不可以到达z位置，只能上面到，所以要先进行   向左或者向上  的操作。（因为如果先进行向右或者向下 势必会遍历到非法区域）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">alphabetBoardPath</span><span class="params">(self, target)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> target:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        result = <span class="string">''</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> target:</span><br><span class="line">            error = ord(char) - ord(<span class="string">'a'</span>)</span><br><span class="line">            row = error // <span class="number">5</span></span><br><span class="line">            col = error % <span class="number">5</span></span><br><span class="line">            左侧</span><br><span class="line">            <span class="keyword">if</span> col &lt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(j-col):</span><br><span class="line">                    result += <span class="string">'L'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &lt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(i-row):</span><br><span class="line">                    result += <span class="string">'U'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &gt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(row-i):</span><br><span class="line">                    result += <span class="string">'D'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> col &gt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(col-j):</span><br><span class="line">                    result += <span class="string">'R'</span></span><br><span class="line"></span><br><span class="line">            result += <span class="string">'!'</span></span><br><span class="line">            i = row</span><br><span class="line">            j = col</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>算法刷题</category>
