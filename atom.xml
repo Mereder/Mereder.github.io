@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-06T14:54:40.192Z</updated>
+  <updated>2020-02-02T15:20:01.979Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,217 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode-388-文件最长绝对路径</title>
+    <link href="http://yoursite.com/2020/02/02/leetcode-388-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E9%95%BF%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/"/>
+    <id>http://yoursite.com/2020/02/02/leetcode-388-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E9%95%BF%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/</id>
+    <published>2020-02-02T14:47:06.000Z</published>
+    <updated>2020-02-02T15:20:01.979Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="文件的最长绝对路径"><a href="#文件的最长绝对路径" class="headerlink" title="文件的最长绝对路径"></a>文件的最长绝对路径</h2><p>假设我们以下述方式将我们的文件系统抽象成一个字符串:</p><p>字符串 “dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext” 表示:</p><blockquote><p>dir<br> subdir1<br> subdir2<br>     file.ext</p><p>目录 dir 包含一个空的子目录 subdir1 和一个包含一个文件 file.ext 的子目录 subdir2 。</p></blockquote><p>字符串 “dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext” 表示:</p><blockquote><p>dir<br>    subdir1<br>        file1.ext<br>        subsubdir1<br>    subdir2<br>        subsubdir2<br>            file2.ext<br>目录 dir 包含两个子目录 subdir1 和 subdir2。 subdir1 包含一个文件 file1.ext 和一个空的二级子目录 subsubdir1。subdir2 包含一个二级子目录 subsubdir2 ，其中包含一个文件 file2.ext。</p></blockquote><p>我们致力于寻找我们文件系统中文件的最长 (按字符的数量统计) 绝对路径。例如，在上述的第二个例子中，最长路径为 “dir/subdir2/subsubdir2/file2.ext”，其长度为 32 (不包含双引号)。</p><p>给定一个以上述格式表示文件系统的字符串，返回文件系统中文件的最长绝对路径的长度。 如果系统中没有文件，返回 0。</p><p>说明:</p><ul><li>文件名至少存在一个 . 和一个扩展名。</li><li>目录或者子目录的名字不能包含 .。</li><li>要求时间复杂度为 O(n) ，其中 n 是输入字符串的大小。</li></ul><p>请注意，如果存在路径 aaaaaaaaaaaaaaaaaaaaa/sth.png 的话，那么  a/aa/aaa/file1.txt 就不是一个最长的路径。</p><h3 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h3><p>抓住一个细节问题：只有文件名是带有.（点）的，如果不包含文件名则不应计算最大长度</p><p>这个问题的另一个特点就是<code>\t</code>，其实代表了<strong>目录深度</strong>。</p><p>当我们找到一个带<code>.</code>的文件时候，我们就<strong>计算其长度</strong>，并与最大长度比较，保留最长的数。</p><p>如何计算一次完整路径的长度呢？</p><p>只需要让当前文件的文件名字长度+其目录文件的长度</p><p>举例：</p><blockquote><p>dir<br>    subdir1<br>        file1.ext<br>        subsubdir1<br>    subdir2<br>        subsubdir2<br>            file2.ext</p></blockquote><p>定义一个dict来存储长度，初始化{0:0}</p><p>当处理’dir’时，其<code>\t</code>个数为0，则depth=0，则下一层文件的基础部分就有了<code>dir/</code>,所以</p><p><code>dict[depth+1] = len(&#39;dir&#39;)+dict[depth]+1</code></p><p>dict变为{0:0,1:4}</p><p>同理，当处理过subdir1后，dict变为{0:0,1:4,2:12}，12来自<code>dir/subdir1/</code></p><p>同理，当处理到<code>file1.ext</code>，需要更新一次最大长度，<code>max= &#39;dir/subdir1/file1.ext&#39; = 12+9=21</code></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthLongestPath</span><span class="params">(self, input: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">not</span> <span class="keyword">in</span> input:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        depth_dict = &#123;<span class="number">0</span>:<span class="number">0</span>&#125; <span class="comment"># key:depth  value:length</span></span><br><span class="line">        depth = <span class="number">0</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> input.split(<span class="string">'\n'</span>):</span><br><span class="line">            <span class="comment"># 每行</span></span><br><span class="line">            depth = line.count(<span class="string">'\t'</span>)</span><br><span class="line">            name = line.strip(<span class="string">'\t'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> name:</span><br><span class="line">                max_len = max(max_len, len(name)+depth_dict[depth])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 下一级目录长度 = 目录名+之前的目录+分隔符号 ”/“</span></span><br><span class="line">                depth_dict[depth+<span class="number">1</span>] = len(name) + depth_dict[depth] + <span class="number">1</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure><h3 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h3><p>利用栈来实现。</p><p>栈深度代表了文件目录的深度，压栈的内容是目录的名字，当遍历到带有拓展名的文件时，只需要将栈内的内容按<code>/</code>链接起来就是绝对路径。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthLongestPath</span><span class="params">(self, input: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">not</span> <span class="keyword">in</span> input:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        stack = []</span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> input.split(<span class="string">'\n'</span>):</span><br><span class="line">            depth = line.count(<span class="string">'\t'</span>)+<span class="number">1</span>  <span class="comment"># 小细节，同等递归深度目录，应该出栈</span></span><br><span class="line">            name = line.strip(<span class="string">'\t'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> len(stack) &gt;= depth:</span><br><span class="line">                stack.pop()</span><br><span class="line">            stack.append(name)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> name:</span><br><span class="line">                max_len = max(max_len,len(<span class="string">'/'</span>.join(stack)))</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;文件的最长绝对路径&quot;&gt;&lt;a href=&quot;#文件的最长绝对路径&quot; class=&quot;headerlink&quot; title=&quot;文件的最长绝对路径&quot;&gt;&lt;/a&gt;文件的最长绝对路径&lt;/h2&gt;&lt;p&gt;假设我们以下述方式将我们的文件系统抽象成一个字符串:&lt;/p&gt;
+&lt;p&gt;字符串 “dir
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+      <category term="Google" scheme="http://yoursite.com/tags/Google/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-8-字符串转换整数(atoi)</title>
+    <link href="http://yoursite.com/2020/02/02/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/"/>
+    <id>http://yoursite.com/2020/02/02/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/</id>
+    <published>2020-02-02T08:27:52.000Z</published>
+    <updated>2020-02-02T08:45:26.102Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="字符串转换整数"><a href="#字符串转换整数" class="headerlink" title="字符串转换整数"></a>字符串转换整数</h2><p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p><p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p><p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p><p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p><p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p><p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p><p>说明：</p><p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p><p>示例 1:</p><p>输入: “42”<br>输出: 42<br>示例 2:</p><p>输入: “   -42”<br>输出: -42<br>解释: 第一个非空白字符为 ‘-‘, 它是一个负号。<br>     我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。<br>示例 3:</p><p>输入: “4193 with words”<br>输出: 4193<br>解释: 转换截止于数字 ‘3’ ，因为它的下一个字符不为数字。<br>示例 4:</p><p>输入: “words and 987”<br>输出: 0<br>解释: 第一个非空字符是 ‘w’, 但它不是数字或正、负号。<br>     因此无法执行有效的转换。<br>示例 5:</p><p>输入: “-91283472332”<br>输出: -2147483648<br>解释: 数字 “-91283472332” 超过 32 位有符号整数范围。<br>     因此返回 INT_MIN (−231) 。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>其实题目已经将思路告知了，只需要按照要求实现即可。</p><ul><li>首先要处理None，否则后边无法调用len()</li><li>其次处理字符串中的空白字符，这些可以直接跳过</li><li>然后识别是否有“+“，”-“</li><li>最后一起处理字母和数字</li></ul><p>整道题的处理逻辑很清楚，就是用一个全局的下标，来逐个处理字符，符合就留下，不符合就丢弃</p><p>此处应注意与java等语言的不同，python默认定义的数据int是64位的，而java普通int是32位的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myAtoi</span><span class="params">(self, str: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> str:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        max_value = <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span></span><br><span class="line">        min_value = <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        index = <span class="number">0</span> <span class="comment">#  全局使用</span></span><br><span class="line">        symbol = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">while</span> index &lt; len(str) <span class="keyword">and</span> str[index] == <span class="string">' '</span>:</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> index &lt; len(str):</span><br><span class="line">            <span class="keyword">if</span> str[index] == <span class="string">'+'</span>:</span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> str[index] == <span class="string">'-'</span>:</span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">                symbol = <span class="literal">False</span> </span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(index,len(str)):</span><br><span class="line">                <span class="keyword">if</span> str[i] &gt;= <span class="string">'0'</span> <span class="keyword">and</span> str[i] &lt;= <span class="string">'9'</span>:</span><br><span class="line">                    result = result*<span class="number">10</span>+int(str[i])   <span class="comment"># 如果更保险，这个位置可以加入一个&gt;max的判断</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> symbol:</span><br><span class="line">                result = -result</span><br><span class="line">            <span class="keyword">if</span> result &lt; min_value: <span class="keyword">return</span> min_value</span><br><span class="line">            <span class="keyword">if</span> result &gt; max_value: <span class="keyword">return</span> max_value</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;字符串转换整数&quot;&gt;&lt;a href=&quot;#字符串转换整数&quot; class=&quot;headerlink&quot; title=&quot;字符串转换整数&quot;&gt;&lt;/a&gt;字符串转换整数&lt;/h2&gt;&lt;p&gt;请你来实现一个 atoi 函数，使其能将字符串转换成整数。&lt;/p&gt;
+&lt;p&gt;首先，该函数会根据需要丢弃
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-7-整数翻转</title>
+    <link href="http://yoursite.com/2020/02/02/leetcode-7-%E6%95%B4%E6%95%B0%E7%BF%BB%E8%BD%AC/"/>
+    <id>http://yoursite.com/2020/02/02/leetcode-7-%E6%95%B4%E6%95%B0%E7%BF%BB%E8%BD%AC/</id>
+    <published>2020-02-02T07:09:47.000Z</published>
+    <updated>2020-02-02T07:49:02.033Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="整数翻转"><a href="#整数翻转" class="headerlink" title="整数翻转"></a>整数翻转</h2><p>给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。</p><p>示例 1:</p><p>输入: 123<br>输出: 321<br> 示例 2:</p><p>输入: -123<br>输出: -321<br>示例 3:</p><p>输入: 120<br>输出: 21<br>注意:</p><p>假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>思路很简单：对原始值不断按10取余，然后将取出来的余数*10加到新的结果上。</p><p><strong>重点是</strong>：对于结果的处理，题目按时很明显，32位，最大的32位数字是多少呢？ 是<strong>2^31-1</strong>.</p><p>如果结果超过最大的值，我们需要进行判断。越界就返回0，否则返回翻转的结果</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self, x: int)</span> -&gt; int:</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        max_value = <span class="number">2</span>**<span class="number">31</span> - <span class="number">1</span></span><br><span class="line">        min_value = <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        x1 = abs(x)</span><br><span class="line">        <span class="keyword">while</span> x1 != <span class="number">0</span>:</span><br><span class="line">            result = result*<span class="number">10</span> + x1%<span class="number">10</span></span><br><span class="line">            x1 = x1//<span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> result &gt; max_value <span class="keyword">or</span> result &lt; min_value :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> -result</span><br></pre></td></tr></table></figure><h3 id="知识拓展：负数取余"><a href="#知识拓展：负数取余" class="headerlink" title="知识拓展：负数取余"></a>知识拓展：负数取余</h3><p>关于python 取余的结果与   （C++和java）取余结果的不同。</p><p>对于自然数来说，没有什么问题，但是对于负数而言，运算机制是不同的。</p><blockquote><p>c++：cout &lt;&lt; (-7) % 3; // 输出 <strong>-1</strong></p><p>java：System.out.println((-7) % 3); // 输出 <strong>-1</strong></p><p>python：>&gt;&gt; (-7) % 3 // 输出 <strong>2</strong></p></blockquote><p>同号整数运算，所有语言都遵循<strong>尽量让商小</strong>的原则，因此7mod3结果为1没有异议。</p><p>在异号的整数运算中，C++和Java会让商<strong>尽可能大</strong>（比如-7mod3中，d=-2,r=-1）。</p><p>Python等则让商<strong>尽可能小</strong>（比如-7mod3中，d=-3，r=2）。</p><p>回到本题除10取余的过程，如果x=-123</p><p>c++和java</p><blockquote><p>-123 %10  商-12 余-3</p></blockquote><p>python</p><blockquote><p>-123%10 商-13 余 +7</p></blockquote><p>如果c++和java的话，可以直接处理，之后的结果仍然是负数，且颠倒过。</p><p>而python 就会出问题</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;整数翻转&quot;&gt;&lt;a href=&quot;#整数翻转&quot; class=&quot;headerlink&quot; title=&quot;整数翻转&quot;&gt;&lt;/a&gt;整数翻转&lt;/h2&gt;&lt;p&gt;给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。&lt;/p&gt;
+&lt;p&gt;示例 1:&lt;/p&gt;
+&lt;p&gt;输入: 1
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Learning to Rank</title>
+    <link href="http://yoursite.com/2020/01/15/L2R:learning%20to%20rank/"/>
+    <id>http://yoursite.com/2020/01/15/L2R:learning%20to%20rank/</id>
+    <published>2020-01-15T12:16:16.811Z</published>
+    <updated>2020-01-15T12:17:08.281Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>VScode跳板机连接服务器</title>
+    <link href="http://yoursite.com/2020/01/15/VScode%E8%B7%B3%E6%9D%BF%E6%9C%BA%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://yoursite.com/2020/01/15/VScode%E8%B7%B3%E6%9D%BF%E6%9C%BA%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
+    <published>2020-01-15T12:03:17.347Z</published>
+    <updated>2020-01-15T12:04:18.906Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/witnessai1/article/details/89217498" target="_blank" rel="noopener">https://blog.csdn.net/witnessai1/article/details/89217498</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/witnessai1/article/details/89217498&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/witnessai1/artic
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow-GPU 环境配置问题</title>
+    <link href="http://yoursite.com/2020/01/15/Tensorflow%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2020/01/15/Tensorflow%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</id>
+    <published>2020-01-15T09:59:24.266Z</published>
+    <updated>2020-01-15T12:11:38.367Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="版本兼容问题"><a href="#版本兼容问题" class="headerlink" title="版本兼容问题"></a>版本兼容问题</h2><p>大部分的gpu版本TensorFlow不work大概率都是因为版本不匹配导致的</p><p>重点就是环境匹配的问题</p><p>当前亲测最好用的就是python3.6+tf1.12-gpu 此外就是CUDA和cudnn的问题了</p><p>服务器上多人操作的话 最好还是使用conda创建自己的虚拟环境然后再自己的虚拟环境里面搞</p><h3 id="首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题"><a href="#首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题" class="headerlink" title="首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题"></a>首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure><p>上方有个<code>NVIDIA-SMI：384.81</code></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 再一次确认CUDA版本</span></span><br><span class="line">cat /usr/local/cuda/version.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 和cudnn版本问题</span></span><br><span class="line">cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure><p>先确认CUDA版本与显卡驱动之间的版本对应好，然后再确认CUDA和cudnn版本之间的问题，自己配置几次的感受就是，显卡驱动和CUDA一般都是固定好的，最好不要动否则会影响服务器上其他用户，但是cudnn是可以更新的，这个向下兼容的。偏硬件的东西都设置好之后，再按照TensorFlow-GPU</p><h3 id="cuDNN版本问题"><a href="#cuDNN版本问题" class="headerlink" title="cuDNN版本问题"></a>cuDNN版本问题</h3><p>关于更新cudnn，完全可以按照<a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/" target="_blank" rel="noopener">官方教程来搞</a>，重点是最好备份下原有的cudnn文件，万一导致更新后别人的也不可以用了，就惨了。</p><h3 id="conda-创建虚拟环境以及问题"><a href="#conda-创建虚拟环境以及问题" class="headerlink" title="conda 创建虚拟环境以及问题"></a>conda 创建虚拟环境以及问题</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n env_name python==3.6</span><br></pre></td></tr></table></figure><p>其实可以直接 <code>conda install tensorflow-gpu=1.12</code></p><p>注意conda进行包管理的问题就是，conda会直接安装所有可能依赖的包，可能有的包是你不需要的 这无所谓，但是有时候会给你安装错误版本的依赖包，导致出问题。这样的话只能后期再修改包</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;版本兼容问题&quot;&gt;&lt;a href=&quot;#版本兼容问题&quot; class=&quot;headerlink&quot; title=&quot;版本兼容问题&quot;&gt;&lt;/a&gt;版本兼容问题&lt;/h2&gt;&lt;p&gt;大部分的gpu版本TensorFlow不work大概率都是因为版本不匹配导致的&lt;/p&gt;
+&lt;p&gt;重点就是环境匹
+      
+    
+    </summary>
+    
+    
+      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>娇娇实验要点</title>
+    <link href="http://yoursite.com/2020/01/14/%E5%A8%87%E5%A8%87%E5%AE%9E%E9%AA%8C%E8%A6%81%E7%82%B9/"/>
+    <id>http://yoursite.com/2020/01/14/%E5%A8%87%E5%A8%87%E5%AE%9E%E9%AA%8C%E8%A6%81%E7%82%B9/</id>
+    <published>2020-01-14T13:09:21.650Z</published>
+    <updated>2020-01-14T13:17:58.431Z</updated>
+    
+    <content type="html"><![CDATA[<p>回归实验</p><p>目前拿一家公司的数据进行试验，存在问题：</p><p>1.未区分不同的产品，产品不一样会带来单价不一样的问题</p><p>2.目前以天为单位，可考虑区分不同的产品之后以天或者周为单位</p><p>3.之前做过的one hot与之后的回归是否可以结合；发现分类编码缺失很多？？？</p><p>4.依靠分类编码无法区分产品类别，只能考虑其他分类方法</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;回归实验&lt;/p&gt;
+&lt;p&gt;目前拿一家公司的数据进行试验，存在问题：&lt;/p&gt;
+&lt;p&gt;1.未区分不同的产品，产品不一样会带来单价不一样的问题&lt;/p&gt;
+&lt;p&gt;2.目前以天为单位，可考虑区分不同的产品之后以天或者周为单位&lt;/p&gt;
+&lt;p&gt;3.之前做过的one hot与之后的回归是否可以
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Vim 日常使用</title>
+    <link href="http://yoursite.com/2020/01/08/vim%20%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/01/08/vim%20%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-01-08T08:11:19.855Z</published>
+    <updated>2020-01-08T08:12:40.558Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>优化方法总结（先挖个坑，最近任务是刷题 之后补一下）</title>
+    <link href="http://yoursite.com/2020/01/07/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2020/01/07/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</id>
+    <published>2020-01-07T02:05:32.362Z</published>
+    <updated>2020-01-07T02:08:04.376Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/yinyu19950811/article/details/90476956" target="_blank" rel="noopener">https://blog.csdn.net/yinyu19950811/article/details/90476956</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/yinyu19950811/article/details/90476956&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/yinyu19950811
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Bloom Filter(布隆过滤器)</title>
@@ -289,245 +500,6 @@
       
         &lt;h2 id=&quot;下一个排列&quot;&gt;&lt;a href=&quot;#下一个排列&quot; class=&quot;headerlink&quot; title=&quot;下一个排列&quot;&gt;&lt;/a&gt;下一个排列&lt;/h2&gt;&lt;p&gt;实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。&lt;/p&gt;
 &lt;p&gt;如果不存在下一个
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>training loss nan问题</title>
-    <link href="http://yoursite.com/2019/12/30/Training%20loss%20nan/"/>
-    <id>http://yoursite.com/2019/12/30/Training%20loss%20nan/</id>
-    <published>2019-12-30T09:43:23.000Z</published>
-    <updated>2019-12-30T09:45:49.331Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Training-loss-nan"><a href="#Training-loss-nan" class="headerlink" title="Training loss nan"></a>Training loss nan</h2><p>训练模型时候发现 training loss nan 了，简单查了下，会有很多情况导致。</p><p>我的问题就是数据有脏数据 nan的 inf的 等等…</p><p>总结的话就是发现nan之后 先check下数据！！！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Training-loss-nan&quot;&gt;&lt;a href=&quot;#Training-loss-nan&quot; class=&quot;headerlink&quot; title=&quot;Training loss nan&quot;&gt;&lt;/a&gt;Training loss nan&lt;/h2&gt;&lt;p&gt;训练模型时候发现 t
-      
-    
-    </summary>
-    
-    
-      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-47-全排列II</title>
-    <link href="http://yoursite.com/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/"/>
-    <id>http://yoursite.com/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/</id>
-    <published>2019-12-29T14:25:00.000Z</published>
-    <updated>2019-12-29T15:29:13.199Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="全排列II"><a href="#全排列II" class="headerlink" title="全排列II"></a>全排列II</h2><p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p><p>示例:</p><p>输入: [1,1,2]<br>输出:<br>[<br>  [1,1,2],<br>  [1,2,1],<br>  [2,1,1]<br>]</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>加入限制：<strong>含重复元素</strong></p><p>含重复元素带来的问题就是，会导致出现重复的排列。我们需要做的就是<strong>剪枝</strong></p><p>具体的剪枝操作如何进行呢？</p><p>回到重复元素问题，如果是数组含有重复元素，我们最好的办法是通过hash去重，或者通过预排序，预排序将重复元素都放在一起，也比较好操作。这里我们的结果都是list，list是不能进行hash的，所以使用预排序的方法。这里跟<strong>3sum</strong>的题有异曲同工之妙，通过预排序让问题更加好解决。</p><p>预排序之后呢？</p><p>预排序之后，重复元素好处理了，那么我们进行剪枝时候，可以利用排序数组的性质，将存在的重复情况跳过</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i<span class="number">-1</span>]==nums[i]:</span><br><span class="line">    <span class="keyword">continue</span></span><br></pre></td></tr></table></figure><p>这里因为是回溯+剪枝，还需要考虑下状态问题，沿用<a href="">Leetcode-46-全排列</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i<span class="number">-1</span>] ==nums[i] <span class="keyword">and</span> <span class="keyword">not</span> used[i<span class="number">-1</span>]:</span><br><span class="line">    <span class="keyword">continue</span></span><br></pre></td></tr></table></figure><p>当前位置如果是重复元素，并且之前的元素已经是False了，即说明已经遍历过了，那么当前元素(i)可以continue。</p><p>为什么之前相同元素状态是False就表示已经遍历过呢？因为for i 的循环是表示在同一层，前面的元素先于后边的元素进行遍历，如果前面的元素是False，肯定使用经过遍历再回溯修改状态为False，那么同一层的相同元素就没有必要再遍历了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">permuteUnique</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        </span><br><span class="line">        nums.sort()</span><br><span class="line">        result = []</span><br><span class="line">        stack = []</span><br><span class="line">        used = [<span class="literal">False</span>]*len(nums)</span><br><span class="line"></span><br><span class="line">        self.helper(<span class="number">0</span>, nums, stack, used, result)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, depth, nums, stack, used, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> depth == len(nums):</span><br><span class="line">            result.append(stack.copy())</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">                <span class="comment"># 1.i &gt;0 i-1才不会越界</span></span><br><span class="line">                <span class="comment"># nums[i-1] == nums[i] 重复元素 且 nums[i-1]没有被遍历 则 证明会有重复排列</span></span><br><span class="line">                <span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>] <span class="keyword">and</span> used[i<span class="number">-1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                stack.append(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">                self.helper(depth+<span class="number">1</span>, nums, stack, used, result)</span><br><span class="line"></span><br><span class="line">                stack.pop()</span><br><span class="line">                used[i] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;全排列II&quot;&gt;&lt;a href=&quot;#全排列II&quot; class=&quot;headerlink&quot; title=&quot;全排列II&quot;&gt;&lt;/a&gt;全排列II&lt;/h2&gt;&lt;p&gt;给定一个可包含重复数字的序列，返回所有不重复的全排列。&lt;/p&gt;
-&lt;p&gt;示例:&lt;/p&gt;
-&lt;p&gt;输入: [1,1,2]&lt;
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-60-第K个排列</title>
-    <link href="http://yoursite.com/2019/12/29/leetcode-60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/"/>
-    <id>http://yoursite.com/2019/12/29/leetcode-60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/</id>
-    <published>2019-12-29T07:53:07.000Z</published>
-    <updated>2020-01-05T06:36:04.733Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a>第K个排列</h2><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p><p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p><p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p><p>说明：</p><p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。<br>示例 1:</p><p>输入: n = 3, k = 3<br>输出: “213”<br>示例 2:</p><p>输入: n = 4, k = 9<br>输出: “2314”</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>延续全排列的办法，将全部排列都求出之后，找到第K个排列即可，当然，这道题这么做直接<strong>超时</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        nums = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>)]</span><br><span class="line">        result = []</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line">        used = [<span class="literal">False</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        self.helper(<span class="number">0</span>,nums,stack,used,result)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(result[k<span class="number">-1</span>])</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, length, nums, stack,used, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> length == len(nums):</span><br><span class="line">            result.append(stack)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">                stack += str(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line">                self.helper(length+<span class="number">1</span>,nums,stack,used,result)</span><br><span class="line"></span><br><span class="line">                used[i] = <span class="literal">False</span></span><br><span class="line">                stack = stack[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1gadnuwrckbj30m807s3yx.jpg" alt="image-20191229161342833"></p><h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><strong>回溯+剪枝</strong>，当严格意义上来讲，并没有回溯的过程，更多的体现在<strong>剪枝</strong>上</p><p>回溯：我们需要修改状态，然后操作，之后进行回溯，再修改状态。对应排列问题就是进入时候<code>used[i]=Ture</code>,回溯<code>used[i]=False。</code></p><p>剪枝：对不满足条件的状况不再进行dfs搜索解，直接跳过。</p><p>本题的剪枝条件是<strong>个数限制</strong>。因为就是数字的全排列，那么以任一一个数字开头的可能情况都是可以计算的。以<code>n=3</code>为例。</p><blockquote><p>n = 3,可能解为[‘123’,’132’,’213’,’231’,’312’,’321’]  即 3! 等于 6</p><p>当第一位确认为‘1’时，后面只能选’2’,’3’  则 2！=2</p><p>如果我们的输入为n=3,k=3</p><p>由于第一位为’1’时候，可能解为2！=2 &lt; k=3 则不必再对’1’为第一位的情况展开搜索 直接跳过</p><p>此时注意跳过后k = k-2 =1。</p><p>接下来第一位为’2’时候，可能解为2!=2 &gt; k=1，则第k个解就在这个里面，我们只需要对该情况进行搜索即可</p></blockquote><p>上面举的例子只是考虑了第一位的情况（对应递归树就是第一层），之后的每一层都是一样的，也都是进行剪枝判断就可以了。实际并没有回溯的过程。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_factorial</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        res = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n:</span><br><span class="line">            res *= n</span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> n==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        used = [<span class="literal">False</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.helper(<span class="number">0</span>,n,k,stack,used)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self,depth, n, k, stack,used)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> depth == n:</span><br><span class="line">            <span class="keyword">return</span> stack</span><br><span class="line"></span><br><span class="line">        before = self.get_factorial(n-depth<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">          <span class="comment"># 第一次剪枝：去过的不能再去</span></span><br><span class="line">            <span class="keyword">if</span> used[i]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 第二次剪枝：解的个数&lt;k</span></span><br><span class="line">            <span class="keyword">if</span> before &lt; k:</span><br><span class="line">                k -= before</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment">### 并没有回溯过程</span></span><br><span class="line">            stack += str(i)</span><br><span class="line">            used[i] = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> self.helper(depth+<span class="number">1</span>, n, k, stack, used)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;第K个排列&quot;&gt;&lt;a href=&quot;#第K个排列&quot; class=&quot;headerlink&quot; title=&quot;第K个排列&quot;&gt;&lt;/a&gt;第K个排列&lt;/h2&gt;&lt;p&gt;给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。&lt;/p&gt;
-&lt;p&gt;按大小顺序列出所有排列情况，并一一标
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>git日常使用</title>
-    <link href="http://yoursite.com/2019/12/27/git%E6%97%A5%E5%B8%B8/"/>
-    <id>http://yoursite.com/2019/12/27/git%E6%97%A5%E5%B8%B8/</id>
-    <published>2019-12-27T06:29:47.000Z</published>
-    <updated>2019-12-27T06:30:23.890Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="git-日常使用"><a href="#git-日常使用" class="headerlink" title="git 日常使用"></a>git 日常使用</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;git-日常使用&quot;&gt;&lt;a href=&quot;#git-日常使用&quot; class=&quot;headerlink&quot; title=&quot;git 日常使用&quot;&gt;&lt;/a&gt;git 日常使用&lt;/h2&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>BeautifulSoup 4 部分使用笔记</title>
-    <link href="http://yoursite.com/2019/12/27/BeautifulSoup4/"/>
-    <id>http://yoursite.com/2019/12/27/BeautifulSoup4/</id>
-    <published>2019-12-26T16:22:48.000Z</published>
-    <updated>2019-12-26T16:23:14.084Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="BeautifulSoup-4-使用理解"><a href="#BeautifulSoup-4-使用理解" class="headerlink" title="BeautifulSoup 4  使用理解"></a>BeautifulSoup 4  使用理解</h1><p><strong>核心</strong>：Beautiful Soup将复杂HTML文档转换成一个复杂的<strong>树形结构</strong>,每个节点都是Python对象,所有对象可以归纳为4种: <code>Tag</code> , <code>NavigableString</code> , <code>BeautifulSoup</code> , <code>Comment</code> </p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全篇都是以这个例子进行展开</span></span><br><span class="line">html_doc = <span class="string">"""</span></span><br><span class="line"><span class="string">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</span></span><br><span class="line"><span class="string">and they lived at the bottom of a well.&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;...&lt;/p&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(html_doc)</span><br></pre></td></tr></table></figure><h2 id="基础节点类型"><a href="#基础节点类型" class="headerlink" title="基础节点类型"></a>基础节点类型</h2><ul><li><p>Tag：Tag节点也是最基本的节点类型。两个重要属性 name  attributes（类似字典包含id,class 等等）</p></li><li><p>NavigableString：包含在Tag中的字符串</p><p>tag中的字符串不能编辑，但是可以被替换成其他的字符串，用replace_with()</p></li><li><p>BeautifulSoup：</p><p>支持搜索文档树 和 遍历文档树的大部分方法</p></li><li><p><code>Comment</code> 对象是一个特殊类型的 <code>NavigableString</code> 对象，大部分使用用来表示注释部分</p></li></ul><p>Tag，NavigableString和BeautifulSoup基本上就可以表示html和XML中的所有内容了</p><h2 id="遍历文档树"><a href="#遍历文档树" class="headerlink" title="遍历文档树"></a>遍历文档树</h2><p>理解BeautifulSoup 将HTML文档解析成为DOM文档树，这个树的每个标签代表一个节点。一个Tag可能包含多个String或其他Tag，这些都是这个Tag的子节点，BeautifulSoup提供了许多操作和遍历子节点的属性</p><h3 id="contents-和-children"><a href="#contents-和-children" class="headerlink" title=".contents 和 .children"></a>.contents 和 .children</h3><p>遍历文档树的两个重要属性<code>.contents</code>和<code>.children</code></p><p>.contents 会将当前节点（TAG）的子节点以<strong>列表</strong>的形式输出</p><p><strong>一个节点其子节点可能有其他TAG 也可能有字符串String，string 是不可迭代的</strong></p><p>.children 产生<strong>生成器</strong>，可以对tag的子节点进行循环</p><h3 id="descendants"><a href="#descendants" class="headerlink" title=".descendants"></a>.descendants</h3><p><code>.descendants</code> 属性可以对所有tag的子孙节点进行<strong>递归循环</strong>遍历（<code>先序</code>遍历形式）：</p><h3 id="strings-和-stripped-strings"><a href="#strings-和-stripped-strings" class="headerlink" title=".strings 和 stripped_strings"></a>.strings 和 stripped_strings</h3><p>如果tag中包含多个字符串 ,可以使用 <code>.strings</code> 来循环获取:</p><blockquote><p>print(‘ ‘.join([string.strip() for string in soup.body.find_all(‘p’)[1].strings]))</p><p>soup 是BeautifulSoup对象，通过.body进入 body 标签下，进行find_all(‘p’)查找全部P标签</p><p>拿到[1]的p标签，然后进行strings，产生generator 通过join方式将 生成器的内容进行结合</p><p> 输出为：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Once upon a time there were three little sisters; <span class="keyword">and</span> their names were Elsie , Lacie <span class="keyword">and</span> Tillie ;</span><br><span class="line"><span class="keyword">and</span> they lived at the bottom of a well.</span><br></pre></td></tr></table></figure></blockquote><p> <code>.stripped_strings</code> 可以去除多余空白内容(空格，空行)</p><h3 id="父节点-parent-和-parents"><a href="#父节点-parent-和-parents" class="headerlink" title="父节点.parent 和 .parents"></a>父节点.parent 和 .parents</h3><p>.parent 获取某个元素的父节点。</p><p>.parents 属性可以用递归得到元素的所有父辈节点</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">link = soup.a</span><br><span class="line">link</span><br><span class="line"><span class="comment"># &lt;a class="sister" href="http://example.com/elsie" id="link1"&gt;Elsie&lt;/a&gt;</span></span><br><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> link.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br><span class="line"><span class="comment"># p</span></span><br><span class="line"><span class="comment"># body</span></span><br><span class="line"><span class="comment"># html</span></span><br><span class="line"><span class="comment"># [document]</span></span><br><span class="line"><span class="comment"># None</span></span><br></pre></td></tr></table></figure><h3 id="兄弟节点-next-sibling-和-previous-sibling"><a href="#兄弟节点-next-sibling-和-previous-sibling" class="headerlink" title="兄弟节点.next_sibling 和 .previous_sibling"></a>兄弟节点.next_sibling 和 .previous_sibling</h3><p>同一层的标签，是兄弟节点，他们来自同一个 父节点</p><p>在文档树中,使用 <code>.next_sibling</code> 和 <code>.previous_sibling</code> 属性来查询兄弟节点</p><p>通过 <code>.next_siblings</code> 和 <code>.previous_siblings</code> 属性可以对当前节点的兄弟节点迭代输出</p><p>BeautifulSoup解决的思路就是：</p><p>先搜索String 找到可能 关键句，然后从关键句的地方进行判断进行删除</p><h1 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h1><p>心得：一般爬虫使用这个来爬取数据，正常都是用到的Bs4的搜索技巧，最近实习工作中，使用这个来对新闻进行修改（冗余优化），还需要使用<strong>修改</strong>技巧，修改嘛，无非就是（增删改）</p><p>对于增，用的比较少。（冗余优化 主要是删改）</p><p>对于删除，首先要定位到目标位置，需要观察一批数据的情况</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>beautifulsoup  官网中文</p><p><a href="https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/#id18" target="_blank" rel="noopener">https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/#id18</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;BeautifulSoup-4-使用理解&quot;&gt;&lt;a href=&quot;#BeautifulSoup-4-使用理解&quot; class=&quot;headerlink&quot; title=&quot;BeautifulSoup 4  使用理解&quot;&gt;&lt;/a&gt;BeautifulSoup 4  使用理解&lt;/h1
-      
-    
-    </summary>
-    
-    
-      <category term="daily" scheme="http://yoursite.com/categories/daily/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-35-搜索插入位置（一点都不easy）</title>
-    <link href="http://yoursite.com/2019/12/26/leetcode-35-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/"/>
-    <id>http://yoursite.com/2019/12/26/leetcode-35-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/</id>
-    <published>2019-12-26T15:14:18.000Z</published>
-    <updated>2019-12-26T15:40:53.882Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h2><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p><p>你可以假设数组中无重复元素。</p><blockquote><p>示例 1:</p><p>输入: [1,3,5,6], 5<br>输出: 2<br>示例 2:</p><p>输入: [1,3,5,6], 2<br>输出: 1<br>示例 3:</p><p>输入: [1,3,5,6], 7<br>输出: 4<br>示例 4:</p><p>输入: [1,3,5,6], 0<br>输出: 0</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>妈了个鸡，一点都不简单，二分这个坑。。。</p><p>原本的二分检索，如果检索不到target的话，跳出循环时候，会有left &gt;  right即left=right+1</p><p>这个时候对应两种情况:</p><ul><li>一种是由于<code>nums[mid]&lt;target</code>导致left=mid+1跳出，此时left-1&lt;target&lt;left</li><li>一种是由于 <code>nums[mid]&gt;target</code>导致right=mid-1跳出，此时 right&lt;target&lt;right+1 而left=right+1,即也是left-1&lt;target&lt;left</li></ul><p>即不论什么情况，只要没有检索到目标值，那么target一定介于<code>left-1</code>和<code>left</code>之间，对应插入位置就是left</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchInsert</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = left+((right-left)&gt;&gt;<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">                left = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &gt; target:</span><br><span class="line">                right = mid - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> left</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;搜索插入位置&quot;&gt;&lt;a href=&quot;#搜索插入位置&quot; class=&quot;headerlink&quot; title=&quot;搜索插入位置&quot;&gt;&lt;/a&gt;搜索插入位置&lt;/h2&gt;&lt;p&gt;给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-      <category term="easy" scheme="http://yoursite.com/tags/easy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-313-超级丑数</title>
-    <link href="http://yoursite.com/2019/12/25/leetcode-313-%E8%B6%85%E7%BA%A7%E4%B8%91%E6%95%B0/"/>
-    <id>http://yoursite.com/2019/12/25/leetcode-313-%E8%B6%85%E7%BA%A7%E4%B8%91%E6%95%B0/</id>
-    <published>2019-12-24T16:11:30.000Z</published>
-    <updated>2019-12-25T14:56:57.786Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="超级丑数"><a href="#超级丑数" class="headerlink" title="超级丑数"></a>超级丑数</h2><p>编写一段程序来查找第 n 个超级丑数。</p><p>超级丑数是指其所有质因数都是长度为 k 的质数列表 primes 中的正整数。</p><p>示例:</p><p>输入: n = 12, primes = [2,7,13,19]<br>输出: 32<br>解释: 给定长度为 4 的质数列表 primes = [2,7,13,19]，前 12 个超级丑数序列为：[1,2,4,7,8,13,14,16,19,26,28,32] 。<br>说明:</p><blockquote><p>1 是任何给定 primes 的超级丑数。</p><p>给定 primes 中的数字以升序排列。<br>0 &lt; k ≤ 100, 0 &lt; n ≤ 106, 0 &lt; primes[i] &lt; 1000 。<br>第 n 个超级丑数确保在 32 位有符整数范围内。</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>原本丑数就是质因数只有2，3，5的数字，这个题目扩展为丑数为一个list的质因数</p><p>思路都是一样的，只不过需要维护一个list的指针，以及一个丑数序列</p><p><code>p_list</code>是对应<code>primes</code>数组每个元素对应的指针数组，<code>p_list</code>中元素表示<code>primes</code>中质因数的指针</p><p><code>ugly</code>来记录超级丑数</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nthSuperUglyNumber</span><span class="params">(self, n, primes)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :type primes: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> primes:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        length = len(primes)</span><br><span class="line">        p_list = [<span class="number">0</span>]*length</span><br><span class="line">        ugly = [<span class="number">0</span>]*n</span><br><span class="line">        ugly[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            min_value = <span class="number">2</span>**<span class="number">32</span></span><br><span class="line">            <span class="comment"># 找下一个丑数</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(length): <span class="comment"># 升序排列的</span></span><br><span class="line">                <span class="keyword">if</span> primes[j]*ugly[p_list[j]] &lt;= min_value:</span><br><span class="line">                    min_value = primes[j]*ugly[p_list[j]]</span><br><span class="line">            <span class="comment"># 满足条件的指针+1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(length):</span><br><span class="line">                <span class="keyword">if</span> primes[j]*ugly[p_list[j]] == min_value:</span><br><span class="line">                    p_list[j] += <span class="number">1</span></span><br><span class="line">            ugly[i] = min_value</span><br><span class="line">        </span><br><span class="line">     <span class="keyword">return</span> ugly[n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;超级丑数&quot;&gt;&lt;a href=&quot;#超级丑数&quot; class=&quot;headerlink&quot; title=&quot;超级丑数&quot;&gt;&lt;/a&gt;超级丑数&lt;/h2&gt;&lt;p&gt;编写一段程序来查找第 n 个超级丑数。&lt;/p&gt;
-&lt;p&gt;超级丑数是指其所有质因数都是长度为 k 的质数列表 primes 中的
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-264-丑数II</title>
-    <link href="http://yoursite.com/2019/12/24/leetcode-264-%E4%B8%91%E6%95%B0II/"/>
-    <id>http://yoursite.com/2019/12/24/leetcode-264-%E4%B8%91%E6%95%B0II/</id>
-    <published>2019-12-24T14:54:17.000Z</published>
-    <updated>2019-12-24T16:00:20.523Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="丑数II"><a href="#丑数II" class="headerlink" title="丑数II"></a>丑数II</h2><p>编写一个程序，找出第 n 个丑数。</p><p>丑数就是只包含质因数 2, 3, 5 的正整数。</p><p>示例:</p><p>输入: n = 10<br>输出: 12<br>解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。<br>说明:  </p><blockquote><p>1 是丑数。<br>n 不超过1690。</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>根据丑数的定义，某个数如果是丑数一定是2，3，5的公倍数，那我们可以根据这个规则将丑数逐一列举出来。</p><p>列举的基本想法就是：如果一个数已经是丑数了，那么这个数的2，3，5倍仍然是丑数。</p><p>我们可以记录之前产生的所有丑数，然后维护三个指针，<code>p2</code>,<code>p3</code>,<code>p5</code>这三个指针什么用处呢？</p><blockquote><p>三个指针分别表示下一个丑数可能产生的情况：p2*2  p3*3  p5*5</p><p>这三个数哪个最小，就是下一个丑数，以最开始为例，第一个丑数为1,那么p2,p3,p5都指向1</p><p>1的下一个丑数是什么呢？ min(1*2,1*3,1*5) 为2，那么下一个丑数就是2，同时p2指针向前挪动一个</p><p>比如此时丑数序列已经有了[1,2,3,4,5,6,8,9,10]，p2指向6，p3指向4，p5指向3，</p><p>10的下一个丑数就是min(mem[p2]*2,mem[p3]*3,mem[p5]*5)</p><p>则下一个丑数为12</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nthUglyNumber</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span>  </span><br><span class="line">        mem = [<span class="number">0</span>]*n</span><br><span class="line">        mem[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        p2 = <span class="number">0</span></span><br><span class="line">        p3 = <span class="number">0</span></span><br><span class="line">        p5 = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            mem[i] = min(mem[p2]*<span class="number">2</span>,mem[p3]*<span class="number">3</span>,mem[p5]*<span class="number">5</span>)</span><br><span class="line">            <span class="keyword">if</span> mem[i] == mem[p2]*<span class="number">2</span>:</span><br><span class="line">                p2+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> mem[i] == mem[p3]*<span class="number">3</span>:</span><br><span class="line">                p3+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> mem[i] == mem[p5]*<span class="number">5</span>:</span><br><span class="line">                p5+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mem[n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><p>注意：</p><ul><li>又一次写没写出来就是p2,p3,p5的含义搞混了</li><li>一定是在之前生成的丑数基础上进行操作</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;丑数II&quot;&gt;&lt;a href=&quot;#丑数II&quot; class=&quot;headerlink&quot; title=&quot;丑数II&quot;&gt;&lt;/a&gt;丑数II&lt;/h2&gt;&lt;p&gt;编写一个程序，找出第 n 个丑数。&lt;/p&gt;
-&lt;p&gt;丑数就是只包含质因数 2, 3, 5 的正整数。&lt;/p&gt;
-&lt;p&gt;示例:&lt;/
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-263-丑数</title>
-    <link href="http://yoursite.com/2019/12/23/leetcode-263-%E4%B8%91%E6%95%B0/"/>
-    <id>http://yoursite.com/2019/12/23/leetcode-263-%E4%B8%91%E6%95%B0/</id>
-    <published>2019-12-23T15:30:43.000Z</published>
-    <updated>2019-12-23T15:33:22.314Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h2><p>编写一个程序判断给定的数是否为丑数。</p><p>丑数就是只包含质因数 2, 3, 5 的正整数。</p><p>示例 1:</p><p>输入: 6<br>输出: true<br>解释: 6 = 2 × 3<br>示例 2:</p><p>输入: 8<br>输出: true<br>解释: 8 = 2 × 2 × 2<br>示例 3:</p><p>输入: 14<br>输出: false<br>解释: 14 不是丑数，因为它包含了另外一个质因数 7。<br>说明：</p><p>1 是丑数。<br>输入不会超过 32 位有符号整数的范围: [−231,  231 − 1]。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>丑数的定义已经说明白了，<code>只包含质因数2，3，5的正整数，1也是丑数</code></p><p>给我们一个数，只需要不断用丑数的质因数去除待测试的数即可，如果最后的结果是1则是丑数，否则不是</p><p>（0这个数十个坑，记得排除）</p><p>递归解法：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isUgly</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> num%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">5</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;丑数&quot;&gt;&lt;a href=&quot;#丑数&quot; class=&quot;headerlink&quot; title=&quot;丑数&quot;&gt;&lt;/a&gt;丑数&lt;/h2&gt;&lt;p&gt;编写一个程序判断给定的数是否为丑数。&lt;/p&gt;
-&lt;p&gt;丑数就是只包含质因数 2, 3, 5 的正整数。&lt;/p&gt;
-&lt;p&gt;示例 1:&lt;/p&gt;
-&lt;p
       
     
     </summary>

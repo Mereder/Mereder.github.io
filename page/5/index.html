@@ -212,6 +212,923 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/shell%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/17/shell%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Shell 命令基础</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-17 13:18:36" itemprop="dateCreated datePublished" datetime="2019-12-17T13:18:36+08:00">2019-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-15 11:51:56" itemprop="dateModified" datetime="2020-01-15T11:51:56+08:00">2020-01-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Shell命令基础"><a href="#Shell命令基础" class="headerlink" title="Shell命令基础"></a>Shell命令基础</h2><p>日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识</p>
+<h3 id="基本符号问题"><a href="#基本符号问题" class="headerlink" title="基本符号问题"></a>基本符号问题</h3><p>` `  ！！！不是单引号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`` 键盘右上角的符号，并不是单引号，这个用来包住命令 tmp=`echo '123'`就是将内部的命令运行结果包起来</span><br><span class="line">等价于 $() 即 tmp=$(echo '123')</span><br></pre></td></tr></table></figure>
+<h3 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h3><h4 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for((i=0;i&lt;$n;i++)); # 这样可以像C语言一样写</span><br><span class="line">do xxxxxx</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dt=$1</span><br><span class="line">if [ ! $dt ];then</span><br><span class="line">    do something</span><br><span class="line">else:</span><br><span class="line">	  do something</span><br><span class="line">	  exit 1  # 强制退出</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h4 id="函数写法"><a href="#函数写法" class="headerlink" title="函数写法"></a>函数写法</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 定义一个函数</span></span><br><span class="line">test_func()&#123;</span><br><span class="line">		hive -hiveconf table_name=$&#123;table_name&#125; \</span><br><span class="line">				-hiveconf ...\</span><br><span class="line">				-f test.hql</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">test_func</span><br></pre></td></tr></table></figure>
+<h3 id="source-用法"><a href="#source-用法" class="headerlink" title="source 用法"></a>source 用法</h3><p>激活脚本，比如.sh文件中定义了一些变量，完全可以通过source一个.sh文件来使得脚本中定义的变量生效</p>
+<p>但是有个问题，这个生效的声明周期仅限于在该会话内，再开一个终端是不能用的</p>
+<h3 id="df-和-du"><a href="#df-和-du" class="headerlink" title="df 和 du"></a>df 和 du</h3><ul>
+<li>du: disk-usage 显示文件或者目录所占磁盘空间</li>
+</ul>
+<p>du工作原理，会对待统计文件逐个调用<code>fstat</code>这个系统调用</p>
+<ul>
+<li>df:disk-free  检查磁盘空间（所以并不能看某个目录的占得磁盘大小）</li>
+</ul>
+<h3 id="查看文件挂载在哪里"><a href="#查看文件挂载在哪里" class="headerlink" title="查看文件挂载在哪里"></a>查看文件挂载在哪里</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h &lt;path&gt; 即可查看</span><br></pre></td></tr></table></figure>
+<h3 id="shell-脚本里面多行注释"><a href="#shell-脚本里面多行注释" class="headerlink" title="shell 脚本里面多行注释"></a>shell 脚本里面多行注释</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo "123"</span><br><span class="line"></span><br><span class="line">&lt;&lt; COMMENT</span><br><span class="line">test </span><br><span class="line">&lt;&lt;</span><br></pre></td></tr></table></figure>
+<h3 id="sort-用法"><a href="#sort-用法" class="headerlink" title="sort 用法"></a>sort 用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主要的几个参数：</span><br><span class="line">-k 3  按照第3列进行排序</span><br><span class="line">-r  默认升序，-r进行逆序</span><br><span class="line">-n numerical  如果按照字符串排序会出现  23排在8前面  -n则是按照数值大小排序</span><br><span class="line">-t ”,“ 按照逗号分割，  '\t'这个有点特殊  需要  $'\t' 这样用</span><br></pre></td></tr></table></figure>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-title-link" itemprop="url">Git 常用工作流</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-17 11:46:48" itemprop="dateCreated datePublished" datetime="2019-12-17T11:46:48+08:00">2019-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-08 16:08:20" itemprop="dateModified" datetime="2020-01-08T16:08:20+08:00">2020-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="git-基本工作流"><a href="#git-基本工作流" class="headerlink" title="git 基本工作流"></a>git 基本工作流</h3><p>初级 以及讲解  配合业务 使用</p>
+<ul>
+<li><p>从线上拉回代码</p>
+</li>
+<li><p>开发前建立一个分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b marys-feature</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后进行开发</p>
+</li>
+<li><p>然后将开发的结果push上去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后进行 git push -u origin  branch_name</p>
+</li>
+<li><p>提  merger request </p>
+</li>
+</ul>
+<h3 id="更换branch名字"><a href="#更换branch名字" class="headerlink" title="更换branch名字"></a>更换branch名字</h3><p>git branch -m oldname newname</p>
+<p>然后再走一遍新的工作流，将新的branch 上传至 origin</p>
+<p><a href="https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#小红开始开发一个新功能" target="_blank" rel="noopener">https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#%E5%B0%8F%E7%BA%A2%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD</a></p>
+<h3 id="只克隆branch-到本地"><a href="#只克隆branch-到本地" class="headerlink" title="只克隆branch 到本地"></a>只克隆branch 到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b branch_name  git_address</span><br></pre></td></tr></table></figure>
+<h3 id="完整地址"><a href="#完整地址" class="headerlink" title="完整地址"></a>完整地址</h3><p><a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Apache%20pig/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/16/Apache%20pig/" class="post-title-link" itemprop="url">Apach pig 日常使用总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-16 23:42:37" itemprop="dateCreated datePublished" datetime="2019-12-16T23:42:37+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-27 00:06:43" itemprop="dateModified" datetime="2019-12-27T00:06:43+08:00">2019-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p>
+<p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p>
+<p>是一种简单的分析工具， 其基础是运行在hadoop基础上，那么就涉及到基础的文件加载和存储问题</p>
+<h3 id="pig加载数据"><a href="#pig加载数据" class="headerlink" title="pig加载数据"></a>pig加载数据</h3><p>加载数据的目的是将raw data 加载进pig的关系中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">relation_name = LOAD 'input_file_path' USING function as schema;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"></span><br><span class="line">student = LOAD 'hdfs://localhost:9000/pig_data/student_data.txt' </span><br><span class="line">   USING PigStorage(',')</span><br><span class="line">   as ( id:int, firstname:chararray, lastname:chararray, phone:chararray, </span><br><span class="line">   city:chararray );</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>relation_name</strong> - 我们必须提到要存储数据的关系。</li>
+<li><strong>Input file path</strong> - 我们必须提到存储文件的HDFS目录。（在MapReduce模式下）</li>
+<li><strong>function</strong> - 我们必须从Apache Pig提供的一组加载函数中选择一个函数（ <strong>BinStorage，JsonLoader，PigStorage，TextLoader</strong> ）。</li>
+<li><strong>Schema</strong> - 我们必须定义数据的模式，可以定义所需的模式如下 -</li>
+</ul>
+<p>还有一种是加载hive表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = load 'hive表' using</span><br></pre></td></tr></table></figure>
+<h3 id="pig-存储数据"><a href="#pig-存储数据" class="headerlink" title="pig 存储数据"></a>pig 存储数据</h3><p>是将转化为关系的数据，存储在hdfs上（local也可以）</p>
+<h3 id="FOREACH-GENERATE的使用"><a href="#FOREACH-GENERATE的使用" class="headerlink" title="FOREACH, GENERATE的使用"></a>FOREACH, GENERATE的使用</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/16/Transformer%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Transformer详解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-16 23:42:37" itemprop="dateCreated datePublished" datetime="2019-12-16T23:42:37+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-27 00:18:11" itemprop="dateModified" datetime="2019-12-27T00:18:11+08:00">2019-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Transformer-详解"><a href="#Transformer-详解" class="headerlink" title="Transformer 详解"></a>Transformer 详解</h2><p>这个基本是面试重点，在理解这个transformer结构上，可以从宏观开始，然后逐步深入到其中的细节问题。</p>
+<h3 id="说在前面："><a href="#说在前面：" class="headerlink" title="说在前面："></a>说在前面：</h3><p>  重点讲解Transformer、BERT部分，transformer-XL、XLNet优化部分做介绍</p>
+<ol>
+<li><p>一个概念：什么是自回归，什么是自编码？</p>
+<p>常规的语言模型从左到右或从右向左都属于自回归模型，就是只依赖于上文或只依赖于下文</p>
+<p>GPT就是典型的自回归（从左到右），ELMo也是，只不过其将两个方向的LSTM的hidden state 进行了concat，以来表示上下文。这种自回归方式主要适合生成类任务：文本摘要，机器翻译</p>
+<p>BERT 属于去噪声自编码（Denoising Autoencoder）自编码的过程是可以见到上下文的。什么是去噪自编码呢。以BERT为例子，就是在预训练的过程中引入噪声（mask）然后masked LM的目的就是通过上下文来预测mask，达到去噪的目的。这种模式在阅读理解、SQuAD等任务上表现很好，因为这些任务是允许看到上下文的。</p>
+</li>
+<li><p>Transformer重要参考资料（阅读顺序排列）：</p>
+<p>Attention is all your need论文、The Illustrated Transformer（详细讲解Transformer流程）、</p>
+<p>The Annotated Transformer（transformer Pytorch版实现）、Transfomer Google官方实现</p>
+<p>（Tensor2Tensor）</p>
+<p>阅读之后至少清楚模型内部的数据（向量或矩阵）的流动（训练阶段的流动方式、测试阶段的流动方式）</p>
+<ol>
+<li><p>position encoding<br>理解实现方式、解决的问题</p>
+</li>
+<li><p>Multi-head attention</p>
+<p>理解QKV的生成过程、</p>
+<p><strong>重点</strong>理解</p>
+<p>Multi-head是如何实现的、了解整个模型需要学习的参数是哪些</p>
+<ol>
+<li>self-attention<br>理解计算原理、实现方法、重点了解矩阵之间计算</li>
+<li>masked self-attention<br>理解mask的作用，mask的实现方式。清楚masked self-attention 和 self-attention 的差别</li>
+<li>encoder-decoder attention<br>理解该部分attention 的数据来源</li>
+</ol>
+</li>
+<li><p>一些细节</p>
+<ol>
+<li>add&amp;Norm 也是有学习参数的</li>
+<li>最后decoder的输出层还有一个Linear+softmax</li>
+<li>在测试阶段Greedy decoding策略 和 Beam Search策略</li>
+</ol>
+</li>
+<li><p>问题</p>
+<ol>
+<li>重点明白Transformer的不能解决长文本依赖的问题（受制于实现过程的内存限制、否则其序列长度是可以不受限制的）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Transformer-XL</p>
+<p>重要参考资料：</p>
+<p>Transformer论文、官方简要+动图、官方代码（未看）</p>
+<ol>
+<li>理解Transformer的操作过程（训练、测试），知道Transformer的弊端</li>
+<li>重点理解下 Transformer 的主要组件是 decoder-only (就是只使用transformer的decoder 部分，不是完整的transformer的 encoder+decoder结构)</li>
+<li>清楚下Transformer-XL解决Transformer存在问题的总体思想</li>
+<li>Segment-lever Recurrence 的实现方式</li>
+<li>Relative Positional Encoding 的实现方式</li>
+</ol>
+</li>
+<li><p>BERT</p>
+<p>重要参考资料：</p>
+<p>BERT原文、illustrated-bert（捎带GPT ELMo）、官方源码、BERT文本分类</p>
+<ol>
+<li><p>背景知识<br>自编码、自回归<br>了解GPT、ELMo 跟BERT的关系</p>
+</li>
+<li><p>理解BERT用的只是Transformer的encoder（可以见到上下文，只部分mask）</p>
+</li>
+<li><p>embedding<br>了解BERT的丰富Embedding（token+segment+position）</p>
+</li>
+<li><p>两个创新点：<br>重点明白Masked LM 的实现，以及Loss 计算方式<br>重点明白Next Sequence Prediction的原理，以及Loss计算方式</p>
+</li>
+<li><p>应用<br>了解BERT对各任务的应用场景：sequence level  和 token level</p>
+</li>
+<li><p>一些问题<br>BERT切词方式：在源码的 tokenization.py<br>BERT的pre-traing 和 fine-tuning过程不一致问题<br>BERT还可以做feature-based 形式，后边拼接自己的模型</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>XLNet</p>
+<p>重要参考资料：</p>
+<p>XLNet原文、跟其他模型对比and论文解读、XLNet与Bert对比</p>
+<ol>
+<li>背景知识：BERT+Transformer-XL</li>
+<li>主要方法：<br>Permutation Language Modeling 方式 用自回归的方式达到见到上下文信息<br>Architecture:Two_Stream Self-Attention for target-Aware representations(本次分享未涉及到)<br>从Transformer-XL 借鉴经验</li>
+<li>XLNet 未讲解部分，还需要大家之后单独了解下</li>
+</ol>
+</li>
+<li><p>思考</p>
+<ol>
+<li>NLP -&gt; Nvidia League Player</li>
+<li>刷榜模型或方法层出不穷</li>
+<li>实际工作中有哪些可以展开的工作</li>
+</ol>
+</li>
+</ol>
+<h3 id="Embedding层"><a href="#Embedding层" class="headerlink" title="Embedding层"></a>Embedding层</h3><p>Transformer的embedding层比较特殊的地方就是引入了Position embedding，为什么需要这样一个embedding？原因是由于后边进行self-attention的时候，每个词之间都可以进行交互，这样解决了长期依赖的问题，但是由于缺少了原有语言的顺序，那么<code>i am a boy</code>和<code>am boy a i</code>是没有区别的了，反正两两之间都会计算score.</p>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>Encoder是个模块，简单的理解实际上就两部分，一部分是Mult-head Attention 另一部分是一个Positionwise FeedForward，当然还有两个小模块add&amp;norm。</p>
+<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>今天又理解了一个  Layernormalization和 batchnormalization的区别</p>
+<p>针对的归一化维度是不一样的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/16/%E7%99%BE%E5%BA%A6%E4%BF%A1%E6%81%AF%E6%B5%81%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">百度信息流算法？面经</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-16 18:18:07 / Modified: 23:41:31" itemprop="dateCreated datePublished" datetime="2019-12-16T18:18:07+08:00">2019-12-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="百度信息流算法？面经"><a href="#百度信息流算法？面经" class="headerlink" title="百度信息流算法？面经"></a>百度信息流算法？面经</h2><p>为什么要给标题打个问号呢？ 因为我是真的好奇，我自己投的到底是不是算法工程师…因为二面面试官为我的问题，真的是之前面别的地方从来没有问过的…也算给自己提个醒吧…算法工程师不仅仅需要掌握那些玄幻的算法什么….更重要的还是工程师嘛。。。</p>
+<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>简单的自我介绍，说下自己之前做的项目，然后：</p>
+<p>会不会c c++ java，我说自己java还可以，面试官紧接着问java的字符串的三种形态 stringbuffer  stringbuild什么的清楚嘛？</p>
+<p>我：java写但是确实仅限于写题，具体的一些细节和底层的东西确实没有接触过。也就在大二时候用过，最近可能确实很久没用了，不太熟悉。。。</p>
+<p>面试官：你用c写个堆排序吧…</p>
+<p>（其实堆排序自己写起来问题倒是不大，但是c语言…用久了python 根本不记得c的一些写法了，包括最开始变量定义都写错了，也算完整写下来了吧….）</p>
+<p>然后面试官问了一个算法设计题目：</p>
+<blockquote>
+<p>给你一批数据，有id和score，然你根据score的值大小进行加权采样，即根据score分数，从中抽取n个样本</p>
+<p>Id score</p>
+<p>0    3</p>
+<p>1    5</p>
+<p>2    10</p>
+<p>3    1</p>
+<p>。。。</p>
+</blockquote>
+<p>问怎么实现？</p>
+<p>我提的思路是，可以根据score的分数对样本进行copy，也就是说对于score=3，那我就把id复制3次，对于score=10，我就把对应id复制10次，再将复制之后的整体数据进行打散，然后再随机抽取n个，由于样本中的样本分布已经被之前的操作所改变，所以完全可以达到加权采样的效果。但是这样操作的问题就是，如果数据量很大，那么你都进行复制，数据量会更大，其实是不太友好的。</p>
+<p>然后看我简历有awk 和Linux，问了几个简单的命令。</p>
+<p>一面给的评价还是positive的吧，问题不太大。</p>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>（我开始还以为是压力面，但是谁知道 人家真的就是二面….）</p>
+<p>简单的聊一下项目，问下我的研究生的方向（本人研究生方向是云计算与服务工程，但是自己并没有去做相关的内容）然后针对项目中的知识点进行细致的提问，比如 lstm+crf 如果只有lstm会怎样，只有crf会怎样。项目没有问很多吧。</p>
+<p>然后就是写题其实题目也很简单，写一个单链表的反转….问题就是，只能用c来实现，c语言确实很久没有写了，导致写出来的代码不伦不类，很被动。</p>
+<p>然后写完单链表的反转之后他对代码不是很满意…确实很多c语言的写法可能都记不清楚了，又写了一个快排，快排的partition我也是写了一个可能跟他印象中不一样的（这会面试体验挺不好的…跟你印象中的不一样就不对了?）然后说我写的c语言不行…然后开始问我c语言的基础，全局变量和局部变量区别，说到了堆栈，就问我堆栈具体怎么实现的。</p>
+<p>从这开始就进入了完全被动状态…甚至怀疑自己投错了岗位</p>
+<p>问我怎么理解类，类有哪些特性</p>
+<p>开始问数据库的一些知识：数据一致性，数据一致性是通过什么来实现的？（这个完全没有印象）</p>
+<p>操作系统的进程线程的区别（这个还好）</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实总体面完的感觉还是很糟糕的，原因一方面是感觉跟之前面其他公司的感觉完全不一样，没有推算法 没有将项目，没有机器学习相关，直接全是计算机基础。另一方面就是，自己的计算机基础真的是糟糕…可能这也是自己着力避开这些，想通过算法工程师来解决吧…但是说到底这些都是计算机专业的基础课…虽然学过忘记了…还是尽量多复习复习吧，明年秋招，尽量别被这种问题卡主。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/" class="post-title-link" itemprop="url">Dropout学习与总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-14 16:16:48" itemprop="dateCreated datePublished" datetime="2019-12-14T16:16:48+08:00">2019-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-15 17:09:36" itemprop="dateModified" datetime="2019-12-15T17:09:36+08:00">2019-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>关于一个新东西的三连：是什么，为什么，怎么用</p>
+<h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>Dropout 是训练<strong>深度</strong>神经网络时采取的一种手段，来预防过拟合。在训练过程中，随机的以一定的概率“临时”抛弃掉某些节点。具体来讲，dropout作用于每个<strong>小batch</strong>训练数据，由于其随机丢弃部分神经元的机制，相当于每次迭代都在训练不同的神经网络结构。</p>
+<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>Dropout为什么会有这样的效果呢？类比bagging方法，其实达到了集成学习的效果。从bagging的集成角度来讲，传统意义上的bagging集成方法涉及多个模型的训练与评估，当网络参数规模庞大时，这种集成方式需要消耗大量的运算时间和空间。而Dropout是在小批量上进行操作，类似一种轻量级的bagging集成近似，能够实现指数级数量神经网络的训练与评估。</p>
+<p>原理就是，在dropout具体实现过程中，要求每个神经元节点激活值以一定的概率p被“丢弃”（被置0）。对于有N个神经元节点的神经网络，使用Dropout 可以看做是有$2^n$ 个模型的集成（即每个神经元都可以选择 存在或者不存在），他们共享部分权值，并且具有相同的网络层数，而且模型整体的参数数目不变，大大简化了运算。每次训练都会随机挑选一批不同的神经元进行组合优化，这个过程会减弱全体神经元之间的联合适用性，减少过拟合的风险，增强泛化能力</p>
+<h3 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h3><p>主要涉及两个过程一个是训练过程，一个是预测过程，在训练过程我们采取了概率p来丢弃神经元，那么在运行预测过程（一次前向传播）的时候，我们不在对神经元进行丢弃，相反，我们使用概率p乘在每个神经元上，以恢复训练过程中，某神经元只有概率p存在神经网络中。</p>
+<p>使用Dropout前的前向传播：</p>
+<script type="math/tex; mode=display">
+z_{i}^{(l+1)} = w_{i}^{(l+1)}y^l+b_{i}^{(l+1)} \\ 
+y_{i}^{(l+1)} = f(z_i^{l+1}) \\
+f是激活函数</script><p>使用dropout后的前向传播</p>
+<script type="math/tex; mode=display">
+r_{i}^{(l)} \sim Bernoulli(p) \\
+\hat{y}^{(l)} = r^{(l)} \dot \ y^{(l)}  \\
+z_{i}^{(l+1)} = w_{i}^{(l+1)}y^{(l)}+b_{i}^{(l+1)} \\ 
+y_{i}^{(l+1)} = f(z_i^{(l+1)}) \\
+f是激活函数</script><p>由此可见，是先对前一层的神经元进行“丢弃”再执行传播操作。</p>
+<h3 id="一些细节的理解"><a href="#一些细节的理解" class="headerlink" title="一些细节的理解"></a>一些细节的理解</h3><p>每次dropout的是神经元，并不是权值，也就是说权值参数矩阵始终是在更新的。每一次计算$W^T X$的时候，其中X中部分神经元被置为0。这样相当于“丢弃”了这部分神经元。</p>
+<p>训练过程，对于未被丢弃的神经元，还需要乘以$\frac{1}{1-p}$使得总体的分布情况保持一致。</p>
+<p>预测过程，对于全部的神经元，都需要乘以概率p，来恢复训练过程中，某个神经元以概率p存在神经网络中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/11/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">中心极限定理</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-11 23:03:58" itemprop="dateCreated datePublished" datetime="2019-12-11T23:03:58+08:00">2019-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-15 17:12:41" itemprop="dateModified" datetime="2019-12-15T17:12:41+08:00">2019-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E4%B8%8E%E7%BB%9F%E8%AE%A1%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">概率与统计面试题</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h2><h3 id="数学表述"><a href="#数学表述" class="headerlink" title="数学表述"></a>数学表述</h3><h3 id="独立同分布的中心极限定理"><a href="#独立同分布的中心极限定理" class="headerlink" title="独立同分布的中心极限定理"></a>独立同分布的中心极限定理</h3><p>设随机变量X1，X2，……Xn，……独立同分布，并且具有有限的数学期望和方差：E(Xi)=μ，D(Xi)=σ20(k=1,2….)，则对任意x，分布函数</p>
+<p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/f31fbe096b63f624c0ee83e68a44ebf81b4ca3a0.jpg" alt="img"></p>
+<p>满足</p>
+<p><img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/faf2b2119313b07e435bb59901d7912396dd8cb9.jpg" alt="img"></p>
+<p>该定理说明，当n很大时，随机变量</p>
+<p><img src="https://gss2.bdstatic.com/-fo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/77094b36acaf2edda57f1a01861001e93801934f.jpg" alt="img"></p>
+<p> 近似地服从标准正态分布N(0，1)。因此，当n很大时，</p>
+<p><img src="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/d62a6059252dd42af4b35875093b5bb5c8eab8b2.jpg" alt="img"></p>
+<p> 近似地服从正态分布N(nμ，nσ2)．该定理是中心极限定理最简单又最常用的一种形式，在实际工作中，只要n足够大，便可以把独立同分布的随机变量之和当作正态变量。这种方法在数理统计中用得很普遍，当处理大样本时，它是重要工具。</p>
+<p>从数学公式到例子的理解，重点应该关注下 什么叫随机变量，随机变量也是一个样本的分布情况，</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>这个例子讲的挺明白，但是目前跟中心极限定理的数学表达还对不上</p>
+<p><a href="https://blog.csdn.net/mingyuli/article/details/81141758" target="_blank" rel="noopener">https://blog.csdn.net/mingyuli/article/details/81141758</a></p>
+<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><p>对于一份数据集，其分布可能并不是正太分布的。但是我们可以通过采样操作，比如每次采样n=50个，一共采样m个样本集，那么这个样本集的分布是符合正太分布的。</p>
+<p>比如整个数据集合的均值可能为1，方差为2。我们抽出来了m个样本，可能这m个样本中，有的样本均值为0，有的样本均值为0.9，有的为1.2有的为2.0 。但是这m个样本的分布是符合正太分布的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">头条广告算法面经</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-10 22:58:21" itemprop="dateCreated datePublished" datetime="2019-12-10T22:58:21+08:00">2019-12-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-17 23:52:30" itemprop="dateModified" datetime="2019-12-17T23:52:30+08:00">2019-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">实习面试经验</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p>
+<p>写题 </p>
+<p>迭代二分，递归二分</p>
+<p>关于业务上的问题：</p>
+<blockquote>
+<p>这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）</p>
+</blockquote>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>项目问题</p>
+<p>什么是极大似然估计</p>
+<p>什么是中心极限定理</p>
+<p>（面试官感觉百度过来的）</p>
+<p>写题：</p>
+<p>将ip地址转为一个int32的数</p>
+<blockquote>
+<p>255.255.255.0 是一个字符串 要求最终返回的结果是一个int32</p>
+<p>解法就是个位运算， 移位再加下一个</p>
+</blockquote>
+<p>紧接着 问了一个经典百度问题 hhhh</p>
+<p>1T文件，存储的是ip地址，给一个128MB的内存，问如何统计出出现次数最高的前10个</p>
+<p>这个问题真的得好好分析一下，现场分析的有点混乱。重点是前面的问题是可以拿过来利用的，就是一个ip地址对应一个唯一的int32  </p>
+<blockquote>
+<p>提了拆成不同文件，来计数，提了计数后通过堆排来过滤</p>
+</blockquote>
+<p>再一个问题：</p>
+<p>给1，2，3三个数，然后给一个数组，这个数组就是由这三个数组成的，其中某个数可能重复很多，问如何排序</p>
+<p>举个栗子[1,2,3,1,2,3,1,2,3] 排序后：[1,1,1,2,2,2,3,3,3]</p>
+<blockquote>
+<p>当时的思路就是 快排呗…结果被面试官嘲笑了，我就给你限制到这三个数</p>
+<p>后来想了下，三个变量来记录1，2，3的个数就可以了，完事之后可以通过计数器，输出相应个数的对应值。</p>
+</blockquote>
+<p>然后面试题进一步进阶为：</p>
+<p>现在不上三个数了，现在有一堆实例，他们都是从一个对象具体来的，比如 一个物体，其中某一个属性的值有1，2，3三种，请根据这个属性值对所有实例进行排序。</p>
+<blockquote>
+<p>这样就不能用上边的方法了，因为1跟1都是一样的，但是这里只对一个属性就行排，每个实例中除了该属性可能一样，其他都不一样。问怎么排序</p>
+</blockquote>
+<p>这个回答的就不是很好了</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>之后在网上看到的有人分享的</p>
+<p>一面：</p>
+<p>1、 给一个有序数组，没有重复值，给一个数组sum，从数组中找出和为sum的两个数，打印出所有可能的组合。</p>
+<p>2、 两个字符串的公共子串（连续的）长度。</p>
+<p>3、 数据倾斜的一道题。</p>
+<p>4、 问wide和deep之间的区别。</p>
+<p>5、 问AUC如何计算。</p>
+<p>6、 问youtube deep network里面如何解决softmax处理对象数量巨大的问题，提到了霍夫曼树和负采样，然后问负采样怎么回事儿，然后问如何解决大数据量下的负采样。</p>
+<p>7、 问youtube deep network里产生了用户和物品向量后，如何应用到在线的，主要想问如何快速获取用户喜欢的物品，是论文题提到的一个工程方法，提前简历好相应的索引。</p>
+<p>二面</p>
+<p>1、 将一颗二叉树转成双向链表。</p>
+<p>2、 用mapreduce或spark实现itemCF中物品相似度的计算。</p>
+<p>3、 如何解决L1正则不可导的那一点。</p>
+<p>4、 FM和LR的区别，主要讲FM的特点。</p>
+<p>5、 问AUC。</p>
+<p>6、 问LR为什么不能用MSE，然后引导我回答出来的，先让我写LR的损失，然后让我推导一下使用MSE之后的梯度，观察有什么劣势。</p>
+<p>7、 问AdaGrid算法原理及其特点（都是围绕学习率的，我只回答出了一个，实际上有两个，然后面试官给我讲解了一下）。</p>
+<p>三面</p>
+<p>问第三个项目的几个点：</p>
+<p>AUC</p>
+<p>线上优化器</p>
+<p>神经网络优化器</p>
+<p>CTR模型：注重wide&amp;Deep中wide与deep之间的区别</p>
+<p>论文</p>
+<p>算法题：</p>
+<p>K个排序的列表，融合成一个有序列表</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/10/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Leetcode-11-盛最多水的问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-10 22:54:30 / Modified: 22:56:15" itemprop="dateCreated datePublished" datetime="2019-12-10T22:54:30+08:00">2019-12-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="盛最多水的问题"><a href="#盛最多水的问题" class="headerlink" title="盛最多水的问题"></a>盛最多水的问题</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/leetcode-148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -298,899 +1215,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/leetcode-51-N%E7%9A%87%E5%90%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/leetcode-51-N%E7%9A%87%E5%90%8E/" class="post-title-link" itemprop="url">Leetcode-51-N皇后</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-09 21:12:01 / Modified: 23:46:25" itemprop="dateCreated datePublished" datetime="2019-12-09T21:12:01+08:00">2019-12-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="N皇后"><a href="#N皇后" class="headerlink" title="N皇后"></a>N皇后</h2><p>n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9qs3y3nfhj307607o748.jpg" alt="img"></p>
-<p>上图为 8 皇后问题的一种解法。</p>
-<p>给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。</p>
-<p>每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: 4<br>输出: [<br> [“.Q..”,  // 解法 1<br>  “…Q”,<br>  “Q…”,<br>  “..Q.”],</p>
-<p> [“..Q.”,  // 解法 2<br>  “Q…”,<br>  “…Q”,<br>  “.Q..”]<br>]<br>解释: 4 皇后问题存在两个不同的解法。</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>刚刚掌握了回溯法的套路，然后就打算拿个hard的题目试试，就发现了这个N皇后问题，发现自己拿回溯法套路完全套不上去，问题出在：</p>
-<ul>
-<li>递归的是什么？ </li>
-<li>状态怎么表示？！！！这个也是最大的问题</li>
-</ul>
-<p>看完官方题解之后，大呼 秒啊~</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9qs80oinhj307e06t0st.jpg" alt="秒啊"></p>
-<p>首先说递归的是什么，我们要找的就是皇后的排列位置，也就是说，每一行肯定会放一个皇后，那么具体这个皇后放在哪个位置（哪一列上）就需要通过其他条件来判，比如第一行第一个皇后可以随便放，但是第二行的皇后再放的时候就需要考虑，是否会被前面放置的皇后打到….依次类推，直到最后一行也放置好一个皇后为止。</p>
-<p>由此可以看到，回溯的depth是指行数（0——N-1），而在一行内，还需要罗列每一个位置即坐标对从（depth,0）….(depth,N-1)</p>
-<p>再看看状态转移怎么表示，我们的目的是找到一种表示，能够来表示，当某一个皇后落位之后，其影响的其他位置都不可以有棋子。</p>
-<blockquote>
-<p>西洋棋中，皇后的特性是，可以横着，竖着，斜着</p>
-</blockquote>
-<p>我们已经通过递归的特性使得每一行不会有重复的了，所以我们需要一个表示列的状态，确保每一列只可以有一个。其次，对于斜着，有两个方向，一种是平行于主对角线，另一种是平行于辅对角线。</p>
-<p>！！！trick来啦</p>
-<p>对于平行于主对角线上的元素，其$row-col$都是一个常量</p>
-<blockquote>
-<p>举个例子：主对角线上(0,0)(1,1)…(n-1,n-1)    行标-列标=0</p>
-<p>那么平行于主对角线的一条比如:(1,0),(2,1)….(n-1,n-2)  行标-列标 = 1</p>
-</blockquote>
-<p>那么我们只需要确定同一个斜线上只有一个皇后就好了</p>
-<p>同样，对于平行于辅对角线，其$row+col$都是一个常量</p>
-<p>下面进行我们的操作：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">solveNQueens</span><span class="params">(self, n: int)</span> -&gt; List[List[str]]:</span></span><br><span class="line">        <span class="comment"># 两个trick： 通过这两个trick 可以很快的得出 某一条线路能否放一个皇后</span></span><br><span class="line">        <span class="comment"># 同一条主对角线（平行于主对角线）上的元素，都符合 row-col = constant</span></span><br><span class="line">        <span class="comment"># 同一条副对角线（平行于副对角线）上的元素，都符合 row+col = constant</span></span><br><span class="line">        <span class="comment"># 不在同一列就是通过 列的来判断</span></span><br><span class="line">        stack = []   <span class="comment"># 用来存储一个临时结果</span></span><br><span class="line">        res = []	<span class="comment"># 用来存储最终结果</span></span><br><span class="line">        main_diagonal = [<span class="number">0</span>]*(<span class="number">2</span>*n)  <span class="comment"># 定义的主对角线状态存放</span></span><br><span class="line">        sub_diagonal = [<span class="number">0</span>]*(<span class="number">2</span>*n)		<span class="comment"># 定义辅对角线的状态存放</span></span><br><span class="line">        lie = [<span class="number">0</span>]*n						<span class="comment"># 定义对列的状态存放</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">add_position</span><span class="params">(row,col)</span>:</span></span><br><span class="line">            lie[col] = <span class="number">1</span></span><br><span class="line">            main_diagonal[row-col] = <span class="number">1</span></span><br><span class="line">            sub_diagonal[row+col] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">remove_positon</span><span class="params">(row,col)</span>:</span></span><br><span class="line">            lie[col] = <span class="number">0</span></span><br><span class="line">            main_diagonal[row-col] = <span class="number">0</span></span><br><span class="line">            sub_diagonal[row+col] = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">(row,col)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> (lie[col]+main_diagonal[row-col]+sub_diagonal[row+col]) == <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">add_result</span><span class="params">()</span>:</span></span><br><span class="line">            tmp = []</span><br><span class="line">            <span class="comment"># i 行 j列</span></span><br><span class="line">            <span class="keyword">for</span> i,j <span class="keyword">in</span> sorted(stack):</span><br><span class="line">                tmp.append(<span class="string">'.'</span>*j+<span class="string">'Q'</span>+<span class="string">'.'</span>*(n-j<span class="number">-1</span>))</span><br><span class="line">            res.append(tmp)</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">backtrack1</span><span class="params">(row)</span>:</span></span><br><span class="line">            <span class="comment"># 逐行确定，每一行肯定可以确定一个位置（列）</span></span><br><span class="line">            <span class="comment"># 下面就是经典的回溯框架（套路）</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n): </span><br><span class="line">              	<span class="comment"># 1. 检查是否满足可以进入的条件（本题就是可以放置皇后）</span></span><br><span class="line">                <span class="keyword">if</span> check(row, i):</span><br><span class="line">                  	<span class="comment"># 2. 将可以的结果加入stack中进行记录</span></span><br><span class="line">                    stack.append((row, i))</span><br><span class="line">                    <span class="comment"># 3. 记录状态加入</span></span><br><span class="line">                    add_position(row, i)</span><br><span class="line">										<span class="comment"># 4. 对于是否满足条件，如果满足条件则将结果进行输出</span></span><br><span class="line">                    <span class="comment">#    不满足继续进行递归</span></span><br><span class="line">                    <span class="keyword">if</span> row == n<span class="number">-1</span>:</span><br><span class="line">                        add_result()</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        backtrack(row+<span class="number">1</span>)</span><br><span class="line">                    <span class="comment"># 5. 回弹过程，拿掉前面加入的记录</span></span><br><span class="line">                    stack.pop()</span><br><span class="line">                    <span class="comment"># 6. 更改记录状态</span></span><br><span class="line">                    remove_positon(row,i)</span><br><span class="line">         </span><br><span class="line">        <span class="comment"># 回溯更经常将递归结束条件写在外边</span></span><br><span class="line">         <span class="function"><span class="keyword">def</span> <span class="title">backtrack2</span><span class="params">(row)</span>:</span></span><br><span class="line">            <span class="comment"># 1. 递归结束条件</span></span><br><span class="line">            <span class="keyword">if</span> row == n:  <span class="comment"># !!!!注意这个地方与上边的区别，</span></span><br><span class="line">                add_result()</span><br><span class="line">                <span class="keyword">return</span>    </span><br><span class="line">            <span class="comment"># 逐行确定，每一行肯定可以确定一个位置（列）</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n): </span><br><span class="line">                <span class="comment"># 2. 检查是否满足可以进入的条件（本题就是可以放置皇后）</span></span><br><span class="line">                <span class="keyword">if</span> check(row, i):</span><br><span class="line">                  	<span class="comment"># 3. 将可以的结果加入stack中进行记录</span></span><br><span class="line">                    stack.append((row, i))</span><br><span class="line">                    <span class="comment"># 4. 记录状态加入</span></span><br><span class="line">                    add_position(row, i)</span><br><span class="line">										<span class="comment"># 5. 递归下一层</span></span><br><span class="line">                    backtrack(row+<span class="number">1</span>)</span><br><span class="line">                    <span class="comment"># 6. 回弹过程，拿掉前面加入的记录</span></span><br><span class="line">                    stack.pop()</span><br><span class="line">                    <span class="comment"># 7. 更改记录状态</span></span><br><span class="line">                    remove_positon(row,i)</span><br><span class="line"></span><br><span class="line">        backtrack1(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># backtrack2(0)</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E4%B9%A6%E5%8D%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E4%B9%A6%E5%8D%95/" class="post-title-link" itemprop="url">专业书籍书单</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-09 20:54:40" itemprop="dateCreated datePublished" datetime="2019-12-09T20:54:40+08:00">2019-12-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-22 15:06:10" itemprop="dateModified" datetime="2019-12-22T15:06:10+08:00">2019-12-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="专业书籍书单"><a href="#专业书籍书单" class="headerlink" title="专业书籍书单"></a>专业书籍书单</h2><p>如果仔细的品味完这些书，保证自己的能力能得到质的飞越！！！</p>
-<h3 id="基本刷题"><a href="#基本刷题" class="headerlink" title="基本刷题"></a>基本刷题</h3><ul>
-<li>[ ] Leetcode（147/1200）</li>
-<li>[x] 剑指offer</li>
-<li>[ ] 编程思想</li>
-</ul>
-<h3 id="机器学习大方向"><a href="#机器学习大方向" class="headerlink" title="机器学习大方向"></a>机器学习大方向</h3><ul>
-<li>[ ] 统计学习方法</li>
-<li>[ ] 机器学习（西瓜书）</li>
-<li><p>[ ] 百面机器学习</p>
-</li>
-<li><p>[ ] 强化学习精要</p>
-</li>
-</ul>
-<h3 id="算法工程师基本技能"><a href="#算法工程师基本技能" class="headerlink" title="算法工程师基本技能"></a>算法工程师基本技能</h3><ul>
-<li><p>编程语言</p>
-<ul>
-<li>python 核心编程</li>
-<li>java ？？？ </li>
-</ul>
-</li>
-<li><p>大数据方向</p>
-</li>
-<li><p>[ ] Spark内核机制解析以及性能调优</p>
-</li>
-<li><p>[ ] Hive编程指南</p>
-</li>
-</ul>
-<h3 id="其他维度的培养"><a href="#其他维度的培养" class="headerlink" title="其他维度的培养"></a>其他维度的培养</h3><ul>
-<li>[ ] 产品思维</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87AUC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87AUC/" class="post-title-link" itemprop="url">机器学习中的评价指标——ROC,AUC</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-09 13:50:32" itemprop="dateCreated datePublished" datetime="2019-12-09T13:50:32+08:00">2019-12-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-15 22:41:30" itemprop="dateModified" datetime="2019-12-15T22:41:30+08:00">2019-12-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="ROC"><a href="#ROC" class="headerlink" title="ROC"></a>ROC</h2><p>ROC曲线是 receiver operating characteristic curve的简称。（受试者工作特征曲线）</p>
-<p>其横坐标为<strong>假阳性率(False Positive Rate,FPR)</strong>， 纵坐标为<strong>真阳性率(True Positive Rate, TPR)</strong></p>
-<script type="math/tex; mode=display">
-FPR = \frac{FP}{N} \\
-TPR = \frac{TP}{P} \\</script><p>对于假阳性率、真阳性率，需要一点实际例子来进行理解。拿我之前做过的识别三俗文章的例子来理解。对于一批样本100个，其中三俗文章（正例）有6篇，非三俗文章（负例）94篇，我们建立一个简单的文本分类模型来识别这批数据，我们分类器的结果是，100篇中，判为三俗的有8篇，但是真正三俗的仅为5篇，剩余92篇均判为非三俗，其中有1篇判错。</p>
-<p>模型整体准确率为：</p>
-<script type="math/tex; mode=display">
-\frac{5+91}{100} = 96\%</script><p>针对三俗类别来说的精确率为:</p>
-<script type="math/tex; mode=display">
-\frac{5}{8} = 62.5\% \\ 
-即 分类正确的正样本个数占分类器判定为正样本个数的比例</script><p>针对三俗类别来说的召回率为:</p>
-<script type="math/tex; mode=display">
-\frac{5}{6} = 83.3\% 
-即分类正确的正样本个数占实际正样本个数的比例</script><p>假阳性率为:</p>
-<script type="math/tex; mode=display">
-FPR = \frac{3}{94}  \\
-即 被误判为三俗的样本，占真实非三俗样本总数的比例</script><p>真阳性率为：</p>
-<script type="math/tex; mode=display">
-TPR = \frac{5}{6} \\
-即分类正确的三俗样本，占实际三俗样本个数的比例，跟召回率一样</script><h3 id="如何绘制ROC曲线"><a href="#如何绘制ROC曲线" class="headerlink" title="如何绘制ROC曲线"></a>如何绘制ROC曲线</h3><p>关键点在于：<strong>每个截断点都对于一个TPR和FPR</strong></p>
-<p>绘制ROC曲线的过程，就是不断枚举截断点（分类阈值）的过程，通过动态调整截断点，从最高分的得分开始，逐渐调整到最低点，其中每一个截断点都对应一个坐标（FPR,TPR），将这些点连成线就构成了ROC曲线。</p>
-<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/09/leetcode-46-%E5%85%A8%E6%8E%92%E5%88%97/" class="post-title-link" itemprop="url">Leetcode-46-全排列</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-09 11:02:54 / Modified: 12:39:53" itemprop="dateCreated datePublished" datetime="2019-12-09T11:02:54+08:00">2019-12-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Leetcode-46-全排列"><a href="#Leetcode-46-全排列" class="headerlink" title="Leetcode-46-全排列"></a>Leetcode-46-全排列</h2><p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
-<p>示例:</p>
-<p>输入: [1,2,3]<br>输出:<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><strong>回溯方法</strong>：“不撞南墙不回头”</p>
-<ul>
-<li><p>思考怎么撞到南墙——通过递归来达到</p>
-</li>
-<li><p>思考回溯的“南墙”是什么——递归的终止条件</p>
-</li>
-<li>思考回头的话怎么回头——状态记录</li>
-</ul>
-<blockquote>
-<p>res: 结果集，[[],[],[]…] 的数据形式</p>
-<p>used: 用来进行状态记录，使用过的将不能再使用，用来保证全排列过程，前面出现的字符，后边不在出现</p>
-<p>stack: 用来存放结果，其中包含了回溯的加入和回退过程，</p>
-<p>depth: 用来记录递归的深度（全排列字符串的个数），当depth等于字符串长度时，也就是某一种排列形成，我们将其排列结果加入到结果集中</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span>  <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        used = [<span class="literal">False</span>]*len(nums)</span><br><span class="line">        stack = []</span><br><span class="line">        self.helper(res,stack,<span class="number">0</span>, nums, used)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, res, stack, depth, nums, used)</span>:</span></span><br><span class="line">        <span class="comment"># 迭代出口  回溯所说的：撞到南墙</span></span><br><span class="line">        <span class="keyword">if</span> depth == len(nums):</span><br><span class="line">            res.append(stack.copy()) <span class="comment"># 需要copy否则stack是动态变化的 会在res中变化</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">              	<span class="comment"># 不断前进过程</span></span><br><span class="line">                stack.append(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line">								<span class="comment"># 递归操作，递归深度不断加深</span></span><br><span class="line">                self.helper(res,stack,depth+<span class="number">1</span>,nums,used)</span><br><span class="line">								<span class="comment"># 一旦撞到南墙，则开始回头</span></span><br><span class="line">                stack.pop()</span><br><span class="line">                used[i] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E7%BB%84%E5%90%88/" class="post-title-link" itemprop="url">Leetcode-17-电话号码的组合</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-08 19:16:13 / Modified: 19:35:12" itemprop="dateCreated datePublished" datetime="2019-12-08T19:16:13+08:00">2019-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="电话号码的组合"><a href="#电话号码的组合" class="headerlink" title="电话号码的组合"></a>电话号码的组合</h2><p>给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。</p>
-<p>给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9pj84tjdlj30dv0ckdhp.jpg" alt="img"></p>
-<p>示例:</p>
-<p>输入：”23”<br>输出：[“ad”, “ae”, “af”, “bd”, “be”, “bf”, “cd”, “ce”, “cf”].<br>说明:<br>尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先肯定需要一个映射表的，来映射数字到字母组的关系。</p>
-<p>其次，根据数字的顺序，字母也是有前后顺序的。感觉上写几层循环枚举就可以解决了，但是进一步发现，循环的层数是不确定的，所以用递归来解决。</p>
-<p>递归：</p>
-<ul>
-<li>递归的出口就是，生成的字符串长度与数字长度相等</li>
-<li>每次递归的操作：<ul>
-<li>将字符拼入待生成字符串</li>
-<li>递归进入下一层，将当前生成字符串传入，且数字字符串向下移动一位</li>
-<li>将拼入的字符删掉（回溯的过程）</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span><span class="params">(self, digits: str)</span> -&gt; List[str]:</span></span><br><span class="line">        table = &#123;<span class="string">'2'</span>:<span class="string">'abc'</span>,</span><br><span class="line">                 <span class="string">'3'</span>:<span class="string">"def"</span>,</span><br><span class="line">                 <span class="string">'4'</span>:<span class="string">"ghi"</span>,</span><br><span class="line">                 <span class="string">'5'</span>:<span class="string">"jkl"</span>,</span><br><span class="line">            		 <span class="string">'6'</span>:<span class="string">"mno"</span>,</span><br><span class="line">                 <span class="string">'7'</span>:<span class="string">"pqrs"</span>,</span><br><span class="line">                 <span class="string">'8'</span>:<span class="string">"tuv"</span>,</span><br><span class="line">                 <span class="string">'9'</span>:<span class="string">"wxyz"</span>&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        res = []</span><br><span class="line">        self.helper(table,res, <span class="string">''</span>,digits,<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, table, res, string, digits,index)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(string) == len(digits):</span><br><span class="line">            res.append(string)</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        tmp = string</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> table[digits[index]]:</span><br><span class="line">            tmp += ch</span><br><span class="line">            self.helper(table,res,tmp,digits,index+<span class="number">1</span>)</span><br><span class="line">            tmp = tmp[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-<p><strong>剑指</strong>上面记得有一段，大部分递归问题都可以通过画成树状结构来进行分析。其实这个题也是，从根到叶子节点的一条完整路径就是一个可能的结果。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-647-%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Leetcode-647-回文子串</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-08 16:25:59 / Modified: 17:21:20" itemprop="dateCreated datePublished" datetime="2019-12-08T16:25:59+08:00">2019-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="回文子串"><a href="#回文子串" class="headerlink" title="回文子串"></a>回文子串</h2><p>给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。</p>
-<p>具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被计为是不同的子串。</p>
-<p>示例 1:</p>
-<p>输入: “abc”<br>输出: 3<br>解释: 三个回文子串: “a”, “b”, “c”.<br>示例 2:</p>
-<p>输入: “aaa”<br>输出: 6<br>说明: 6个回文子串: “a”, “a”, “a”, “aa”, “aa”, “aaa”.<br>注意:</p>
-<p>输入的字符串长度不会超过1000。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>处理回文问题最好用的一个方式就是中心扩散，即从中间向两边扩散。</p>
-<p>扩散的过程不仅可以记录回文子串内容，还可以记录长度，还可以记录个数（只要始末位置不一样就算一个回文串）</p>
-<p>本题就是让字符串中每一个字符都当一次中心，然后通过中心扩散来统计不同回文串的个数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countSubstrings</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> center <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            count += self.centerSpread(s,center,center) <span class="comment"># 奇数对称</span></span><br><span class="line">            count += self.centerSpread(s,center,center+<span class="number">1</span>) <span class="comment"># 偶数对称</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">centerSpread</span><span class="params">(self, s,l,r)</span>:</span> <span class="comment"># 中心扩散</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> l&gt;=<span class="number">0</span> <span class="keyword">and</span> r &lt; len(s) <span class="keyword">and</span> s[l] == s[r]:</span><br><span class="line">            l-=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">            count+=<span class="number">1</span> <span class="comment"># 起止位置不同就算一个</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-18-四数之和</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-08 15:43:45 / Modified: 15:50:31" itemprop="dateCreated datePublished" datetime="2019-12-08T15:43:45+08:00">2019-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h2><p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
-<p>注意：</p>
-<p>答案中不可以包含重复的四元组。</p>
-<p>示例：</p>
-<p>给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。</p>
-<p>满足要求的四元组集合为：<br>[<br>  [-1,  0, 0, 1],<br>  [-2, -1, 1, 2],<br>  [-2,  0, 0, 2]<br>]</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>跟三数之和思路是一样的，我们复习下：</p>
-<blockquote>
-<p>三数之和中，我们先通过预排序，让数组有序。然后固定一个数，然后移动剩下的两个数（双指针）</p>
-<p>即：预排序+固定一个+双指针</p>
-</blockquote>
-<p>对于四数之和，我们采用同样的方案，只不过这里需要更改的是，我们固定<strong>两个数</strong></p>
-<ul>
-<li>特判，特殊情况直接处理</li>
-<li>预排序</li>
-<li>固定一个数a<ul>
-<li>处理相同情况</li>
-<li>再固定一个数b<ul>
-<li>处理b的相同情况</li>
-<li>定义双指针</li>
-<li>双指针进行移动<ul>
-<li>4sum == target添加结果</li>
-<li>4sum &lt; target: 移动左指针</li>
-<li>4sum &gt; target: 移动右指针</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fourSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        </span><br><span class="line">        nums.sort()</span><br><span class="line">        res = []</span><br><span class="line">        n = len(nums)</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> range(n<span class="number">-3</span>):</span><br><span class="line">            <span class="keyword">if</span> a &gt; <span class="number">0</span> <span class="keyword">and</span> nums[a] == nums[a<span class="number">-1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> range(a+<span class="number">1</span>,n<span class="number">-2</span>):</span><br><span class="line">                <span class="keyword">if</span> b &gt; a+<span class="number">1</span> <span class="keyword">and</span> nums[b] == nums[b<span class="number">-1</span>]: <span class="comment"># 注意条件，一定是b &gt;a+1不能跟a再比较</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">                l = b+<span class="number">1</span></span><br><span class="line">                r = n<span class="number">-1</span></span><br><span class="line">                <span class="keyword">while</span> l &lt; r:</span><br><span class="line">                    <span class="keyword">if</span> nums[a]+nums[b]+nums[l]+nums[r] == target:</span><br><span class="line">                        res.append([nums[a],nums[b],nums[l],nums[r]])</span><br><span class="line">                        <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> nums[l] == nums[l+<span class="number">1</span>]:</span><br><span class="line">                            l+=<span class="number">1</span></span><br><span class="line">                        <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> nums[r] == nums[r<span class="number">-1</span>]:</span><br><span class="line">                            r-=<span class="number">1</span></span><br><span class="line">                        l+=<span class="number">1</span></span><br><span class="line">                        r-=<span class="number">1</span>  </span><br><span class="line">                    <span class="keyword">elif</span> nums[a]+nums[b]+nums[l]+nums[r] &lt; target:</span><br><span class="line">                        l += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>: </span><br><span class="line">                        r -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/leetcode-992-K%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">Leetcode-992-K个不同整数的子数组</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-08 10:34:56" itemprop="dateCreated datePublished" datetime="2019-12-08T10:34:56+08:00">2019-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-09 10:57:55" itemprop="dateModified" datetime="2019-12-09T10:57:55+08:00">2019-12-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="K个不同整数的子数组"><a href="#K个不同整数的子数组" class="headerlink" title="K个不同整数的子数组"></a>K个不同整数的子数组</h2><p>给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定独立的子数组为好子数组。</p>
-<p>（例如，[1,2,3,1,2] 中有 3 个不同的整数：1，2，以及 3。）</p>
-<p>返回 A 中好子数组的数目。</p>
-<blockquote>
-<p>示例 1：</p>
-<p>输出：A = [1,2,1,2,3], K = 2<br>输入：7<br>解释：恰好由 2 个不同整数组成的子数组：[1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2].<br>示例 2：</p>
-<p>输入：A = [1,2,1,3,4], K = 3<br>输出：3<br>解释：恰好由 3 个不同整数组成的子数组：[1,2,1,3], [2,1,3], [1,3,4].</p>
-</blockquote>
-<p>提示：</p>
-<blockquote>
-<p>1 &lt;= A.length &lt;= 20000<br>1 &lt;= A[i] &lt;= A.length<br>1 &lt;= K &lt;= A.length</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>方案比较巧妙的办法是：</p>
-<p>K个不同整数的子数组 = 用至多K个不同整数的结果 -  至多K-1个不同整数的结果</p>
-<blockquote>
-<p>以【1，2，3】为例，K=3时候，</p>
-<p>至多K个包含:[1],[2],[3],[1,2],[2,3],[1,3],[1,2,3]</p>
-<p>至多K-1个包含: [1],[2],[3],[1,2],[2,3],[1,3]</p>
-<p>做差结果 就是 [1,2,3]</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subarraysWithKDistinct</span><span class="params">(self, A: <span class="string">'List[int]'</span>, K: <span class="string">'int'</span>)</span> -&gt; 'int':</span></span><br><span class="line">        <span class="keyword">return</span> self.subarraysWithAtMostKDistinct(A, K) - </span><br><span class="line">      										self.subarraysWithAtMostKDistinct(A, K<span class="number">-1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subarraysWithAtMostKDistinct</span><span class="params">(self, s, k)</span>:</span></span><br><span class="line">        lookup = collections.defaultdict(int) <span class="comment"># 字典记录整数情况，为1是表示出现一次，为0表示没有</span></span><br><span class="line">        l, r, counter, res = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> r &lt; len(s):</span><br><span class="line">            lookup[s[r]] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> lookup[s[r]] == <span class="number">1</span>:   <span class="comment"># 通过右移来扩展 包含不同整数</span></span><br><span class="line">                counter += <span class="number">1</span></span><br><span class="line">            r += <span class="number">1</span>   </span><br><span class="line">            <span class="keyword">while</span> l &lt; r <span class="keyword">and</span> counter &gt; k: <span class="comment"># 一旦满足k个就进行左移，循环跳出的时候，正好是K个不同整数</span></span><br><span class="line">                lookup[s[l]] -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> lookup[s[l]] == <span class="number">0</span>:</span><br><span class="line">                    counter -= <span class="number">1</span></span><br><span class="line">                l += <span class="number">1</span></span><br><span class="line">            res += r - l </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/07/leetcode-6-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/07/leetcode-6-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/" class="post-title-link" itemprop="url">Leetcode-6-Z字形变换</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-07 23:27:29 / Modified: 23:38:16" itemprop="dateCreated datePublished" datetime="2019-12-07T23:27:29+08:00">2019-12-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Z字形变换"><a href="#Z字形变换" class="headerlink" title="Z字形变换"></a>Z字形变换</h2><p>将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。</p>
-<blockquote>
-<p>比如输入字符串为 “LEETCODEISHIRING” 行数为 3 时，排列如下：</p>
-<p>L   C   I   R<br>E T O E S I I G<br>E   D   H   N<br>之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如：”LCIRETOESIIGEDHN”。</p>
-</blockquote>
-<p>请你实现这个将字符串进行指定行数变换的函数：</p>
-<p>string convert(string s, int numRows);</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: s = “LEETCODEISHIRING”, numRows = 3<br>输出: “LCIRETOESIIGEDHN”<br>示例 2:</p>
-<p>输入: s = “LEETCODEISHIRING”, numRows = 4<br>输出: “LDREOEIIECIHNTSG”<br>解释:</p>
-<p>L       D      R<br>E   O E    I  I<br>E C    I H   N<br>T       S      G</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这种题上来就先模拟下这个的生成过程，模拟过程中就能找到一定的规律：</p>
-<ul>
-<li>先从上下下，再从下向上</li>
-<li>总是在 0行或者 n-1行转换反向</li>
-<li>不要受Z字形诱导，最后的输出结果就是按行从上到下将字符串拼接</li>
-</ul>
-<p>举个例子：</p>
-<blockquote>
-<p>LEETCODEISHIRING </p>
-<p>结果是：</p>
-<p>L    C      I     R<br>E T O E  S  I  I G<br>E    D     H    N</p>
-<p>过程1：</p>
-<p>L</p>
-<p>E</p>
-<p>E</p>
-<p>过程2换方向：</p>
-<p>LC</p>
-<p>ET</p>
-<p>E</p>
-<p>再换方向：</p>
-<p>LC</p>
-<p>ETO</p>
-<p>ED</p>
-<p>依次类推最终结果是：</p>
-<p>LCIR<br>ETOESIIG<br>EDHN</p>
-<p>最终按行输出就是：</p>
-<p>LCIRETOESIIGEDHN</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(self, s: str, numRows: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> numRows == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line">        row = <span class="number">0</span></span><br><span class="line">        direction = <span class="literal">False</span> <span class="comment"># True 为向下，False向上</span></span><br><span class="line">        res = [<span class="string">''</span>]*numRows</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">            res[row] += ch <span class="comment"># 字符串直接把字符接到后边</span></span><br><span class="line">            <span class="keyword">if</span> row == <span class="number">0</span> <span class="keyword">or</span> row == numRows<span class="number">-1</span>: <span class="comment"># 看是否需要换方向</span></span><br><span class="line">                direction = <span class="keyword">not</span> direction</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> direction: <span class="comment"># True 为向下，False向上</span></span><br><span class="line">                row += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                row -= <span class="number">1</span></span><br><span class="line">				<span class="comment"># 结果按行拼接起来</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(res)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1234,7 +1263,7 @@ TPR = \frac{5}{6} \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">113</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1245,7 +1274,7 @@ TPR = \frac{5}{6} \\
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

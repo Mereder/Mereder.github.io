@@ -1,6 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-388-文件最长绝对路径</title>
+    <url>/2020/02/02/leetcode-388-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E9%95%BF%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<h2 id="文件的最长绝对路径"><a href="#文件的最长绝对路径" class="headerlink" title="文件的最长绝对路径"></a>文件的最长绝对路径</h2><p>假设我们以下述方式将我们的文件系统抽象成一个字符串:</p>
+<p>字符串 “dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext” 表示:</p>
+<blockquote>
+<p>dir<br> subdir1<br> subdir2<br>     file.ext</p>
+<p>目录 dir 包含一个空的子目录 subdir1 和一个包含一个文件 file.ext 的子目录 subdir2 。</p>
+</blockquote>
+<p>字符串 “dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext” 表示:</p>
+<blockquote>
+<p>dir<br>    subdir1<br>        file1.ext<br>        subsubdir1<br>    subdir2<br>        subsubdir2<br>            file2.ext<br>目录 dir 包含两个子目录 subdir1 和 subdir2。 subdir1 包含一个文件 file1.ext 和一个空的二级子目录 subsubdir1。subdir2 包含一个二级子目录 subsubdir2 ，其中包含一个文件 file2.ext。</p>
+</blockquote>
+<p>我们致力于寻找我们文件系统中文件的最长 (按字符的数量统计) 绝对路径。例如，在上述的第二个例子中，最长路径为 “dir/subdir2/subsubdir2/file2.ext”，其长度为 32 (不包含双引号)。</p>
+<p>给定一个以上述格式表示文件系统的字符串，返回文件系统中文件的最长绝对路径的长度。 如果系统中没有文件，返回 0。</p>
+<p>说明:</p>
+<ul>
+<li>文件名至少存在一个 . 和一个扩展名。</li>
+<li>目录或者子目录的名字不能包含 .。</li>
+<li>要求时间复杂度为 O(n) ，其中 n 是输入字符串的大小。</li>
+</ul>
+<p>请注意，如果存在路径 aaaaaaaaaaaaaaaaaaaaa/sth.png 的话，那么  a/aa/aaa/file1.txt 就不是一个最长的路径。</p>
+<h3 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h3><p>抓住一个细节问题：只有文件名是带有.（点）的，如果不包含文件名则不应计算最大长度</p>
+<p>这个问题的另一个特点就是<code>\t</code>，其实代表了<strong>目录深度</strong>。</p>
+<p>当我们找到一个带<code>.</code>的文件时候，我们就<strong>计算其长度</strong>，并与最大长度比较，保留最长的数。</p>
+<p>如何计算一次完整路径的长度呢？</p>
+<p>只需要让当前文件的文件名字长度+其目录文件的长度</p>
+<p>举例：</p>
+<blockquote>
+<p>dir<br>    subdir1<br>        file1.ext<br>        subsubdir1<br>    subdir2<br>        subsubdir2<br>            file2.ext</p>
+</blockquote>
+<p>定义一个dict来存储长度，初始化{0:0}</p>
+<p>当处理’dir’时，其<code>\t</code>个数为0，则depth=0，则下一层文件的基础部分就有了<code>dir/</code>,所以</p>
+<p><code>dict[depth+1] = len(&#39;dir&#39;)+dict[depth]+1</code></p>
+<p>dict变为{0:0,1:4}</p>
+<p>同理，当处理过subdir1后，dict变为{0:0,1:4,2:12}，12来自<code>dir/subdir1/</code></p>
+<p>同理，当处理到<code>file1.ext</code>，需要更新一次最大长度，<code>max= &#39;dir/subdir1/file1.ext&#39; = 12+9=21</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthLongestPath</span><span class="params">(self, input: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">not</span> <span class="keyword">in</span> input:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        depth_dict = &#123;<span class="number">0</span>:<span class="number">0</span>&#125; <span class="comment"># key:depth  value:length</span></span><br><span class="line">        depth = <span class="number">0</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> input.split(<span class="string">'\n'</span>):</span><br><span class="line">            <span class="comment"># 每行</span></span><br><span class="line">            depth = line.count(<span class="string">'\t'</span>)</span><br><span class="line">            name = line.strip(<span class="string">'\t'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> name:</span><br><span class="line">                max_len = max(max_len, len(name)+depth_dict[depth])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 下一级目录长度 = 目录名+之前的目录+分隔符号 ”/“</span></span><br><span class="line">                depth_dict[depth+<span class="number">1</span>] = len(name) + depth_dict[depth] + <span class="number">1</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
+<h3 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h3><p>利用栈来实现。</p>
+<p>栈深度代表了文件目录的深度，压栈的内容是目录的名字，当遍历到带有拓展名的文件时，只需要将栈内的内容按<code>/</code>链接起来就是绝对路径。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthLongestPath</span><span class="params">(self, input: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">not</span> <span class="keyword">in</span> input:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        stack = []</span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> input.split(<span class="string">'\n'</span>):</span><br><span class="line">            depth = line.count(<span class="string">'\t'</span>)+<span class="number">1</span>  <span class="comment"># 小细节，同等递归深度目录，应该出栈</span></span><br><span class="line">            name = line.strip(<span class="string">'\t'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> len(stack) &gt;= depth:</span><br><span class="line">                stack.pop()</span><br><span class="line">            stack.append(name)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> name:</span><br><span class="line">                max_len = max(max_len,len(<span class="string">'/'</span>.join(stack)))</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+      <tags>
+        <tag>Google</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode-8-字符串转换整数(atoi)</title>
+    <url>/2020/02/02/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/</url>
+    <content><![CDATA[<h2 id="字符串转换整数"><a href="#字符串转换整数" class="headerlink" title="字符串转换整数"></a>字符串转换整数</h2><p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
+<p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
+<p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
+<p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
+<p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
+<p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
+<p>说明：</p>
+<p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p>
+<p>示例 1:</p>
+<p>输入: “42”<br>输出: 42<br>示例 2:</p>
+<p>输入: “   -42”<br>输出: -42<br>解释: 第一个非空白字符为 ‘-‘, 它是一个负号。<br>     我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。<br>示例 3:</p>
+<p>输入: “4193 with words”<br>输出: 4193<br>解释: 转换截止于数字 ‘3’ ，因为它的下一个字符不为数字。<br>示例 4:</p>
+<p>输入: “words and 987”<br>输出: 0<br>解释: 第一个非空字符是 ‘w’, 但它不是数字或正、负号。<br>     因此无法执行有效的转换。<br>示例 5:</p>
+<p>输入: “-91283472332”<br>输出: -2147483648<br>解释: 数字 “-91283472332” 超过 32 位有符号整数范围。<br>     因此返回 INT_MIN (−231) 。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>其实题目已经将思路告知了，只需要按照要求实现即可。</p>
+<ul>
+<li>首先要处理None，否则后边无法调用len()</li>
+<li>其次处理字符串中的空白字符，这些可以直接跳过</li>
+<li>然后识别是否有“+“，”-“</li>
+<li>最后一起处理字母和数字</li>
+</ul>
+<p>整道题的处理逻辑很清楚，就是用一个全局的下标，来逐个处理字符，符合就留下，不符合就丢弃</p>
+<p>此处应注意与java等语言的不同，python默认定义的数据int是64位的，而java普通int是32位的。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myAtoi</span><span class="params">(self, str: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> str:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        max_value = <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span></span><br><span class="line">        min_value = <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        index = <span class="number">0</span> <span class="comment">#  全局使用</span></span><br><span class="line">        symbol = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">while</span> index &lt; len(str) <span class="keyword">and</span> str[index] == <span class="string">' '</span>:</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> index &lt; len(str):</span><br><span class="line">            <span class="keyword">if</span> str[index] == <span class="string">'+'</span>:</span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> str[index] == <span class="string">'-'</span>:</span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">                symbol = <span class="literal">False</span> </span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(index,len(str)):</span><br><span class="line">                <span class="keyword">if</span> str[i] &gt;= <span class="string">'0'</span> <span class="keyword">and</span> str[i] &lt;= <span class="string">'9'</span>:</span><br><span class="line">                    result = result*<span class="number">10</span>+int(str[i])   <span class="comment"># 如果更保险，这个位置可以加入一个&gt;max的判断</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> symbol:</span><br><span class="line">                result = -result</span><br><span class="line">            <span class="keyword">if</span> result &lt; min_value: <span class="keyword">return</span> min_value</span><br><span class="line">            <span class="keyword">if</span> result &gt; max_value: <span class="keyword">return</span> max_value</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-7-整数翻转</title>
+    <url>/2020/02/02/leetcode-7-%E6%95%B4%E6%95%B0%E7%BF%BB%E8%BD%AC/</url>
+    <content><![CDATA[<h2 id="整数翻转"><a href="#整数翻转" class="headerlink" title="整数翻转"></a>整数翻转</h2><p>给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。</p>
+<p>示例 1:</p>
+<p>输入: 123<br>输出: 321<br> 示例 2:</p>
+<p>输入: -123<br>输出: -321<br>示例 3:</p>
+<p>输入: 120<br>输出: 21<br>注意:</p>
+<p>假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>思路很简单：对原始值不断按10取余，然后将取出来的余数*10加到新的结果上。</p>
+<p><strong>重点是</strong>：对于结果的处理，题目按时很明显，32位，最大的32位数字是多少呢？ 是<strong>2^31-1</strong>.</p>
+<p>如果结果超过最大的值，我们需要进行判断。越界就返回0，否则返回翻转的结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self, x: int)</span> -&gt; int:</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        max_value = <span class="number">2</span>**<span class="number">31</span> - <span class="number">1</span></span><br><span class="line">        min_value = <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        x1 = abs(x)</span><br><span class="line">        <span class="keyword">while</span> x1 != <span class="number">0</span>:</span><br><span class="line">            result = result*<span class="number">10</span> + x1%<span class="number">10</span></span><br><span class="line">            x1 = x1//<span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> result &gt; max_value <span class="keyword">or</span> result &lt; min_value :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> -result</span><br></pre></td></tr></table></figure>
+<h3 id="知识拓展：负数取余"><a href="#知识拓展：负数取余" class="headerlink" title="知识拓展：负数取余"></a>知识拓展：负数取余</h3><p>关于python 取余的结果与   （C++和java）取余结果的不同。</p>
+<p>对于自然数来说，没有什么问题，但是对于负数而言，运算机制是不同的。</p>
+<blockquote>
+<p>c++：cout &lt;&lt; (-7) % 3; // 输出 <strong>-1</strong></p>
+<p>java：System.out.println((-7) % 3); // 输出 <strong>-1</strong></p>
+<p>python：>&gt;&gt; (-7) % 3 // 输出 <strong>2</strong></p>
+</blockquote>
+<p>同号整数运算，所有语言都遵循<strong>尽量让商小</strong>的原则，因此7mod3结果为1没有异议。</p>
+<p>在异号的整数运算中，C++和Java会让商<strong>尽可能大</strong>（比如-7mod3中，d=-2,r=-1）。</p>
+<p>Python等则让商<strong>尽可能小</strong>（比如-7mod3中，d=-3，r=2）。</p>
+<p>回到本题除10取余的过程，如果x=-123</p>
+<p>c++和java</p>
+<blockquote>
+<p>-123 %10  商-12 余-3</p>
+</blockquote>
+<p>python</p>
+<blockquote>
+<p>-123%10 商-13 余 +7</p>
+</blockquote>
+<p>如果c++和java的话，可以直接处理，之后的结果仍然是负数，且颠倒过。</p>
+<p>而python 就会出问题</p>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Learning to Rank</title>
+    <url>/2020/01/15/L2R:learning%20to%20rank/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>VScode跳板机连接服务器</title>
+    <url>/2020/01/15/VScode%E8%B7%B3%E6%9D%BF%E6%9C%BA%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/witnessai1/article/details/89217498" target="_blank" rel="noopener">https://blog.csdn.net/witnessai1/article/details/89217498</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Tensorflow-GPU 环境配置问题</title>
+    <url>/2020/01/15/Tensorflow%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="版本兼容问题"><a href="#版本兼容问题" class="headerlink" title="版本兼容问题"></a>版本兼容问题</h2><p>大部分的gpu版本TensorFlow不work大概率都是因为版本不匹配导致的</p>
+<p>重点就是环境匹配的问题</p>
+<p>当前亲测最好用的就是python3.6+tf1.12-gpu 此外就是CUDA和cudnn的问题了</p>
+<p>服务器上多人操作的话 最好还是使用conda创建自己的虚拟环境然后再自己的虚拟环境里面搞</p>
+<h3 id="首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题"><a href="#首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题" class="headerlink" title="首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题"></a>首先确认显卡驱动与CUDA以及CUDA与cudnn版本的问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<p>上方有个<code>NVIDIA-SMI：384.81</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 再一次确认CUDA版本</span></span><br><span class="line">cat /usr/local/cuda/version.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 和cudnn版本问题</span></span><br><span class="line">cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure>
+<p>先确认CUDA版本与显卡驱动之间的版本对应好，然后再确认CUDA和cudnn版本之间的问题，自己配置几次的感受就是，显卡驱动和CUDA一般都是固定好的，最好不要动否则会影响服务器上其他用户，但是cudnn是可以更新的，这个向下兼容的。偏硬件的东西都设置好之后，再按照TensorFlow-GPU</p>
+<h3 id="cuDNN版本问题"><a href="#cuDNN版本问题" class="headerlink" title="cuDNN版本问题"></a>cuDNN版本问题</h3><p>关于更新cudnn，完全可以按照<a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/" target="_blank" rel="noopener">官方教程来搞</a>，重点是最好备份下原有的cudnn文件，万一导致更新后别人的也不可以用了，就惨了。</p>
+<h3 id="conda-创建虚拟环境以及问题"><a href="#conda-创建虚拟环境以及问题" class="headerlink" title="conda 创建虚拟环境以及问题"></a>conda 创建虚拟环境以及问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda create -n env_name python==3.6</span><br></pre></td></tr></table></figure>
+<p>其实可以直接 <code>conda install tensorflow-gpu=1.12</code></p>
+<p>注意conda进行包管理的问题就是，conda会直接安装所有可能依赖的包，可能有的包是你不需要的 这无所谓，但是有时候会给你安装错误版本的依赖包，导致出问题。这样的话只能后期再修改包</p>
+]]></content>
+      <categories>
+        <category>daily</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>娇娇实验要点</title>
+    <url>/2020/01/14/%E5%A8%87%E5%A8%87%E5%AE%9E%E9%AA%8C%E8%A6%81%E7%82%B9/</url>
+    <content><![CDATA[<p>回归实验</p>
+<p>目前拿一家公司的数据进行试验，存在问题：</p>
+<p>1.未区分不同的产品，产品不一样会带来单价不一样的问题</p>
+<p>2.目前以天为单位，可考虑区分不同的产品之后以天或者周为单位</p>
+<p>3.之前做过的one hot与之后的回归是否可以结合；发现分类编码缺失很多？？？</p>
+<p>4.依靠分类编码无法区分产品类别，只能考虑其他分类方法</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Vim 日常使用</title>
+    <url>/2020/01/08/vim%20%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>daily</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>优化方法总结（先挖个坑，最近任务是刷题 之后补一下）</title>
+    <url>/2020/01/07/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/yinyu19950811/article/details/90476956" target="_blank" rel="noopener">https://blog.csdn.net/yinyu19950811/article/details/90476956</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Bloom Filter(布隆过滤器)</title>
     <url>/2020/01/06/bloom%E8%BF%87%E6%BB%A4%E5%99%A8/</url>
     <content><![CDATA[<p><a href="https://blog.csdn.net/jiaomeng/article/details/1495500" target="_blank" rel="noopener">https://blog.csdn.net/jiaomeng/article/details/1495500</a></p>
@@ -601,7 +780,135 @@
     <url>/2019/12/22/hadoop%20hdfs%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>其操作指令大部分跟linux下的命令差不多。</p>
 <p><a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html</a></p>
-<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hadoop fs -test -e  file_path</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检测路径是否存在</span></span><br><span class="line">其对应返回这可以同 shell $?  来捕捉</span><br></pre></td></tr></table></figure>
+<h2 id="FS-Shell"><a href="#FS-Shell" class="headerlink" title="FS Shell"></a>FS Shell</h2><p>调用文件系统(FS)Shell命令应使用 bin/hadoop fs <args>的形式。 所有的的FS shell命令使用URI路径作为参数。URI格式是<em>scheme://authority/path</em>。对HDFS文件系统，scheme是<em>hdfs</em>，对本地文件系统，scheme是<em>file</em>。其中scheme和authority参数都是可选的，如果未加指定，就会使用配置中指定的默认scheme。一个HDFS文件或目录比如<em>/parent/child</em>可以表示成<em>hdfs://namenode:namenodeport/parent/child</em>，或者更简单的<em>/parent/child</em>（假设你配置文件中的默认值是<em>namenode:namenodeport</em>）。大多数FS Shell命令的行为和对应的Unix Shell命令类似，不同之处会在下面介绍各命令使用详情时指出。出错信息会输出到<em>stderr</em>，其他信息输出到<em>stdout</em>。</p>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>使用方法：hadoop fs -cat URI [URI …]</p>
+<p>将路径指定文件的内容输出到<em>stdout</em>。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -cat hdfs://host1:port1/file1 hdfs://host2:port2/file2 </li>
+<li>hadoop fs -cat file:///file3 /user/hadoop/file4 </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+<h3 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h3><p>使用方法：hadoop fs -chgrp [-R] GROUP URI [URI …] Change group association of files. With -R, make the change recursively through the directory structure. The user must be the owner of files, or else a super-user. Additional information is in the <a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">Permissions User Guide</a>. —&gt;</p>
+<p>改变文件所属的组。使用-R将使改变在目录结构下递归进行。命令的使用者必须是文件的所有者或者超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p>使用方法：hadoop fs -chmod [-R] <MODE[,MODE]... | OCTALMODE> URI [URI …]</p>
+<p>改变文件的权限。使用-R将使改变在目录结构下递归进行。命令的使用者必须是文件的所有者或者超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
+<h3 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h3><p>使用方法：hadoop fs -chown [-R] [OWNER][:[GROUP]] URI [URI ]</p>
+<p>改变文件的拥有者。使用-R将使改变在目录结构下递归进行。命令的使用者必须是超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
+<h3 id="copyFromLocal"><a href="#copyFromLocal" class="headerlink" title="copyFromLocal"></a>copyFromLocal</h3><p>使用方法：hadoop fs -copyFromLocal <localsrc> URI</p>
+<p>除了限定源路径是一个本地文件外，和<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#putlink" target="_blank" rel="noopener"><strong>put</strong></a>命令相似。</p>
+<h3 id="copyToLocal"><a href="#copyToLocal" class="headerlink" title="copyToLocal"></a>copyToLocal</h3><p>使用方法：hadoop fs -copyToLocal [-ignorecrc] [-crc] URI <localdst></p>
+<p>除了限定目标路径是一个本地文件外，和<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#getlink" target="_blank" rel="noopener"><strong>get</strong></a>命令类似。</p>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><p>使用方法：hadoop fs -cp URI [URI …] <dest></p>
+<p>将文件从源路径复制到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。<br>示例：</p>
+<ul>
+<li>hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2</li>
+<li>hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><p>使用方法：hadoop fs -du URI [URI …]</p>
+<p>显示目录中所有文件的大小，或者当只指定一个文件时，显示此文件的大小。<br>示例：<br>hadoop fs -du /user/hadoop/dir1 /user/hadoop/file1 hdfs://host:port/user/hadoop/dir1<br>返回值：<br>成功返回0，失败返回-1。 </p>
+<h3 id="dus"><a href="#dus" class="headerlink" title="dus"></a>dus</h3><p>使用方法：hadoop fs -dus <args></p>
+<p>显示文件的大小。</p>
+<h3 id="expunge"><a href="#expunge" class="headerlink" title="expunge"></a>expunge</h3><p>使用方法：hadoop fs -expunge</p>
+<p>清空回收站。请参考<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html" target="_blank" rel="noopener">HDFS设计</a>文档以获取更多关于回收站特性的信息。</p>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>使用方法：hadoop fs -get [-ignorecrc] [-crc] <src> <localdst> </p>
+<p>复制文件到本地文件系统。可用-ignorecrc选项复制CRC校验失败的文件。使用-crc选项复制文件以及CRC信息。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -get /user/hadoop/file localfile </li>
+<li>hadoop fs -get hdfs://host:port/user/hadoop/file localfile</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="getmerge"><a href="#getmerge" class="headerlink" title="getmerge"></a>getmerge</h3><p>使用方法：hadoop fs -getmerge <src> <localdst> [addnl]</p>
+<p>接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。 </p>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>使用方法：hadoop fs -ls <args></p>
+<p>如果是文件，则按照如下格式返回文件信息：<br>文件名 &lt;副本数&gt; 文件大小 修改日期 修改时间 权限 用户ID 组ID<br>如果是目录，则返回它直接子文件的一个列表，就像在Unix中一样。目录返回列表的信息如下：<br>目录名 <dir> 修改日期 修改时间 权限 用户ID 组ID<br>示例：<br>hadoop fs -ls /user/hadoop/file1 /user/hadoop/file2 hdfs://host:port/user/hadoop/dir1 /nonexistentfile<br>返回值：<br>成功返回0，失败返回-1。 </p>
+<h3 id="lsr"><a href="#lsr" class="headerlink" title="lsr"></a>lsr</h3><p>使用方法：hadoop fs -lsr <args><br>ls命令的递归版本。类似于Unix中的ls -R。</p>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>使用方法：hadoop fs -mkdir <paths> </p>
+<p>接受路径指定的uri作为参数，创建这些目录。其行为类似于Unix的mkdir -p，它会创建路径中的各级父目录。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2 </li>
+<li>hadoop fs -mkdir hdfs://host1:port1/user/hadoop/dir hdfs://host2:port2/user/hadoop/dir</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="movefromLocal"><a href="#movefromLocal" class="headerlink" title="movefromLocal"></a>movefromLocal</h3><p>使用方法：dfs -moveFromLocal <src> <dst></p>
+<p>输出一个”not implemented“信息。</p>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>使用方法：hadoop fs -mv URI [URI …] <dest></p>
+<p>将文件从源路径移动到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。不允许在不同的文件系统间移动文件。<br>示例：</p>
+<ul>
+<li>hadoop fs -mv /user/hadoop/file1 /user/hadoop/file2</li>
+<li>hadoop fs -mv hdfs://host:port/file1 hdfs://host:port/file2 hdfs://host:port/file3 hdfs://host:port/dir1</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>使用方法：hadoop fs -put <localsrc> … <dst></p>
+<p>从本地文件系统中复制单个或多个源路径到目标文件系统。也支持从标准输入中读取输入写入目标文件系统。</p>
+<ul>
+<li>hadoop fs -put localfile /user/hadoop/hadoopfile</li>
+<li>hadoop fs -put localfile1 localfile2 /user/hadoop/hadoopdir</li>
+<li>hadoop fs -put localfile hdfs://host:port/hadoop/hadoopfile</li>
+<li>hadoop fs -put - hdfs://host:port/hadoop/hadoopfile<br>从标准输入中读取输入。</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p>使用方法：hadoop fs -rm URI [URI …] </p>
+<p>删除指定的文件。只删除非空目录和文件。请参考rmr命令了解递归删除。<br>示例：</p>
+<ul>
+<li>hadoop fs -rm hdfs://host:port/file /user/hadoop/emptydir </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="rmr"><a href="#rmr" class="headerlink" title="rmr"></a>rmr</h3><p>使用方法：hadoop fs -rmr URI [URI …]</p>
+<p>delete的递归版本。<br>示例：</p>
+<ul>
+<li>hadoop fs -rmr /user/hadoop/dir </li>
+<li>hadoop fs -rmr hdfs://host:port/user/hadoop/dir </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="setrep"><a href="#setrep" class="headerlink" title="setrep"></a>setrep</h3><p>使用方法：hadoop fs -setrep [-R] <path></p>
+<p>改变一个文件的副本系数。-R选项用于递归改变目录下所有文件的副本系数。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -setrep -w 3 -R /user/hadoop/dir1 </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h3><p>使用方法：hadoop fs -stat URI [URI …]</p>
+<p>返回指定路径的统计信息。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -stat path </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><p>使用方法：hadoop fs -tail [-f] URI </p>
+<p>将文件尾部1K字节的内容输出到stdout。支持-f选项，行为和Unix中一致。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -tail pathname </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><p>使用方法：hadoop fs -test -[ezd] URI</p>
+<p>选项：<br>-e 检查文件是否存在。如果存在则返回0。<br>-z 检查文件是否是0字节。如果是则返回0。<br>-d 如果路径是个目录，则返回1，否则返回0。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -test -e filename </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hadoop fs -test -e  file_path</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检测路径是否存在</span></span><br><span class="line">其对应返回这可以用shell $?  来捕捉</span><br></pre></td></tr></table></figure>
+<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><p>使用方法：hadoop fs -text <src> </p>
+<p>将源文件输出为文本格式。允许的格式是zip和TextRecordInputStream。</p>
+<h3 id="touchz"><a href="#touchz" class="headerlink" title="touchz"></a>touchz</h3><p>使用方法：hadoop fs -touchz URI [URI …] </p>
+<p>创建一个0字节的空文件。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop -touchz pathname </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
 ]]></content>
       <categories>
         <category>daily</category>
@@ -735,6 +1042,36 @@
 <p>写代码时候 最好也按照这个顺序书写</p>
 <h3 id="hive-表数据类型一定要对齐！！！max-string-的坑"><a href="#hive-表数据类型一定要对齐！！！max-string-的坑" class="headerlink" title="hive 表数据类型一定要对齐！！！max(string)的坑"></a>hive 表数据类型一定要对齐！！！max(string)的坑</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">	a.id,</span><br><span class="line">	a.hot_fea,</span><br><span class="line">  b.hot_fea_max </span><br><span class="line"><span class="keyword">from</span> table_test a</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span></span><br><span class="line">	<span class="keyword">max</span>(hot_fea) hot_fea_mx,</span><br><span class="line"><span class="keyword">from</span> table_test) b</span><br><span class="line"><span class="keyword">where</span> a.id=<span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="number">123</span>, <span class="number">250</span>, <span class="number">99</span> 分别对应<span class="keyword">id</span>, hot_fea, hot_fea_mx</span><br></pre></td></tr></table></figure>
 <p>出现了数值比max还大的情况。原因就是<strong>max的列是string的</strong></p>
+<h3 id="order-by-string的坑"><a href="#order-by-string的坑" class="headerlink" title="order by string的坑"></a>order by string的坑</h3><p>使用row_number 来生成行数</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">row_number() over(partiton by id order by position) as row_number</span><br></pre></td></tr></table></figure>
+<p>由于其中position是string类型的，会导致排序时候出现下面这种排序方式</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1</span><br><span class="line">21</span><br><span class="line">23</span><br><span class="line">3</span><br><span class="line">31</span><br><span class="line">8</span><br><span class="line">92</span><br></pre></td></tr></table></figure>
+<h3 id="hive-各语句执行顺序"><a href="#hive-各语句执行顺序" class="headerlink" title="hive 各语句执行顺序"></a>hive 各语句执行顺序</h3><p>书写顺序sql：</p>
+<blockquote>
+<p> select … from … where … group by … having … order by … </p>
+</blockquote>
+<p>执行顺序：</p>
+<blockquote>
+<p>from … where … select … group by … having … order by …</p>
+</blockquote>
+<p>其实总结hive的执行顺序也是总结mapreduce的执行顺序：</p>
+<p>MR程序的执行顺序：</p>
+<ul>
+<li><p>map阶段：</p>
+<p>1.执行from加载，进行表的查找与加载</p>
+<p>2.执行where过滤，进行条件过滤与筛选</p>
+<p>3.执行select查询：进行输出项的筛选</p>
+<p>4.执行group by分组：描述了分组后需要计算的函数</p>
+<p>5.map端文件合并：map端本地溢出写文件的合并操作，每个map最终形成一个临时文件。 然后按列映射到对应的reduceReduce阶段：</p>
+</li>
+<li><p>Reduce阶段：</p>
+<p>1.group by：对map端发送过来的数据进行分组并进行计算。</p>
+<p>2.select：最后过滤列用于输出结果</p>
+<p>3.limit排序后进行结果输出到HDFS文件</p>
+</li>
+</ul>
+<p>所以通过上面的例子我们可以看到，在进行selectt之后我们会形成一张表，在这张表当中做分组排序这些操作。</p>
+<h3 id="hive-查看分区表的分区"><a href="#hive-查看分区表的分区" class="headerlink" title="hive 查看分区表的分区"></a>hive 查看分区表的分区</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive -e 'show partitions table_name'</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>daily</category>
@@ -1076,6 +1413,11 @@
     <title>Shell 命令基础</title>
     <url>/2019/12/17/shell%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h2 id="Shell命令基础"><a href="#Shell命令基础" class="headerlink" title="Shell命令基础"></a>Shell命令基础</h2><p>日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识</p>
+<h3 id="基本符号问题"><a href="#基本符号问题" class="headerlink" title="基本符号问题"></a>基本符号问题</h3><p>` `  ！！！不是单引号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">`` 键盘右上角的符号，并不是单引号，这个用来包住命令 tmp=`echo '123'`就是将内部的命令运行结果包起来</span><br><span class="line">等价于 $() 即 tmp=$(echo '123')</span><br></pre></td></tr></table></figure>
+<h3 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h3><h4 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for((i=0;i&lt;$n;i++)); # 这样可以像C语言一样写</span><br><span class="line">do xxxxxx</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dt=$1</span><br><span class="line">if [ ! $dt ];then</span><br><span class="line">    do something</span><br><span class="line">else:</span><br><span class="line">	  do something</span><br><span class="line">	  exit 1  # 强制退出</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h4 id="函数写法"><a href="#函数写法" class="headerlink" title="函数写法"></a>函数写法</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 定义一个函数</span></span><br><span class="line">test_func()&#123;</span><br><span class="line">		hive -hiveconf table_name=$&#123;table_name&#125; \</span><br><span class="line">				-hiveconf ...\</span><br><span class="line">				-f test.hql</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">test_func</span><br></pre></td></tr></table></figure>
 <h3 id="source-用法"><a href="#source-用法" class="headerlink" title="source 用法"></a>source 用法</h3><p>激活脚本，比如.sh文件中定义了一些变量，完全可以通过source一个.sh文件来使得脚本中定义的变量生效</p>
 <p>但是有个问题，这个生效的声明周期仅限于在该会话内，再开一个终端是不能用的</p>
 <h3 id="df-和-du"><a href="#df-和-du" class="headerlink" title="df 和 du"></a>df 和 du</h3><ul>
@@ -1086,7 +1428,9 @@
 <li>df:disk-free  检查磁盘空间（所以并不能看某个目录的占得磁盘大小）</li>
 </ul>
 <h3 id="查看文件挂载在哪里"><a href="#查看文件挂载在哪里" class="headerlink" title="查看文件挂载在哪里"></a>查看文件挂载在哪里</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">df -h &lt;path&gt; 即可查看</span><br></pre></td></tr></table></figure>
-]]></content>
+<h3 id="shell-脚本里面多行注释"><a href="#shell-脚本里面多行注释" class="headerlink" title="shell 脚本里面多行注释"></a>shell 脚本里面多行注释</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "123"</span><br><span class="line"></span><br><span class="line">&lt;&lt; COMMENT</span><br><span class="line">test </span><br><span class="line">&lt;&lt;</span><br></pre></td></tr></table></figure>
+<h3 id="sort-用法"><a href="#sort-用法" class="headerlink" title="sort 用法"></a>sort 用法</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">主要的几个参数：</span><br><span class="line">-k 3  按照第3列进行排序</span><br><span class="line">-r  默认升序，-r进行逆序</span><br><span class="line">-n numerical  如果按照字符串排序会出现  23排在8前面  -n则是按照数值大小排序</span><br><span class="line">-t ”,“ 按照逗号分割，  '\t'这个有点特殊  需要  $'\t' 这样用</span><br></pre></td></tr></table></figure>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>]]></content>
   </entry>
   <entry>
     <title>Git 常用工作流</title>
@@ -1114,6 +1458,9 @@
 <h3 id="只克隆branch-到本地"><a href="#只克隆branch-到本地" class="headerlink" title="只克隆branch 到本地"></a>只克隆branch 到本地</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b branch_name  git_address</span><br></pre></td></tr></table></figure>
 <h3 id="完整地址"><a href="#完整地址" class="headerlink" title="完整地址"></a>完整地址</h3><p><a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials</a></p>
 ]]></content>
+      <categories>
+        <category>daily</category>
+      </categories>
   </entry>
   <entry>
     <title>Apach pig 日常使用总结</title>
@@ -1596,7 +1943,7 @@ TPR = \frac{5}{6} \\
 <p>输入: “abc”<br>输出: 3<br>解释: 三个回文子串: “a”, “b”, “c”.<br>示例 2:</p>
 <p>输入: “aaa”<br>输出: 6<br>说明: 6个回文子串: “a”, “a”, “a”, “aa”, “aa”, “aaa”.<br>注意:</p>
 <p>输入的字符串长度不会超过1000。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>处理回文问题最好用的一个方式就是中心扩散，即从中间向两边扩散。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>处理回文问题最好用的一个方式就是<strong>中心扩散</strong>，即从中间向两边扩散。</p>
 <p>扩散的过程不仅可以记录回文子串内容，还可以记录长度，还可以记录个数（只要始末位置不一样就算一个回文串）</p>
 <p>本题就是让字符串中每一个字符都当一次中心，然后通过中心扩散来统计不同回文串的个数：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countSubstrings</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> center <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            count += self.centerSpread(s,center,center) <span class="comment"># 奇数对称</span></span><br><span class="line">            count += self.centerSpread(s,center,center+<span class="number">1</span>) <span class="comment"># 偶数对称</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">centerSpread</span><span class="params">(self, s,l,r)</span>:</span> <span class="comment"># 中心扩散</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> l&gt;=<span class="number">0</span> <span class="keyword">and</span> r &lt; len(s) <span class="keyword">and</span> s[l] == s[r]:</span><br><span class="line">            l-=<span class="number">1</span></span><br><span class="line">            r+=<span class="number">1</span></span><br><span class="line">            count+=<span class="number">1</span> <span class="comment"># 起止位置不同就算一个</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
@@ -3156,11 +3503,13 @@ dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><tabl
   <entry>
     <title>日常awk命令汇总</title>
     <url>/2019/11/04/awk/</url>
-    <content><![CDATA[<h1 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h1><p>适用于文本处理和报表生成（是一种一旦学会了就会成为您的==战略代码库==的重要部分语言:laughing:）</p>
+    <content><![CDATA[<h1 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h1><p>适用于文本处理和报表生成（是一种一旦学会了就会成为您的<strong><a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/" target="_blank" rel="noopener">战略代码库</a></strong>的重要部分语言:laughing:）</p>
 <p>awk处理文件的过程是一行一行读取并处理的，总是先去匹配pattern（模式），如果匹配成功就是执行action。</p>
-<p>一句完整的awk指令也是由这两个部分组成的。</p>
-<p>awk的print命令</p>
-<p>普通输出，$0对应整个当前行，或者pritn “”</p>
+<p>除了核心模块外还有两个辅助部分，即<code>BEGIN</code>和<code>END</code>模块，这两个部分是在核心处理机制外的，大白话来解释就是：</p>
+<blockquote>
+<p>先执行BEGIN模块，进行赋值和一些声明，然后进入核心处理模块，即 读取第一行，匹配pattern，然后进行action，然后第二行…第三行…第N行，最后再执行END模块。</p>
+</blockquote>
+<h3 id="awk的print命令"><a href="#awk的print命令" class="headerlink" title="awk的print命令"></a>awk的print命令</h3><p>普通输出，$0对应整个当前行，或者pritn “”</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">awk '&#123; print $0 &#125;' /etc/passwd</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk -F <span class="string">":"</span> <span class="string">'&#123; print $1 " " $6 &#125;'</span> /etc/passwd</span></span><br><span class="line">这条命令对应，使用":"分割，并取分割后的第一位、第六位。（计数从1开始的）</span><br><span class="line">/etc/passwd 内的内容格式如下，使用:分割后，</span><br><span class="line">mengdi:x:10395:1001::/home/mengdi:/bin/bash</span><br><span class="line">mengdi  x  10395  1001  _  /home/mengdi:/bin/bash</span><br><span class="line">输出第1、6位，输出结果就是 mengdi /home/mengdi:/bin/bash</span><br><span class="line"></span><br><span class="line">解释$0， 上面$1 和 $6对应输出的是第一第六位，如果换成$0，则输出的就是整行文件。</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -F <span class="string">":"</span>就是格式化分解，以：为分解符号</span></span><br><span class="line">上面的例子还可以通过格式化进行输出</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -F <span class="string">":"</span> <span class="string">'&#123; print "username: " $1 "\t\tuid:" $3 &#125;'</span> /etc/passwd</span></span><br><span class="line">上面这种输出就是格式化输出，加上自定义字符串以及变量。</span><br></pre></td></tr></table></figure>
 <p>-F实际上是设置了FS变量分隔符，也可以通过外部脚步设置</p>
