@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-02T15:20:01.979Z</updated>
+  <updated>2020-02-04T17:07:31.418Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,63 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode-186-翻转字符串中的单词II</title>
+    <link href="http://yoursite.com/2020/02/05/leetcode-186-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8DII/"/>
+    <id>http://yoursite.com/2020/02/05/leetcode-186-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8DII/</id>
+    <published>2020-02-04T17:03:29.051Z</published>
+    <updated>2020-02-04T17:07:31.418Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="翻转字符串中的单词II"><a href="#翻转字符串中的单词II" class="headerlink" title="翻转字符串中的单词II"></a>翻转字符串中的单词II</h2><p>给定一个字符串，逐个翻转字符串中的每个单词。</p><p>示例：</p><p>输入: [“t”,”h”,”e”,” “,”s”,”k”,”y”,” “,”i”,”s”,” “,”b”,”l”,”u”,”e”]<br>输出: [“b”,”l”,”u”,”e”,” “,”i”,”s”,” “,”s”,”k”,”y”,” “,”t”,”h”,”e”]<br>注意：</p><p>单词的定义是不包含空格的一系列字符<br>输入字符串中不会包含前置或尾随的空格<br>单词与单词之间永远是以单个空格隔开的<br>进阶：使用 O(1) 额外空间复杂度的原地解法。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这个题目这么给输入输出，就是相当于给了你 <code>char array</code>，这样就可以通过o(1)的空间复杂度来实现。</p><p>原理同题目一</p><ul><li>先reverse整个数组</li><li>再逐个单词reverse</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s: List[str])</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify s in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(s,left,right)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> left &gt; right:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">while</span>(left&lt;right):</span><br><span class="line">                s[left],s[right] = s[right],s[left]</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">        length = len(s)</span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = length<span class="number">-1</span></span><br><span class="line">        reverse(s,left,right)</span><br><span class="line"></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span>(right&lt;length):</span><br><span class="line">            <span class="keyword">if</span> s[right] == <span class="string">' '</span>:</span><br><span class="line">                reverse(s,left,right<span class="number">-1</span>)</span><br><span class="line">                left = right+<span class="number">1</span></span><br><span class="line">                right = right+<span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> right == length<span class="number">-1</span>: <span class="comment"># 这个地方需要注意下 这种形式给的字符串没有结尾符号需要自行判断</span></span><br><span class="line">                reverse(s,left,right)</span><br><span class="line">                right = right+<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right += <span class="number">1</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;翻转字符串中的单词II&quot;&gt;&lt;a href=&quot;#翻转字符串中的单词II&quot; class=&quot;headerlink&quot; title=&quot;翻转字符串中的单词II&quot;&gt;&lt;/a&gt;翻转字符串中的单词II&lt;/h2&gt;&lt;p&gt;给定一个字符串，逐个翻转字符串中的每个单词。&lt;/p&gt;
+&lt;p&gt;示例：&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-151-翻转字符串中的单词</title>
+    <link href="http://yoursite.com/2020/02/05/leetcode-151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/"/>
+    <id>http://yoursite.com/2020/02/05/leetcode-151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/</id>
+    <published>2020-02-04T16:25:24.589Z</published>
+    <updated>2020-02-04T16:53:11.999Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="翻转字符串中的单词"><a href="#翻转字符串中的单词" class="headerlink" title="翻转字符串中的单词"></a>翻转字符串中的单词</h2><p>给定一个字符串，逐个翻转字符串中的每个单词。</p><p>示例 1：</p><p>输入: “the sky is blue”<br>输出: “blue is sky the”<br>示例 2：</p><p>输入: “  hello world!  “<br>输出: “world! hello”<br>解释: 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。<br>示例 3：</p><p>输入: “a good   example”<br>输出: “example good a”<br>解释: 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p><p>说明：</p><p>无空格字符构成一个单词。<br>输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。<br>如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-words-in-a-string</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>按照 剑指offer的解题思路 </p><ul><li>先翻转整个字符串</li><li>再逐个翻转单词</li></ul><p>主要的问题出现在，python解决过程出现的小坑</p><ul><li>python 中的string 是不可以进行修改的，所以做不到原地逆置</li><li>python可以用<code>split()</code>将单词分隔开，但是空白字符会之间变成 空<code>&#39;&#39;</code>，而不是<code>’ ‘</code></li></ul><blockquote><p>split(‘ ‘)和split()的切分是不一样的。</p><p>split(‘ ‘)会严格按照一个空格一个空格来切</p><p>split()会按照空白的来切掉</p><p>eg: “  hello   world    “</p><p>>&gt;&gt; a = ‘ hellow word  ‘</p><p>>&gt;&gt; a.split(‘ ‘)</p><p>[‘’, ‘hellow’, ‘’, ‘word’, ‘’, ‘’, ‘’]</p><p>>&gt;&gt; a.split()</p><p>[‘hellow’, ‘word’]</p></blockquote><p>题解</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        </span><br><span class="line">        s = self.reverse(s)</span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> s.split():</span><br><span class="line">            <span class="keyword">if</span> word != <span class="string">''</span>: <span class="comment"># 坑</span></span><br><span class="line">                result.append(self.reverse(word))</span><br><span class="line">        result = <span class="string">' '</span>.join(result)</span><br><span class="line">        <span class="keyword">return</span> result.strip()</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self,s)</span>:</span></span><br><span class="line">        list_s = list(s) <span class="comment"># 坑</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(list_s)<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span>(left&lt;right):</span><br><span class="line">            list_s[left],list_s[right] = list_s[right],list_s[left]</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(list_s)</span><br></pre></td></tr></table></figure><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>如果充分利用python 特性来解决：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">reverseWords1</span><span class="params">(self, s: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">" "</span>.join(s.split()[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure><p>首先将字符串按照<code>&#39; &#39;</code>切分，然后得到一个list的切分结果，再将切分的结果逆置，达到了只需要把单词位置颠倒，就完成了。</p><ul><li><code>[::-1]</code>是将list内容进行逆置的操作</li><li>这个方法不用管空白字符的原因是 <code>split()</code>会以任何空白进行切割，可以参考上面对split的举例。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;翻转字符串中的单词&quot;&gt;&lt;a href=&quot;#翻转字符串中的单词&quot; class=&quot;headerlink&quot; title=&quot;翻转字符串中的单词&quot;&gt;&lt;/a&gt;翻转字符串中的单词&lt;/h2&gt;&lt;p&gt;给定一个字符串，逐个翻转字符串中的每个单词。&lt;/p&gt;
+&lt;p&gt;示例 1：&lt;/p&gt;
+&lt;p
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+      <category term="剑指offer" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/%E5%89%91%E6%8C%87offer/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Leetcode-388-文件最长绝对路径</title>
@@ -31,6 +88,34 @@
       
         &lt;h2 id=&quot;文件的最长绝对路径&quot;&gt;&lt;a href=&quot;#文件的最长绝对路径&quot; class=&quot;headerlink&quot; title=&quot;文件的最长绝对路径&quot;&gt;&lt;/a&gt;文件的最长绝对路径&lt;/h2&gt;&lt;p&gt;假设我们以下述方式将我们的文件系统抽象成一个字符串:&lt;/p&gt;
 &lt;p&gt;字符串 “dir
+      
+    
+    </summary>
+    
+    
+      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
+    
+      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
+    
+    
+      <category term="Google" scheme="http://yoursite.com/tags/Google/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode-681-最近时刻</title>
+    <link href="http://yoursite.com/2020/02/02/leetcode-681-%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%97%B6%E9%97%B4/"/>
+    <id>http://yoursite.com/2020/02/02/leetcode-681-%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%97%B6%E9%97%B4/</id>
+    <published>2020-02-02T14:47:06.000Z</published>
+    <updated>2020-02-04T14:12:06.288Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="最近时刻"><a href="#最近时刻" class="headerlink" title="最近时刻"></a>最近时刻</h2><p>给定一个形如 “HH:MM” 表示的时刻，利用当前出现过的数字构造下一个距离当前时间最近的时刻。每个出现数字都可以被无限次使用。</p><p>你可以认为给定的字符串一定是合法的。例如，“01:34” 和 “12:09” 是合法的，“1:34” 和 “12:9” 是不合法的。</p><p>样例 1:</p><p>输入: “19:34”<br>输出: “19:39”<br>解释: 利用数字 1, 9, 3, 4 构造出来的最近时刻是 19:39，是 5 分钟之后。结果不是 19:33 因为这个时刻是 23 小时 59 分钟之后。</p><p>样例 2:</p><p>输入: “23:59”<br>输出: “22:22”<br>解释: 利用数字 2, 3, 5, 9 构造出来的最近时刻是 22:22。 答案一定是第二天的某一时刻，所以选择可构造的最小时刻。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>递归思路：就是枚举四个数字出现在每一个位置时候的情况，四个位置，4个数字，最差遍历就是 4！<br>剪枝策略：对于小时位置不满足[0,24)，对于分钟位置不满足[0,60)</p><p>!!!注意一个问题：对于’00:00’ ‘11:11’的处理。<br>原有逻辑遇到 其本身会直接return 返回空结果，这样导致上面出现的case不能很好的覆盖<br>我们可以先将其赋值到<code>self.result</code>上，如果最后没有找到最小的时间，那么说明出现了上面这样的情况（全是重复数字）<br>最后直接返回<code>self.result</code></p><p> 如何计算时间差？ 可参考官方题解给的计算方法<br>（minutes_new_time - minutes_origin_time） % (24*60)<br>举例：12；01对应  12*60+1 = 720<br>那么‘11：02’时间对应  11*60+2 = 662<br>（662-720） % 1440 = -58 % 1440 = 1382 是一个很大的值<br>主要就是这个思想来判断新生成的时间是否是距离最近的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.result = <span class="string">''</span></span><br><span class="line">        self.min_time = <span class="number">1440</span></span><br><span class="line">        self.time = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nextClosestTime</span><span class="params">(self, time: str)</span> -&gt; str:</span></span><br><span class="line">        self.result = time  <span class="comment"># 直接赋值到结果上 </span></span><br><span class="line">        self.time = int(time[:<span class="number">2</span>])*<span class="number">60</span>+int(time[<span class="number">3</span>:])</span><br><span class="line">        digit = time[:<span class="number">2</span>]+time[<span class="number">3</span>:]</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line">        self.backtrace(<span class="number">0</span>,stack,digit)</span><br><span class="line">        <span class="keyword">return</span> self.result</span><br><span class="line"></span><br><span class="line">    <span class="comment"># dfs+剪枝</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backtrace</span><span class="params">(self,depth,stack,digit)</span>:</span></span><br><span class="line">        <span class="comment"># 剪枝</span></span><br><span class="line">        <span class="keyword">if</span> depth == <span class="number">2</span> <span class="keyword">and</span> int(stack[:<span class="number">2</span>])&gt;=<span class="number">24</span>:</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> depth == <span class="number">4</span> <span class="keyword">and</span> int(stack[<span class="number">2</span>:])&gt;=<span class="number">60</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">elif</span> depth == <span class="number">4</span>:</span><br><span class="line">            tmp_time = self.cal_time(stack)</span><br><span class="line">            <span class="keyword">if</span> tmp_time == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">elif</span> tmp_time &lt; self.min_time: <span class="comment"># 如果出现更小的时间，更新最小时间差以及结果</span></span><br><span class="line">                self.min_time = tmp_time</span><br><span class="line">                self.result = stack[:<span class="number">2</span>]+<span class="string">':'</span>+stack[<span class="number">2</span>:]</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(digit)):</span><br><span class="line">            </span><br><span class="line">                stack += digit[i]</span><br><span class="line">                self.backtrace(depth+<span class="number">1</span>,stack,digit)</span><br><span class="line">                stack = stack[:<span class="number">-1</span>]</span><br><span class="line">                </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cal_time</span><span class="params">(self,new_time)</span>:</span></span><br><span class="line">        hour = int(new_time[:<span class="number">2</span>])</span><br><span class="line">        minutes = int(new_time[<span class="number">2</span>:])</span><br><span class="line">        time = hour*<span class="number">60</span>+minutes</span><br><span class="line">        <span class="keyword">return</span> (time-self.time)%(<span class="number">24</span>*<span class="number">60</span>)   <span class="comment">#  小trick  -1 % 100 的结果是 99</span></span><br></pre></td></tr></table></figure><p>更多Leetcode题解以及面试经验：<a href="https://mereder.github.io/archives/" target="_blank" rel="noopener">Mereder博客</a></p><p><a href="https://drive.google.com/file/d/1PXQAvlTAzV4cdAGwit_52aKVrK4IShPw/view?usp=sharing" target="_blank" rel="noopener">https://drive.google.com/file/d/1PXQAvlTAzV4cdAGwit_52aKVrK4IShPw/view?usp=sharing</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;最近时刻&quot;&gt;&lt;a href=&quot;#最近时刻&quot; class=&quot;headerlink&quot; title=&quot;最近时刻&quot;&gt;&lt;/a&gt;最近时刻&lt;/h2&gt;&lt;p&gt;给定一个形如 “HH:MM” 表示的时刻，利用当前出现过的数字构造下一个距离当前时间最近的时刻。每个出现数字都可以被无限次使
       
     
     </summary>
@@ -420,86 +505,6 @@
       
       
         &lt;h2 id=&quot;组合总和III&quot;&gt;&lt;a href=&quot;#组合总和III&quot; class=&quot;headerlink&quot; title=&quot;组合总和III&quot;&gt;&lt;/a&gt;组合总和III&lt;/h2&gt;&lt;p&gt;找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-39-组合总和</title>
-    <link href="http://yoursite.com/2020/01/03/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/"/>
-    <id>http://yoursite.com/2020/01/03/leetcode-39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/</id>
-    <published>2020-01-03T14:16:08.000Z</published>
-    <updated>2020-01-03T14:16:16.190Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="组合总和"><a href="#组合总和" class="headerlink" title="组合总和"></a>组合总和</h2><p>给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p><p>candidates 中的数字可以无限制重复被选取。</p><p>说明：</p><p>所有数字（包括 target）都是正整数。<br>解集不能包含重复的组合。<br>示例 1:</p><p>输入: candidates = [2,3,6,7], target = 7,<br>所求解集为:<br>[<br>  [7],<br>  [2,2,3]<br>]<br>示例 2:</p><p>输入: candidates = [2,3,5], target = 8,<br>所求解集为:<br>[<br>  [2,2,2,2],<br>  [2,3,3],<br>  [3,5]<br>]</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>可能确实刷题刷出来感觉了，拿到题第一时间就想到了用 回溯来做，具体细节当然要使用一些剪枝。</p><p>既然使用回溯来做，最好要画图分析下（递归的过程都可以画成树）</p><p>（假装这里有个图）</p><p>搞清楚</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combinationSum</span><span class="params">(self, candidates: List[int], target: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        result = []</span><br><span class="line">        stack = []</span><br><span class="line">        self.helper(candidates, target, result, stack, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, candidates, target, result, stack, start)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> target &lt; <span class="number">0</span>:  <span class="comment"># 剪枝</span></span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> target == <span class="number">0</span>:  <span class="comment"># 找到一个结果集</span></span><br><span class="line">            result.append(stack.copy())</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(start,len(candidates)):</span><br><span class="line">            stack.append(candidates[index])</span><br><span class="line"><span class="comment"># 由于允许有重复 所以下一个位置还是从index 开始</span></span><br><span class="line">            self.helper(candidates, target-candidates[index], result, stack, index)</span><br><span class="line"></span><br><span class="line">            stack.pop()</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;组合总和&quot;&gt;&lt;a href=&quot;#组合总和&quot; class=&quot;headerlink&quot; title=&quot;组合总和&quot;&gt;&lt;/a&gt;组合总和&lt;/h2&gt;&lt;p&gt;给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-1138-字母板上的路径</title>
-    <link href="http://yoursite.com/2020/01/02/leetcode-1138-%E5%AD%97%E6%AF%8D%E6%9D%BF%E4%B8%8A%E7%9A%84%E8%B7%AF%E5%BE%84/"/>
-    <id>http://yoursite.com/2020/01/02/leetcode-1138-%E5%AD%97%E6%AF%8D%E6%9D%BF%E4%B8%8A%E7%9A%84%E8%B7%AF%E5%BE%84/</id>
-    <published>2020-01-02T15:53:34.000Z</published>
-    <updated>2020-01-04T09:55:46.864Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="字母板上的路径"><a href="#字母板上的路径" class="headerlink" title="字母板上的路径"></a>字母板上的路径</h2><p>我们从一块字母板上的位置 (0, 0) 出发，该坐标对应的字符为 board[0][0]。</p><p>在本题里，字母板为board = [“abcde”, “fghij”, “klmno”, “pqrst”, “uvwxy”, “z”].</p><p>我们可以按下面的指令规则行动：</p><p>如果方格存在，’U’ 意味着将我们的位置上移一行；<br>如果方格存在，’D’ 意味着将我们的位置下移一行；<br>如果方格存在，’L’ 意味着将我们的位置左移一列；<br>如果方格存在，’R’ 意味着将我们的位置右移一列；<br>‘!’ 会把在我们当前位置 (r, c) 的字符 board[r][c] 添加到答案中。<br>返回指令序列，用最小的行动次数让答案和目标 target 相同。你可以返回任何达成目标的路径。</p><blockquote><p>示例 1：</p><p>输入：target = “leet”<br>输出：”DDR!UURRR!!DDD!”<br>示例 2：</p><p>输入：target = “code”<br>输出：”RR!DDRR!UUL!R!”</p><p>提示：</p><p>1 &lt;= target.length &lt;= 100<br>target 仅含有小写英文字母。</p></blockquote><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"abcde"</span>, </span><br><span class="line"> <span class="string">"fghij"</span>, </span><br><span class="line"> <span class="string">"klmno"</span>, </span><br><span class="line"> <span class="string">"pqrst"</span>, </span><br><span class="line"> <span class="string">"uvwxy"</span>, </span><br><span class="line"> <span class="string">"z"</span>].</span><br></pre></td></tr></table></figure><p>注意遍历的顺序：先 左和上  再右和下</p><p>原因是：最后一个z的位置 比较特殊，如果想到z位置，只能从z的上面才能到，z的右侧，z的下面都不可以到达z位置，只能上面到，所以要先进行   向左或者向上  的操作。（因为如果先进行向右或者向下 势必会遍历到非法区域）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">alphabetBoardPath</span><span class="params">(self, target)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> target:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        result = <span class="string">''</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> target:</span><br><span class="line">            error = ord(char) - ord(<span class="string">'a'</span>)</span><br><span class="line">            row = error // <span class="number">5</span></span><br><span class="line">            col = error % <span class="number">5</span></span><br><span class="line">            左侧</span><br><span class="line">            <span class="keyword">if</span> col &lt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(j-col):</span><br><span class="line">                    result += <span class="string">'L'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &lt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(i-row):</span><br><span class="line">                    result += <span class="string">'U'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> row &gt; i:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(row-i):</span><br><span class="line">                    result += <span class="string">'D'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> col &gt; j:</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(col-j):</span><br><span class="line">                    result += <span class="string">'R'</span></span><br><span class="line"></span><br><span class="line">            result += <span class="string">'!'</span></span><br><span class="line">            i = row</span><br><span class="line">            j = col</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure><p> <strong>注意这里存在的问题</strong>：</p><p>严格意义上讲，这个题并没有通过所有的测试case</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;字母板上的路径&quot;&gt;&lt;a href=&quot;#字母板上的路径&quot; class=&quot;headerlink&quot; title=&quot;字母板上的路径&quot;&gt;&lt;/a&gt;字母板上的路径&lt;/h2&gt;&lt;p&gt;我们从一块字母板上的位置 (0, 0) 出发，该坐标对应的字符为 board[0][0]。&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-31-下一个排列</title>
-    <link href="http://yoursite.com/2019/12/31/leetcode-31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/"/>
-    <id>http://yoursite.com/2019/12/31/leetcode-31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/</id>
-    <published>2019-12-31T02:25:36.000Z</published>
-    <updated>2020-01-01T15:44:19.875Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a>下一个排列</h2><p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p><p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。</p><p>必须原地修改，只允许使用额外常数空间。</p><p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>找下一个排列，就是用程序模拟下我们人是怎么找下一个排列的</p><blockquote><p>举个例子  1，3，5，4，2</p><p>下一个排列，我们会先定位到3这个地方，因为后一个的值比3大（最大的数就是倒序排，最小的就是正序排，那么下一个排列肯定是较大的一个数）。因为只是找下一个排列，我们找到比3大的数中最小的即4，</p><p>交换3和4得到1，4，5，3，2</p><p>只找到下一个排列，所以应将4后边的进行翻转得，1，4，2，3，5即为结果</p></blockquote><p>主要就是三步：</p><ul><li>找到需要交换的位置，即存在<code>nums[i]&lt;nums[i+1]</code>,这个过程需要从后向前遍历</li><li>再找到需要交换的元素，即被交换元素是较大数中最小的，然后交换</li><li>将位置后边的翻转</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nextPermutation</span><span class="params">(self, nums: List[int])</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify nums in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        i = n<span class="number">-2</span></span><br><span class="line">        <span class="keyword">while</span> i &gt;= <span class="number">0</span> <span class="keyword">and</span> nums[i+<span class="number">1</span>] &lt;= nums[i]:</span><br><span class="line">            i -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> i &gt;= <span class="number">0</span>: <span class="comment"># 比较巧妙的是：上面如果已经是最大那么i会为-1 会直接翻转整个list</span></span><br><span class="line">            j = n - <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> j &gt;= i <span class="keyword">and</span> nums[j] &lt;= nums[i]:</span><br><span class="line">                j -= <span class="number">1</span> </span><br><span class="line">            nums[i],nums[j] = nums[j],nums[i]</span><br><span class="line">        </span><br><span class="line">        self.reverse(nums,i)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self, nums, index)</span>:</span></span><br><span class="line">        left = index+<span class="number">1</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            nums[left],nums[right] = nums[right],nums[left]</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;下一个排列&quot;&gt;&lt;a href=&quot;#下一个排列&quot; class=&quot;headerlink&quot; title=&quot;下一个排列&quot;&gt;&lt;/a&gt;下一个排列&lt;/h2&gt;&lt;p&gt;实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。&lt;/p&gt;
-&lt;p&gt;如果不存在下一个
       
     
     </summary>
