@@ -542,6 +542,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/%E5%91%A8%E8%B5%9B20-02-19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/09/%E5%91%A8%E8%B5%9B20-02-19/" class="post-title-link" itemprop="url">第一次参加Leetcode周赛</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-09 22:38:55" itemprop="dateCreated datePublished" datetime="2020-02-09T22:38:55+08:00">2020-02-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-12 01:24:51" itemprop="dateModified" datetime="2020-02-12T01:24:51+08:00">2020-02-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="第一次参加周赛"><a href="#第一次参加周赛" class="headerlink" title="第一次参加周赛"></a>第一次参加周赛</h2><p>之前觉得太菜了，还是好好耍基础题，搞什么周赛，直到我参加了之后，才发现，我是真的菜！….</p>
+<h2 id="周赛-175场"><a href="#周赛-175场" class="headerlink" title="周赛-175场"></a>周赛-175场</h2><p><code>3 分</code> - <a href="https://leetcode-cn.com/problems/check-if-n-and-its-double-exist/" target="_blank" rel="noopener">检查整数及其两倍数是否存在</a><br><code>4 分</code> - <a href="https://leetcode-cn.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/" target="_blank" rel="noopener">制造字母异位词的最小步骤数</a><br><code>5 分</code> - <a href="https://leetcode-cn.com/problems/tweet-counts-per-frequency/" target="_blank" rel="noopener">推文计数</a><br><code>7 分</code> - <a href="https://leetcode-cn.com/problems/maximum-students-taking-exam/" target="_blank" rel="noopener">参加考试的最大学生数</a></p>
+<h3 id="第一题：easy"><a href="#第一题：easy" class="headerlink" title="第一题：easy"></a>第一题：easy</h3><p>跟2sum差不多的路子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkIfExist</span><span class="params">(self, arr: List[int])</span> -&gt; bool:</span></span><br><span class="line">        tmp_dict = set([])</span><br><span class="line">        flag = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">            tmp = arr[i]</span><br><span class="line">            <span class="keyword">if</span> tmp*<span class="number">2</span> <span class="keyword">in</span> tmp_dict:</span><br><span class="line">                flag = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">elif</span> tmp/<span class="number">2</span> <span class="keyword">in</span> tmp_dict:</span><br><span class="line">                flag = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            tmp_dict.add(tmp)</span><br><span class="line">        <span class="keyword">return</span> flag</span><br></pre></td></tr></table></figure>
+<p>复杂度分析：时间复杂度是<code>o(n)</code>，空间复杂度也是<code>o(n)</code>，n是数组元素个数。由于使用了<code>set</code>也是一种hash结构嘛，所以空间复杂度实际应该大于<code>o(n)</code>,具体到多少，就需要看<code>set</code>的实现机制了。</p>
+<h3 id="第二题：Medium"><a href="#第二题：Medium" class="headerlink" title="第二题：Medium"></a>第二题：Medium</h3><p>看完题意之后，表示没太看懂，然后又看例子…我的理解就是，看下diff的字母个数就好了。</p>
+<p>就先给<code>s</code>串各个字母计个数，然后遍历<code>t</code>串时候相应的减去，最后将<code>计数个数&gt;0</code>的相加就可以了</p>
+<p>用什么来存各个计数个数呢？因为说的都是小写字母，用个26的数组就可以了，这样空间复杂度降到o(1)了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minSteps</span><span class="params">(self, s: str, t: str)</span> -&gt; int:</span></span><br><span class="line">        mem = [<span class="number">0</span>]*<span class="number">26</span></span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> s:</span><br><span class="line">            mem[ord(char)-ord(<span class="string">'a'</span>)] += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> t:</span><br><span class="line">            mem[ord(char)-ord(<span class="string">'a'</span>)] -= <span class="number">1</span></span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">26</span>):</span><br><span class="line">            <span class="keyword">if</span> mem[i] &gt;<span class="number">0</span>:</span><br><span class="line">                cnt += mem[i]</span><br><span class="line">        <span class="keyword">return</span> cnt</span><br></pre></td></tr></table></figure>
+<h3 id="第三题：Medium"><a href="#第三题：Medium" class="headerlink" title="第三题：Medium"></a>第三题：Medium</h3><p>程序设计题目，理解题目并模拟就可以了，其实主要问题在于细节的优化。</p>
+<p>一开始直接用的<code>o(nk)</code>n是一个用户的所有记录，k是k个时间间隔，也就是两层循环套起来用的…显然超时了。</p>
+<p>简单的优化就是 二分查找，只需要确定startTime的起始下标就可以了。(实际是二分查找的变体：找最左满足条件的)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TweetCounts</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.tweetUser = &#123;&#125;</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">recordTweet</span><span class="params">(self, tweetName: str, time: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="keyword">if</span> tweetName <span class="keyword">in</span> self.tweetUser:</span><br><span class="line">            self.tweetUser[tweetName].append(time)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.tweetUser[tweetName] = [time]</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getTweetCountsPerFrequency</span><span class="params">(self, freq: str, tweetName: str, startTime: int, endTime: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> tweetName <span class="keyword">not</span> <span class="keyword">in</span> self.tweetUser:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">if</span> freq == <span class="string">'minute'</span>:</span><br><span class="line">            delt = <span class="number">60</span></span><br><span class="line">        <span class="keyword">elif</span> freq == <span class="string">'hour'</span>:</span><br><span class="line">            delt = <span class="number">60</span> * <span class="number">60</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            delt = <span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span></span><br><span class="line">        self.tweetUser[tweetName].sort()</span><br><span class="line">        result = []</span><br><span class="line">        index = self.bs(self.tweetUser[tweetName],startTime)</span><br><span class="line">        <span class="comment"># if index == -1:</span></span><br><span class="line">        <span class="comment">#     return [0]*((endTime+1-startTime)//delt + 1)</span></span><br><span class="line">        <span class="keyword">for</span> b_interval <span class="keyword">in</span> range(startTime,endTime+<span class="number">1</span>,delt):</span><br><span class="line">            cnt = <span class="number">0</span></span><br><span class="line">            e_interval = min(endTime+<span class="number">1</span>,b_interval+delt)</span><br><span class="line">            <span class="keyword">while</span> index &lt; len(self.tweetUser[tweetName]) <span class="keyword">and</span> self.tweetUser[tweetName][index] &lt; endTime+<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">if</span> b_interval &lt;= self.tweetUser[tweetName][index] &lt; e_interval:</span><br><span class="line">                    cnt += <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> self.tweetUser[tweetName][index] &gt;= e_interval:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">            result.append(cnt)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bs</span><span class="params">(self,nums,target)</span>:</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left&lt;right:</span><br><span class="line">            mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid] &lt; target:</span><br><span class="line">                left = mid+<span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &gt;= target:</span><br><span class="line">                right = mid</span><br><span class="line">        <span class="keyword">if</span> right == len(nums):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> nums[right] &gt; target:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> </span><br><span class="line">        <span class="keyword">return</span> right  </span><br><span class="line"></span><br><span class="line"><span class="comment"># Your TweetCounts object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = TweetCounts()</span></span><br><span class="line"><span class="comment"># obj.recordTweet(tweetName,time)</span></span><br><span class="line"><span class="comment"># param_2 = obj.getTweetCountsPerFrequency(freq,tweetName,startTime,endTime)</span></span><br></pre></td></tr></table></figure>
+<p>时间复杂度为<code>o(nlogn)</code>主要来自于排序部分，其他部分二分<code>logn</code>，计算时间复杂度的依然是<code>k*n</code>但是此时的n已经不是全局的数量了，已经给二分优化后的n已经大大减少。（我感觉并没有优化一个数量级那么夸张，但是已经很客观了）</p>
+<p>后续看分享，有大神提出来二分的过程完全可以考虑使用<code>跳表</code>，给有序链表建立多级索引。</p>
+<h3 id="第四题：Hard"><a href="#第四题：Hard" class="headerlink" title="第四题：Hard"></a>第四题：Hard</h3><p>参加考试的最大学生，看完题的感觉跟八皇后很像，所以直接考虑DFS进行。</p>
+<p>根据题意，我们只需要DFS那个有效作为就可以， 并不用每个座位都遍历，最大的学生数的上限就是有效座位数。很可惜，辛辛苦苦搞出来，纯粹的DFS是超时的。</p>
+<p>如果自己继续优化的话应该考虑剪枝问题，但是当时没有想到特别好的剪枝办法。</p>
+<p>赛后看了大神们的分享，又学会了一个新的东西 <code>状态压缩DP</code> 或 <code>状态压缩DFS</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/leetcode-328-%E5%A5%87%E5%81%B6%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -995,125 +1089,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/leetcode-151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/05/leetcode-151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/" class="post-title-link" itemprop="url">Leetcode-151-翻转字符串中的单词</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-02-05 00:25:24 / Modified: 00:53:11" itemprop="dateCreated datePublished" datetime="2020-02-05T00:25:24+08:00">2020-02-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/%E5%89%91%E6%8C%87offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指offer</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="翻转字符串中的单词"><a href="#翻转字符串中的单词" class="headerlink" title="翻转字符串中的单词"></a>翻转字符串中的单词</h2><p>给定一个字符串，逐个翻转字符串中的每个单词。</p>
-<p>示例 1：</p>
-<p>输入: “the sky is blue”<br>输出: “blue is sky the”<br>示例 2：</p>
-<p>输入: “  hello world!  “<br>输出: “world! hello”<br>解释: 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。<br>示例 3：</p>
-<p>输入: “a good   example”<br>输出: “example good a”<br>解释: 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p>
-<p>说明：</p>
-<p>无空格字符构成一个单词。<br>输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。<br>如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-words-in-a-string</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>按照 剑指offer的解题思路 </p>
-<ul>
-<li>先翻转整个字符串</li>
-<li>再逐个翻转单词</li>
-</ul>
-<p>主要的问题出现在，python解决过程出现的小坑</p>
-<ul>
-<li>python 中的string 是不可以进行修改的，所以做不到原地逆置</li>
-<li>python可以用<code>split()</code>将单词分隔开，但是空白字符会之间变成 空<code>&#39;&#39;</code>，而不是<code>’ ‘</code></li>
-</ul>
-<blockquote>
-<p>split(‘ ‘)和split()的切分是不一样的。</p>
-<p>split(‘ ‘)会严格按照一个空格一个空格来切</p>
-<p>split()会按照空白的来切掉</p>
-<p>eg: “  hello   world    “</p>
-<p>>&gt;&gt; a = ‘ hellow word  ‘</p>
-<p>>&gt;&gt; a.split(‘ ‘)</p>
-<p>[‘’, ‘hellow’, ‘’, ‘word’, ‘’, ‘’, ‘’]</p>
-<p>>&gt;&gt; a.split()</p>
-<p>[‘hellow’, ‘word’]</p>
-</blockquote>
-<p>题解</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        </span><br><span class="line">        s = self.reverse(s)</span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> s.split():</span><br><span class="line">            <span class="keyword">if</span> word != <span class="string">''</span>: <span class="comment"># 坑</span></span><br><span class="line">                result.append(self.reverse(word))</span><br><span class="line">        result = <span class="string">' '</span>.join(result)</span><br><span class="line">        <span class="keyword">return</span> result.strip()</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self,s)</span>:</span></span><br><span class="line">        list_s = list(s) <span class="comment"># 坑</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(list_s)<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span>(left&lt;right):</span><br><span class="line">            list_s[left],list_s[right] = list_s[right],list_s[left]</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(list_s)</span><br></pre></td></tr></table></figure>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>如果充分利用python 特性来解决：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">  	<span class="function"><span class="keyword">def</span> <span class="title">reverseWords1</span><span class="params">(self, s: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">" "</span>.join(s.split()[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
-<p>首先将字符串按照<code>&#39; &#39;</code>切分，然后得到一个list的切分结果，再将切分的结果逆置，达到了只需要把单词位置颠倒，就完成了。</p>
-<ul>
-<li><code>[::-1]</code>是将list内容进行逆置的操作</li>
-<li>这个方法不用管空白字符的原因是 <code>split()</code>会以任何空白进行切割，可以参考上面对split的举例。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1162,18 +1137,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
