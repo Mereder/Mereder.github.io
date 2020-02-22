@@ -212,6 +212,564 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/29/leetcode-47-%E5%85%A8%E6%8E%92%E5%88%97II/" class="post-title-link" itemprop="url">Leetcode-47-全排列II</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-29 22:25:00 / Modified: 23:29:13" itemprop="dateCreated datePublished" datetime="2019-12-29T22:25:00+08:00">2019-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="全排列II"><a href="#全排列II" class="headerlink" title="全排列II"></a>全排列II</h2><p>给定一个可包含重复数字的序列，返回所有不重复的全排列。</p>
+<p>示例:</p>
+<p>输入: [1,1,2]<br>输出:<br>[<br>  [1,1,2],<br>  [1,2,1],<br>  [2,1,1]<br>]</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>加入限制：<strong>含重复元素</strong></p>
+<p>含重复元素带来的问题就是，会导致出现重复的排列。我们需要做的就是<strong>剪枝</strong></p>
+<p>具体的剪枝操作如何进行呢？</p>
+<p>回到重复元素问题，如果是数组含有重复元素，我们最好的办法是通过hash去重，或者通过预排序，预排序将重复元素都放在一起，也比较好操作。这里我们的结果都是list，list是不能进行hash的，所以使用预排序的方法。这里跟<strong>3sum</strong>的题有异曲同工之妙，通过预排序让问题更加好解决。</p>
+<p>预排序之后呢？</p>
+<p>预排序之后，重复元素好处理了，那么我们进行剪枝时候，可以利用排序数组的性质，将存在的重复情况跳过</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i<span class="number">-1</span>]==nums[i]:</span><br><span class="line">    <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+<p>这里因为是回溯+剪枝，还需要考虑下状态问题，沿用<a href="">Leetcode-46-全排列</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i<span class="number">-1</span>] ==nums[i] <span class="keyword">and</span> <span class="keyword">not</span> used[i<span class="number">-1</span>]:</span><br><span class="line">    <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+<p>当前位置如果是重复元素，并且之前的元素已经是False了，即说明已经遍历过了，那么当前元素(i)可以continue。</p>
+<p>为什么之前相同元素状态是False就表示已经遍历过呢？因为for i 的循环是表示在同一层，前面的元素先于后边的元素进行遍历，如果前面的元素是False，肯定使用经过遍历再回溯修改状态为False，那么同一层的相同元素就没有必要再遍历了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">permuteUnique</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        </span><br><span class="line">        nums.sort()</span><br><span class="line">        result = []</span><br><span class="line">        stack = []</span><br><span class="line">        used = [<span class="literal">False</span>]*len(nums)</span><br><span class="line"></span><br><span class="line">        self.helper(<span class="number">0</span>, nums, stack, used, result)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, depth, nums, stack, used, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> depth == len(nums):</span><br><span class="line">            result.append(stack.copy())</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">                <span class="comment"># 1.i &gt;0 i-1才不会越界</span></span><br><span class="line">                <span class="comment"># nums[i-1] == nums[i] 重复元素 且 nums[i-1]没有被遍历 则 证明会有重复排列</span></span><br><span class="line">                <span class="keyword">if</span> i&gt;<span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>] <span class="keyword">and</span> used[i<span class="number">-1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                stack.append(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">                self.helper(depth+<span class="number">1</span>, nums, stack, used, result)</span><br><span class="line"></span><br><span class="line">                stack.pop()</span><br><span class="line">                used[i] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/leetcode-60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/29/leetcode-60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/" class="post-title-link" itemprop="url">Leetcode-60-第K个排列</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-29 15:53:07" itemprop="dateCreated datePublished" datetime="2019-12-29T15:53:07+08:00">2019-12-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-05 14:36:04" itemprop="dateModified" datetime="2020-01-05T14:36:04+08:00">2020-01-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a>第K个排列</h2><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
+<p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p>
+<p>说明：</p>
+<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。<br>示例 1:</p>
+<p>输入: n = 3, k = 3<br>输出: “213”<br>示例 2:</p>
+<p>输入: n = 4, k = 9<br>输出: “2314”</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>延续全排列的办法，将全部排列都求出之后，找到第K个排列即可，当然，这道题这么做直接<strong>超时</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        nums = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>)]</span><br><span class="line">        result = []</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line">        used = [<span class="literal">False</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        self.helper(<span class="number">0</span>,nums,stack,used,result)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(result[k<span class="number">-1</span>])</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, length, nums, stack,used, result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> length == len(nums):</span><br><span class="line">            result.append(stack)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> used[i]:</span><br><span class="line">                stack += str(nums[i])</span><br><span class="line">                used[i] = <span class="literal">True</span></span><br><span class="line">                self.helper(length+<span class="number">1</span>,nums,stack,used,result)</span><br><span class="line"></span><br><span class="line">                used[i] = <span class="literal">False</span></span><br><span class="line">                stack = stack[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1gadnuwrckbj30m807s3yx.jpg" alt="image-20191229161342833"></p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><strong>回溯+剪枝</strong>，当严格意义上来讲，并没有回溯的过程，更多的体现在<strong>剪枝</strong>上</p>
+<p>回溯：我们需要修改状态，然后操作，之后进行回溯，再修改状态。对应排列问题就是进入时候<code>used[i]=Ture</code>,回溯<code>used[i]=False。</code></p>
+<p>剪枝：对不满足条件的状况不再进行dfs搜索解，直接跳过。</p>
+<p>本题的剪枝条件是<strong>个数限制</strong>。因为就是数字的全排列，那么以任一一个数字开头的可能情况都是可以计算的。以<code>n=3</code>为例。</p>
+<blockquote>
+<p>n = 3,可能解为[‘123’,’132’,’213’,’231’,’312’,’321’]  即 3! 等于 6</p>
+<p>当第一位确认为‘1’时，后面只能选’2’,’3’  则 2！=2</p>
+<p>如果我们的输入为n=3,k=3</p>
+<p>由于第一位为’1’时候，可能解为2！=2 &lt; k=3 则不必再对’1’为第一位的情况展开搜索 直接跳过</p>
+<p>此时注意跳过后k = k-2 =1。</p>
+<p>接下来第一位为’2’时候，可能解为2!=2 &gt; k=1，则第k个解就在这个里面，我们只需要对该情况进行搜索即可</p>
+</blockquote>
+<p>上面举的例子只是考虑了第一位的情况（对应递归树就是第一层），之后的每一层都是一样的，也都是进行剪枝判断就可以了。实际并没有回溯的过程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_factorial</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        res = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n:</span><br><span class="line">            res *= n</span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> n==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">        used = [<span class="literal">False</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.helper(<span class="number">0</span>,n,k,stack,used)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self,depth, n, k, stack,used)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> depth == n:</span><br><span class="line">            <span class="keyword">return</span> stack</span><br><span class="line"></span><br><span class="line">        before = self.get_factorial(n-depth<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">          	<span class="comment"># 第一次剪枝：去过的不能再去</span></span><br><span class="line">            <span class="keyword">if</span> used[i]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 第二次剪枝：解的个数&lt;k</span></span><br><span class="line">            <span class="keyword">if</span> before &lt; k:</span><br><span class="line">                k -= before</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment">### 并没有回溯过程</span></span><br><span class="line">            stack += str(i)</span><br><span class="line">            used[i] = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> self.helper(depth+<span class="number">1</span>, n, k, stack, used)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/27/git%E6%97%A5%E5%B8%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/27/git%E6%97%A5%E5%B8%B8/" class="post-title-link" itemprop="url">git日常使用</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-27 14:29:47 / Modified: 14:30:23" itemprop="dateCreated datePublished" datetime="2019-12-27T14:29:47+08:00">2019-12-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="git-日常使用"><a href="#git-日常使用" class="headerlink" title="git 日常使用"></a>git 日常使用</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/27/BeautifulSoup4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/27/BeautifulSoup4/" class="post-title-link" itemprop="url">BeautifulSoup 4 部分使用笔记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-27 00:22:48 / Modified: 00:23:14" itemprop="dateCreated datePublished" datetime="2019-12-27T00:22:48+08:00">2019-12-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="BeautifulSoup-4-使用理解"><a href="#BeautifulSoup-4-使用理解" class="headerlink" title="BeautifulSoup 4  使用理解"></a>BeautifulSoup 4  使用理解</h1><p><strong>核心</strong>：Beautiful Soup将复杂HTML文档转换成一个复杂的<strong>树形结构</strong>,每个节点都是Python对象,所有对象可以归纳为4种: <code>Tag</code> , <code>NavigableString</code> , <code>BeautifulSoup</code> , <code>Comment</code> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全篇都是以这个例子进行展开</span></span><br><span class="line">html_doc = <span class="string">"""</span></span><br><span class="line"><span class="string">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</span></span><br><span class="line"><span class="string">and they lived at the bottom of a well.&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;...&lt;/p&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(html_doc)</span><br></pre></td></tr></table></figure>
+<h2 id="基础节点类型"><a href="#基础节点类型" class="headerlink" title="基础节点类型"></a>基础节点类型</h2><ul>
+<li><p>Tag：Tag节点也是最基本的节点类型。两个重要属性 name  attributes（类似字典包含id,class 等等）</p>
+</li>
+<li><p>NavigableString：包含在Tag中的字符串</p>
+<p>tag中的字符串不能编辑，但是可以被替换成其他的字符串，用replace_with()</p>
+</li>
+<li><p>BeautifulSoup：</p>
+<p>支持搜索文档树 和 遍历文档树的大部分方法</p>
+</li>
+<li><p><code>Comment</code> 对象是一个特殊类型的 <code>NavigableString</code> 对象，大部分使用用来表示注释部分</p>
+</li>
+</ul>
+<p>Tag，NavigableString和BeautifulSoup基本上就可以表示html和XML中的所有内容了</p>
+<h2 id="遍历文档树"><a href="#遍历文档树" class="headerlink" title="遍历文档树"></a>遍历文档树</h2><p>理解BeautifulSoup 将HTML文档解析成为DOM文档树，这个树的每个标签代表一个节点。一个Tag可能包含多个String或其他Tag，这些都是这个Tag的子节点，BeautifulSoup提供了许多操作和遍历子节点的属性</p>
+<h3 id="contents-和-children"><a href="#contents-和-children" class="headerlink" title=".contents 和 .children"></a>.contents 和 .children</h3><p>遍历文档树的两个重要属性<code>.contents</code>和<code>.children</code></p>
+<p>.contents 会将当前节点（TAG）的子节点以<strong>列表</strong>的形式输出</p>
+<p><strong>一个节点其子节点可能有其他TAG 也可能有字符串String，string 是不可迭代的</strong></p>
+<p>.children 产生<strong>生成器</strong>，可以对tag的子节点进行循环</p>
+<h3 id="descendants"><a href="#descendants" class="headerlink" title=".descendants"></a>.descendants</h3><p><code>.descendants</code> 属性可以对所有tag的子孙节点进行<strong>递归循环</strong>遍历（<code>先序</code>遍历形式）：</p>
+<h3 id="strings-和-stripped-strings"><a href="#strings-和-stripped-strings" class="headerlink" title=".strings 和 stripped_strings"></a>.strings 和 stripped_strings</h3><p>如果tag中包含多个字符串 ,可以使用 <code>.strings</code> 来循环获取:</p>
+<blockquote>
+<p>print(‘ ‘.join([string.strip() for string in soup.body.find_all(‘p’)[1].strings]))</p>
+<p>soup 是BeautifulSoup对象，通过.body进入 body 标签下，进行find_all(‘p’)查找全部P标签</p>
+<p>拿到[1]的p标签，然后进行strings，产生generator 通过join方式将 生成器的内容进行结合</p>
+<p> 输出为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Once upon a time there were three little sisters; <span class="keyword">and</span> their names were Elsie , Lacie <span class="keyword">and</span> Tillie ;</span><br><span class="line"><span class="keyword">and</span> they lived at the bottom of a well.</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p> <code>.stripped_strings</code> 可以去除多余空白内容(空格，空行)</p>
+<h3 id="父节点-parent-和-parents"><a href="#父节点-parent-和-parents" class="headerlink" title="父节点.parent 和 .parents"></a>父节点.parent 和 .parents</h3><p>.parent 获取某个元素的父节点。</p>
+<p>.parents 属性可以用递归得到元素的所有父辈节点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">link = soup.a</span><br><span class="line">link</span><br><span class="line"><span class="comment"># &lt;a class="sister" href="http://example.com/elsie" id="link1"&gt;Elsie&lt;/a&gt;</span></span><br><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> link.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br><span class="line"><span class="comment"># p</span></span><br><span class="line"><span class="comment"># body</span></span><br><span class="line"><span class="comment"># html</span></span><br><span class="line"><span class="comment"># [document]</span></span><br><span class="line"><span class="comment"># None</span></span><br></pre></td></tr></table></figure>
+<h3 id="兄弟节点-next-sibling-和-previous-sibling"><a href="#兄弟节点-next-sibling-和-previous-sibling" class="headerlink" title="兄弟节点.next_sibling 和 .previous_sibling"></a>兄弟节点.next_sibling 和 .previous_sibling</h3><p>同一层的标签，是兄弟节点，他们来自同一个 父节点</p>
+<p>在文档树中,使用 <code>.next_sibling</code> 和 <code>.previous_sibling</code> 属性来查询兄弟节点</p>
+<p>通过 <code>.next_siblings</code> 和 <code>.previous_siblings</code> 属性可以对当前节点的兄弟节点迭代输出</p>
+<p>BeautifulSoup解决的思路就是：</p>
+<p>先搜索String 找到可能 关键句，然后从关键句的地方进行判断进行删除</p>
+<h1 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h1><p>心得：一般爬虫使用这个来爬取数据，正常都是用到的Bs4的搜索技巧，最近实习工作中，使用这个来对新闻进行修改（冗余优化），还需要使用<strong>修改</strong>技巧，修改嘛，无非就是（增删改）</p>
+<p>对于增，用的比较少。（冗余优化 主要是删改）</p>
+<p>对于删除，首先要定位到目标位置，需要观察一批数据的情况</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>beautifulsoup  官网中文</p>
+<p><a href="https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/#id18" target="_blank" rel="noopener">https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/#id18</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/26/leetcode-35-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/26/leetcode-35-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Leetcode-35-搜索插入位置（一点都不easy）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-26 23:14:18 / Modified: 23:40:53" itemprop="dateCreated datePublished" datetime="2019-12-26T23:14:18+08:00">2019-12-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h2><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p>你可以假设数组中无重复元素。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: [1,3,5,6], 5<br>输出: 2<br>示例 2:</p>
+<p>输入: [1,3,5,6], 2<br>输出: 1<br>示例 3:</p>
+<p>输入: [1,3,5,6], 7<br>输出: 4<br>示例 4:</p>
+<p>输入: [1,3,5,6], 0<br>输出: 0</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>妈了个鸡，一点都不简单，二分这个坑。。。</p>
+<p>原本的二分检索，如果检索不到target的话，跳出循环时候，会有left &gt;  right即left=right+1</p>
+<p>这个时候对应两种情况:</p>
+<ul>
+<li>一种是由于<code>nums[mid]&lt;target</code>导致left=mid+1跳出，此时left-1&lt;target&lt;left</li>
+<li>一种是由于 <code>nums[mid]&gt;target</code>导致right=mid-1跳出，此时 right&lt;target&lt;right+1 而left=right+1,即也是left-1&lt;target&lt;left</li>
+</ul>
+<p>即不论什么情况，只要没有检索到目标值，那么target一定介于<code>left-1</code>和<code>left</code>之间，对应插入位置就是left</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchInsert</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = left+((right-left)&gt;&gt;<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">                left = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &gt; target:</span><br><span class="line">                right = mid - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> left</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/leetcode-313-%E8%B6%85%E7%BA%A7%E4%B8%91%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/25/leetcode-313-%E8%B6%85%E7%BA%A7%E4%B8%91%E6%95%B0/" class="post-title-link" itemprop="url">Leetcode-313-超级丑数</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-25 00:11:30 / Modified: 22:56:57" itemprop="dateCreated datePublished" datetime="2019-12-25T00:11:30+08:00">2019-12-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="超级丑数"><a href="#超级丑数" class="headerlink" title="超级丑数"></a>超级丑数</h2><p>编写一段程序来查找第 n 个超级丑数。</p>
+<p>超级丑数是指其所有质因数都是长度为 k 的质数列表 primes 中的正整数。</p>
+<p>示例:</p>
+<p>输入: n = 12, primes = [2,7,13,19]<br>输出: 32<br>解释: 给定长度为 4 的质数列表 primes = [2,7,13,19]，前 12 个超级丑数序列为：[1,2,4,7,8,13,14,16,19,26,28,32] 。<br>说明:</p>
+<blockquote>
+<p>1 是任何给定 primes 的超级丑数。</p>
+<p>给定 primes 中的数字以升序排列。<br>0 &lt; k ≤ 100, 0 &lt; n ≤ 106, 0 &lt; primes[i] &lt; 1000 。<br>第 n 个超级丑数确保在 32 位有符整数范围内。</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>原本丑数就是质因数只有2，3，5的数字，这个题目扩展为丑数为一个list的质因数</p>
+<p>思路都是一样的，只不过需要维护一个list的指针，以及一个丑数序列</p>
+<p><code>p_list</code>是对应<code>primes</code>数组每个元素对应的指针数组，<code>p_list</code>中元素表示<code>primes</code>中质因数的指针</p>
+<p><code>ugly</code>来记录超级丑数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nthSuperUglyNumber</span><span class="params">(self, n, primes)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :type primes: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> primes:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        length = len(primes)</span><br><span class="line">        p_list = [<span class="number">0</span>]*length</span><br><span class="line">        ugly = [<span class="number">0</span>]*n</span><br><span class="line">        ugly[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            min_value = <span class="number">2</span>**<span class="number">32</span></span><br><span class="line">            <span class="comment"># 找下一个丑数</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(length): <span class="comment"># 升序排列的</span></span><br><span class="line">                <span class="keyword">if</span> primes[j]*ugly[p_list[j]] &lt;= min_value:</span><br><span class="line">                    min_value = primes[j]*ugly[p_list[j]]</span><br><span class="line">            <span class="comment"># 满足条件的指针+1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(length):</span><br><span class="line">                <span class="keyword">if</span> primes[j]*ugly[p_list[j]] == min_value:</span><br><span class="line">                    p_list[j] += <span class="number">1</span></span><br><span class="line">            ugly[i] = min_value</span><br><span class="line">        </span><br><span class="line">     		<span class="keyword">return</span> ugly[n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/24/leetcode-264-%E4%B8%91%E6%95%B0II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -597,747 +1155,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/22/leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-16-最接近的三数之和</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-22 16:48:37 / Modified: 16:57:56" itemprop="dateCreated datePublished" datetime="2019-12-22T16:48:37+08:00">2019-12-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a>最接近的三数之和</h2><p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
-<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
-<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>基本还是<a href="https://mereder.github.io/2019/11/25/leetcode-15-三数之和/" target="_blank" rel="noopener">三数之和</a>的思路，但是不用考虑重复问题。毕竟是找最接近的，而不是完全命中。相对简单点</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSumClosest</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        nums.sort()</span><br><span class="line">        min_error = <span class="number">2</span>**<span class="number">32</span><span class="number">-1</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            left = i+<span class="number">1</span></span><br><span class="line">            right = n<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[left] + nums[right] &lt; target:</span><br><span class="line">                    <span class="keyword">if</span> abs(nums[i] + nums[left] + nums[right] - target) &lt; min_error:</span><br><span class="line">                        min_error = abs(nums[i] + nums[left] + nums[right] - target)</span><br><span class="line">                        result = nums[i] + nums[left] + nums[right]</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[i] + nums[left] + nums[right] &gt;= target:</span><br><span class="line">                    <span class="keyword">if</span> abs(nums[i] + nums[left] + nums[right] - target) &lt; min_error:</span><br><span class="line">                        min_error = abs(nums[i] + nums[left] + nums[right] - target)</span><br><span class="line">                        result = nums[i] + nums[left] + nums[right]</span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/hadoop%20hdfs%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/22/hadoop%20hdfs%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">HDFS 操作指令</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-22 16:08:00" itemprop="dateCreated datePublished" datetime="2019-12-22T16:08:00+08:00">2019-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-07 23:16:20" itemprop="dateModified" datetime="2020-01-07T23:16:20+08:00">2020-01-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/daily/" itemprop="url" rel="index">
-                    <span itemprop="name">daily</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>其操作指令大部分跟linux下的命令差不多。</p>
-<p><a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html</a></p>
-<h2 id="FS-Shell"><a href="#FS-Shell" class="headerlink" title="FS Shell"></a>FS Shell</h2><p>调用文件系统(FS)Shell命令应使用 bin/hadoop fs <args>的形式。 所有的的FS shell命令使用URI路径作为参数。URI格式是<em>scheme://authority/path</em>。对HDFS文件系统，scheme是<em>hdfs</em>，对本地文件系统，scheme是<em>file</em>。其中scheme和authority参数都是可选的，如果未加指定，就会使用配置中指定的默认scheme。一个HDFS文件或目录比如<em>/parent/child</em>可以表示成<em>hdfs://namenode:namenodeport/parent/child</em>，或者更简单的<em>/parent/child</em>（假设你配置文件中的默认值是<em>namenode:namenodeport</em>）。大多数FS Shell命令的行为和对应的Unix Shell命令类似，不同之处会在下面介绍各命令使用详情时指出。出错信息会输出到<em>stderr</em>，其他信息输出到<em>stdout</em>。</p>
-<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>使用方法：hadoop fs -cat URI [URI …]</p>
-<p>将路径指定文件的内容输出到<em>stdout</em>。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -cat hdfs://host1:port1/file1 hdfs://host2:port2/file2 </li>
-<li>hadoop fs -cat file:///file3 /user/hadoop/file4 </li>
-</ul>
-<p>返回值：<br>成功返回0，失败返回-1。</p>
-<h3 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h3><p>使用方法：hadoop fs -chgrp [-R] GROUP URI [URI …] Change group association of files. With -R, make the change recursively through the directory structure. The user must be the owner of files, or else a super-user. Additional information is in the <a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">Permissions User Guide</a>. —&gt;</p>
-<p>改变文件所属的组。使用-R将使改变在目录结构下递归进行。命令的使用者必须是文件的所有者或者超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
-<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p>使用方法：hadoop fs -chmod [-R] <MODE[,MODE]... | OCTALMODE> URI [URI …]</p>
-<p>改变文件的权限。使用-R将使改变在目录结构下递归进行。命令的使用者必须是文件的所有者或者超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
-<h3 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h3><p>使用方法：hadoop fs -chown [-R] [OWNER][:[GROUP]] URI [URI ]</p>
-<p>改变文件的拥有者。使用-R将使改变在目录结构下递归进行。命令的使用者必须是超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
-<h3 id="copyFromLocal"><a href="#copyFromLocal" class="headerlink" title="copyFromLocal"></a>copyFromLocal</h3><p>使用方法：hadoop fs -copyFromLocal <localsrc> URI</p>
-<p>除了限定源路径是一个本地文件外，和<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#putlink" target="_blank" rel="noopener"><strong>put</strong></a>命令相似。</p>
-<h3 id="copyToLocal"><a href="#copyToLocal" class="headerlink" title="copyToLocal"></a>copyToLocal</h3><p>使用方法：hadoop fs -copyToLocal [-ignorecrc] [-crc] URI <localdst></p>
-<p>除了限定目标路径是一个本地文件外，和<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#getlink" target="_blank" rel="noopener"><strong>get</strong></a>命令类似。</p>
-<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><p>使用方法：hadoop fs -cp URI [URI …] <dest></p>
-<p>将文件从源路径复制到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。<br>示例：</p>
-<ul>
-<li>hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2</li>
-<li>hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir </li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><p>使用方法：hadoop fs -du URI [URI …]</p>
-<p>显示目录中所有文件的大小，或者当只指定一个文件时，显示此文件的大小。<br>示例：<br>hadoop fs -du /user/hadoop/dir1 /user/hadoop/file1 hdfs://host:port/user/hadoop/dir1<br>返回值：<br>成功返回0，失败返回-1。 </p>
-<h3 id="dus"><a href="#dus" class="headerlink" title="dus"></a>dus</h3><p>使用方法：hadoop fs -dus <args></p>
-<p>显示文件的大小。</p>
-<h3 id="expunge"><a href="#expunge" class="headerlink" title="expunge"></a>expunge</h3><p>使用方法：hadoop fs -expunge</p>
-<p>清空回收站。请参考<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html" target="_blank" rel="noopener">HDFS设计</a>文档以获取更多关于回收站特性的信息。</p>
-<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>使用方法：hadoop fs -get [-ignorecrc] [-crc] <src> <localdst> </p>
-<p>复制文件到本地文件系统。可用-ignorecrc选项复制CRC校验失败的文件。使用-crc选项复制文件以及CRC信息。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -get /user/hadoop/file localfile </li>
-<li>hadoop fs -get hdfs://host:port/user/hadoop/file localfile</li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="getmerge"><a href="#getmerge" class="headerlink" title="getmerge"></a>getmerge</h3><p>使用方法：hadoop fs -getmerge <src> <localdst> [addnl]</p>
-<p>接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。 </p>
-<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>使用方法：hadoop fs -ls <args></p>
-<p>如果是文件，则按照如下格式返回文件信息：<br>文件名 &lt;副本数&gt; 文件大小 修改日期 修改时间 权限 用户ID 组ID<br>如果是目录，则返回它直接子文件的一个列表，就像在Unix中一样。目录返回列表的信息如下：<br>目录名 <dir> 修改日期 修改时间 权限 用户ID 组ID<br>示例：<br>hadoop fs -ls /user/hadoop/file1 /user/hadoop/file2 hdfs://host:port/user/hadoop/dir1 /nonexistentfile<br>返回值：<br>成功返回0，失败返回-1。 </p>
-<h3 id="lsr"><a href="#lsr" class="headerlink" title="lsr"></a>lsr</h3><p>使用方法：hadoop fs -lsr <args><br>ls命令的递归版本。类似于Unix中的ls -R。</p>
-<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>使用方法：hadoop fs -mkdir <paths> </p>
-<p>接受路径指定的uri作为参数，创建这些目录。其行为类似于Unix的mkdir -p，它会创建路径中的各级父目录。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2 </li>
-<li>hadoop fs -mkdir hdfs://host1:port1/user/hadoop/dir hdfs://host2:port2/user/hadoop/dir</li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="movefromLocal"><a href="#movefromLocal" class="headerlink" title="movefromLocal"></a>movefromLocal</h3><p>使用方法：dfs -moveFromLocal <src> <dst></p>
-<p>输出一个”not implemented“信息。</p>
-<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>使用方法：hadoop fs -mv URI [URI …] <dest></p>
-<p>将文件从源路径移动到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。不允许在不同的文件系统间移动文件。<br>示例：</p>
-<ul>
-<li>hadoop fs -mv /user/hadoop/file1 /user/hadoop/file2</li>
-<li>hadoop fs -mv hdfs://host:port/file1 hdfs://host:port/file2 hdfs://host:port/file3 hdfs://host:port/dir1</li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>使用方法：hadoop fs -put <localsrc> … <dst></p>
-<p>从本地文件系统中复制单个或多个源路径到目标文件系统。也支持从标准输入中读取输入写入目标文件系统。</p>
-<ul>
-<li>hadoop fs -put localfile /user/hadoop/hadoopfile</li>
-<li>hadoop fs -put localfile1 localfile2 /user/hadoop/hadoopdir</li>
-<li>hadoop fs -put localfile hdfs://host:port/hadoop/hadoopfile</li>
-<li>hadoop fs -put - hdfs://host:port/hadoop/hadoopfile<br>从标准输入中读取输入。</li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p>使用方法：hadoop fs -rm URI [URI …] </p>
-<p>删除指定的文件。只删除非空目录和文件。请参考rmr命令了解递归删除。<br>示例：</p>
-<ul>
-<li>hadoop fs -rm hdfs://host:port/file /user/hadoop/emptydir </li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="rmr"><a href="#rmr" class="headerlink" title="rmr"></a>rmr</h3><p>使用方法：hadoop fs -rmr URI [URI …]</p>
-<p>delete的递归版本。<br>示例：</p>
-<ul>
-<li>hadoop fs -rmr /user/hadoop/dir </li>
-<li>hadoop fs -rmr hdfs://host:port/user/hadoop/dir </li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="setrep"><a href="#setrep" class="headerlink" title="setrep"></a>setrep</h3><p>使用方法：hadoop fs -setrep [-R] <path></p>
-<p>改变一个文件的副本系数。-R选项用于递归改变目录下所有文件的副本系数。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -setrep -w 3 -R /user/hadoop/dir1 </li>
-</ul>
-<p>返回值：</p>
-<p>成功返回0，失败返回-1。</p>
-<h3 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h3><p>使用方法：hadoop fs -stat URI [URI …]</p>
-<p>返回指定路径的统计信息。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -stat path </li>
-</ul>
-<p>返回值：<br>成功返回0，失败返回-1。</p>
-<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><p>使用方法：hadoop fs -tail [-f] URI </p>
-<p>将文件尾部1K字节的内容输出到stdout。支持-f选项，行为和Unix中一致。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -tail pathname </li>
-</ul>
-<p>返回值：<br>成功返回0，失败返回-1。</p>
-<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><p>使用方法：hadoop fs -test -[ezd] URI</p>
-<p>选项：<br>-e 检查文件是否存在。如果存在则返回0。<br>-z 检查文件是否是0字节。如果是则返回0。<br>-d 如果路径是个目录，则返回1，否则返回0。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop fs -test -e filename </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -test -e  file_path</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检测路径是否存在</span></span><br><span class="line">其对应返回这可以用shell $?  来捕捉</span><br></pre></td></tr></table></figure>
-<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><p>使用方法：hadoop fs -text <src> </p>
-<p>将源文件输出为文本格式。允许的格式是zip和TextRecordInputStream。</p>
-<h3 id="touchz"><a href="#touchz" class="headerlink" title="touchz"></a>touchz</h3><p>使用方法：hadoop fs -touchz URI [URI …] </p>
-<p>创建一个0字节的空文件。</p>
-<p>示例：</p>
-<ul>
-<li>hadoop -touchz pathname </li>
-</ul>
-<p>返回值：<br>成功返回0，失败返回-1。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/leetcode-278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/22/leetcode-278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC/" class="post-title-link" itemprop="url">Leetcode-278-第一个错误的版本</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-22 16:03:26 / Modified: 16:07:16" itemprop="dateCreated datePublished" datetime="2019-12-22T16:03:26+08:00">2019-12-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="第一个错误的版本"><a href="#第一个错误的版本" class="headerlink" title="第一个错误的版本"></a>第一个错误的版本</h2><p>你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。</p>
-<p>假设你有 n 个版本 [1, 2, …, n]，你想找出导致之后所有版本出错的第一个错误的版本。</p>
-<p>你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。</p>
-<blockquote>
-<p> 示例:</p>
-<p>给定 n = 5，并且 version = 4 是第一个错误的版本。</p>
-<p>调用 isBadVersion(3) -&gt; false<br>调用 isBadVersion(5) -&gt; true<br>调用 isBadVersion(4) -&gt; true</p>
-<p>所以，4 是第一个错误的版本。 </p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>就是将二分法应用到实际的问题解决当中。</p>
-<p>还有诸如类似什么两地之间的电线有一处坏了，如果你是一名电工如何最快的确定出问题的地方在哪。</p>
-<p>题随不难，上代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The isBadVersion API is already defined for you.</span></span><br><span class="line"><span class="comment"># @param version, an integer</span></span><br><span class="line"><span class="comment"># @return a bool</span></span><br><span class="line"><span class="comment"># def isBadVersion(version):</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstBadVersion</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left = <span class="number">1</span></span><br><span class="line">        right = n+<span class="number">1</span>  <span class="comment"># 这个地方很诡异  right=n 和 right = n+1 都能过</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            mid = left+((right-left) &gt;&gt; <span class="number">1</span>) </span><br><span class="line">            <span class="keyword">if</span> isBadVersion(mid):</span><br><span class="line">                right = mid</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                left = mid+<span class="number">1</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> left</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">两个水桶的装水问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-18 23:33:15 / Modified: 23:51:34" itemprop="dateCreated datePublished" datetime="2019-12-18T23:33:15+08:00">2019-12-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%99%BA%E5%8A%9B%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">智力题</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="装水问题"><a href="#装水问题" class="headerlink" title="装水问题"></a>装水问题</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来</p>
-<p>（or 一个能装3斤水一个能装5斤水）</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>A桶4斤，B桶9斤</p>
-<p>只能有几种操作：</p>
-<blockquote>
-<p>Fill A</p>
-<p>Fill B</p>
-<p>Empty A</p>
-<p>Empty B</p>
-<p>A-B</p>
-<p>B-A</p>
-</blockquote>
-<p>我们的操作序列如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.fill B -&gt; A:0 B:9</span><br><span class="line">2.B-A 	 -&gt; A:4 B:5</span><br><span class="line">3.empty A-&gt; A:0 B:5</span><br><span class="line">4.B-A		 -&gt; A:4 B:1</span><br><span class="line">5.empty A-&gt; A:0 B:1</span><br><span class="line">6.B-A  	 -&gt; A:1 B:0</span><br><span class="line">7.fill B -&gt; A:1 B:9</span><br><span class="line">8.B-A  	 -&gt; A:4 B:6</span><br></pre></td></tr></table></figure>
-<p>即此时B桶内为6斤水，完成目标</p>
-<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水</p>
-<p>1),要求写出算法，目标是如何装出6斤水</p>
-<p>2),假设两个桶容量任意，比如X斤和Y斤,目标是Z斤;要求写出算法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/18/Hive/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/18/Hive/" class="post-title-link" itemprop="url">Hive 日常使用</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-18 14:26:53" itemprop="dateCreated datePublished" datetime="2019-12-18T14:26:53+08:00">2019-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-15 20:08:35" itemprop="dateModified" datetime="2020-01-15T20:08:35+08:00">2020-01-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/daily/" itemprop="url" rel="index">
-                    <span itemprop="name">daily</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="命令行执行hive操作"><a href="#命令行执行hive操作" class="headerlink" title="命令行执行hive操作"></a>命令行执行hive操作</h3><p>其中设置显示表头，<code>set hive.cli.print.header=True</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -e "set hive.cli.print.header=True; select * from 表名 limit 2"</span><br></pre></td></tr></table></figure>
-<h3 id="hive-建表"><a href="#hive-建表" class="headerlink" title="hive 建表"></a>hive 建表</h3><p>建表分为内部表和外部表，内部表的意思是指元数据和对应表都在内部，如果删除表之后，对应的元数据和表数据都会被删除。</p>
-<p>外部表是通过<code>external</code> 来修饰的，其表的元数据也是存放在内部，但是对应数据是存储在hdfs上的，当删除表后，对应元数据会进行删除，而数据仍会保留在hdfs上。所以建表的时候需要指定好<code>location</code></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> table_name</span><br><span class="line">( <span class="keyword">query</span> <span class="keyword">string</span>,</span><br><span class="line"> 	<span class="keyword">id</span>		<span class="keyword">string</span>,</span><br><span class="line"> 	pvid 	<span class="keyword">string</span>,</span><br><span class="line"> 	logid <span class="keyword">string</span>,</span><br><span class="line">  wid	  <span class="built_in">bigint</span>,</span><br><span class="line">  pos   <span class="built_in">int</span>,</span><br><span class="line">  extras <span class="keyword">map</span>&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;,</span><br><span class="line"> 	label <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line">partitioned <span class="keyword">by</span> (dt <span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="hive-表的导入"><a href="#hive-表的导入" class="headerlink" title="hive 表的导入"></a>hive 表的导入</h3><h3 id="显示建表语句"><a href="#显示建表语句" class="headerlink" title="显示建表语句"></a>显示建表语句</h3><p>目的是为了获取创建表时候的相关信息</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> table_name</span><br></pre></td></tr></table></figure>
-<h3 id="显示数据库的所有表"><a href="#显示数据库的所有表" class="headerlink" title="显示数据库的所有表"></a>显示数据库的所有表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span> <span class="keyword">in</span> db_name</span><br></pre></td></tr></table></figure>
-<h3 id="insert-用法问题"><a href="#insert-用法问题" class="headerlink" title="insert 用法问题"></a>insert 用法问题</h3><p>insert into 和 insert overwrite 只能用一种字段</p>
-<p>其中 Insert into 是<strong>增量加入</strong>，新加入的数据会append 到表的后边</p>
-<p>Insert overwrite 是表示<strong>覆盖</strong>，新加入的数据直接覆盖原数据表</p>
-<h3 id="Drop-删除表-or-清空表"><a href="#Drop-删除表-or-清空表" class="headerlink" title="Drop 删除表 or 清空表"></a>Drop 删除表 or 清空表</h3><p>Drop 表示删除表，结构+数据都删除</p>
-<p>truncate 表示清空表，会保留表结构</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> table_name </span><br><span class="line"><span class="keyword">or</span> </span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> table_name</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> table_name;</span><br></pre></td></tr></table></figure>
-<h3 id="row-number的使用"><a href="#row-number的使用" class="headerlink" title="row_number的使用"></a>row_number的使用</h3><p>row_number()    是用来给 行进行编号的</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *,row_number() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> score) <span class="keyword">rank</span> <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
-<p>相当于查询原有表的基础上，再添加一列记录行号，这个行号如何统计呢？</p>
-<p>就看<code>over</code>内的含义，按照partition by的字段(id)进行分组，然后按照<code>score</code>的大小进行排序，然后进行编号，并将编好的序号作为<code>rank</code>列进行返回，这个列的别名是可以修改的。</p>
-<p>举个例子：</p>
-<blockquote>
-<p>Id, score,xxx</p>
-<p>A1 , 10, xxx</p>
-<p>A2 ,11,xxx</p>
-<p>A1 ,9,xxx</p>
-<p>A3 ,0,xxx</p>
-<p>A2, 10,xxx</p>
-</blockquote>
-<p>操作之后的效果为</p>
-<blockquote>
-<p>Id, score,xxx,rank</p>
-<p>A1 , 9, xxx,1</p>
-<p>A1 ,10,xxx,2</p>
-<p>A2 ,10,xxx,1</p>
-<p>A2, 11,xxx,2</p>
-<p>A3 ,0,xxx,1</p>
-</blockquote>
-<h3 id="CTAS：create-table-as-select"><a href="#CTAS：create-table-as-select" class="headerlink" title="CTAS：create table as select"></a>CTAS：create table as select</h3><p>重点操作，可以将select的结果存储到新建的表中。CTAS的操作是<strong>原子性</strong>的，也就是意味着这个新建的表直到所有的填充操作都做完之前是看不到的。</p>
-<p><strong>注意</strong>：不能create external 表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- 基本操作</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table_name </span><br><span class="line">	<span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span></span><br><span class="line">	<span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\t'</span></span><br><span class="line">	<span class="keyword">LINES</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\n'</span></span><br><span class="line">	<span class="keyword">store</span> <span class="keyword">as</span> textfile</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name ....</span><br></pre></td></tr></table></figure>
-<h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>这个操作也很坑，select部分只能有 group by的字段以及，groupby字段的聚合函数</p>
-<p>即hive中限制了 出现在select后边的列必须是出现在group by 后面的，即select列必须是作为分组依据的列。</p>
-<p>下面这样的就会报错</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
-<h3 id="列反向选择"><a href="#列反向选择" class="headerlink" title="列反向选择"></a>列反向选择</h3><p>如果我们的场景是：想选择除了某列外的其他所有列，原来的写法就只能把所有需要的列都一一列出来。</p>
-<p>hive 提供了正则查询的方法，只需要把不需要查找的列排除在外就可以了</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">`(name|dt)?+.+`</span> <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
-<p>上述方法就是select了排除了 <code>name</code>,<code>dt</code>两列的其他所有列</p>
-<p>这里有个问题需要注意， 上边使用的 是``符号，不是单引号，所以需要设定</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.support.quoted.identifiers=<span class="keyword">None</span>;</span><br><span class="line"><span class="keyword">select</span> ....</span><br></pre></td></tr></table></figure>
-<h3 id="hive-分区表的问题"><a href="#hive-分区表的问题" class="headerlink" title="hive 分区表的问题"></a>hive 分区表的问题</h3><p>创建分区表的时候需要指定 <code>PARTITIONED BY (dt string)</code>相当于也定义了一列，这一列用来做分区</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> table_name</span><br><span class="line">( <span class="keyword">query</span> <span class="keyword">string</span>,</span><br><span class="line"> 	<span class="keyword">id</span>		<span class="keyword">string</span>,</span><br><span class="line"> 	pvid 	<span class="keyword">string</span>,</span><br><span class="line"> 	logid <span class="keyword">string</span>,</span><br><span class="line">  wid	  <span class="built_in">bigint</span>,</span><br><span class="line">  pos   <span class="built_in">int</span>,</span><br><span class="line">  extras <span class="keyword">map</span>&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;,</span><br><span class="line"> 	label <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line">partitioned <span class="keyword">by</span> (dt <span class="keyword">string</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">format</span> <span class="keyword">delimited</span></span><br><span class="line"><span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="string">'\t'</span></span><br><span class="line"><span class="keyword">lines</span> <span class="keyword">terminated</span> <span class="string">'\n'</span></span><br><span class="line"><span class="keyword">stored</span> <span class="keyword">as</span> textfile</span><br><span class="line">location <span class="string">'app_path'</span></span><br></pre></td></tr></table></figure>
-<p>同样在使用分区表的时候，插入会有同样的问题</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">table</span> table_name <span class="keyword">partition</span> (dt=<span class="string">'2019-12-08'</span>)</span><br><span class="line"><span class="keyword">select</span> *(除了dt以外的列) <span class="keyword">from</span> table_name2</span><br></pre></td></tr></table></figure>
-<h3 id="Order-by排序"><a href="#Order-by排序" class="headerlink" title="Order by排序"></a>Order by排序</h3><p>标准用法:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> col1,col2...  [<span class="keyword">asc</span>|<span class="keyword">desc</span>]</span><br></pre></td></tr></table></figure>
-<p>相关问题：</p>
-<ul>
-<li>order by 为全局排序</li>
-<li>order by 需要reducer操作，且只有一个reducer不能配置，因为多个reducer无法完成全局排序</li>
-</ul>
-<h3 id="collect-list-和-collect-set用法"><a href="#collect-list-和-collect-set用法" class="headerlink" title="collect_list 和 collect_set用法"></a>collect_list 和 collect_set用法</h3><p>都是将分组中的某列转为一个数组返回，不同的是，collect_list不去重，collect_set去重</p>
-<p>按照group by的id方式聚合，然后对col列进行collect_list</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> collect_list(<span class="keyword">col</span>) <span class="keyword">from</span> table_name <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
-<p>距离</p>
-<h3 id="开启动态分区调整"><a href="#开启动态分区调整" class="headerlink" title="开启动态分区调整"></a>开启动态分区调整</h3><h3 id="array使用"><a href="#array使用" class="headerlink" title="array使用"></a>array使用</h3><p>业务场景需要将几列数据统一到一列作为特征。array可以直接使用，定义特征即可</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	<span class="keyword">id</span>,</span><br><span class="line">	collect_list(<span class="built_in">array</span>(gender,age,ect)) <span class="keyword">as</span> profile,</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">from</span> table_name</span><br><span class="line">	<span class="keyword">group</span> <span class="keyword">by</span></span><br></pre></td></tr></table></figure>
-<h3 id="case-when用法"><a href="#case-when用法" class="headerlink" title="case when用法"></a>case when用法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case when id &gt; 10 then 1 else 0 end</span><br></pre></td></tr></table></figure>
-<p>上述实现的功能就是 将id大于10的变为1，否则变为0，主要写法，一定要记得<code>end</code></p>
-<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>1.先链接from 的数据源（若有join，先执行on后条件，再链接数据源）</p>
-<p>2.执行where</p>
-<p>3.执行groupby</p>
-<p>4.执行having</p>
-<p>5.执行order by</p>
-<p>写代码时候 最好也按照这个顺序书写</p>
-<h3 id="hive-表数据类型一定要对齐！！！max-string-的坑"><a href="#hive-表数据类型一定要对齐！！！max-string-的坑" class="headerlink" title="hive 表数据类型一定要对齐！！！max(string)的坑"></a>hive 表数据类型一定要对齐！！！max(string)的坑</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">	a.id,</span><br><span class="line">	a.hot_fea,</span><br><span class="line">  b.hot_fea_max </span><br><span class="line"><span class="keyword">from</span> table_test a</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span></span><br><span class="line">	<span class="keyword">max</span>(hot_fea) hot_fea_mx,</span><br><span class="line"><span class="keyword">from</span> table_test) b</span><br><span class="line"><span class="keyword">where</span> a.id=<span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="number">123</span>, <span class="number">250</span>, <span class="number">99</span> 分别对应<span class="keyword">id</span>, hot_fea, hot_fea_mx</span><br></pre></td></tr></table></figure>
-<p>出现了数值比max还大的情况。原因就是<strong>max的列是string的</strong></p>
-<h3 id="order-by-string的坑"><a href="#order-by-string的坑" class="headerlink" title="order by string的坑"></a>order by string的坑</h3><p>使用row_number 来生成行数</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">row_number() over(partiton by id order by position) as row_number</span><br></pre></td></tr></table></figure>
-<p>由于其中position是string类型的，会导致排序时候出现下面这种排序方式</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">21</span><br><span class="line">23</span><br><span class="line">3</span><br><span class="line">31</span><br><span class="line">8</span><br><span class="line">92</span><br></pre></td></tr></table></figure>
-<h3 id="hive-各语句执行顺序"><a href="#hive-各语句执行顺序" class="headerlink" title="hive 各语句执行顺序"></a>hive 各语句执行顺序</h3><p>书写顺序sql：</p>
-<blockquote>
-<p> select … from … where … group by … having … order by … </p>
-</blockquote>
-<p>执行顺序：</p>
-<blockquote>
-<p>from … where … select … group by … having … order by …</p>
-</blockquote>
-<p>其实总结hive的执行顺序也是总结mapreduce的执行顺序：</p>
-<p>MR程序的执行顺序：</p>
-<ul>
-<li><p>map阶段：</p>
-<p>1.执行from加载，进行表的查找与加载</p>
-<p>2.执行where过滤，进行条件过滤与筛选</p>
-<p>3.执行select查询：进行输出项的筛选</p>
-<p>4.执行group by分组：描述了分组后需要计算的函数</p>
-<p>5.map端文件合并：map端本地溢出写文件的合并操作，每个map最终形成一个临时文件。 然后按列映射到对应的reduceReduce阶段：</p>
-</li>
-<li><p>Reduce阶段：</p>
-<p>1.group by：对map端发送过来的数据进行分组并进行计算。</p>
-<p>2.select：最后过滤列用于输出结果</p>
-<p>3.limit排序后进行结果输出到HDFS文件</p>
-</li>
-</ul>
-<p>所以通过上面的例子我们可以看到，在进行selectt之后我们会形成一张表，在这张表当中做分组排序这些操作。</p>
-<h3 id="hive-查看分区表的分区"><a href="#hive-查看分区表的分区" class="headerlink" title="hive 查看分区表的分区"></a>hive 查看分区表的分区</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive -e 'show partitions table_name'</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/17/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" class="post-title-link" itemprop="url">二分搜索真的那么简单吗？</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-17 23:45:50" itemprop="dateCreated datePublished" datetime="2019-12-17T23:45:50+08:00">2019-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-10 00:57:02" itemprop="dateModified" datetime="2020-02-10T00:57:02+08:00">2020-02-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">算法基础</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>二分搜索可以认为是一种最简单，最常用的一种算法，这种搜索方法的前提是，数组<strong>有序</strong>。</p>
-<p>有序并不是绝对意义上的有序，比如Leetcode中的搜索旋转数组，其基本思想也是通过二分来实现的，而那道题给的数组就是在有序的基础上进行了一次旋转</p>
-<p>虽然整体的结构非常简单，但是其中很多细节问题，针对不同的场景就会需要不同的处理。而这些也是我们最头疼的，比如说，循环终止条件到底写<code>left&lt;right</code>还是<code>left&lt;=right</code>，缩小搜索范围的时候到底写<code>left=mid+1</code>还是写<code>left=mid</code>…等等问题</p>
-<h3 id="基本二分搜索"><a href="#基本二分搜索" class="headerlink" title="基本二分搜索"></a>基本二分搜索</h3><p>基本的二分法是有框架的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span><span class="params">(nums, target)</span>:</span></span><br><span class="line">  	<span class="comment"># 初始化</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = len(nums)<span class="number">-1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">      	mid = left + (right-left)&gt;&gt;<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">          	<span class="comment"># 中间值 == target</span></span><br><span class="line">            <span class="keyword">return</span>  mid</span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">          	<span class="comment"># 中间值小于target</span></span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &gt; target:</span><br><span class="line">          	<span class="comment"># 中间值大于target</span></span><br><span class="line">          	right = mid - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-<p>这里有一个很重要的概念<strong>搜索区域</strong></p>
-<p>我们初始化 <code>left=0,right=n-1</code>， 那么对应的搜索区域也就是<code>[0,n-1],左右闭区间</code>，当我们的nums[mid]不是target时，我们需要缩减搜索区域，缩减后的区域仍然是闭区间。<code>[mid+1,right]</code> or <code>[left,mid-1]</code>仍然都是闭区间的，这样我们就可以很好的理解二分的循环退出条件是 <code>left&gt;right,即left=right+1</code>,写成区间的形式就是 <code>[right + 1, right]</code>，可见这时候搜索区间为空，因为没有数字既大于等于 right+1位置的数，还要小于right位置的数，所以这时候 while 循环终止是正确的，退出循环。</p>
-<p>while(left &lt; right) 的终止条件是 left == right，即left和right相同，写成区间的形式就是 [right, right]也就是nums[right]这个数，这时候搜索区间非空，但此时 while 循环终止了。也就是说这区间 num[right] 数本身被漏掉了，没有被搜索到，如果这时候直接返回 -1 就是错误的。</p>
-<h3 id="寻找最左侧的二分查找"><a href="#寻找最左侧的二分查找" class="headerlink" title="寻找最左侧的二分查找"></a>寻找最左侧的二分查找</h3><p>这个的背景就是，我给出一个数组，我要查找的数在数组中是重复的，我需要返回最左侧的数组下标。即</p>
-<blockquote>
-<p>nums=[1,2,3,3,3,3,4],target=3,返回下标应该是2</p>
-</blockquote>
-<p><strong>注：感觉自己也不能说为啥这么做，感觉刚像是这么做了，然后进行解释</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findfirst</span><span class="params">(nums,target)</span>:</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = len(nums)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">            right = mid</span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">            left = mid+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &gt; target:</span><br><span class="line">            right = mid</span><br><span class="line">    <span class="keyword">if</span> left == len(nums):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">if</span> nums[left] != target:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">return</span> left</span><br></pre></td></tr></table></figure>
-<p>还是<strong>搜索区域</strong>的概念，先看下我们此时的搜索区域是个什么。left=0,right = n，那么搜索区域也就是<code>[left,right)</code>左闭右开区间，所以对应的循环跳出条件也就是<code>left==right</code>时候会跳出，此时搜索区域也就是<code>[right,right)</code>确实是空的。</p>
-<p>然后我们要找的是target的左边界，所以会不断收缩右边界，那么也就有了，当<code>nums[mid]==target</code>时候，没有直接返回，而是<code>right=mid</code>。</p>
-<p>再看下区间收缩过程，原本的为<code>[left,right)</code>，经过mid切分后，我们的缩小过程是<code>left=mid+1 or right = mid</code>，此时切分的区域为：<code>[left,mid)区域和[mid+1,right]区域</code>这样也确保了所切分区域跟之前不会发生重叠，且不会有遗漏。</p>
-<p>最最最后！这样只是有target的时候是没问题的，但是如果数组中不含target，最终返回的会是首元素。所以还需要进行判断。</p>
-<h3 id="寻找最右侧的二分查找"><a href="#寻找最右侧的二分查找" class="headerlink" title="寻找最右侧的二分查找"></a>寻找最右侧的二分查找</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1381,18 +1203,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
