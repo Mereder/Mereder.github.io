@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode-322-零钱兑换</title>
+    <url>/2020/03/08/leetcode-322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Leetcode-239-滑动窗口的最大值</title>
+    <url>/2020/03/07/leetcode-239-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/</url>
+    <content><![CDATA[<h2 id="滑动窗口的最大值"><a href="#滑动窗口的最大值" class="headerlink" title="滑动窗口的最大值"></a>滑动窗口的最大值</h2><p>给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。</p>
+<p>返回滑动窗口中的最大值。</p>
+<p>示例:</p>
+<p>输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3<br>输出: [3,3,5,5,6,7]<br>解释: </p>
+<p>  滑动窗口的位置                最大值</p>
+<hr>
+<p>[1  3  -1] -3  5  3  6  7       3<br> 1 [3  -1  -3] 5  3  6  7       3<br> 1  3 [-1  -3  5] 3  6  7       5<br> 1  3  -1 [-3  5  3] 6  7       5<br> 1  3  -1  -3 [5  3  6] 7       6<br> 1  3  -1  -3  5 [3  6  7]      7</p>
+<p>提示：</p>
+<p>你可以假设 k 总是有效的，在输入数组不为空的情况下，1 ≤ k ≤ 输入数组的大小。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/sliding-window-maximum" target="_blank" rel="noopener">https://leetcode-cn.com/problems/sliding-window-maximum</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><strong>暴力方法</strong>：</p>
+<p>每次移动到一个新的窗口都计算一次本窗口内的最大值，如果窗口大小是K，一共N个数，时间复杂度为<code>o(kn)</code></p>
+<p><strong>管理下标+双端队列</strong></p>
+<ul>
+<li><p>管理下标</p>
+<p>因为该方法(窗口里面)处理的并不是实际的值，而是值所在的下标，这样的好处在于可以判断出当某个值已经出了窗口的时候，可以及时对窗口内的最大值进行更新</p>
+</li>
+<li><p>双端队列（可以看做滑动窗口）</p>
+<p>使用的是双端队列，好处在于新的值可以从后侧入队，已经失效的最大值，则可以从前出队，这样队列内仍然保持了是滑动窗口的最大值</p>
+</li>
+</ul>
+<p><strong>关键操作</strong>：</p>
+<p>队列并不是每一个数都会进队的，待进队的元素依次跟队内的其他元素进行比较，如果待进队元素大于队列中某一个元素，则说明该元素不会是滑动窗口的最大值，将该元素从<strong>后侧出队</strong>。直到队列内没有比待进队元素小的元素，或者队列为空了，则将待进队元素的<code>下标</code>从<strong>后侧入队</strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">    <span class="keyword">while</span> maxQ <span class="keyword">and</span> nums[i] &gt;= nums[maxQ[<span class="number">-1</span>]]:</span><br><span class="line">        maxQ.pop()</span><br><span class="line">    maxQ.append(i)</span><br><span class="line"><span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p>举个例子：</p>
+<blockquote>
+<p>nums = [1,3,-1,-3,5,3,6,7], 和 k = 3</p>
+<ol>
+<li>i=0，此时maxQ 为空，则将下标0加入队列：  maxQ = [0]</li>
+<li>i=1，由于3&gt;1，则将队列内元素出队： maxQ= []   此时为空  然后再将i=1入队</li>
+<li>i=2，由于-1&lt;3，-1是不可能成为窗口最大值的，但是有可能成为后面窗口的最大值，所以仍然将其从后侧入队</li>
+</ol>
+<p>…基本的处理流程就是上面这样，这样每次滑动一次的时候，队列内的头元素都是上一个窗口的最大值</p>
+<p>而且这样也保证了队列内的元素是基本有序且是降序。</p>
+</blockquote>
+<p>详细介绍看注释：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSlidingWindow</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums <span class="keyword">or</span> k &lt;=<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line">        n = len(nums)</span><br><span class="line">        maxQ = []</span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 初始化第一个窗口</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">            <span class="keyword">while</span> maxQ <span class="keyword">and</span> nums[i] &gt;= nums[maxQ[<span class="number">-1</span>]]:</span><br><span class="line">                maxQ.pop()</span><br><span class="line">            maxQ.append(i)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># 右侧的数依次加入  i的含义是 每次加入的数的下标</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k,n):  </span><br><span class="line">            <span class="comment"># 先将上一个窗口最大值放入结果集</span></span><br><span class="line">            res.append(nums[maxQ[<span class="number">0</span>]])</span><br><span class="line">            <span class="comment"># 考虑待入队元素，下标为i的数</span></span><br><span class="line">            <span class="keyword">while</span> maxQ <span class="keyword">and</span> nums[i] &gt;= nums[maxQ[<span class="number">-1</span>]]:</span><br><span class="line">                maxQ.pop()</span><br><span class="line">            <span class="comment"># 当前最大值是否应该出队，如果失效 则应出队</span></span><br><span class="line">            <span class="keyword">if</span> maxQ <span class="keyword">and</span> i-maxQ[<span class="number">0</span>] == k:</span><br><span class="line">                maxQ.pop(<span class="number">0</span>)</span><br><span class="line">            maxQ.append(i)</span><br><span class="line">        <span class="comment"># 别忘了，每次都是添加上一个窗口的最大值，循环退出时，结果集加上一次窗口的最大值</span></span><br><span class="line">        res.append(nums[maxQ[<span class="number">0</span>]])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h2 id="相似题目"><a href="#相似题目" class="headerlink" title="相似题目"></a>相似题目</h2><p>请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的均摊时间复杂度都是O(1)。</p>
+<p>若队列为空，pop_front 和 max_value 需要返回 -1</p>
+<p>示例 1：</p>
+<p>输入:<br>[“MaxQueue”,”push_back”,”push_back”,”max_value”,”pop_front”,”max_value”]<br>[[],[1],[2],[],[],[]]<br>输出: [null,null,null,2,1,2]<br>示例 2：</p>
+<p>输入:<br>[“MaxQueue”,”pop_front”,”max_value”]<br>[[],[],[]]<br>输出: [null,-1,-1]</p>
+<p>限制：</p>
+<p>1 &lt;= push_back,pop_front,max_value的总操作数 &lt;= 10000<br>1 &lt;= value &lt;= 10^5</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>关键操作跟上面是一样的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> self.deque <span class="keyword">and</span> self.deque[<span class="number">-1</span>] &lt; value:</span><br><span class="line">    self.deque.pop()</span><br></pre></td></tr></table></figure>
+<p>MaxQueue这个数据结构，主要操作是<code>push_back</code>和<code>pop_front</code></p>
+<ul>
+<li><code>push_back</code>：也就是每次加入一个新的元素时候，需要进行的操作。如果待入队元素比之前队列内任何一个元素都大，那么直接将其他元素从deque中出队即可。只留下  一个最大元素</li>
+<li><code>pop_front</code>：从前面出队的时候，只需要考虑出去的元素跟最大元素是不是相等就好了，如果相等那么最大队列里面的元素也需要进行出队。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> queue</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxQueue</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.deque = queue.deque()</span><br><span class="line">        self.queue = queue.Queue()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_value</span><span class="params">(self)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">return</span> self.deque[<span class="number">0</span>] <span class="keyword">if</span> self.deque <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push_back</span><span class="params">(self, value: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="keyword">while</span> self.deque <span class="keyword">and</span> self.deque[<span class="number">-1</span>] &lt; value:</span><br><span class="line">            self.deque.pop()</span><br><span class="line">        self.deque.append(value)</span><br><span class="line">        self.queue.put(value)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop_front</span><span class="params">(self)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.deque:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        ans = self.queue.get()</span><br><span class="line">        <span class="keyword">if</span> ans == self.deque[<span class="number">0</span>]:</span><br><span class="line">            self.deque.popleft()</span><br><span class="line">        <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="comment"># Your MaxQueue object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = MaxQueue()</span></span><br><span class="line"><span class="comment"># param_1 = obj.max_value()</span></span><br><span class="line"><span class="comment"># obj.push_back(value)</span></span><br><span class="line"><span class="comment"># param_3 = obj.pop_front()</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-489-扫地机器人</title>
     <url>/2020/03/06/leetcode-489-%E6%89%AB%E5%9C%B0%E6%9C%BA%E5%99%A8%E4%BA%BA/</url>
     <content><![CDATA[<h2 id="扫地机器人"><a href="#扫地机器人" class="headerlink" title="扫地机器人"></a>扫地机器人</h2><p>房间（用格栅表示）中有一个扫地机器人。格栅中的每一个格子有空和障碍物两种可能。</p>
@@ -311,6 +381,16 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
+    <title>Leetcode-28-实现strStr</title>
+    <url>/2020/02/27/leetcode-28-%E5%AE%9E%E7%8E%B0strStr/</url>
+    <content><![CDATA[<h2 id="实现strStr"><a href="#实现strStr" class="headerlink" title="实现strStr"></a>实现strStr</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h4 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strStr</span><span class="params">(self, haystack: str, needle: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> needle:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        kmp = KMP(needle)</span><br><span class="line">        <span class="keyword">return</span> kmp.search(haystack)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KMP</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, pat)</span>:</span></span><br><span class="line">        self.p_len = len(pat)</span><br><span class="line">        self.dp = [[<span class="number">0</span>]*<span class="number">128</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(self.p_len)]</span><br><span class="line">        self.pat = pat</span><br><span class="line">				<span class="comment"># 这段太经典了，尝试用 状态机的 形式来理解这段</span></span><br><span class="line">        <span class="comment"># i 所代表的 不要第一时间理解为下标，这个地方更好的理解是状态</span></span><br><span class="line">        x=<span class="number">0</span></span><br><span class="line">        self.dp[<span class="number">0</span>][ord(self.pat[<span class="number">0</span>])] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,self.p_len):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">128</span>):</span><br><span class="line">                <span class="keyword">if</span> ord(self.pat[i]) == j:</span><br><span class="line">                    <span class="comment"># 遇到符合标准的字符串</span></span><br><span class="line">                    self.dp[i][j] = i+<span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.dp[i][j] = self.dp[x][j]</span><br><span class="line">            </span><br><span class="line">            x = self.dp[x][ord(self.pat[i])]</span><br><span class="line">        print(self.dp)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, tat)</span>:</span></span><br><span class="line">        m = len(tat)</span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            j = self.dp[j][ord(tat[i])]</span><br><span class="line">            <span class="keyword">if</span> j == self.p_len:</span><br><span class="line">                <span class="keyword">return</span> i-self.p_len+<span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法刷题</category>
+        <category>Leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Leetcode-12-整数转罗马数字</title>
     <url>/2020/02/26/leetcode-12-%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<h2 id="整数转罗马数字"><a href="#整数转罗马数字" class="headerlink" title="整数转罗马数字"></a>整数转罗马数字</h2><p>罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。</p>
@@ -420,16 +500,6 @@
 ]]></content>
       <categories>
         <category>算法基础</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>实现strStr</title>
-    <url>/2020/02/22/leetcode-28-%E5%AE%9E%E7%8E%B0strStr/</url>
-    <content><![CDATA[<h2 id="实现strStr"><a href="#实现strStr" class="headerlink" title="实现strStr"></a>实现strStr</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h4 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strStr</span><span class="params">(self, haystack: str, needle: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> needle:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        kmp = KMP(needle)</span><br><span class="line">        <span class="keyword">return</span> kmp.search(haystack)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KMP</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, pat)</span>:</span></span><br><span class="line">        self.p_len = len(pat)</span><br><span class="line">        self.dp = [[<span class="number">0</span>]*<span class="number">128</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(self.p_len)]</span><br><span class="line">        self.pat = pat</span><br><span class="line">				<span class="comment"># 这段太经典了，尝试用 状态机的 形式来理解这段</span></span><br><span class="line">        <span class="comment"># i 所代表的 不要第一时间理解为下标，这个地方更好的理解是状态</span></span><br><span class="line">        x=<span class="number">0</span></span><br><span class="line">        self.dp[<span class="number">0</span>][ord(self.pat[<span class="number">0</span>])] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,self.p_len):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">128</span>):</span><br><span class="line">                <span class="keyword">if</span> ord(self.pat[i]) == j:</span><br><span class="line">                    <span class="comment"># 遇到符合标准的字符串</span></span><br><span class="line">                    self.dp[i][j] = i+<span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.dp[i][j] = self.dp[x][j]</span><br><span class="line">            </span><br><span class="line">            x = self.dp[x][ord(self.pat[i])]</span><br><span class="line">        print(self.dp)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, tat)</span>:</span></span><br><span class="line">        m = len(tat)</span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            j = self.dp[j][ord(tat[i])]</span><br><span class="line">            <span class="keyword">if</span> j == self.p_len:</span><br><span class="line">                <span class="keyword">return</span> i-self.p_len+<span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法刷题</category>
-        <category>Leetcode</category>
       </categories>
   </entry>
   <entry>
@@ -1284,7 +1354,7 @@
 </blockquote>
 <p>主要就是三步：</p>
 <ul>
-<li>找到需要交换的位置，即存在<code>nums[i]&lt;nums[i+1]</code>,这个过程需要从后向前遍历</li>
+<li>找到需要交换的位置，即存在<code>nums[i]&lt;nums[i+1]</code>,这个过程需要<strong>从后向前</strong>遍历</li>
 <li>再找到需要交换的元素，即被交换元素是较大数中最小的，然后交换</li>
 <li>将位置后边的翻转</li>
 </ul>
@@ -2283,6 +2353,7 @@
 <p>然后再走一遍新的工作流，将新的branch 上传至 origin</p>
 <p><a href="https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#小红开始开发一个新功能" target="_blank" rel="noopener">https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#%E5%B0%8F%E7%BA%A2%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD</a></p>
 <h3 id="只克隆branch-到本地"><a href="#只克隆branch-到本地" class="headerlink" title="只克隆branch 到本地"></a>只克隆branch 到本地</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b branch_name  git_address</span><br></pre></td></tr></table></figure>
+<h3 id="Git-版本回退到某一个"><a href="#Git-版本回退到某一个" class="headerlink" title="Git 版本回退到某一个"></a>Git 版本回退到某一个</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard  commint_id</span><br></pre></td></tr></table></figure>
 <h3 id="完整地址"><a href="#完整地址" class="headerlink" title="完整地址"></a>完整地址</h3><p><a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials</a></p>
 ]]></content>
       <categories>
@@ -2497,7 +2568,8 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
   <entry>
     <title>头条广告算法面经</title>
     <url>/2019/12/10/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/</url>
-    <content><![CDATA[<h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p>
+    <content><![CDATA[<h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><p>定向广告组，主要做 微信looklike类似的场景</p>
+<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p>
 <p>写题 </p>
 <p>迭代二分，递归二分</p>
 <p>关于业务上的问题：</p>
@@ -2505,8 +2577,8 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
 <p>这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）</p>
 </blockquote>
 <h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>项目问题</p>
-<p>什么是极大似然估计</p>
-<p>什么是中心极限定理</p>
+<p>什么是极大似然估计 </p>
+<p>什么是中心极限定理（抽样样本的均值 服从高斯分布）</p>
 <p>（面试官感觉百度过来的）</p>
 <p>写题：</p>
 <p>将ip地址转为一个int32的数</p>
@@ -2549,7 +2621,7 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
 <p>4、 FM和LR的区别，主要讲FM的特点。</p>
 <p>5、 问AUC。</p>
 <p>6、 问LR为什么不能用MSE，然后引导我回答出来的，先让我写LR的损失，然后让我推导一下使用MSE之后的梯度，观察有什么劣势。</p>
-<p>7、 问AdaGrid算法原理及其特点（都是围绕学习率的，我只回答出了一个，实际上有两个，然后面试官给我讲解了一下）。</p>
+<p>7、 问AdaGrad算法原理及其特点（都是围绕学习率的，我只回答出了一个，实际上有两个，然后面试官给我讲解了一下）。</p>
 <p>三面</p>
 <p>问第三个项目的几个点：</p>
 <p>AUC</p>
@@ -2699,7 +2771,7 @@ FPR = \frac{3}{94}  \\
 TPR = \frac{5}{6} \\
 即分类正确的三俗样本，占实际三俗样本个数的比例，跟召回率一样</script><h3 id="如何绘制ROC曲线"><a href="#如何绘制ROC曲线" class="headerlink" title="如何绘制ROC曲线"></a>如何绘制ROC曲线</h3><p>关键点在于：<strong>每个截断点都对于一个TPR和FPR</strong></p>
 <p>绘制ROC曲线的过程，就是不断枚举截断点（分类阈值）的过程，通过动态调整截断点，从最高分的得分开始，逐渐调整到最低点，其中每一个截断点都对应一个坐标（FPR,TPR），将这些点连成线就构成了ROC曲线。</p>
-<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。</p>
+<h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。（对于排序来说，就是把正样本排的越靠前）。</p>
 ]]></content>
   </entry>
   <entry>
@@ -3866,7 +3938,7 @@ x^{*}=\frac{x-\mu}{\sigma}</script><p>非线性归一化：</p>
     <url>/2019/11/27/%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%81%8D%E5%8E%86%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">    self.val = x</span><br><span class="line">        self.left = <span class="literal">None</span></span><br><span class="line">        self.right = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
 <h2 id="深度优先遍历（dfs）"><a href="#深度优先遍历（dfs）" class="headerlink" title="深度优先遍历（dfs）"></a>深度优先遍历（dfs）</h2><h3 id="前序遍历（递归）"><a href="#前序遍历（递归）" class="headerlink" title="前序遍历（递归）"></a>前序遍历（递归）</h3><h3 id="前序遍历（迭代-stack）"><a href="#前序遍历（迭代-stack）" class="headerlink" title="前序遍历（迭代+stack）"></a>前序遍历（迭代+stack）</h3><h3 id="中序遍历（递归版本）"><a href="#中序遍历（递归版本）" class="headerlink" title="中序遍历（递归版本）"></a>中序遍历（递归版本）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: TreeNode)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line">        self.helper(root,res)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self,root,result)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        self.helper(root.left,result)</span><br><span class="line">        result.append(root.val)</span><br><span class="line">        self.helper(root.right,result)</span><br></pre></td></tr></table></figure>
-<h3 id="中序遍历（迭代版本）"><a href="#中序遍历（迭代版本）" class="headerlink" title="中序遍历（迭代版本）"></a>中序遍历（迭代版本）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: TreeNode)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line"></span><br><span class="line">        stack = []</span><br><span class="line">        cur = root</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">            <span class="keyword">while</span> cur:</span><br><span class="line">                stack.append(cur)</span><br><span class="line">                cur = cur.left</span><br><span class="line">            </span><br><span class="line">            node = stack.pop()</span><br><span class="line">            res.append(node.val)</span><br><span class="line">            cur = node.right</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h3 id="中序遍历（迭代版本）"><a href="#中序遍历（迭代版本）" class="headerlink" title="中序遍历（迭代版本）"></a>中序遍历（迭代版本）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: TreeNode)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res = []</span><br><span class="line"></span><br><span class="line">        stack = []</span><br><span class="line">        cur = root</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">            <span class="keyword">while</span> cur:</span><br><span class="line">                stack.append(cur)</span><br><span class="line">                cur = cur.left</span><br><span class="line">            </span><br><span class="line">            node = stack.pop()</span><br><span class="line">            res.append(node.val)</span><br><span class="line">            cur = node.right</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>算法基础</category>
@@ -4309,12 +4381,6 @@ dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><tabl
         <category>算法刷题</category>
         <category>Leetcode</category>
       </categories>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>/2019/11/16/test/</url>
-    <content><![CDATA[<p>This is a test markdown</p>
-]]></content>
   </entry>
   <entry>
     <title>Hello World</title>
