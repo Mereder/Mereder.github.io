@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="零钱兑换给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。 示例 1: 输入: coins = [1, 2, 5], amount = 11输出: 3解释: 11 = 5 + 5 + 1示例 2: 输入: coins = [2], amount = 3输出: -1说明:你可以认为每种硬">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-18T17:02:35.733Z">
+<meta property="og:updated_time" content="2020-03-18T17:04:42.016Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/08/Leetcode/leetcode-322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-19 01:02:35" itemprop="dateModified" datetime="2020-03-19T01:02:35+08:00">2020-03-19</time>
+                <time title="Modified: 2020-03-19 01:04:42" itemprop="dateModified" datetime="2020-03-19T01:04:42+08:00">2020-03-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,7 +283,13 @@
 <p>时间复杂度：<br>O(S^n)，在最坏的情况下，复杂度是硬币数量的指数 ，是因为每个硬币面值<code>c</code>有$\frac{s}{c}$个方案。</p>
 <p>因此，可能的组合数为：</p>
 <script type="math/tex; mode=display">
-\frac{s}{c_1}*\frac{s}{c_2}*\frac{s}{c_3}</script><h4 id="方法二：记忆化搜索（拿缓存来存储已经计算过的数）"><a href="#方法二：记忆化搜索（拿缓存来存储已经计算过的数）" class="headerlink" title="方法二：记忆化搜索（拿缓存来存储已经计算过的数）"></a>方法二：记忆化搜索（拿缓存来存储已经计算过的数）</h4><p>经典的记忆化方法就是拿一个数组来存储，数组大小为总金额，如果某些地方计算过，则直接查表</p>
+\frac{s}{c_1}*\frac{s}{c_2}*\frac{s}{c_3}</script><p>空间复杂度为O(n)，只要来自递归调用栈的深度。</p>
+<blockquote>
+<p> eg：coins = [1, 2, 5], amount = 11</p>
+<p> 基本思路就是<br> f(11) = min({f(11-1)},{f(11-2)},{f(11-5)})=min(f(10),f(9),f(6))</p>
+<p> 然后再递归去计算<code>f(10),f(9),f(9)</code>如果画出来递归树，可以看到有非常多的重复计算。</p>
+</blockquote>
+<h4 id="方法二：记忆化搜索（拿缓存来存储已经计算过的数）"><a href="#方法二：记忆化搜索（拿缓存来存储已经计算过的数）" class="headerlink" title="方法二：记忆化搜索（拿缓存来存储已经计算过的数）"></a>方法二：记忆化搜索（拿缓存来存储已经计算过的数）</h4><p>经典的记忆化方法就是拿一个数组来存储，数组大小为总金额，如果某些地方计算过，则直接查表</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原始查表方式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">coinChange</span><span class="params">(self, coins: List[int], amount: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> amount &lt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        self.mem = [<span class="number">0</span>]*(amount+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> self.helper(coins,amount)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self,coins,rem)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> rem &lt; <span class="number">0</span>: <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> rem == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># 先查表，如果已经计算过则直接返回</span></span><br><span class="line">        <span class="keyword">if</span> self.mem[rem] != <span class="number">0</span>: <span class="keyword">return</span> self.mem[rem]</span><br><span class="line">				<span class="comment"># 当前没有被计算过，则需要计算当前rem钱数所需要的最小硬币数</span></span><br><span class="line">        tmp_min = float(<span class="string">'inf'</span>)</span><br><span class="line">        <span class="keyword">for</span> coin <span class="keyword">in</span> coins:</span><br><span class="line">            <span class="comment"># 尝试每种硬币数方案</span></span><br><span class="line">            res = self.helper(coins,rem-coin)</span><br><span class="line">            <span class="comment"># 取硬币数最少方案</span></span><br><span class="line">            <span class="keyword">if</span> res &gt;=<span class="number">0</span> <span class="keyword">and</span> res &lt; tmp_min:</span><br><span class="line">                tmp_min = <span class="number">1</span>+res</span><br><span class="line">        <span class="comment"># 有解 则返回min  无解返回-1</span></span><br><span class="line">        self.mem[rem] = <span class="number">-1</span> <span class="keyword">if</span> tmp_min == float(<span class="string">'inf'</span>) <span class="keyword">else</span> tmp_min</span><br><span class="line">        <span class="keyword">return</span> self.mem[rem]</span><br></pre></td></tr></table></figure>
 <p><strong>！！！！</strong></p>
 <p>讨论区，看到的使用python屌炸的记忆化操作 <code>functools.lru_cache(amount)</code></p>
