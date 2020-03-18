@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Mereder" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="头条广告算法面经定向广告组，主要做 微信looklike类似的场景 一面LR推 写题  迭代二分，递归二分 关于业务上的问题：  这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）  二面项目问题 什么是极大似然估计  什么是中心极限定理（抽样样本的均值 服从高斯分布） （面试官感觉百度过来的） 写题： 将ip地址转为一个int32的数">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="头条广告算法面经">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;10&#x2F;%E9%9D%A2%E7%BB%8F&#x2F;%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F&#x2F;index.html">
+<meta property="og:site_name" content="Mereder">
+<meta property="og:description" content="头条广告算法面经定向广告组，主要做 微信looklike类似的场景 一面LR推 写题  迭代二分，递归二分 关于业务上的问题：  这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）  二面项目问题 什么是极大似然估计  什么是中心极限定理（抽样样本的均值 服从高斯分布） （面试官感觉百度过来的） 写题： 将ip地址转为一个int32的数">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-08T13:02:31.670Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/12/10/%E9%9D%A2%E7%BB%8F/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>头条广告算法面经 | Mereder</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mereder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">珍惜现在，感谢所有，不悔将来</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/%E9%9D%A2%E7%BB%8F/%E5%A4%B4%E6%9D%A1%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          头条广告算法面经
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-10 22:58:21" itemprop="dateCreated datePublished" datetime="2019-12-10T22:58:21+08:00">2019-12-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-08 21:02:31" itemprop="dateModified" datetime="2020-03-08T21:02:31+08:00">2020-03-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">实习面试经验</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="头条广告算法面经"><a href="#头条广告算法面经" class="headerlink" title="头条广告算法面经"></a>头条广告算法面经</h2><p>定向广告组，主要做 微信looklike类似的场景</p>
+<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>LR推</p>
+<p>写题 </p>
+<p>迭代二分，递归二分</p>
+<p>关于业务上的问题：</p>
+<blockquote>
+<p>这边做的主要是召回侧，定向召回，目前也在尝试各种其他方法，主要做的是 look-like（微信看一看的定向投放）</p>
+</blockquote>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>项目问题</p>
+<p>什么是极大似然估计 </p>
+<p>什么是中心极限定理（抽样样本的均值 服从高斯分布）</p>
+<p>（面试官感觉百度过来的）</p>
+<p>写题：</p>
+<p>将ip地址转为一个int32的数</p>
+<blockquote>
+<p>255.255.255.0 是一个字符串 要求最终返回的结果是一个int32</p>
+<p>解法就是个位运算， 移位再加下一个</p>
+</blockquote>
+<p>紧接着 问了一个经典百度问题 hhhh</p>
+<p>1T文件，存储的是ip地址，给一个128MB的内存，问如何统计出出现次数最高的前10个</p>
+<p>这个问题真的得好好分析一下，现场分析的有点混乱。重点是前面的问题是可以拿过来利用的，就是一个ip地址对应一个唯一的int32  </p>
+<blockquote>
+<p>提了拆成不同文件，来计数，提了计数后通过堆排来过滤</p>
+</blockquote>
+<p>再一个问题：</p>
+<p>给1，2，3三个数，然后给一个数组，这个数组就是由这三个数组成的，其中某个数可能重复很多，问如何排序</p>
+<p>举个栗子[1,2,3,1,2,3,1,2,3] 排序后：[1,1,1,2,2,2,3,3,3]</p>
+<blockquote>
+<p>当时的思路就是 快排呗…结果被面试官嘲笑了，我就给你限制到这三个数</p>
+<p>后来想了下，三个变量来记录1，2，3的个数就可以了，完事之后可以通过计数器，输出相应个数的对应值。</p>
+</blockquote>
+<p>然后面试题进一步进阶为：</p>
+<p>现在不上三个数了，现在有一堆实例，他们都是从一个对象具体来的，比如 一个物体，其中某一个属性的值有1，2，3三种，请根据这个属性值对所有实例进行排序。</p>
+<blockquote>
+<p>这样就不能用上边的方法了，因为1跟1都是一样的，但是这里只对一个属性就行排，每个实例中除了该属性可能一样，其他都不一样。问怎么排序</p>
+</blockquote>
+<p>这个回答的就不是很好了</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>之后在网上看到的有人分享的</p>
+<p>一面：</p>
+<p>1、 给一个有序数组，没有重复值，给一个数组sum，从数组中找出和为sum的两个数，打印出所有可能的组合。</p>
+<p>2、 两个字符串的公共子串（连续的）长度。</p>
+<p>3、 数据倾斜的一道题。</p>
+<p>4、 问wide和deep之间的区别。</p>
+<p>5、 问AUC如何计算。</p>
+<p>6、 问youtube deep network里面如何解决softmax处理对象数量巨大的问题，提到了霍夫曼树和负采样，然后问负采样怎么回事儿，然后问如何解决大数据量下的负采样。</p>
+<p>7、 问youtube deep network里产生了用户和物品向量后，如何应用到在线的，主要想问如何快速获取用户喜欢的物品，是论文题提到的一个工程方法，提前简历好相应的索引。</p>
+<p>二面</p>
+<p>1、 将一颗二叉树转成双向链表。</p>
+<p>2、 用mapreduce或spark实现itemCF中物品相似度的计算。</p>
+<p>3、 如何解决L1正则不可导的那一点。</p>
+<p>4、 FM和LR的区别，主要讲FM的特点。</p>
+<p>5、 问AUC。</p>
+<p>6、 问LR为什么不能用MSE，然后引导我回答出来的，先让我写LR的损失，然后让我推导一下使用MSE之后的梯度，观察有什么劣势。</p>
+<p>7、 问AdaGrad算法原理及其特点（都是围绕学习率的，我只回答出了一个，实际上有两个，然后面试官给我讲解了一下）。</p>
+<p>三面</p>
+<p>问第三个项目的几个点：</p>
+<p>AUC</p>
+<p>线上优化器</p>
+<p>神经网络优化器</p>
+<p>CTR模型：注重wide&amp;Deep中wide与deep之间的区别</p>
+<p>论文</p>
+<p>算法题：</p>
+<p>K个排序的列表，融合成一个有序列表</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/10/Leetcode/leetcode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="Leetcode-11-盛最多水的问题">
+                  <i class="fa fa-chevron-left"></i> Leetcode-11-盛最多水的问题
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/11/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/" rel="prev" title="中心极限定理">
+                  中心极限定理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#头条广告算法面经"><span class="nav-number">1.</span> <span class="nav-text">头条广告算法面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面"><span class="nav-number">1.1.</span> <span class="nav-text">一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面"><span class="nav-number">1.2.</span> <span class="nav-text">二面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">2.</span> <span class="nav-text">附录</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Meng Di</p>
+  <div class="site-description" itemprop="description">NLP初学者，推荐新手，刚入门ML和DL</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Di</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
