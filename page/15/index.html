@@ -212,6 +212,212 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/Leetcode/leetcode-430-%E6%89%81%E5%B9%B3%E5%8C%96%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/27/Leetcode/leetcode-430-%E6%89%81%E5%B9%B3%E5%8C%96%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">Leetcode-430-扁平化多级双向链表</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-27 00:38:59" itemprop="dateCreated datePublished" datetime="2019-11-27T00:38:59+08:00">2019-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-09 23:53:08" itemprop="dateModified" datetime="2019-12-09T23:53:08+08:00">2019-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="扁平化多级双向链表"><a href="#扁平化多级双向链表" class="headerlink" title="扁平化多级双向链表"></a>扁平化多级双向链表</h2><p>您将获得一个双向链表，除了下一个和前一个指针之外，它还有一个子指针，可能指向单独的双向链表。这些子列表可能有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。</p>
+<p>扁平化列表，使所有结点出现在单级双链表中。您将获得列表第一级的头部。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9csuhhhhgj30uw0degme.jpg" alt="截屏2019-11-27下午7.00.04"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9d0viqd2nj31190l5gmo.jpg" alt="img"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9d0vm9n9mj325905lmxs.jpg" alt="img"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>跟<a href="https://mereder.github.io/2019/11/26/leetcode-114-二叉树展开为链表/" target="_blank" rel="noopener">Leetcode-114-二叉树展开为链表</a>的整体解决方案是一样的，只不过需要注意下问题是双向链表。</p>
+<p>坑：前后节点之间是有前后指针相连的，当对于child节点，其prev节点并没有直接指向父节点<strong>而是None</strong>，进行指针操作的时候注意</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val, prev, next, child):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.prev = prev</span></span><br><span class="line"><span class="string">        self.next = next</span></span><br><span class="line"><span class="string">        self.child = child</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, head: <span class="string">'Node'</span>)</span> -&gt; 'Node':</span></span><br><span class="line">        cur = head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="keyword">if</span> cur.child <span class="keyword">and</span> cur.next:</span><br><span class="line">              	<span class="comment"># 1. 拿出子链表，同时子链的prev连上cur</span></span><br><span class="line">                p = cur.child</span><br><span class="line">                p.prev = cur</span><br><span class="line">                <span class="comment"># 2. 遍历子链表直到尾部</span></span><br><span class="line">                <span class="keyword">while</span> p.next:</span><br><span class="line">                    p = p.next</span><br><span class="line">                <span class="comment"># 3. 将原后续链表接入到子链表尾部</span></span><br><span class="line">                p.next = cur.next</span><br><span class="line">                cur.next.prev = p</span><br><span class="line">                <span class="comment"># 4. 调整子链表成为后续链表 并且child为None</span></span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表最后一个含有子链表，就直接调换下位置即可</span></span><br><span class="line">            <span class="keyword">elif</span> cur.child <span class="keyword">and</span> <span class="keyword">not</span> cur.next:</span><br><span class="line">                cur.next = cur.child</span><br><span class="line">                cur.child.prev = cur <span class="comment"># 因为这个没有导致case 20/22  没完全通过</span></span><br><span class="line">                cur.child = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 链表后移动 一个</span></span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/ML/xgboost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/26/ML/xgboost/" class="post-title-link" itemprop="url">Xgboost 原理分析</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-26 19:10:02" itemprop="dateCreated datePublished" datetime="2019-11-26T19:10:02+08:00">2019-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-18 19:35:12" itemprop="dateModified" datetime="2020-03-18T19:35:12+08:00">2020-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法面试</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>学的是什么？<ul>
+<li>很多CART树</li>
+<li>loss+regulization</li>
+</ul>
+</li>
+<li>怎么学的？<ul>
+<li>增量学习，每次只学一棵树，前面树固定</li>
+<li>loss怎么写：泰勒展开</li>
+<li>正则怎么做：</li>
+</ul>
+</li>
+<li>还有哪些优化：<ul>
+<li>shrinkage</li>
+<li>列采样</li>
+</ul>
+</li>
+<li>跟其他方法有何异同<ul>
+<li>与gbdt的优缺点</li>
+<li>与RF有什么优缺点</li>
+</ul>
+</li>
+<li>怎么用<ul>
+<li>几个关键参数：树的个数，树深， 叶子节点个数， </li>
+</ul>
+</li>
+</ul>
+<h2 id="学的是什么？"><a href="#学的是什么？" class="headerlink" title="学的是什么？"></a>学的是什么？</h2><p>对于任何一个有监督模型来说，都是从一批又标签的数据中进行学习</p>
+<h2 id="怎么学"><a href="#怎么学" class="headerlink" title="怎么学"></a>怎么学</h2><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h2 id="与其他方法异同"><a href="#与其他方法异同" class="headerlink" title="与其他方法异同"></a>与其他方法异同</h2><h3 id="XGB与GBDT的区别"><a href="#XGB与GBDT的区别" class="headerlink" title="XGB与GBDT的区别"></a>XGB与GBDT的区别</h3><ul>
+<li>传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。</li>
+<li>传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。顺便提一下，xgboost工具支持自定义代价函数，只要函数可一阶和二阶求导。</li>
+<li>xgboost在代价函数里加入了正则项，用于控制模型的复杂度。正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。从Bias-variance tradeoff角度来讲，正则项降低了模型的variance，使学习出来的模型更加简单，防止过拟合，这也是xgboost优于传统GBDT的一个特性。</li>
+<li>Shrinkage（缩减），相当于学习速率（xgboost中的eta）。xgboost在进行完一次迭代后，会将叶子节点的权重乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。实际应用中，一般把eta设置得小一点，然后迭代次数设置得大一点。（补充：传统GBDT的实现也有学习速率）</li>
+<li>列抽样（column subsampling）。xgboost借鉴了随机森林的做法，支持列抽样，不仅能降低过拟合，还能减少计算，这也是xgboost异于传统gbdt的一个特性。</li>
+</ul>
+<p>xgboost 如果对多分类情况 如何增长树</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/Leetcode/leetcode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -897,180 +1103,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/Leetcode/leetcode-1104-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AF%BB%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/25/Leetcode/leetcode-1104-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AF%BB%E8%B7%AF/" class="post-title-link" itemprop="url">Leetcode/leetcode-1104-二叉树寻路</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-25 21:07:47" itemprop="dateCreated datePublished" datetime="2019-11-25T21:07:47+08:00">2019-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-09 11:02:06" itemprop="dateModified" datetime="2019-12-09T11:02:06+08:00">2019-12-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/Leetcode/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/25/Leetcode/leetcode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-15-三数之和</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-25 20:28:19" itemprop="dateCreated datePublished" datetime="2019-11-25T20:28:19+08:00">2019-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-22 16:14:59" itemprop="dateModified" datetime="2019-12-22T16:14:59+08:00">2019-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h1><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>完全异于2Sum的思路</p>
-<ul>
-<li><p>特殊情况处理None等。。。</p>
-</li>
-<li><p>首先通过排序使数字基本有序</p>
-<blockquote>
-<p>预排序，通过预排序方便处理重复的情况，这样相同的数字都在一块，跳过则方便。而且本身是$O(n^3)$的时间复杂度，用一个排序才$O(nlogn)$还是划得来</p>
-<p>本题解题思路体现了很重要的一点，当复杂度高于排序的时间复杂度时候，可以通过预排序来降低时间复杂度。毕竟做一次排序的时间复杂度为O(NlogN)，所有数字排序之后，就有了很好的特性<strong>有序</strong>。</p>
-</blockquote>
-</li>
-<li><p>遍历排序后的数组</p>
-<ul>
-<li>如果num[i] &gt;0 说明其后元素都&gt;0 不会出现相加为0情况 break</li>
-<li>如果i&gt;0 and num[i] == num[i-1]，说明当前i为重复情况 ，可考虑跳过</li>
-<li>令left = i+1 right = n-1 (相当于左右指针):left&lt;right 循环<ul>
-<li>如果三数相加为0 则找到匹配的，加入结果集，并且依次排出（跳过）left(或right)为相似值的情况</li>
-<li>如果三数相加&lt;0，说明不够大，则left++</li>
-<li>如果三数相加&gt;0，说明太大了，则right—</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="时间复杂度分析："><a href="#时间复杂度分析：" class="headerlink" title="时间复杂度分析："></a>时间复杂度分析：</h2><p>预排序$O(nlogn)$，遍历数组的过程是$O(n)$ 双指针遍历$O(n)$，总的来说还是$O(n^2)$</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="comment"># 预排序 很重要</span></span><br><span class="line">        </span><br><span class="line">        nums.sort()</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; <span class="number">0</span> : </span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            left = i+<span class="number">1</span></span><br><span class="line">            right = len(nums)<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[left] + nums[right]) == <span class="number">0</span>:</span><br><span class="line">                    res.append([nums[i],nums[left],nums[right]])</span><br><span class="line">                    <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[left] == nums[left+<span class="number">1</span>]:</span><br><span class="line">                        left += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> left&lt;right <span class="keyword">and</span> nums[right] == nums[right<span class="number">-1</span>]:</span><br><span class="line">                        right -= <span class="number">1</span></span><br><span class="line">                    left += <span class="number">1</span>  <span class="comment"># 这个地方需要注意 要把数移动到下一个不一样的数那里 </span></span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> (nums[i] + nums[left] + nums[right]) &lt; <span class="number">0</span>:</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1119,7 +1151,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

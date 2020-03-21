@@ -212,6 +212,211 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Leetcode/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/Leetcode/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/" class="post-title-link" itemprop="url">Leetcode-8-字符串转换整数(atoi)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-02 16:27:52 / Modified: 16:45:26" itemprop="dateCreated datePublished" datetime="2020-02-02T16:27:52+08:00">2020-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="字符串转换整数"><a href="#字符串转换整数" class="headerlink" title="字符串转换整数"></a>字符串转换整数</h2><p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
+<p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
+<p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
+<p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
+<p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
+<p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
+<p>说明：</p>
+<p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p>
+<p>示例 1:</p>
+<p>输入: “42”<br>输出: 42<br>示例 2:</p>
+<p>输入: “   -42”<br>输出: -42<br>解释: 第一个非空白字符为 ‘-‘, 它是一个负号。<br>     我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。<br>示例 3:</p>
+<p>输入: “4193 with words”<br>输出: 4193<br>解释: 转换截止于数字 ‘3’ ，因为它的下一个字符不为数字。<br>示例 4:</p>
+<p>输入: “words and 987”<br>输出: 0<br>解释: 第一个非空字符是 ‘w’, 但它不是数字或正、负号。<br>     因此无法执行有效的转换。<br>示例 5:</p>
+<p>输入: “-91283472332”<br>输出: -2147483648<br>解释: 数字 “-91283472332” 超过 32 位有符号整数范围。<br>     因此返回 INT_MIN (−231) 。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>其实题目已经将思路告知了，只需要按照要求实现即可。</p>
+<ul>
+<li>首先要处理None，否则后边无法调用len()</li>
+<li>其次处理字符串中的空白字符，这些可以直接跳过</li>
+<li>然后识别是否有“+“，”-“</li>
+<li>最后一起处理字母和数字</li>
+</ul>
+<p>整道题的处理逻辑很清楚，就是用一个全局的下标，来逐个处理字符，符合就留下，不符合就丢弃</p>
+<p>此处应注意与java等语言的不同，python默认定义的数据int是64位的，而java普通int是32位的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myAtoi</span><span class="params">(self, str: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> str:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        max_value = <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span></span><br><span class="line">        min_value = <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        index = <span class="number">0</span> <span class="comment">#  全局使用</span></span><br><span class="line">        symbol = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">while</span> index &lt; len(str) <span class="keyword">and</span> str[index] == <span class="string">' '</span>:</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> index &lt; len(str):</span><br><span class="line">            <span class="keyword">if</span> str[index] == <span class="string">'+'</span>:</span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> str[index] == <span class="string">'-'</span>:</span><br><span class="line">                index += <span class="number">1</span></span><br><span class="line">                symbol = <span class="literal">False</span> </span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(index,len(str)):</span><br><span class="line">                <span class="keyword">if</span> str[i] &gt;= <span class="string">'0'</span> <span class="keyword">and</span> str[i] &lt;= <span class="string">'9'</span>:</span><br><span class="line">                    result = result*<span class="number">10</span>+int(str[i])   <span class="comment"># 如果更保险，这个位置可以加入一个&gt;max的判断</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> symbol:</span><br><span class="line">                result = -result</span><br><span class="line">            <span class="keyword">if</span> result &lt; min_value: <span class="keyword">return</span> min_value</span><br><span class="line">            <span class="keyword">if</span> result &gt; max_value: <span class="keyword">return</span> max_value</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Leetcode/leetcode-7-%E6%95%B4%E6%95%B0%E7%BF%BB%E8%BD%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/Leetcode/leetcode-7-%E6%95%B4%E6%95%B0%E7%BF%BB%E8%BD%AC/" class="post-title-link" itemprop="url">Leetcode-7-整数翻转</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-02 15:09:47 / Modified: 15:49:02" itemprop="dateCreated datePublished" datetime="2020-02-02T15:09:47+08:00">2020-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="整数翻转"><a href="#整数翻转" class="headerlink" title="整数翻转"></a>整数翻转</h2><p>给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。</p>
+<p>示例 1:</p>
+<p>输入: 123<br>输出: 321<br> 示例 2:</p>
+<p>输入: -123<br>输出: -321<br>示例 3:</p>
+<p>输入: 120<br>输出: 21<br>注意:</p>
+<p>假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>思路很简单：对原始值不断按10取余，然后将取出来的余数*10加到新的结果上。</p>
+<p><strong>重点是</strong>：对于结果的处理，题目按时很明显，32位，最大的32位数字是多少呢？ 是<strong>2^31-1</strong>.</p>
+<p>如果结果超过最大的值，我们需要进行判断。越界就返回0，否则返回翻转的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self, x: int)</span> -&gt; int:</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        max_value = <span class="number">2</span>**<span class="number">31</span> - <span class="number">1</span></span><br><span class="line">        min_value = <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        x1 = abs(x)</span><br><span class="line">        <span class="keyword">while</span> x1 != <span class="number">0</span>:</span><br><span class="line">            result = result*<span class="number">10</span> + x1%<span class="number">10</span></span><br><span class="line">            x1 = x1//<span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> result &gt; max_value <span class="keyword">or</span> result &lt; min_value :</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> x &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> -result</span><br></pre></td></tr></table></figure>
+<h3 id="知识拓展：负数取余"><a href="#知识拓展：负数取余" class="headerlink" title="知识拓展：负数取余"></a>知识拓展：负数取余</h3><p>关于python 取余的结果与   （C++和java）取余结果的不同。</p>
+<p>对于自然数来说，没有什么问题，但是对于负数而言，运算机制是不同的。</p>
+<blockquote>
+<p>c++：cout &lt;&lt; (-7) % 3; // 输出 <strong>-1</strong></p>
+<p>java：System.out.println((-7) % 3); // 输出 <strong>-1</strong></p>
+<p>python：>&gt;&gt; (-7) % 3 // 输出 <strong>2</strong></p>
+</blockquote>
+<p>同号整数运算，所有语言都遵循<strong>尽量让商小</strong>的原则，因此7mod3结果为1没有异议。</p>
+<p>在异号的整数运算中，C++和Java会让商<strong>尽可能大</strong>（比如-7mod3中，d=-2,r=-1）。</p>
+<p>Python等则让商<strong>尽可能小</strong>（比如-7mod3中，d=-3，r=2）。</p>
+<p>回到本题除10取余的过程，如果x=-123</p>
+<p>c++和java</p>
+<blockquote>
+<p>-123 %10  商-12 余-3</p>
+</blockquote>
+<p>python</p>
+<blockquote>
+<p>-123%10 商-13 余 +7</p>
+</blockquote>
+<p>如果c++和java的话，可以直接处理，之后的结果仍然是负数，且颠倒过。</p>
+<p>而python 就会出问题</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/15/L2R:learning%20to%20rank/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -785,203 +990,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/%E5%88%B7%E9%A2%98%E6%8C%89%E5%85%AC%E5%8F%B8%E5%88%86%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/05/%E5%88%B7%E9%A2%98%E6%8C%89%E5%85%AC%E5%8F%B8%E5%88%86%E7%B1%BB/" class="post-title-link" itemprop="url">外企冲冲冲</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-01-05 17:15:31" itemprop="dateCreated datePublished" datetime="2020-01-05T17:15:31+08:00">2020-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-06 10:39:23" itemprop="dateModified" datetime="2020-01-06T10:39:23+08:00">2020-01-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>那么面试过程中，如何表现呢？**</p>
-<p><strong>1. 听题+记录</strong></p>
-<p><strong>2. 复述+追问</strong></p>
-<p><strong>3. 设计输入输出</strong></p>
-<p><strong>4. 思路解释，向面试官求证</strong></p>
-<p><strong>5. 复杂度分析</strong></p>
-<p><strong>6. 设计边界条件</strong></p>
-<p><strong>7. 编码</strong></p>
-<p><strong>8. 运行测试用例</strong></p>
-<p><strong>9. 期待 follow up</strong></p>
-<p><strong>1. 听题+记录</strong></p>
-<p>面试官在描述题目的时候，会描述一个场景。我们在听题的时候，要把题目抽象转化为若干项 RI（Requirement Item），并记录在小本本上。</p>
-<p><strong>2. 复述+追问</strong></p>
-<p>拿到题目后，很多情况下，我们的理解和面试官的表达是有出入的。可能是面试官忘说了某句，我们漏听了，甚至是面试官为了考验我们故意隐瞒了其中条件。应试者需要自己去挖掘这所有的隐藏 RI，把题目搞清楚。还要强调的是，有两个特殊的 RI：时间复杂度+空间复杂度。</p>
-<p><strong>3. 设计输入输出，思路解释，向面试官求证</strong></p>
-<p>截止目前，假如我们已经成功地搞懂了题目，那么我们的小本本上会有好多需求项目。接下来，就需要我们把这些文科生也能听懂的话，抽象成一个函数。具体而言，是抽象成一个函数的输入+输入+好听的函数名称。</p>
-<p><strong>4. 思路解释，向面试官求证</strong></p>
-<p>在我看来，这是比编码更重要的步骤。简单来说，这步主要是在向面试官描述你的想法、思考过程。</p>
-<p>“既然输入是一个已排序的列表，那么我可以尝试运用二分查找的思想”。</p>
-<p>“我发现在贪心求值的过程中，有重复计算的情况，那是不是可以利用空间换时间，利用 dp 的思想，把之前运算的结果记录下来”。</p>
-<p>“我首先做了一次排序，之后两个嵌套循环，最终时间复杂度是 O(N^2)，其中 N 是输入元素的个数”。</p>
-<p><strong>5. 复杂度分析</strong></p>
-<p>之前在思路解释的时候，已经分析过时间、空间复杂度了。在此处再次分析，主要做的是在写好的代码中，标注出各个函数的复杂度、循环嵌套情况。</p>
-<p><strong>6. 设计边界条件</strong></p>
-<p>最没技术含量的一个考察点。</p>
-<p>给定的输入，在极端情况下，程序该怎么办？</p>
-<p>输入是 int，如果是 Integer.max 怎么办？</p>
-<p>输入是 String，如果是 null or 空白怎么办？</p>
-<p>输入是数组………</p>
-<p><strong>7. 编码</strong></p>
-<p>硬实力，请去刷题。</p>
-<p><strong>8. 运行测试用例</strong></p>
-<p>在编码完成之后，主动跑一些 case，检验程序的正确，设计 case 也是考察的点。</p>
-<p><strong>9. 算法分析</strong></p>
-<p>分析整个代码，当前代码有哪些不好？结合使用的语言哪些可以优化？如果把输入改成更一般的情况，程序应该如何调整？</p>
-<p><strong>10. 思路讲解</strong></p>
-<p>把思考过程清楚明白地表达出来。</p>
-<p><strong>总结而言，面试是一个展示自己作为合作者的过程。除了算法本身，如何沟通，把题目弄清楚，完成面试官对你的各方面预期是极其重要的。</strong></p>
-<h3 id="按公司分类-按频繁程度由高到低"><a href="#按公司分类-按频繁程度由高到低" class="headerlink" title="按公司分类(按频繁程度由高到低)"></a>按公司分类(按频繁程度由高到低)</h3><h4 id="Airbnb"><a href="#Airbnb" class="headerlink" title="Airbnb"></a>Airbnb</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">336    755    251    269    751    68    787    773    341    39    1    324    291    759    42    212    588    756    829    1058    2    10    299    76    322    219    198    843    5    252    125    220    14    7    410    385    657    41    295    20    273    17    8    9    815    347    127    175    4    147    6    15    236    11    190    202    136    3    21    224    108    160    215    23    16    221    622    246    107    211    217    37    176    138    12    38    300    75    88    18    73    49    227    415    1017    1041</span><br></pre></td></tr></table></figure>
-<h4 id="Hulu"><a href="#Hulu" class="headerlink" title="Hulu"></a>Hulu</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">383    909    148    143    146    200    54    863    21    127    341    1    371    322    238    326    239    121    49    3    4    53    26    440    772    814    1063</span><br></pre></td></tr></table></figure>
-<h4 id="Microsoft"><a href="#Microsoft" class="headerlink" title="Microsoft"></a>Microsoft</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">138    151    1    146    165    103    348    402    445    88    253    186    54    200    2    722    285    297    794    273    4    75    48    5    23    53    564    42    8    98    428    21    206    636    545    10    706    79    443    121    22    36    450    287    322    33    20    295    25    141    236    72    240    224    24    13    116    17    218    43    417    419    347    85    560    568    529    229    102    269    31    692    168    380    344    557    15    449    114    333    94    160    117    642    935    239    3    652    105    44    143    232    173    277    56    917    133    71    958    679    362    76    59    836    12    234    51    84    123    208    300    49    407    235    805    708    227    316    772    93    612    493    39    415    729    73    41    638    155    162    490    242    28    92    171    426    204    212    64    91    97    535    172    394    215    110    174    283    210    238    19    237    669    460    214    199    1026    887    647    46    37    230    128    148    286    759    45    528    655    61    698    74    503    68    688    662    314    140    134    658    109    694    7    397    863    632    99    40    57    55    81    139    150    969    30    862    304    149    289    78    354    38    124    153    266    328    523    280    317    346    26    70    284    516    216    122    125    383    11    611    442    63    108    572    695    142    32    225    939    373    378    223    543    189    161    724    69    106    621    86    29    270    416    412    979    671    209    515    622    787    430    459    77    541    83    509    220    767    147    739    167    707    876    791    796    18    448    518    107    406    784    191    384    203    329    211    819    905    126    451    60    912    65    95    16    733    332    101    127    367    547    67    341    118    129    701    112    973    371    120    290    665    231    50    977    169    704    90    257    387    9    198    852    176    929    14    111    349    152    350    217    27</span><br></pre></td></tr></table></figure>
-<h4 id="Google"><a href="#Google" class="headerlink" title="Google"></a>Google</h4><blockquote>
-<p>—904—    929    1    681    482    159    399    975    843    844    857    947    683    410    489    222    753    777    939    308    158    803    833    642    253    299    736    900    809    248    524    734    135    679    911    727    731    527    359    200    837    943    818    2    56    4    849    247    913    1057    457    562    528    750    205    329    846    850    465    42    157    685    418    475    394    774    544    1096    163    855    353    380    315    686    246    766    920    767    57    737    317    659    340    640    963    68    684    3    146    271    729    1066    354    616    288    723    694    715    951    269    799    776    853    743    363    15    1055    428    85    388    770    403    471    124    702    444    34    1007    208    334    549    393    218    552    1087    708    138    23    788    351    215    497    347    127    126    375    361    304    710    128    224    498    187    31    398    5    981    636    76    139    155    297    936    285    332    425    722    800    280    771    221    378    43    346    150    941    1011    241    284    845    66    310    543    133    305    835    772    54    973    792    695    210    493    261    392    660    212    10    360    295    370    852    365    281    486    591    239    739    761    518    38    53    406    296    379    815    386    871    688    751    773    250    742    17    724    140    407    1032    672    72    488    41    635    499    417    166    460    836    55    568    298    765    464    505    20    926    692    433    940    149    316    22    381    48    817    369    266    341    979    109    302    490    621    935    152    213    211    37    458    730    745    987    185    175    277    137    424    11    827    228    484    358    63    572    759    242    121    195    165    21    97    535    300    62    366    110    98    529    117    162    551    834    45    438    132    238    1036    769    348    307    282    130    668    889    44    287    19    416    91    206    324    768    760    322    50    977    249    480    785    350    662    273    207    459    229    7    752    320    312    84    69    333    839    894    105    283    609    914    101    400    630    294    33    279    87    732    198    79    116    26    877    141    64    1048    1047    463    385    564    232    450    240    1091    373    1110    840    859    265    510    540    161    226    801    148    676    49    188    344    167    343    714    278    395    968    890    741    65    171    374    733    243    622    698    787    74    404    274    301    259    881    794    18    118    1024    46    156    632    99    336    6    802    426    992    70    120    35    236    268    368    81    104    8    36    504    415    647    318    30    980    997    28    289    830    542    16    387    560    252    92    103    382    144    414    154    583    173    193    807    14    496    872    451    468    942    811    309    337    325    448    442    362    108    168    32    419    203    94    933    100    230    134    690    566    176    129    701    931    202    713    821    965    286    227    476    201    345    721    270    986    153    412    231    559    994    125    503    841    83    52    917    863    938    328    75    160    707    703    234    113    747    24    169    449    114    191    13    674    384    595    142    264    567    178    905    122    235    204    389    71    60    581    29    9    59    12    51    367    177    443    131    237    136    680    106    143    371    290    665    39    209    190    82    219    804    557    77    78    704    123    700    326    119    96    1021    102    27    73    40    832    199    151    819    349    67    509</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/Leetcode/leetcode-200-%E6%B5%B7%E5%B2%9B%E6%95%B0%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/05/Leetcode/leetcode-200-%E6%B5%B7%E5%B2%9B%E6%95%B0%E9%87%8F/" class="post-title-link" itemprop="url">Leetcode-200-海岛数量</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-01-05 15:36:44 / Modified: 15:46:24" itemprop="dateCreated datePublished" datetime="2020-01-05T15:36:44+08:00">2020-01-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="海岛数量"><a href="#海岛数量" class="headerlink" title="海岛数量"></a>海岛数量</h2><p>给定一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。</p>
-<p>示例 1:</p>
-<blockquote>
-<p> 输入:<br>11110<br>11010<br>11000<br>00000</p>
-<p>输出: 1</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入:<br>11000<br>11000<br>00100<br>00011</p>
-<p>输出: 3</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>就是找<code>连通区域</code>嘛，简单的dfs就可以解决，通过对<code>连着的海岛（1）</code>进行dfs，同时将<code>1</code>变为<code>0</code>。</p>
-<p>每进入一次dfs计数1次</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numIslands</span><span class="params">(self, grid: List[List[str]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> grid:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        m = len(grid)</span><br><span class="line">        n = len(grid[<span class="number">0</span>])</span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">                <span class="keyword">if</span> grid[i][j] == <span class="string">'1'</span>:</span><br><span class="line">                    cnt += <span class="number">1</span></span><br><span class="line">                    self.helper(grid,i,j,m,n)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cnt</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, grid, i, j, m, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> i &lt;<span class="number">0</span> <span class="keyword">or</span> j &lt;<span class="number">0</span> <span class="keyword">or</span> i&gt;=m <span class="keyword">or</span> j&gt;=n <span class="keyword">or</span> grid[i][j] == <span class="string">'0'</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        grid[i][j] = <span class="string">'0'</span></span><br><span class="line">        self.helper(grid, i+<span class="number">1</span>, j, m, n)</span><br><span class="line">        self.helper(grid, i<span class="number">-1</span>, j, m, n)</span><br><span class="line">        self.helper(grid, i, j+<span class="number">1</span>, m, n)</span><br><span class="line">        self.helper(grid, i, j<span class="number">-1</span>, m, n)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1030,7 +1038,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
