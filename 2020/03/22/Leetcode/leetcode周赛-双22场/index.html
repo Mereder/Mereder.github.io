@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Mereder" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="双周赛22场3 分 - 两个数组间的距离值4 分 - 安排电影院座位5 分 - 将整数按权重排序7 分 - 3n 块披萨 :crossed_fingers:   第一次在规定时间内做出来3个题，纪念下！！！:stuck_out_tongue_winking_eye: 两个数组间的距离值根据题意，双循环实现即可，由于数据范围不是很大，暴力方法。时间复杂度O(N^2) 1234567891011121">
+<meta name="keywords" content="Leetcode周赛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode-双周赛-22场">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;22&#x2F;Leetcode&#x2F;leetcode%E5%91%A8%E8%B5%9B-%E5%8F%8C22%E5%9C%BA&#x2F;index.html">
+<meta property="og:site_name" content="Mereder">
+<meta property="og:description" content="双周赛22场3 分 - 两个数组间的距离值4 分 - 安排电影院座位5 分 - 将整数按权重排序7 分 - 3n 块披萨 :crossed_fingers:   第一次在规定时间内做出来3个题，纪念下！！！:stuck_out_tongue_winking_eye: 两个数组间的距离值根据题意，双循环实现即可，由于数据范围不是很大，暴力方法。时间复杂度O(N^2) 1234567891011121">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-22T15:17:05.258Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/22/Leetcode/leetcode%E5%91%A8%E8%B5%9B-%E5%8F%8C22%E5%9C%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Leetcode-双周赛-22场 | Mereder</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mereder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">珍惜现在，感谢所有，不悔将来</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/Leetcode/leetcode%E5%91%A8%E8%B5%9B-%E5%8F%8C22%E5%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode-双周赛-22场
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-22 09:10:05 / Modified: 23:17:05" itemprop="dateCreated datePublished" datetime="2020-03-22T09:10:05+08:00">2020-03-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="双周赛22场"><a href="#双周赛22场" class="headerlink" title="双周赛22场"></a>双周赛22场</h2><p><code>3 分</code> - <a href="https://leetcode-cn.com/problems/find-the-distance-value-between-two-arrays/" target="_blank" rel="noopener">两个数组间的距离值</a><br><code>4 分</code> - <a href="https://leetcode-cn.com/problems/cinema-seat-allocation/" target="_blank" rel="noopener">安排电影院座位</a><br><code>5 分</code> - <a href="https://leetcode-cn.com/problems/sort-integers-by-the-power-value/" target="_blank" rel="noopener">将整数按权重排序</a><br><code>7 分</code> - <a href="https://leetcode-cn.com/problems/pizza-with-3n-slices/" target="_blank" rel="noopener">3n 块披萨</a></p>
+<p>:crossed_fingers:   第一次在规定时间内做出来3个题，纪念下！！！:stuck_out_tongue_winking_eye:</p>
+<h3 id="两个数组间的距离值"><a href="#两个数组间的距离值" class="headerlink" title="两个数组间的距离值"></a>两个数组间的距离值</h3><p>根据题意，双循环实现即可，由于数据范围不是很大，暴力方法。时间复杂度<code>O(N^2)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findTheDistanceValue</span><span class="params">(self, arr1: List[int], arr2: List[int], d: int)</span> -&gt; int:</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(arr1)):</span><br><span class="line">            flag = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(len(arr2)):</span><br><span class="line">                <span class="keyword">if</span> abs(arr1[i]-arr2[j]) &lt;= d:</span><br><span class="line">                    flag = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> flag:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            res += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h3 id="T2-安排电影院座位"><a href="#T2-安排电影院座位" class="headerlink" title="T2:安排电影院座位"></a>T2:安排电影院座位</h3><p>上来就开了一个辅助矩阵帮助判断，但是数据量太大了，内存直接爆掉了。</p>
+<p>根据给的数据提示：</p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= n &lt;= 10^9</code></li>
+<li><code>1 &lt;= reservedSeats.length &lt;= min(10*n, 10^4)</code>  这里！！！ </li>
+<li><code>reservedSeats[i].length == 2</code></li>
+<li><code>1 &lt;= reservedSeats[i][0] &lt;= n</code></li>
+<li><code>1 &lt;= reservedSeats[i][1] &lt;= 10</code></li>
+<li>所有 <code>reservedSeats[i]</code> 都是互不相同的。</li>
+</ul>
+</blockquote>
+<p>预定座位数组内元素的个数最大就是<code>10^4</code>所以从这个数组下手。这个数组给的是预定了座位，整个电影院可以最多坐下的4人家庭数量为<code>n*2,n为行数</code>，去掉被预定出去导致不能4人连坐的位置，剩余的值就是解。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxNumberOfFamilies</span><span class="params">(self, n: int, reservedSeats: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 每行都是只需要判断三个位置即可 2-5   4-7  6-9</span></span><br><span class="line">        seats = sorted(reservedSeats,key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">        row = <span class="number">0</span></span><br><span class="line">        res = <span class="number">2</span>*n</span><br><span class="line">        one_line = [<span class="number">0</span>]*<span class="number">11</span></span><br><span class="line">        <span class="keyword">for</span> seat <span class="keyword">in</span> seats:</span><br><span class="line">            x,y = seat[<span class="number">0</span>],seat[<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> x == row:</span><br><span class="line">                one_line[y] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> row != <span class="number">0</span>:</span><br><span class="line">                    res -= self.cal(one_line)</span><br><span class="line">                one_line = [<span class="number">0</span>]*<span class="number">11</span></span><br><span class="line">                row = x</span><br><span class="line">                one_line[y] = <span class="number">1</span></span><br><span class="line">        res -= self.cal(one_line)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(self,one)</span>:</span></span><br><span class="line">        <span class="comment"># 2,3,.....9 这8个位置 如果都没有被预定 则不用减</span></span><br><span class="line">        <span class="keyword">if</span> sum(one[<span class="number">2</span>:<span class="number">10</span>]) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># 中间可以坐的位置 有3种方案，其中某一个方案可行，都会导致该行 只能坐一种方案</span></span><br><span class="line">        <span class="keyword">elif</span> sum(one[<span class="number">2</span>:<span class="number">6</span>]) == <span class="number">0</span> <span class="keyword">or</span> sum(one[<span class="number">4</span>:<span class="number">8</span>]) == <span class="number">0</span> <span class="keyword">or</span> sum(one[<span class="number">6</span>:<span class="number">10</span>]) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>时间复杂度分析：之前有个排序算法，<code>O(NlogN)</code> 后面有个遍历过程<code>O(N)</code>,总的时间复杂度是<code>O(NlogN)</code></p>
+<p>其实可以优化到<code>O(N)</code>，看其他人的解法里面使用了<code>dict</code> ，先遍历加入<code>dict</code>，确保同行的都在一个key里面， 再遍历dict 进行使用。</p>
+<h3 id="T3-将整数按照权重排序"><a href="#T3-将整数按照权重排序" class="headerlink" title="T3:将整数按照权重排序"></a>T3:将整数按照权重排序</h3><p>求权重的方法就是带备忘录的dfs，不方便直接用dp的原因是不知道这个数组具体有多大，下一个值是否存在。所以用了<code>字典</code>来存储已经计算过的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getKth</span><span class="params">(self, lo: int, hi: int, k: int)</span> -&gt; int:</span></span><br><span class="line">        self.mem = &#123;&#125;</span><br><span class="line">        self.mem[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        self.mem[<span class="number">1</span>] = <span class="number">0</span></span><br><span class="line">        self.mem[<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">        self.mem[<span class="number">3</span>] = <span class="number">7</span></span><br><span class="line">        </span><br><span class="line">        arr = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(lo,hi+<span class="number">1</span>):</span><br><span class="line">            steps = self.countSteps(i)</span><br><span class="line">            arr.append([steps,i])</span><br><span class="line">        </span><br><span class="line">        arr = sorted(arr,key=<span class="keyword">lambda</span> x: (x[<span class="number">0</span>],x[<span class="number">1</span>]))</span><br><span class="line">        <span class="keyword">return</span> arr[k<span class="number">-1</span>][<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countSteps</span><span class="params">(self,num)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num <span class="keyword">in</span> self.mem:</span><br><span class="line">            <span class="keyword">return</span> self.mem[num]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> num % <span class="number">2</span> ==<span class="number">0</span>:</span><br><span class="line">                self.mem[num] = self.countSteps(num//<span class="number">2</span>)+<span class="number">1</span></span><br><span class="line">                <span class="keyword">return</span> self.mem[num]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.mem[num] = self.countSteps(num*<span class="number">3</span>+<span class="number">1</span>)+<span class="number">1</span></span><br><span class="line">                <span class="keyword">return</span> self.mem[num]</span><br></pre></td></tr></table></figure>
+<h3 id="T4-3n-块披萨"><a href="#T4-3n-块披萨" class="headerlink" title="T4:3n 块披萨"></a>T4:3n 块披萨</h3><p>自己的思路就是暴力dfs，模拟自己选披萨任何一块的可能情况，对应自己选完一次也帮Alice和Bob进行选择，选择好的披萨进行标记已经遍历。<strong>超时</strong>（实际上case 才过了 15/69）  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSizeSlices</span><span class="params">(self, slices: List[int])</span> -&gt; int:</span></span><br><span class="line">        </span><br><span class="line">        self.mx = <span class="number">0</span></span><br><span class="line">        mine = []</span><br><span class="line">        visited = [<span class="number">0</span>]*len(slices)</span><br><span class="line">        self.dfs(slices,visited,mine)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> self.mx</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(self,slices,visited,mine)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> sum(visited) == len(slices):</span><br><span class="line">            self.mx = max(self.mx,sum(mine))</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> range(len(slices)):</span><br><span class="line">            <span class="keyword">if</span> visited[idx] == <span class="number">0</span>:</span><br><span class="line">                <span class="comment"># 遍历标记</span></span><br><span class="line">                mine.append(slices[idx])</span><br><span class="line">                visited[idx] = <span class="number">1</span></span><br><span class="line">                <span class="comment"># 顺时针的下一个</span></span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> range(idx+<span class="number">1</span>,idx+len(slices)):</span><br><span class="line">                    <span class="keyword">if</span> visited[k%len(slices)] == <span class="number">0</span>:</span><br><span class="line">                        visited[k%len(slices)] = <span class="number">1</span></span><br><span class="line">                        Alice = k%len(slices)</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="comment"># 逆时针</span></span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> range(idx+len(slices)<span class="number">-1</span>,idx<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">                    <span class="keyword">if</span> visited[k%len(slices)] == <span class="number">0</span>:</span><br><span class="line">                        visited[k%len(slices)] = <span class="number">1</span></span><br><span class="line">                        Bob = k%len(slices)</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                self.dfs(slices,visited,mine)</span><br><span class="line">                <span class="comment"># 回溯</span></span><br><span class="line">                mine.pop()</span><br><span class="line">                visited[idx] = <span class="number">0</span></span><br><span class="line">                visited[Alice] = <span class="number">0</span></span><br><span class="line">                visited[Bob] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>为什么会超时呢？</p>
+<blockquote>
+<p>暴力回溯的情况下，假如共有9块披萨 取 1 3 5 和 5 3 1 是属于同样的选择，原本我们只需要选最有益的，但是暴力回溯会依次遍历这两种情况，产生大量的冗余计算，时间复杂度过高 <code>O(N!)</code></p>
+</blockquote>
+<h4 id="进阶思路"><a href="#进阶思路" class="headerlink" title="进阶思路"></a>进阶思路</h4><p>！！！ <strong>转化为 非连续数列的最值问题  -&gt; 打家劫舍问题！！！</strong></p>
+<p>虽然题目描述披萨是个圈，但是还是数列，只不过需要注意第一个元素和最后一个元素是互斥的就可以了。</p>
+<p>那么问题就变成了：如果在这个数列里面我可以取一定次数的值，但是不可以连续取值，怎么取可以使我的取值最大。</p>
+<ul>
+<li>为什么是一定次数的：因为3n个披萨，你最多只能取 n//3 次</li>
+<li>为什么是不连续的：因为有条件限制，你取了第i个那么i-1和i+1 都会被分掉</li>
+</ul>
+<p>还有一个问题，没有解决首位互斥的问题，这时候想到打家劫舍第三题，就是一个环啊。那我们只需要分两次来进行求值</p>
+<ul>
+<li>当首位置可以选的时候，去掉尾</li>
+<li>当尾部可选的时候，去掉首部</li>
+</ul>
+<p>我们来看下，本题的状态是什么，然后如何转移的：</p>
+<script type="math/tex; mode=display">
+d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表示拿i次披萨，j表示第j块，即第i次拿起第j块披萨的最大值是多少。转移方程中有一个<code>0...j-2</code>表示取值为：0，1，2，3…j-2 。对于状态转移方程，举个例子来方便理解：</p>
+<blockquote>
+<p> 当i=2,j=5的时候，表示第2次取第5块披萨时，我们需要看一下</p>
+<p>第1次取第0块披萨、第1块披萨、第j-2(5-2=3) 块披萨时候的最大值，在加上本次即将取得第5块披萨</p>
+<p>即 $d[2][5] = max(d[1][0],d[1][1],d[1][2],d[1][3]) + slices[5]$</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSizeSlices</span><span class="params">(self, slices: List[int])</span> -&gt; int:</span></span><br><span class="line">        self.row = len(slices)//<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">        self.n  = len(slices) - <span class="number">1</span></span><br><span class="line">        one = self.getMax(slices,<span class="number">0</span>,self.n) <span class="comment"># 只看首部不看尾部</span></span><br><span class="line">        two = self.getMax(slices,<span class="number">1</span>,self.n+<span class="number">1</span>)  <span class="comment"># 只看尾部不看首部</span></span><br><span class="line">        <span class="keyword">return</span> max(one,two)  <span class="comment"># 取二者的最大值</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getMax</span><span class="params">(self,slices,start,end)</span>:</span></span><br><span class="line">        dp = [[<span class="number">0</span>]*self.n <span class="keyword">for</span> _ <span class="keyword">in</span> range(self.row)]</span><br><span class="line">        tmp = slices[start:end]</span><br><span class="line">        cur_max = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,self.row):</span><br><span class="line">            pre_max = <span class="number">0</span> <span class="comment"># 上一次拿的时候最大的</span></span><br><span class="line">            <span class="keyword">for</span>  j <span class="keyword">in</span> range(self.n):</span><br><span class="line">                <span class="keyword">if</span> j &gt;= <span class="number">2</span>:</span><br><span class="line">                  <span class="comment"># 这个pre_max相当于PK台,始终保留前面情况的最大值</span></span><br><span class="line">                    pre_max = max(dp[i<span class="number">-1</span>][j<span class="number">-2</span>],pre_max) </span><br><span class="line">                dp[i][j] = pre_max + tmp[j]</span><br><span class="line">                cur_max = max(dp[i][j], cur_max)</span><br><span class="line">        <span class="keyword">return</span> cur_max</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Leetcode%E5%91%A8%E8%B5%9B/" rel="tag"># Leetcode周赛</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/03/21/Leetcode/leetcode-328-%E5%A5%87%E5%81%B6%E9%93%BE%E8%A1%A8/" rel="next" title="Leetcode-328-奇偶链表">
+                  <i class="fa fa-chevron-left"></i> Leetcode-328-奇偶链表
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/03/22/Leetcode/leetcode%E5%91%A8%E8%B5%9B181%E5%9C%BA/" rel="prev" title="Leetcode-周赛-181场">
+                  Leetcode-周赛-181场 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#双周赛22场"><span class="nav-number">1.</span> <span class="nav-text">双周赛22场</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两个数组间的距离值"><span class="nav-number">1.1.</span> <span class="nav-text">两个数组间的距离值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T2-安排电影院座位"><span class="nav-number">1.2.</span> <span class="nav-text">T2:安排电影院座位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T3-将整数按照权重排序"><span class="nav-number">1.3.</span> <span class="nav-text">T3:将整数按照权重排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T4-3n-块披萨"><span class="nav-number">1.4.</span> <span class="nav-text">T4:3n 块披萨</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进阶思路"><span class="nav-number">1.4.1.</span> <span class="nav-text">进阶思路</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Meng Di</p>
+  <div class="site-description" itemprop="description">NLP初学者，推荐新手，刚入门ML和DL</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Di</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>

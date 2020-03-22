@@ -212,6 +212,331 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/Leetcode/leetcode-151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/05/Leetcode/leetcode-151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/" class="post-title-link" itemprop="url">Leetcode-151-翻转字符串中的单词</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-05 00:25:24 / Modified: 00:53:11" itemprop="dateCreated datePublished" datetime="2020-02-05T00:25:24+08:00">2020-02-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/%E5%89%91%E6%8C%87offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="翻转字符串中的单词"><a href="#翻转字符串中的单词" class="headerlink" title="翻转字符串中的单词"></a>翻转字符串中的单词</h2><p>给定一个字符串，逐个翻转字符串中的每个单词。</p>
+<p>示例 1：</p>
+<p>输入: “the sky is blue”<br>输出: “blue is sky the”<br>示例 2：</p>
+<p>输入: “  hello world!  “<br>输出: “world! hello”<br>解释: 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。<br>示例 3：</p>
+<p>输入: “a good   example”<br>输出: “example good a”<br>解释: 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p>
+<p>说明：</p>
+<p>无空格字符构成一个单词。<br>输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。<br>如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-words-in-a-string</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>按照 剑指offer的解题思路 </p>
+<ul>
+<li>先翻转整个字符串</li>
+<li>再逐个翻转单词</li>
+</ul>
+<p>主要的问题出现在，python解决过程出现的小坑</p>
+<ul>
+<li>python 中的string 是不可以进行修改的，所以做不到原地逆置</li>
+<li>python可以用<code>split()</code>将单词分隔开，但是空白字符会之间变成 空<code>&#39;&#39;</code>，而不是<code>’ ‘</code></li>
+</ul>
+<blockquote>
+<p>split(‘ ‘)和split()的切分是不一样的。</p>
+<p>split(‘ ‘)会严格按照一个空格一个空格来切</p>
+<p>split()会按照空白的来切掉</p>
+<p>eg: “  hello   world    “</p>
+<p>>&gt;&gt; a = ‘ hellow word  ‘</p>
+<p>>&gt;&gt; a.split(‘ ‘)</p>
+<p>[‘’, ‘hellow’, ‘’, ‘word’, ‘’, ‘’, ‘’]</p>
+<p>>&gt;&gt; a.split()</p>
+<p>[‘hellow’, ‘word’]</p>
+</blockquote>
+<p>题解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        </span><br><span class="line">        s = self.reverse(s)</span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> s.split():</span><br><span class="line">            <span class="keyword">if</span> word != <span class="string">''</span>: <span class="comment"># 坑</span></span><br><span class="line">                result.append(self.reverse(word))</span><br><span class="line">        result = <span class="string">' '</span>.join(result)</span><br><span class="line">        <span class="keyword">return</span> result.strip()</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self,s)</span>:</span></span><br><span class="line">        list_s = list(s) <span class="comment"># 坑</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(list_s)<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span>(left&lt;right):</span><br><span class="line">            list_s[left],list_s[right] = list_s[right],list_s[left]</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(list_s)</span><br></pre></td></tr></table></figure>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>如果充分利用python 特性来解决：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">  	<span class="function"><span class="keyword">def</span> <span class="title">reverseWords1</span><span class="params">(self, s: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">" "</span>.join(s.split()[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+<p>首先将字符串按照<code>&#39; &#39;</code>切分，然后得到一个list的切分结果，再将切分的结果逆置，达到了只需要把单词位置颠倒，就完成了。</p>
+<ul>
+<li><code>[::-1]</code>是将list内容进行逆置的操作</li>
+<li>这个方法不用管空白字符的原因是 <code>split()</code>会以任何空白进行切割，可以参考上面对split的举例。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Leetcode/leetcode-388-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E9%95%BF%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/Leetcode/leetcode-388-%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E9%95%BF%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">Leetcode-388-文件最长绝对路径</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-02 22:47:06 / Modified: 23:20:01" itemprop="dateCreated datePublished" datetime="2020-02-02T22:47:06+08:00">2020-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="文件的最长绝对路径"><a href="#文件的最长绝对路径" class="headerlink" title="文件的最长绝对路径"></a>文件的最长绝对路径</h2><p>假设我们以下述方式将我们的文件系统抽象成一个字符串:</p>
+<p>字符串 “dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext” 表示:</p>
+<blockquote>
+<p>dir<br> subdir1<br> subdir2<br>     file.ext</p>
+<p>目录 dir 包含一个空的子目录 subdir1 和一个包含一个文件 file.ext 的子目录 subdir2 。</p>
+</blockquote>
+<p>字符串 “dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext” 表示:</p>
+<blockquote>
+<p>dir<br>    subdir1<br>        file1.ext<br>        subsubdir1<br>    subdir2<br>        subsubdir2<br>            file2.ext<br>目录 dir 包含两个子目录 subdir1 和 subdir2。 subdir1 包含一个文件 file1.ext 和一个空的二级子目录 subsubdir1。subdir2 包含一个二级子目录 subsubdir2 ，其中包含一个文件 file2.ext。</p>
+</blockquote>
+<p>我们致力于寻找我们文件系统中文件的最长 (按字符的数量统计) 绝对路径。例如，在上述的第二个例子中，最长路径为 “dir/subdir2/subsubdir2/file2.ext”，其长度为 32 (不包含双引号)。</p>
+<p>给定一个以上述格式表示文件系统的字符串，返回文件系统中文件的最长绝对路径的长度。 如果系统中没有文件，返回 0。</p>
+<p>说明:</p>
+<ul>
+<li>文件名至少存在一个 . 和一个扩展名。</li>
+<li>目录或者子目录的名字不能包含 .。</li>
+<li>要求时间复杂度为 O(n) ，其中 n 是输入字符串的大小。</li>
+</ul>
+<p>请注意，如果存在路径 aaaaaaaaaaaaaaaaaaaaa/sth.png 的话，那么  a/aa/aaa/file1.txt 就不是一个最长的路径。</p>
+<h3 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h3><p>抓住一个细节问题：只有文件名是带有.（点）的，如果不包含文件名则不应计算最大长度</p>
+<p>这个问题的另一个特点就是<code>\t</code>，其实代表了<strong>目录深度</strong>。</p>
+<p>当我们找到一个带<code>.</code>的文件时候，我们就<strong>计算其长度</strong>，并与最大长度比较，保留最长的数。</p>
+<p>如何计算一次完整路径的长度呢？</p>
+<p>只需要让当前文件的文件名字长度+其目录文件的长度</p>
+<p>举例：</p>
+<blockquote>
+<p>dir<br>    subdir1<br>        file1.ext<br>        subsubdir1<br>    subdir2<br>        subsubdir2<br>            file2.ext</p>
+</blockquote>
+<p>定义一个dict来存储长度，初始化{0:0}</p>
+<p>当处理’dir’时，其<code>\t</code>个数为0，则depth=0，则下一层文件的基础部分就有了<code>dir/</code>,所以</p>
+<p><code>dict[depth+1] = len(&#39;dir&#39;)+dict[depth]+1</code></p>
+<p>dict变为{0:0,1:4}</p>
+<p>同理，当处理过subdir1后，dict变为{0:0,1:4,2:12}，12来自<code>dir/subdir1/</code></p>
+<p>同理，当处理到<code>file1.ext</code>，需要更新一次最大长度，<code>max= &#39;dir/subdir1/file1.ext&#39; = 12+9=21</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthLongestPath</span><span class="params">(self, input: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">not</span> <span class="keyword">in</span> input:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        depth_dict = &#123;<span class="number">0</span>:<span class="number">0</span>&#125; <span class="comment"># key:depth  value:length</span></span><br><span class="line">        depth = <span class="number">0</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> input.split(<span class="string">'\n'</span>):</span><br><span class="line">            <span class="comment"># 每行</span></span><br><span class="line">            depth = line.count(<span class="string">'\t'</span>)</span><br><span class="line">            name = line.strip(<span class="string">'\t'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> name:</span><br><span class="line">                max_len = max(max_len, len(name)+depth_dict[depth])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 下一级目录长度 = 目录名+之前的目录+分隔符号 ”/“</span></span><br><span class="line">                depth_dict[depth+<span class="number">1</span>] = len(name) + depth_dict[depth] + <span class="number">1</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
+<h3 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h3><p>利用栈来实现。</p>
+<p>栈深度代表了文件目录的深度，压栈的内容是目录的名字，当遍历到带有拓展名的文件时，只需要将栈内的内容按<code>/</code>链接起来就是绝对路径。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthLongestPath</span><span class="params">(self, input: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">not</span> <span class="keyword">in</span> input:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        stack = []</span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> input.split(<span class="string">'\n'</span>):</span><br><span class="line">            depth = line.count(<span class="string">'\t'</span>)+<span class="number">1</span>  <span class="comment"># 小细节，同等递归深度目录，应该出栈</span></span><br><span class="line">            name = line.strip(<span class="string">'\t'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> len(stack) &gt;= depth:</span><br><span class="line">                stack.pop()</span><br><span class="line">            stack.append(name)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> name:</span><br><span class="line">                max_len = max(max_len,len(<span class="string">'/'</span>.join(stack)))</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Leetcode/leetcode-681-%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%97%B6%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/Leetcode/leetcode-681-%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%97%B6%E9%97%B4/" class="post-title-link" itemprop="url">Leetcode-681-最近时刻</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-02 22:47:06" itemprop="dateCreated datePublished" datetime="2020-02-02T22:47:06+08:00">2020-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-19 00:51:05" itemprop="dateModified" datetime="2020-03-19T00:51:05+08:00">2020-03-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="最近时刻"><a href="#最近时刻" class="headerlink" title="最近时刻"></a>最近时刻</h2><p>给定一个形如 “HH:MM” 表示的时刻，利用当前出现过的数字构造下一个距离当前时间最近的时刻。每个出现数字都可以被无限次使用。</p>
+<p>你可以认为给定的字符串一定是合法的。例如，“01:34” 和 “12:09” 是合法的，“1:34” 和 “12:9” 是不合法的。</p>
+<p>样例 1:</p>
+<p>输入: “19:34”<br>输出: “19:39”<br>解释: 利用数字 1, 9, 3, 4 构造出来的最近时刻是 19:39，是 5 分钟之后。结果不是 19:33 因为这个时刻是 23 小时 59 分钟之后。</p>
+<p>样例 2:</p>
+<p>输入: “23:59”<br>输出: “22:22”<br>解释: 利用数字 2, 3, 5, 9 构造出来的最近时刻是 22:22。 答案一定是第二天的某一时刻，所以选择可构造的最小时刻。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>递归思路：就是枚举四个数字出现在每一个位置时候的情况，四个位置，4个数字，最差遍历就是 4！<br>剪枝策略：对于小时位置不满足[0,24)，对于分钟位置不满足[0,60)</p>
+<p>!!!注意一个问题：对于’00:00’ ‘11:11’的处理。<br>原有逻辑遇到 其本身会直接return 返回空结果，这样导致上面出现的case不能很好的覆盖<br>我们可以先将其赋值到<code>self.result</code>上，如果最后没有找到最小的时间，那么说明出现了上面这样的情况（全是重复数字）<br>最后直接返回<code>self.result</code></p>
+<p> 如何计算时间差？ 可参考官方题解给的计算方法<br>（minutes_new_time - minutes_origin_time） % (24*60)<br>举例：12:01对应  12*60+1 = 720<br>那么‘11:02’时间对应  11*60+2 = 662<br>（662-720） % 1440 = -58 % 1440 = 1382 是一个很大的值<br>主要就是这个思想来判断新生成的时间是否是距离最近的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.result = <span class="string">''</span></span><br><span class="line">        self.min_time = <span class="number">1440</span></span><br><span class="line">        self.time = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nextClosestTime</span><span class="params">(self, time: str)</span> -&gt; str:</span></span><br><span class="line">        self.result = time  <span class="comment"># 直接赋值到结果上 </span></span><br><span class="line">        self.time = int(time[:<span class="number">2</span>])*<span class="number">60</span>+int(time[<span class="number">3</span>:])</span><br><span class="line">        digit = time[:<span class="number">2</span>]+time[<span class="number">3</span>:]</span><br><span class="line">        stack = <span class="string">''</span></span><br><span class="line">        self.backtrace(<span class="number">0</span>,stack,digit)</span><br><span class="line">        <span class="keyword">return</span> self.result</span><br><span class="line"></span><br><span class="line">    <span class="comment"># dfs+剪枝</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backtrace</span><span class="params">(self,depth,stack,digit)</span>:</span></span><br><span class="line">        <span class="comment"># 剪枝</span></span><br><span class="line">        <span class="keyword">if</span> depth == <span class="number">2</span> <span class="keyword">and</span> int(stack[:<span class="number">2</span>])&gt;=<span class="number">24</span>:</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> depth == <span class="number">4</span> <span class="keyword">and</span> int(stack[<span class="number">2</span>:])&gt;=<span class="number">60</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">elif</span> depth == <span class="number">4</span>:</span><br><span class="line">            tmp_time = self.cal_time(stack)</span><br><span class="line">            <span class="keyword">if</span> tmp_time == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">elif</span> tmp_time &lt; self.min_time: <span class="comment"># 如果出现更小的时间，更新最小时间差以及结果</span></span><br><span class="line">                self.min_time = tmp_time</span><br><span class="line">                self.result = stack[:<span class="number">2</span>]+<span class="string">':'</span>+stack[<span class="number">2</span>:]</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(digit)):</span><br><span class="line">            </span><br><span class="line">                stack += digit[i]</span><br><span class="line">                self.backtrace(depth+<span class="number">1</span>,stack,digit)</span><br><span class="line">                stack = stack[:<span class="number">-1</span>]</span><br><span class="line">                </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cal_time</span><span class="params">(self,new_time)</span>:</span></span><br><span class="line">        hour = int(new_time[:<span class="number">2</span>])</span><br><span class="line">        minutes = int(new_time[<span class="number">2</span>:])</span><br><span class="line">        time = hour*<span class="number">60</span>+minutes</span><br><span class="line">        <span class="keyword">return</span> (time-self.time)%(<span class="number">24</span>*<span class="number">60</span>)   <span class="comment">#  小trick  -1 % 100 的结果是 99</span></span><br></pre></td></tr></table></figure>
+<p>更多Leetcode题解以及面试经验：<a href="https://mereder.github.io/archives/" target="_blank" rel="noopener">Mereder博客</a></p>
+<p><a href="https://drive.google.com/file/d/1PXQAvlTAzV4cdAGwit_52aKVrK4IShPw/view?usp=sharing" target="_blank" rel="noopener">https://drive.google.com/file/d/1PXQAvlTAzV4cdAGwit_52aKVrK4IShPw/view?usp=sharing</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Leetcode/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -758,243 +1083,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/06/bloom%E8%BF%87%E6%BB%A4%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/06/bloom%E8%BF%87%E6%BB%A4%E5%99%A8/" class="post-title-link" itemprop="url">Bloom Filter(布隆过滤器)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-01-06 22:53:27 / Modified: 22:54:40" itemprop="dateCreated datePublished" datetime="2020-01-06T22:53:27+08:00">2020-01-06</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://blog.csdn.net/jiaomeng/article/details/1495500" target="_blank" rel="noopener">https://blog.csdn.net/jiaomeng/article/details/1495500</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/06/Numpy%E7%9B%B8%E5%85%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/06/Numpy%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">numpy 相关</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-01-06 11:44:18 / Modified: 15:18:56" itemprop="dateCreated datePublished" datetime="2020-01-06T11:44:18+08:00">2020-01-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/daily/" itemprop="url" rel="index">
-                    <span itemprop="name">daily</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Numpy-相关"><a href="#Numpy-相关" class="headerlink" title="Numpy 相关"></a>Numpy 相关</h2><h3 id="np-vstack-和np-dstack"><a href="#np-vstack-和np-dstack" class="headerlink" title="np.vstack 和np.dstack"></a>np.vstack 和np.dstack</h3><p>vstack是对其低纬，将高纬进行合并</p>
-<p>dstack是对其高纬，将低纬进行合并</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; a = np.ones((64,30,2))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; b = np.zeros((64,30,3))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; c = np.dstack((a,b))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; c.shape</span></span><br><span class="line">(64, 30, 5)</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; a = np.ones((10,30))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; b = np.zeros((20,30))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; c = np.vstack((a,b))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; c.shape</span></span><br><span class="line">(30, 30)</span><br></pre></td></tr></table></figure>
-<h3 id="np-where"><a href="#np-where" class="headerlink" title="np.where"></a>np.where</h3><p>基本用法就是用来将数组内满足条件的值进行替换，比如将数组中<code>&gt;=1</code>的数置为1，其他置为0</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.where(a&gt;=<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br></pre></td></tr></table></figure>
-<p><strong>需要注意的是，np.where并不会修改原数组</strong></p>
-<ul>
-<li>求职意向：暑期实习生需要写的稍微具体点嘛   比如我写  算法实习生（研发实习生、产品实习生）   娇娇可以写   xx暑期实习生</li>
-<li>邮箱留学校的？</li>
-<li>大数据+机器学习选股  这个 如果很清楚并且可以讲出来可以写， 不太清楚的话 容易被问到盲区 </li>
-<li>每个项目可以写个项目的大致情况， 娇娇宝宝都写了自己做了哪些工作，但是感觉每一条中间没有什么连贯性。是同属于一个项目下的 还是 你在职期间所有的工作？</li>
-<li>本科如果 gpa 比较高 可以贴一下的 然后金融双学位有的课程记得比较清楚也可以写 （0.0 我猜娇娇宝宝都忘记了）</li>
-<li>其他应该就是顺序问题吧，我不太清楚你们的实习， 他们更在意什么？ 比如 学校  还是你的技能 还是 实习经历 娇娇动态调整下 </li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/Leetcode/leetcode-124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/05/Leetcode/leetcode-124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-124-二叉树中的最大路径和</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-01-05 17:51:10 / Modified: 17:52:27" itemprop="dateCreated datePublished" datetime="2020-01-05T17:51:10+08:00">2020-01-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="二叉树中的最大路径和"><a href="#二叉树中的最大路径和" class="headerlink" title="二叉树中的最大路径和"></a>二叉树中的最大路径和</h2><p>给定一个非空二叉树，返回其最大路径和。</p>
-<p>本题中，路径被定义为一条从树中任意节点出发，达到任意节点的序列。该路径至少包含一个节点，且不一定经过根节点。</p>
-<p>示例 1:</p>
-<p>输入: [1,2,3]</p>
-<pre><code>   1
-  / \
- 2   3
-</code></pre><p>输出: 6<br>示例 2:</p>
-<blockquote>
-<p>输入: [-10,9,20,null,null,15,7]</p>
-<p>  -10<br>   / \<br>  9  20<br>      /  \<br>   15   7</p>
-<p>输出: 42</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.result = float(<span class="string">'-inf'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxPathSum</span><span class="params">(self, root: TreeNode)</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 不要被奇怪的遍历吓到  只要求返回最大值，并不要求返回最大路径</span></span><br><span class="line">        tmp = self.helper(root)</span><br><span class="line">        <span class="keyword">return</span> self.result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        left = max(self.helper(root.left),<span class="number">0</span>)</span><br><span class="line">        right = max(self.helper(root.right),<span class="number">0</span>)</span><br><span class="line">        self.result = max(root.val+left+right,self.result)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root.val+max(left,right)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1038,7 +1131,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

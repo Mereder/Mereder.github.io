@@ -212,6 +212,395 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/Leetcode/leetcode-2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/22/Leetcode/leetcode-2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="post-title-link" itemprop="url">Leetcode-2-两数相加</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-22 19:12:41" itemprop="dateCreated datePublished" datetime="2019-12-22T19:12:41+08:00">2019-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-07 23:41:56" itemprop="dateModified" datetime="2020-02-07T23:41:56+08:00">2020-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h2><p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
+<p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<blockquote>
+<p>示例：</p>
+<p>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>输出：7 -&gt; 0 -&gt; 8<br>原因：342 + 465 = 807</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题目不难，但是细节问题吧…还是坑不少的</p>
+<p>下面这个解法的思路就是先对应位相加，需要进位的记录下，然后在下一位时候考虑进去。总的思路是循环加到某个链表为空，则跳出处理。那么只需要把不空的那个链表链接到结果链表后边就可以了。</p>
+<p>但是少考虑这样会出现的问题。</p>
+<blockquote>
+<p>[1]</p>
+<p>[9,9]</p>
+<p>Result:[0,0,1]</p>
+<p>但是我的返回结果是:[0,10]</p>
+</blockquote>
+<p>下面附上<strong>错误代码</strong></p>
+<p>这个想要更正也可以，后边的if语句换成while，然后进行对应操作即可。但是这样实际上把问题变复杂了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> l1 <span class="keyword">or</span> <span class="keyword">not</span> l2:</span><br><span class="line">            <span class="keyword">return</span> l1 <span class="keyword">or</span> l2</span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p1 = l1</span><br><span class="line">        p2 = l2</span><br><span class="line">        p = dummy</span><br><span class="line">        carry = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> p1 <span class="keyword">and</span> p2:</span><br><span class="line">            tmp = ListNode(<span class="number">0</span>)</span><br><span class="line">            tmp.val = (p1.val+p2.val+carry)%<span class="number">10</span></span><br><span class="line">            <span class="keyword">if</span> p1.val + p2.val +carry &gt;=<span class="number">10</span>:</span><br><span class="line">                carry = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                carry = <span class="number">0</span></span><br><span class="line">            p.next = tmp</span><br><span class="line">            p = p.next</span><br><span class="line">            p1 = p1.next</span><br><span class="line">            p2 = p2.next</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> p1:</span><br><span class="line">            p.next = p2</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> p2:</span><br><span class="line">            p.next = p1</span><br><span class="line">        <span class="keyword">if</span> carry==<span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> p.next:</span><br><span class="line">            a = ListNode(<span class="number">1</span>)</span><br><span class="line">            p.next = a</span><br><span class="line">        <span class="keyword">elif</span> carry==<span class="number">1</span> <span class="keyword">and</span> p.next:</span><br><span class="line">            p.next.val += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>
+<p>正确思路：</p>
+<p>不用提前结束为空的链表，实际过程，两个链表是同步走的，如果其中一个链表为空了，我们可认为这个部分的值<strong>为0</strong> 即可，其他操作都一样。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> l1 <span class="keyword">or</span> <span class="keyword">not</span> l2:</span><br><span class="line">            <span class="keyword">return</span> l1 <span class="keyword">or</span> l2</span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p1 = l1</span><br><span class="line">        p2 = l2</span><br><span class="line">        p = dummy</span><br><span class="line">        carry = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> p1 <span class="keyword">or</span> p2:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> p1:</span><br><span class="line">                x = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                x = p1.val</span><br><span class="line">                p1 = p1.next</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> p2:</span><br><span class="line">                y = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                y = p2.val</span><br><span class="line">                p2 = p2.next</span><br><span class="line">            </span><br><span class="line">            tmp = ListNode(<span class="number">0</span>)</span><br><span class="line">            tmp.val = (x+y+carry)%<span class="number">10</span></span><br><span class="line">            <span class="keyword">if</span> x+y+carry &gt;=<span class="number">10</span>:</span><br><span class="line">                carry = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                carry = <span class="number">0</span></span><br><span class="line">            p.next = tmp</span><br><span class="line">            p = p.next</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> carry==<span class="number">1</span>:</span><br><span class="line">            a = ListNode(<span class="number">1</span>)</span><br><span class="line">            p.next = a</span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/Leetcode/leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/22/Leetcode/leetcode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-16-最接近的三数之和</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-22 16:48:37 / Modified: 16:57:56" itemprop="dateCreated datePublished" datetime="2019-12-22T16:48:37+08:00">2019-12-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a>最接近的三数之和</h2><p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
+<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
+<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>基本还是<a href="https://mereder.github.io/2019/11/25/leetcode-15-三数之和/" target="_blank" rel="noopener">三数之和</a>的思路，但是不用考虑重复问题。毕竟是找最接近的，而不是完全命中。相对简单点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSumClosest</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        nums.sort()</span><br><span class="line">        min_error = <span class="number">2</span>**<span class="number">32</span><span class="number">-1</span></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            left = i+<span class="number">1</span></span><br><span class="line">            right = n<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt; right:</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[left] + nums[right] &lt; target:</span><br><span class="line">                    <span class="keyword">if</span> abs(nums[i] + nums[left] + nums[right] - target) &lt; min_error:</span><br><span class="line">                        min_error = abs(nums[i] + nums[left] + nums[right] - target)</span><br><span class="line">                        result = nums[i] + nums[left] + nums[right]</span><br><span class="line">                    left += <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[i] + nums[left] + nums[right] &gt;= target:</span><br><span class="line">                    <span class="keyword">if</span> abs(nums[i] + nums[left] + nums[right] - target) &lt; min_error:</span><br><span class="line">                        min_error = abs(nums[i] + nums[left] + nums[right] - target)</span><br><span class="line">                        result = nums[i] + nums[left] + nums[right]</span><br><span class="line">                    right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/hadoop%20hdfs%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/22/hadoop%20hdfs%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">HDFS 操作指令</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-22 16:08:00" itemprop="dateCreated datePublished" datetime="2019-12-22T16:08:00+08:00">2019-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-07 23:16:20" itemprop="dateModified" datetime="2020-01-07T23:16:20+08:00">2020-01-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/daily/" itemprop="url" rel="index">
+                    <span itemprop="name">daily</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>其操作指令大部分跟linux下的命令差不多。</p>
+<p><a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html</a></p>
+<h2 id="FS-Shell"><a href="#FS-Shell" class="headerlink" title="FS Shell"></a>FS Shell</h2><p>调用文件系统(FS)Shell命令应使用 bin/hadoop fs <args>的形式。 所有的的FS shell命令使用URI路径作为参数。URI格式是<em>scheme://authority/path</em>。对HDFS文件系统，scheme是<em>hdfs</em>，对本地文件系统，scheme是<em>file</em>。其中scheme和authority参数都是可选的，如果未加指定，就会使用配置中指定的默认scheme。一个HDFS文件或目录比如<em>/parent/child</em>可以表示成<em>hdfs://namenode:namenodeport/parent/child</em>，或者更简单的<em>/parent/child</em>（假设你配置文件中的默认值是<em>namenode:namenodeport</em>）。大多数FS Shell命令的行为和对应的Unix Shell命令类似，不同之处会在下面介绍各命令使用详情时指出。出错信息会输出到<em>stderr</em>，其他信息输出到<em>stdout</em>。</p>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>使用方法：hadoop fs -cat URI [URI …]</p>
+<p>将路径指定文件的内容输出到<em>stdout</em>。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -cat hdfs://host1:port1/file1 hdfs://host2:port2/file2 </li>
+<li>hadoop fs -cat file:///file3 /user/hadoop/file4 </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+<h3 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h3><p>使用方法：hadoop fs -chgrp [-R] GROUP URI [URI …] Change group association of files. With -R, make the change recursively through the directory structure. The user must be the owner of files, or else a super-user. Additional information is in the <a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">Permissions User Guide</a>. —&gt;</p>
+<p>改变文件所属的组。使用-R将使改变在目录结构下递归进行。命令的使用者必须是文件的所有者或者超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p>使用方法：hadoop fs -chmod [-R] <MODE[,MODE]... | OCTALMODE> URI [URI …]</p>
+<p>改变文件的权限。使用-R将使改变在目录结构下递归进行。命令的使用者必须是文件的所有者或者超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
+<h3 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h3><p>使用方法：hadoop fs -chown [-R] [OWNER][:[GROUP]] URI [URI ]</p>
+<p>改变文件的拥有者。使用-R将使改变在目录结构下递归进行。命令的使用者必须是超级用户。更多的信息请参见<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html" target="_blank" rel="noopener">HDFS权限用户指南</a>。</p>
+<h3 id="copyFromLocal"><a href="#copyFromLocal" class="headerlink" title="copyFromLocal"></a>copyFromLocal</h3><p>使用方法：hadoop fs -copyFromLocal <localsrc> URI</p>
+<p>除了限定源路径是一个本地文件外，和<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#putlink" target="_blank" rel="noopener"><strong>put</strong></a>命令相似。</p>
+<h3 id="copyToLocal"><a href="#copyToLocal" class="headerlink" title="copyToLocal"></a>copyToLocal</h3><p>使用方法：hadoop fs -copyToLocal [-ignorecrc] [-crc] URI <localdst></p>
+<p>除了限定目标路径是一个本地文件外，和<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#getlink" target="_blank" rel="noopener"><strong>get</strong></a>命令类似。</p>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><p>使用方法：hadoop fs -cp URI [URI …] <dest></p>
+<p>将文件从源路径复制到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。<br>示例：</p>
+<ul>
+<li>hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2</li>
+<li>hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><p>使用方法：hadoop fs -du URI [URI …]</p>
+<p>显示目录中所有文件的大小，或者当只指定一个文件时，显示此文件的大小。<br>示例：<br>hadoop fs -du /user/hadoop/dir1 /user/hadoop/file1 hdfs://host:port/user/hadoop/dir1<br>返回值：<br>成功返回0，失败返回-1。 </p>
+<h3 id="dus"><a href="#dus" class="headerlink" title="dus"></a>dus</h3><p>使用方法：hadoop fs -dus <args></p>
+<p>显示文件的大小。</p>
+<h3 id="expunge"><a href="#expunge" class="headerlink" title="expunge"></a>expunge</h3><p>使用方法：hadoop fs -expunge</p>
+<p>清空回收站。请参考<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html" target="_blank" rel="noopener">HDFS设计</a>文档以获取更多关于回收站特性的信息。</p>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>使用方法：hadoop fs -get [-ignorecrc] [-crc] <src> <localdst> </p>
+<p>复制文件到本地文件系统。可用-ignorecrc选项复制CRC校验失败的文件。使用-crc选项复制文件以及CRC信息。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -get /user/hadoop/file localfile </li>
+<li>hadoop fs -get hdfs://host:port/user/hadoop/file localfile</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="getmerge"><a href="#getmerge" class="headerlink" title="getmerge"></a>getmerge</h3><p>使用方法：hadoop fs -getmerge <src> <localdst> [addnl]</p>
+<p>接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。 </p>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>使用方法：hadoop fs -ls <args></p>
+<p>如果是文件，则按照如下格式返回文件信息：<br>文件名 &lt;副本数&gt; 文件大小 修改日期 修改时间 权限 用户ID 组ID<br>如果是目录，则返回它直接子文件的一个列表，就像在Unix中一样。目录返回列表的信息如下：<br>目录名 <dir> 修改日期 修改时间 权限 用户ID 组ID<br>示例：<br>hadoop fs -ls /user/hadoop/file1 /user/hadoop/file2 hdfs://host:port/user/hadoop/dir1 /nonexistentfile<br>返回值：<br>成功返回0，失败返回-1。 </p>
+<h3 id="lsr"><a href="#lsr" class="headerlink" title="lsr"></a>lsr</h3><p>使用方法：hadoop fs -lsr <args><br>ls命令的递归版本。类似于Unix中的ls -R。</p>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>使用方法：hadoop fs -mkdir <paths> </p>
+<p>接受路径指定的uri作为参数，创建这些目录。其行为类似于Unix的mkdir -p，它会创建路径中的各级父目录。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2 </li>
+<li>hadoop fs -mkdir hdfs://host1:port1/user/hadoop/dir hdfs://host2:port2/user/hadoop/dir</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="movefromLocal"><a href="#movefromLocal" class="headerlink" title="movefromLocal"></a>movefromLocal</h3><p>使用方法：dfs -moveFromLocal <src> <dst></p>
+<p>输出一个”not implemented“信息。</p>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>使用方法：hadoop fs -mv URI [URI …] <dest></p>
+<p>将文件从源路径移动到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。不允许在不同的文件系统间移动文件。<br>示例：</p>
+<ul>
+<li>hadoop fs -mv /user/hadoop/file1 /user/hadoop/file2</li>
+<li>hadoop fs -mv hdfs://host:port/file1 hdfs://host:port/file2 hdfs://host:port/file3 hdfs://host:port/dir1</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>使用方法：hadoop fs -put <localsrc> … <dst></p>
+<p>从本地文件系统中复制单个或多个源路径到目标文件系统。也支持从标准输入中读取输入写入目标文件系统。</p>
+<ul>
+<li>hadoop fs -put localfile /user/hadoop/hadoopfile</li>
+<li>hadoop fs -put localfile1 localfile2 /user/hadoop/hadoopdir</li>
+<li>hadoop fs -put localfile hdfs://host:port/hadoop/hadoopfile</li>
+<li>hadoop fs -put - hdfs://host:port/hadoop/hadoopfile<br>从标准输入中读取输入。</li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p>使用方法：hadoop fs -rm URI [URI …] </p>
+<p>删除指定的文件。只删除非空目录和文件。请参考rmr命令了解递归删除。<br>示例：</p>
+<ul>
+<li>hadoop fs -rm hdfs://host:port/file /user/hadoop/emptydir </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="rmr"><a href="#rmr" class="headerlink" title="rmr"></a>rmr</h3><p>使用方法：hadoop fs -rmr URI [URI …]</p>
+<p>delete的递归版本。<br>示例：</p>
+<ul>
+<li>hadoop fs -rmr /user/hadoop/dir </li>
+<li>hadoop fs -rmr hdfs://host:port/user/hadoop/dir </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="setrep"><a href="#setrep" class="headerlink" title="setrep"></a>setrep</h3><p>使用方法：hadoop fs -setrep [-R] <path></p>
+<p>改变一个文件的副本系数。-R选项用于递归改变目录下所有文件的副本系数。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -setrep -w 3 -R /user/hadoop/dir1 </li>
+</ul>
+<p>返回值：</p>
+<p>成功返回0，失败返回-1。</p>
+<h3 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h3><p>使用方法：hadoop fs -stat URI [URI …]</p>
+<p>返回指定路径的统计信息。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -stat path </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><p>使用方法：hadoop fs -tail [-f] URI </p>
+<p>将文件尾部1K字节的内容输出到stdout。支持-f选项，行为和Unix中一致。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -tail pathname </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><p>使用方法：hadoop fs -test -[ezd] URI</p>
+<p>选项：<br>-e 检查文件是否存在。如果存在则返回0。<br>-z 检查文件是否是0字节。如果是则返回0。<br>-d 如果路径是个目录，则返回1，否则返回0。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop fs -test -e filename </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -test -e  file_path</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检测路径是否存在</span></span><br><span class="line">其对应返回这可以用shell $?  来捕捉</span><br></pre></td></tr></table></figure>
+<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><p>使用方法：hadoop fs -text <src> </p>
+<p>将源文件输出为文本格式。允许的格式是zip和TextRecordInputStream。</p>
+<h3 id="touchz"><a href="#touchz" class="headerlink" title="touchz"></a>touchz</h3><p>使用方法：hadoop fs -touchz URI [URI …] </p>
+<p>创建一个0字节的空文件。</p>
+<p>示例：</p>
+<ul>
+<li>hadoop -touchz pathname </li>
+</ul>
+<p>返回值：<br>成功返回0，失败返回-1。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/22/Leetcode/leetcode-278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,7 +720,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-21 12:16:02" itemprop="dateModified" datetime="2020-03-21T12:16:02+08:00">2020-03-21</time>
+                <time title="Modified: 2020-03-21 13:12:01" itemprop="dateModified" datetime="2020-03-21T13:12:01+08:00">2020-03-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -374,7 +763,7 @@
 <h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水</p>
 <p>1),要求写出算法，目标是如何装出6斤水</p>
 <p>2),假设两个桶容量任意，比如X斤和Y斤,目标是Z斤;要求写出算法</p>
-<p>该问题详解请见 <a href="">Leetcode-365-装水问题</a></p>
+<p>该问题详解请见 <a href="https://mereder.github.io/2020/03/21/Leetcode/leetcode-365-水壶问题/" target="_blank" rel="noopener">Leetcode-365-装水问题</a></p>
 
       
     </div>
@@ -1143,281 +1532,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/shell%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/17/shell%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Shell 命令基础</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-17 13:18:36" itemprop="dateCreated datePublished" datetime="2019-12-17T13:18:36+08:00">2019-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-15 11:51:56" itemprop="dateModified" datetime="2020-01-15T11:51:56+08:00">2020-01-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Shell命令基础"><a href="#Shell命令基础" class="headerlink" title="Shell命令基础"></a>Shell命令基础</h2><p>日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识</p>
-<h3 id="基本符号问题"><a href="#基本符号问题" class="headerlink" title="基本符号问题"></a>基本符号问题</h3><p>` `  ！！！不是单引号</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`` 键盘右上角的符号，并不是单引号，这个用来包住命令 tmp=`echo '123'`就是将内部的命令运行结果包起来</span><br><span class="line">等价于 $() 即 tmp=$(echo '123')</span><br></pre></td></tr></table></figure>
-<h3 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h3><h4 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for((i=0;i&lt;$n;i++)); # 这样可以像C语言一样写</span><br><span class="line">do xxxxxx</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-<h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dt=$1</span><br><span class="line">if [ ! $dt ];then</span><br><span class="line">    do something</span><br><span class="line">else:</span><br><span class="line">	  do something</span><br><span class="line">	  exit 1  # 强制退出</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<h4 id="函数写法"><a href="#函数写法" class="headerlink" title="函数写法"></a>函数写法</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 定义一个函数</span></span><br><span class="line">test_func()&#123;</span><br><span class="line">		hive -hiveconf table_name=$&#123;table_name&#125; \</span><br><span class="line">				-hiveconf ...\</span><br><span class="line">				-f test.hql</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">test_func</span><br></pre></td></tr></table></figure>
-<h3 id="source-用法"><a href="#source-用法" class="headerlink" title="source 用法"></a>source 用法</h3><p>激活脚本，比如.sh文件中定义了一些变量，完全可以通过source一个.sh文件来使得脚本中定义的变量生效</p>
-<p>但是有个问题，这个生效的声明周期仅限于在该会话内，再开一个终端是不能用的</p>
-<h3 id="df-和-du"><a href="#df-和-du" class="headerlink" title="df 和 du"></a>df 和 du</h3><ul>
-<li>du: disk-usage 显示文件或者目录所占磁盘空间</li>
-</ul>
-<p>du工作原理，会对待统计文件逐个调用<code>fstat</code>这个系统调用</p>
-<ul>
-<li>df:disk-free  检查磁盘空间（所以并不能看某个目录的占得磁盘大小）</li>
-</ul>
-<h3 id="查看文件挂载在哪里"><a href="#查看文件挂载在哪里" class="headerlink" title="查看文件挂载在哪里"></a>查看文件挂载在哪里</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h &lt;path&gt; 即可查看</span><br></pre></td></tr></table></figure>
-<h3 id="shell-脚本里面多行注释"><a href="#shell-脚本里面多行注释" class="headerlink" title="shell 脚本里面多行注释"></a>shell 脚本里面多行注释</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo "123"</span><br><span class="line"></span><br><span class="line">&lt;&lt; COMMENT</span><br><span class="line">test </span><br><span class="line">&lt;&lt;</span><br></pre></td></tr></table></figure>
-<h3 id="sort-用法"><a href="#sort-用法" class="headerlink" title="sort 用法"></a>sort 用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主要的几个参数：</span><br><span class="line">-k 3  按照第3列进行排序</span><br><span class="line">-r  默认升序，-r进行逆序</span><br><span class="line">-n numerical  如果按照字符串排序会出现  23排在8前面  -n则是按照数值大小排序</span><br><span class="line">-t ”,“ 按照逗号分割，  '\t'这个有点特殊  需要  $'\t' 这样用</span><br></pre></td></tr></table></figure>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-title-link" itemprop="url">Git 常用工作流</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-17 11:46:48" itemprop="dateCreated datePublished" datetime="2019-12-17T11:46:48+08:00">2019-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-18 20:24:36" itemprop="dateModified" datetime="2020-03-18T20:24:36+08:00">2020-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/daily/" itemprop="url" rel="index">
-                    <span itemprop="name">daily</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="git-基本工作流"><a href="#git-基本工作流" class="headerlink" title="git 基本工作流"></a>git 基本工作流</h3><p>初级 以及讲解  配合业务 使用</p>
-<ul>
-<li><p>从线上拉回代码</p>
-</li>
-<li><p>开发前建立一个分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b marys-feature</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后进行开发</p>
-</li>
-<li><p>然后将开发的结果push上去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后进行 git push -u origin  branch_name</p>
-</li>
-<li><p>提  merger request </p>
-</li>
-</ul>
-<h3 id="更换branch名字"><a href="#更换branch名字" class="headerlink" title="更换branch名字"></a>更换branch名字</h3><p>git branch -m oldname newname</p>
-<p>然后再走一遍新的工作流，将新的branch 上传至 origin</p>
-<p><a href="https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#小红开始开发一个新功能" target="_blank" rel="noopener">https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-feature-branch.md#%E5%B0%8F%E7%BA%A2%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD</a></p>
-<h3 id="只克隆branch-到本地"><a href="#只克隆branch-到本地" class="headerlink" title="只克隆branch 到本地"></a>只克隆branch 到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b branch_name  git_address</span><br></pre></td></tr></table></figure>
-<h3 id="Git-版本回退到某一个"><a href="#Git-版本回退到某一个" class="headerlink" title="Git 版本回退到某一个"></a>Git 版本回退到某一个</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard  commint_id</span><br></pre></td></tr></table></figure>
-<h3 id="完整地址"><a href="#完整地址" class="headerlink" title="完整地址"></a>完整地址</h3><p><a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials</a></p>
-<p><a href="https://learngitbranching.js.org/" target="_blank" rel="noopener">https://learngitbranching.js.org/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Apache%20pig/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/16/Apache%20pig/" class="post-title-link" itemprop="url">Apach pig 日常使用总结</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-16 23:42:37" itemprop="dateCreated datePublished" datetime="2019-12-16T23:42:37+08:00">2019-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-27 00:06:43" itemprop="dateModified" datetime="2019-12-27T00:06:43+08:00">2019-12-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/daily/" itemprop="url" rel="index">
-                    <span itemprop="name">daily</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Apach-Pig"><a href="#Apach-Pig" class="headerlink" title="Apach Pig"></a>Apach Pig</h2><p>最近需要用到pig这个东西，故做简单的学习记录</p>
-<p>首先 pig的基本组成单元是关系，就是内部存储的东西都是关系</p>
-<p>是一种简单的分析工具， 其基础是运行在hadoop基础上，那么就涉及到基础的文件加载和存储问题</p>
-<h3 id="pig加载数据"><a href="#pig加载数据" class="headerlink" title="pig加载数据"></a>pig加载数据</h3><p>加载数据的目的是将raw data 加载进pig的关系中</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">relation_name = LOAD 'input_file_path' USING function as schema;</span><br><span class="line"></span><br><span class="line">eg:</span><br><span class="line"></span><br><span class="line">student = LOAD 'hdfs://localhost:9000/pig_data/student_data.txt' </span><br><span class="line">   USING PigStorage(',')</span><br><span class="line">   as ( id:int, firstname:chararray, lastname:chararray, phone:chararray, </span><br><span class="line">   city:chararray );</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>relation_name</strong> - 我们必须提到要存储数据的关系。</li>
-<li><strong>Input file path</strong> - 我们必须提到存储文件的HDFS目录。（在MapReduce模式下）</li>
-<li><strong>function</strong> - 我们必须从Apache Pig提供的一组加载函数中选择一个函数（ <strong>BinStorage，JsonLoader，PigStorage，TextLoader</strong> ）。</li>
-<li><strong>Schema</strong> - 我们必须定义数据的模式，可以定义所需的模式如下 -</li>
-</ul>
-<p>还有一种是加载hive表</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = load 'hive表' using</span><br></pre></td></tr></table></figure>
-<h3 id="pig-存储数据"><a href="#pig-存储数据" class="headerlink" title="pig 存储数据"></a>pig 存储数据</h3><p>是将转化为关系的数据，存储在hdfs上（local也可以）</p>
-<h3 id="FOREACH-GENERATE的使用"><a href="#FOREACH-GENERATE的使用" class="headerlink" title="FOREACH, GENERATE的使用"></a>FOREACH, GENERATE的使用</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1461,7 +1580,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

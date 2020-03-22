@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="最大BST树给定一个二叉树，找到其中最大的二叉搜索树（BST）子树，其中最大指的是子树节点数最多的。 注意:子树必须包含其所有后代。 示例: 输入: [10,5,15,1,8,null,7]    10   &#x2F; \  5  15 &#x2F; \   \1   8   7 输出: 3解释: 高亮部分为最大的 BST 子树。     返回值 3 在这个样例中为子树大小。进阶:你能想出用 O(n) 的时间复杂度">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-15T10:22:09.414Z">
+<meta property="og:updated_time" content="2020-03-21T11:35:42.996Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/15/Leetcode/leetcode-333-%E6%9C%80%E5%A4%A7BST%E6%A0%91/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-15 10:16:57 / Modified: 18:22:09" itemprop="dateCreated datePublished" datetime="2020-03-15T10:16:57+08:00">2020-03-15</time>
+              <time title="Created: 2020-03-15 10:16:57" itemprop="dateCreated datePublished" datetime="2020-03-15T10:16:57+08:00">2020-03-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-21 19:35:42" itemprop="dateModified" datetime="2020-03-21T19:35:42+08:00">2020-03-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -278,7 +284,7 @@
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>见到这个题的时候，瞬间想到了之前做过的一次双周赛的题目：<a href="https://leetcode-cn.com/problems/maximum-sum-bst-in-binary-tree/" target="_blank" rel="noopener">1373. 二叉搜索子树的最大键值和</a></p>
 <p>本质思想都是 树节点的回溯以及判断 是否是BST的过程。</p>
 <p>以往判断一棵树是不是BST返回的信息只需要是True or False</p>
-<p>这里每次返回的信息只告诉你（info，left_boundary，right_boundary），如果满足BST会对 <code>info</code>字段进行更新，如果不满足则会返回 (info,  minInt,  maxInt) 来表示只要包含此节点都不可能成为BST</p>
+<p>这里每次返回的信息只告诉你（info，left_boundary，right_boundary），如果满足BST会对 <code>info</code>字段进行更新，如果不满足则会返回 <strong>(info,  minInt,  maxInt)</strong> 来表示只要包含此节点的树都不可能成为BST。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestBSTSubtree</span><span class="params">(self, root: TreeNode)</span> -&gt; int:</span></span><br><span class="line">        self.res = <span class="number">0</span></span><br><span class="line">        final = self.isBST(root)</span><br><span class="line">        <span class="keyword">return</span> self.res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isBST</span><span class="params">(self,root)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        return (info, left_boundary, right_boundary)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="comment"># 对于空节点，是可以任意节点的子节点的  所以 让左边最大，右边界最小</span></span><br><span class="line">            <span class="comment"># 可以 满足 下面 对BST的判断</span></span><br><span class="line">            <span class="keyword">return</span> (<span class="number">0</span>, float(<span class="string">'inf'</span>), float(<span class="string">'-inf'</span>))</span><br><span class="line">        </span><br><span class="line">        left_res = self.isBST(root.left)</span><br><span class="line">        right_res = self.isBST(root.right)</span><br><span class="line">				</span><br><span class="line">        <span class="comment"># 判断左子树的最大值 小于 根； 右子树的最小值  大于 根  则为BST</span></span><br><span class="line">        <span class="keyword">if</span> left_res[<span class="number">2</span>] &lt; root.val  <span class="keyword">and</span>  root.val &lt; right_res[<span class="number">1</span>]:</span><br><span class="line">            <span class="comment"># 本题 info: 最大个数，当然这里可以换成 最大和  最大值 最小值 等 其他信息</span></span><br><span class="line">            s = <span class="number">1</span> + left_res[<span class="number">0</span>] + right_res[<span class="number">0</span>]</span><br><span class="line">            self.res = max(self.res,s)</span><br><span class="line">            <span class="keyword">return</span> (s,min(left_res[<span class="number">1</span>],root.val), max(right_res[<span class="number">2</span>],root.val))</span><br><span class="line">				<span class="comment">#  跟空节点截然相反，如果一个根不可以是BST，那么返回这个根 左边是最小， 右边 最大 </span></span><br><span class="line">        <span class="comment">#  这样  回溯都上面任何一个包含此节点 根 都不可能为 BST</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="number">1</span>, float(<span class="string">'-inf'</span>),float(<span class="string">'inf'</span>))</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -356,7 +362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

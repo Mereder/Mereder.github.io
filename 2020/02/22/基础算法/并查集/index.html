@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="Union-find并查集，主要用来解决再一个集合中查找是否存在另一个元素，或者合并两个集合。 涉及到的主要操作就是Union和Find">
+  <meta name="description" content="Union-find并查集，主要用来解决在一个集合中查找是否存在另一个元素，或者合并两个集合。更常见的应用是连通分量。更具体一点的应用场景：  网络连接 变量名等价性 数学集合  涉及到的主要操作就是Union和Find 基本的实现有 fast_find fast_union ，这里只给出一个《算法第四版》的简单实现，重点是看后边实现的高效的Union_Find Union-Find 基本例子更高">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Union-Find">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;22&#x2F;%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95&#x2F;%E5%B9%B6%E6%9F%A5%E9%9B%86&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="Union-find并查集，主要用来解决再一个集合中查找是否存在另一个元素，或者合并两个集合。 涉及到的主要操作就是Union和Find">
+<meta property="og:description" content="Union-find并查集，主要用来解决在一个集合中查找是否存在另一个元素，或者合并两个集合。更常见的应用是连通分量。更具体一点的应用场景：  网络连接 变量名等价性 数学集合  涉及到的主要操作就是Union和Find 基本的实现有 fast_find fast_union ，这里只给出一个《算法第四版》的简单实现，重点是看后边实现的高效的Union_Find Union-Find 基本例子更高">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-22T08:25:05.698Z">
+<meta property="og:updated_time" content="2020-03-22T01:05:10.247Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/22/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-22 16:23:41 / Modified: 16:25:05" itemprop="dateCreated datePublished" datetime="2020-02-22T16:23:41+08:00">2020-02-22</time>
+              <time title="Created: 2020-02-22 16:23:41" itemprop="dateCreated datePublished" datetime="2020-02-22T16:23:41+08:00">2020-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-22 09:05:10" itemprop="dateModified" datetime="2020-03-22T09:05:10+08:00">2020-03-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -262,8 +268,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Union-find"><a href="#Union-find" class="headerlink" title="Union-find"></a>Union-find</h2><p>并查集，主要用来解决再一个集合中查找是否存在另一个元素，或者合并两个集合。</p>
+        <h2 id="Union-find"><a href="#Union-find" class="headerlink" title="Union-find"></a>Union-find</h2><p>并查集，主要用来解决在一个集合中查找是否存在另一个元素，或者合并两个集合。更常见的应用是连通分量。更具体一点的应用场景：</p>
+<ul>
+<li>网络连接</li>
+<li>变量名等价性</li>
+<li>数学集合</li>
+</ul>
 <p>涉及到的主要操作就是Union和Find</p>
+<p>基本的实现有 <code>fast_find</code> <code>fast_union</code> ，这里只给出一个《算法第四版》的简单实现，重点是看后边实现的高效的<code>Union_Find</code></p>
+<h3 id="Union-Find-基本例子"><a href="#Union-Find-基本例子" class="headerlink" title="Union-Find 基本例子"></a>Union-Find 基本例子</h3><h3 id="更高效的实现（-logN-）"><a href="#更高效的实现（-logN-）" class="headerlink" title="更高效的实现（$logN$）"></a>更高效的实现（$logN$）</h3><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h3><p>原理就是在<code>find</code>过程，将沿途的路径都进行一次压缩。</p>
+<p>压缩的含义就是指: 1-&gt;3-&gt;5这样的路径，变成1-&gt;3 , 1-&gt;5 ，这样再执行查找的过程中路径会更短一些，最终UF中的同一个连通分量都会直接指向根。</p>
 
     </div>
 
@@ -326,7 +340,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Union-find"><span class="nav-number">1.</span> <span class="nav-text">Union-find</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Union-find"><span class="nav-number">1.</span> <span class="nav-text">Union-find</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-Find-基本例子"><span class="nav-number">1.1.</span> <span class="nav-text">Union-Find 基本例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更高效的实现（-logN-）"><span class="nav-number">1.2.</span> <span class="nav-text">更高效的实现（$logN$）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.3.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径压缩"><span class="nav-number">1.4.</span> <span class="nav-text">路径压缩</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -340,7 +354,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
