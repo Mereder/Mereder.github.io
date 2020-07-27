@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="插入排序基础排序算法之一，也是基于交换的排序方案 时间复杂度是$O(N^2)$ 当然有可以优化的点，就是当一次插入中，没有跟  有序部分最后一个发生交换的话，可以直接退出当前循环了，继续去操作下一个数值 算法实现 12345678910111213141516def insertSort(nums):    for i in range(1,len(nums)):        flag = Fa">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-05T15:16:48.868Z">
+<meta property="og:updated_time" content="2020-07-26T07:17:41.686Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/29/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-05 23:16:48" itemprop="dateModified" datetime="2019-12-05T23:16:48+08:00">2019-12-05</time>
+                <time title="Modified: 2020-07-26 15:17:41" itemprop="dateModified" datetime="2020-07-26T15:17:41+08:00">2020-07-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,7 +272,7 @@
 <p>时间复杂度是$O(N^2)$</p>
 <p>当然有可以优化的点，就是当一次插入中，没有跟  有序部分最后一个发生交换的话，可以直接退出当前循环了，继续去操作下一个数值</p>
 <p>算法实现</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertSort</span><span class="params">(nums)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">        flag = <span class="literal">False</span> <span class="comment"># 优化地方</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i,<span class="number">0</span>,<span class="number">-1</span>): <span class="comment"># j=i开始，向j=0 遍历</span></span><br><span class="line">            <span class="keyword">if</span> nums[j<span class="number">-1</span>] &gt; nums[j]:</span><br><span class="line">                nums[j<span class="number">-1</span>],nums[j] = nums[j],nums[j<span class="number">-1</span>]</span><br><span class="line">                flag = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> flag: <span class="comment"># 未发生交换</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = [<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>]</span><br><span class="line">    insertSort(a)</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertSort</span><span class="params">(nums)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">        flag = <span class="literal">False</span> <span class="comment"># 优化地方</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i,<span class="number">0</span>,<span class="number">-1</span>): <span class="comment"># j=i开始，向j=0 遍历</span></span><br><span class="line">            <span class="keyword">if</span> nums[j<span class="number">-1</span>] &gt; nums[j]:</span><br><span class="line">                nums[j<span class="number">-1</span>],nums[j] = nums[j],nums[j<span class="number">-1</span>]</span><br><span class="line">                flag = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> flag: <span class="comment"># 未发生交换</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = [<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>]</span><br><span class="line">    insertSort(a)</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -349,18 +349,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

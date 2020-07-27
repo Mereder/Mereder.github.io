@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="Union-find并查集，主要用来解决在一个集合中查找是否存在另一个元素，或者合并两个集合。更常见的应用是连通分量。更具体一点的应用场景：  网络连接 变量名等价性 数学集合  涉及到的主要操作就是Union和Find 基本的实现有 fast_find fast_union ，这里只给出一个《算法第四版》的简单实现，重点是看后边实现的高效的Union_Find Union-Find 基本例子更高">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-22T01:05:10.247Z">
+<meta property="og:updated_time" content="2020-04-27T04:17:09.153Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/22/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-22 09:05:10" itemprop="dateModified" datetime="2020-03-22T09:05:10+08:00">2020-03-22</time>
+                <time title="Modified: 2020-04-27 12:17:09" itemprop="dateModified" datetime="2020-04-27T12:17:09+08:00">2020-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,7 +276,8 @@
 </ul>
 <p>涉及到的主要操作就是Union和Find</p>
 <p>基本的实现有 <code>fast_find</code> <code>fast_union</code> ，这里只给出一个《算法第四版》的简单实现，重点是看后边实现的高效的<code>Union_Find</code></p>
-<h3 id="Union-Find-基本例子"><a href="#Union-Find-基本例子" class="headerlink" title="Union-Find 基本例子"></a>Union-Find 基本例子</h3><h3 id="更高效的实现（-logN-）"><a href="#更高效的实现（-logN-）" class="headerlink" title="更高效的实现（$logN$）"></a>更高效的实现（$logN$）</h3><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h3><p>原理就是在<code>find</code>过程，将沿途的路径都进行一次压缩。</p>
+<h3 id="Union-Find-基本例子"><a href="#Union-Find-基本例子" class="headerlink" title="Union-Find 基本例子"></a>Union-Find 基本例子</h3><h3 id="更高效的实现（-logN-）"><a href="#更高效的实现（-logN-）" class="headerlink" title="更高效的实现（$logN$）"></a>更高效的实现（$logN$）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    并查集： 10^7 mem out...</span></span><br><span class="line"><span class="string">    union:</span></span><br><span class="line"><span class="string">    find:</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,n)</span>:</span></span><br><span class="line">        self.n = n</span><br><span class="line">        self.index = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        self.cnt = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">        self.maxCnt = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>):</span><br><span class="line">            self.index[i] = i</span><br><span class="line">            self.cnt[i] = <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self,root)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> self.index[root] != root:</span><br><span class="line">            root = self.index[root]</span><br><span class="line">        <span class="keyword">return</span> root</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">union</span><span class="params">(self,p,q)</span>:</span></span><br><span class="line">        root_p = self.find(p)</span><br><span class="line">        root_q = self.find(q)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> root_p == root_q:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span> self.cnt[root_p] &lt; self.cnt[root_q]:</span><br><span class="line">            self.cnt[root_q] += self.cnt[root_p]</span><br><span class="line">            self.index[root_p] = root_q</span><br><span class="line">            self.maxCnt = max(self.maxCnt,self.cnt[root_q])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.cnt[root_p] += self.cnt[root_q]</span><br><span class="line">            self.index[root_q] = root_p</span><br><span class="line">            self.maxCnt = max(self.maxCnt,self.cnt[root_p])</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isConnected</span><span class="params">(p,q)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.find(p) == self.find(q)</span><br></pre></td></tr></table></figure>
+<h3 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h3><p>原理就是在<code>find</code>过程，将沿途的路径都进行一次压缩。</p>
 <p>压缩的含义就是指: 1-&gt;3-&gt;5这样的路径，变成1-&gt;3 , 1-&gt;5 ，这样再执行查找的过程中路径会更短一些，最终UF中的同一个连通分量都会直接指向根。</p>
 
     </div>
@@ -340,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Union-find"><span class="nav-number">1.</span> <span class="nav-text">Union-find</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-Find-基本例子"><span class="nav-number">1.1.</span> <span class="nav-text">Union-Find 基本例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更高效的实现（-logN-）"><span class="nav-number">1.2.</span> <span class="nav-text">更高效的实现（$logN$）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.3.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径压缩"><span class="nav-number">1.4.</span> <span class="nav-text">路径压缩</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Union-find"><span class="nav-number">1.</span> <span class="nav-text">Union-find</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-Find-基本例子"><span class="nav-number">1.1.</span> <span class="nav-text">Union-Find 基本例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更高效的实现（-logN-）"><span class="nav-number">1.2.</span> <span class="nav-text">更高效的实现（$logN$）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径压缩"><span class="nav-number">1.3.</span> <span class="nav-text">路径压缩</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -354,18 +355,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

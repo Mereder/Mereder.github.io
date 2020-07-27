@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="Shell命令基础日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识 基本符号问题&#96; &#96;  ！！！不是单引号 12&#96;&#96; 键盘右上角的符号，并不是单引号，这个用来包住命令 tmp=&#96;echo &amp;apos;123&amp;apos;&#96;就是将内部的命令运行结果包起来等价于 $() 即 tmp=$(echo &amp;apos;123&amp;apos;) 基本语句for 循环123for((i=0;i&amp;lt;$n;i++)); #">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-15T03:51:56.386Z">
+<meta property="og:updated_time" content="2020-06-06T09:21:18.328Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/17/shell%E5%9F%BA%E7%A1%80/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-15 11:51:56" itemprop="dateModified" datetime="2020-01-15T11:51:56+08:00">2020-01-15</time>
+                <time title="Modified: 2020-06-06 17:21:18" itemprop="dateModified" datetime="2020-06-06T17:21:18+08:00">2020-06-06</time>
               </span>
 
           
@@ -275,7 +275,8 @@
 <h3 id="查看文件挂载在哪里"><a href="#查看文件挂载在哪里" class="headerlink" title="查看文件挂载在哪里"></a>查看文件挂载在哪里</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h &lt;path&gt; 即可查看</span><br></pre></td></tr></table></figure>
 <h3 id="shell-脚本里面多行注释"><a href="#shell-脚本里面多行注释" class="headerlink" title="shell 脚本里面多行注释"></a>shell 脚本里面多行注释</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo "123"</span><br><span class="line"></span><br><span class="line">&lt;&lt; COMMENT</span><br><span class="line">test </span><br><span class="line">&lt;&lt;</span><br></pre></td></tr></table></figure>
 <h3 id="sort-用法"><a href="#sort-用法" class="headerlink" title="sort 用法"></a>sort 用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主要的几个参数：</span><br><span class="line">-k 3  按照第3列进行排序</span><br><span class="line">-r  默认升序，-r进行逆序</span><br><span class="line">-n numerical  如果按照字符串排序会出现  23排在8前面  -n则是按照数值大小排序</span><br><span class="line">-t ”,“ 按照逗号分割，  '\t'这个有点特殊  需要  $'\t' 这样用</span><br></pre></td></tr></table></figure>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从标准输入 获取</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -p 表示先输出一段文本内容</span></span><br><span class="line">read -p  "please input: " num</span><br><span class="line">echo $num</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -337,7 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell命令基础"><span class="nav-number">1.</span> <span class="nav-text">Shell命令基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本符号问题"><span class="nav-number">1.1.</span> <span class="nav-text">基本符号问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语句"><span class="nav-number">1.2.</span> <span class="nav-text">基本语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#for-循环"><span class="nav-number">1.2.1.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if语句"><span class="nav-number">1.2.2.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数写法"><span class="nav-number">1.2.3.</span> <span class="nav-text">函数写法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#source-用法"><span class="nav-number">1.3.</span> <span class="nav-text">source 用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#df-和-du"><span class="nav-number">1.4.</span> <span class="nav-text">df 和 du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件挂载在哪里"><span class="nav-number">1.5.</span> <span class="nav-text">查看文件挂载在哪里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-脚本里面多行注释"><span class="nav-number">1.6.</span> <span class="nav-text">shell 脚本里面多行注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-用法"><span class="nav-number">1.7.</span> <span class="nav-text">sort 用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.8.</span> <span class="nav-text"> </span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell命令基础"><span class="nav-number">1.</span> <span class="nav-text">Shell命令基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本符号问题"><span class="nav-number">1.1.</span> <span class="nav-text">基本符号问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语句"><span class="nav-number">1.2.</span> <span class="nav-text">基本语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#for-循环"><span class="nav-number">1.2.1.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if语句"><span class="nav-number">1.2.2.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数写法"><span class="nav-number">1.2.3.</span> <span class="nav-text">函数写法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#source-用法"><span class="nav-number">1.3.</span> <span class="nav-text">source 用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#df-和-du"><span class="nav-number">1.4.</span> <span class="nav-text">df 和 du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件挂载在哪里"><span class="nav-number">1.5.</span> <span class="nav-text">查看文件挂载在哪里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-脚本里面多行注释"><span class="nav-number">1.6.</span> <span class="nav-text">shell 脚本里面多行注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-用法"><span class="nav-number">1.7.</span> <span class="nav-text">sort 用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.8.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#read"><span class="nav-number">1.9.</span> <span class="nav-text">read</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -351,18 +352,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

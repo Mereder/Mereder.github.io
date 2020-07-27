@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="墙与门你被给定一个 m × n 的二维网格，网格中有以下三种可能的初始化值： -1 表示墙或是障碍物0 表示一扇门INF 无限表示一个空的房间。然后，我们用 231 - 1 = 2147483647 代表 INF。你可以认为通往门的距离总是小于 2147483647 的。你要给每个空房间位上填上该房间到 最近 门的距离，如果无法到达门，则填 INF 即可。 示例： 给定二维网格： INF  -1">
+  <meta name="description" content="复习要点  墙与门你被给定一个 m × n 的二维网格，网格中有以下三种可能的初始化值： -1 表示墙或是障碍物0 表示一扇门INF 无限表示一个空的房间。然后，我们用 $2^{31} - 1 = 2147483647$ 代表 INF。你可以认为通往门的距离总是小于 2147483647 的。你要给每个空房间位上填上该房间到 最近 门的距离，如果无法到达门，则填 INF 即可。 示例： 给定二维">
 <meta name="keywords" content="BFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode-286-墙与门">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;04&#x2F;Leetcode&#x2F;leetcode-286-%E5%A2%99%E4%B8%8E%E9%97%A8&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="墙与门你被给定一个 m × n 的二维网格，网格中有以下三种可能的初始化值： -1 表示墙或是障碍物0 表示一扇门INF 无限表示一个空的房间。然后，我们用 231 - 1 = 2147483647 代表 INF。你可以认为通往门的距离总是小于 2147483647 的。你要给每个空房间位上填上该房间到 最近 门的距离，如果无法到达门，则填 INF 即可。 示例： 给定二维网格： INF  -1">
+<meta property="og:description" content="复习要点  墙与门你被给定一个 m × n 的二维网格，网格中有以下三种可能的初始化值： -1 表示墙或是障碍物0 表示一扇门INF 无限表示一个空的房间。然后，我们用 $2^{31} - 1 = 2147483647$ 代表 INF。你可以认为通往门的距离总是小于 2147483647 的。你要给每个空房间位上填上该房间到 最近 门的距离，如果无法到达门，则填 INF 即可。 示例： 给定二维">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-03T18:06:47.634Z">
+<meta property="og:updated_time" content="2020-03-24T03:05:18.244Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/04/Leetcode/leetcode-286-%E5%A2%99%E4%B8%8E%E9%97%A8/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-04 01:59:24 / Modified: 02:06:47" itemprop="dateCreated datePublished" datetime="2020-03-04T01:59:24+08:00">2020-03-04</time>
+              <time title="Created: 2020-03-04 01:59:24" itemprop="dateCreated datePublished" datetime="2020-03-04T01:59:24+08:00">2020-03-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-24 11:05:18" itemprop="dateModified" datetime="2020-03-24T11:05:18+08:00">2020-03-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -268,8 +274,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="墙与门"><a href="#墙与门" class="headerlink" title="墙与门"></a>墙与门</h2><p>你被给定一个 m × n 的二维网格，网格中有以下三种可能的初始化值：</p>
-<p>-1 表示墙或是障碍物<br>0 表示一扇门<br>INF 无限表示一个空的房间。然后，我们用 231 - 1 = 2147483647 代表 INF。你可以认为通往门的距离总是小于 2147483647 的。<br>你要给每个空房间位上填上该房间到 最近 门的距离，如果无法到达门，则填 INF 即可。</p>
+        <blockquote>
+<p>复习要点</p>
+</blockquote>
+<h2 id="墙与门"><a href="#墙与门" class="headerlink" title="墙与门"></a>墙与门</h2><p>你被给定一个 m × n 的二维网格，网格中有以下三种可能的初始化值：</p>
+<p>-1 表示墙或是障碍物<br>0 表示一扇门<br>INF 无限表示一个空的房间。然后，我们用 $2^{31} - 1 = 2147483647$ 代表 INF。你可以认为通往门的距离总是小于 2147483647 的。<br>你要给每个空房间位上填上该房间到 最近 门的距离，如果无法到达门，则填 INF 即可。</p>
 <p>示例：</p>
 <p>给定二维网格：</p>
 <p>INF  -1  0  INF<br>INF INF INF  -1<br>INF  -1 INF  -1<br>  0  -1 INF INF<br>运行完你的函数后，该网格应该变成：</p>
@@ -358,18 +367,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

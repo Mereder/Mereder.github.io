@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="字符串转换整数请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。 该字符串除了有效的整数部分之后也可能会存在多余的字符，这">
+  <meta name="description" content="复习要点： 处理的前后顺序很关键，先处理空白字符，再处理“+-” ,而且”+-“只能出现一次，所以放在 循环外。 python 自身的好处 是不存在数据越界的问题。java 的话最好分配long  字符串转换整数请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode-8-字符串转换整数(atoi)">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;02&#x2F;Leetcode&#x2F;leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="字符串转换整数请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。 该字符串除了有效的整数部分之后也可能会存在多余的字符，这">
+<meta property="og:description" content="复习要点： 处理的前后顺序很关键，先处理空白字符，再处理“+-” ,而且”+-“只能出现一次，所以放在 循环外。 python 自身的好处 是不存在数据越界的问题。java 的话最好分配long  字符串转换整数请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-02T08:45:26.102Z">
+<meta property="og:updated_time" content="2020-04-03T13:38:09.646Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/02/Leetcode/leetcode-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0(atoi)/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-02 16:27:52 / Modified: 16:45:26" itemprop="dateCreated datePublished" datetime="2020-02-02T16:27:52+08:00">2020-02-02</time>
+              <time title="Created: 2020-02-02 16:27:52" itemprop="dateCreated datePublished" datetime="2020-02-02T16:27:52+08:00">2020-02-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-03 21:38:09" itemprop="dateModified" datetime="2020-04-03T21:38:09+08:00">2020-04-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -268,7 +274,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="字符串转换整数"><a href="#字符串转换整数" class="headerlink" title="字符串转换整数"></a>字符串转换整数</h2><p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
+        <blockquote>
+<p>复习要点：</p>
+<p>处理的前后顺序很关键，先处理空白字符，再处理“+-” ,而且”+-“只能出现一次，所以放在 循环外。</p>
+<p>python 自身的好处 是不存在数据越界的问题。java 的话最好分配long</p>
+</blockquote>
+<h2 id="字符串转换整数"><a href="#字符串转换整数" class="headerlink" title="字符串转换整数"></a>字符串转换整数</h2><p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
 <p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
 <p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
 <p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
@@ -368,18 +379,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:    1 是丑数。n 不超过1690。  思路根据丑数的定义，某个数如果是丑数一定是2，3，5的公倍数，那我们可以根据这个规则将丑数逐一列举出来。 列举的基本想法就是：">
+  <meta name="description" content="复习要点 找第n个丑数，问题的basecase 我们知道了，只需要自底向上构建一个 n的丑数数组，  丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:    1 是丑数。n 不超过1690。  思路根据丑数的定义，某">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode-264-丑数II">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;24&#x2F;Leetcode&#x2F;leetcode-264-%E4%B8%91%E6%95%B0II&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:    1 是丑数。n 不超过1690。  思路根据丑数的定义，某个数如果是丑数一定是2，3，5的公倍数，那我们可以根据这个规则将丑数逐一列举出来。 列举的基本想法就是：">
+<meta property="og:description" content="复习要点 找第n个丑数，问题的basecase 我们知道了，只需要自底向上构建一个 n的丑数数组，  丑数II编写一个程序，找出第 n 个丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例: 输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。说明:    1 是丑数。n 不超过1690。  思路根据丑数的定义，某">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-24T16:00:20.523Z">
+<meta property="og:updated_time" content="2020-03-24T03:02:59.052Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/24/Leetcode/leetcode-264-%E4%B8%91%E6%95%B0II/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-25 00:00:20" itemprop="dateModified" datetime="2019-12-25T00:00:20+08:00">2019-12-25</time>
+                <time title="Modified: 2020-03-24 11:02:59" itemprop="dateModified" datetime="2020-03-24T11:02:59+08:00">2020-03-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="丑数II"><a href="#丑数II" class="headerlink" title="丑数II"></a>丑数II</h2><p>编写一个程序，找出第 n 个丑数。</p>
+        <blockquote>
+<p>复习要点</p>
+<p>找第n个丑数，问题的basecase 我们知道了，只需要自底向上构建一个 n的丑数数组，</p>
+</blockquote>
+<h2 id="丑数II"><a href="#丑数II" class="headerlink" title="丑数II"></a>丑数II</h2><p>编写一个程序，找出第 n 个丑数。</p>
 <p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
 <p>示例:</p>
 <p>输入: n = 10<br>输出: 12<br>解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。<br>说明:  </p>
@@ -295,7 +299,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nthUglyNumber</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span>  </span><br><span class="line">        mem = [<span class="number">0</span>]*n</span><br><span class="line">        mem[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        p2 = <span class="number">0</span></span><br><span class="line">        p3 = <span class="number">0</span></span><br><span class="line">        p5 = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            mem[i] = min(mem[p2]*<span class="number">2</span>,mem[p3]*<span class="number">3</span>,mem[p5]*<span class="number">5</span>)</span><br><span class="line">            <span class="keyword">if</span> mem[i] == mem[p2]*<span class="number">2</span>:</span><br><span class="line">                p2+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> mem[i] == mem[p3]*<span class="number">3</span>:</span><br><span class="line">                p3+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> mem[i] == mem[p5]*<span class="number">5</span>:</span><br><span class="line">                p5+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mem[n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
 <p>注意：</p>
 <ul>
-<li>又一次写没写出来就是p2,p3,p5的含义搞混了</li>
+<li>又一次没写出来就是p2,p3,p5的含义搞混了</li>
 <li>一定是在之前生成的丑数基础上进行操作</li>
 </ul>
 
@@ -374,18 +378,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

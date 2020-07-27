@@ -51,16 +51,18 @@
   };
 </script>
 
-  <meta name="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+  <meta name="description" content="实习阶段项目总结保护部分隐私内容（京东内部业务），只针对技术进行总结。 正好最近要准备亚麻的面试：   Amazon interviewers use a behavioral interview technique known as STAR. You will be asked to describe a Situation you were in, Task you had to do, A">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="排序模块的Reranker">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;18&#x2F;%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93&#x2F;Rerank&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="NLP初学者，推荐新手，刚入门ML和DL">
+<meta property="og:description" content="实习阶段项目总结保护部分隐私内容（京东内部业务），只针对技术进行总结。 正好最近要准备亚麻的面试：   Amazon interviewers use a behavioral interview technique known as STAR. You will be asked to describe a Situation you were in, Task you had to do, A">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-18T16:52:13.924Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;00831rSTgy1gdinygf8osj30j508mt8v.jpg">
+<meta property="og:updated_time" content="2020-05-17T10:52:40.265Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;00831rSTgy1gdinygf8osj30j508mt8v.jpg">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/18/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/Rerank/">
 
@@ -243,7 +245,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-19 00:52:13" itemprop="dateModified" datetime="2020-03-19T00:52:13+08:00">2020-03-19</time>
+                <time title="Modified: 2020-05-17 18:52:40" itemprop="dateModified" datetime="2020-05-17T18:52:40+08:00">2020-05-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +270,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h2 id="实习阶段项目总结"><a href="#实习阶段项目总结" class="headerlink" title="实习阶段项目总结"></a>实习阶段项目总结</h2><p>保护部分隐私内容（京东内部业务），只针对技术进行总结。</p>
+<p>正好最近要准备亚麻的面试：</p>
+<blockquote>
+<ul>
+<li>Amazon interviewers use a behavioral interview technique known as STAR. You will be asked to describe a Situation you were in, Task you had to do, Actions you personally undertook in that situation and the Results you achieved from these actions. The behavioral questions will relate specifically to our Leadership Principles and you are likely to cover technical elements in relation to the role in your answers.</li>
+</ul>
+</blockquote>
+<p>所以项目总结会采用STAR的形式进行，对应分析一个项目的Situations、Target、Actions、Results</p>
+<h3 id="为什么要做rerank（Stiuations）"><a href="#为什么要做rerank（Stiuations）" class="headerlink" title="为什么要做rerank（Stiuations）"></a>为什么要做rerank（Stiuations）</h3><p>主要分为业务背景 和 技术背景来谈</p>
+<h4 id="业务背景"><a href="#业务背景" class="headerlink" title="业务背景"></a>业务背景</h4><p>实现rerank 的目的：提高个性化，提高uv价值</p>
+<p>前期有的业务都是基于 RNN的形式：效率低，只能串行；距离相距较远的两个item的相关性不能很好的刻画；</p>
+<p>还有一个创新的地方是加入用户的个性化</p>
+<h4 id="技术背景"><a href="#技术背景" class="headerlink" title="技术背景"></a>技术背景</h4><p>现有的实验策略主要是通过规则限制来进行的。比如去已读，去重，品牌打散（10个里面不允许出现3个及以上）来保证结果的多样性。较多的人为干预一定程度上破坏了数据分布，或者说没有遵循数据本身所反馈出来的情况。其次rerank之前是有一些算法提出来的，但是算法效率不是很高，对系统性能要求也比较高，现在有比较好的方法，一方面算法效率比较高，另一方面深度学习有新的创新也值得在电商场景下进行使用。</p>
+<p>基于业务和技术背景，值得在整个系统上添加一个新的rerank模块进行使用。</p>
+<blockquote>
+<p>现有的rerank机制是接在精排后边的，主要是满足业务策略和构建好的生态吧。目的可能有很多，去已读，去重，打散，保证多样性等。我们这次项目主要是做重排，以实现现有系统的结果多样性，更多是为了生态考虑。实际工作中，使用规则，一定程度上能满足需求，eg：打散（前10出至少3种不同的）等。但是规则的问题在于，做事情不soft，强行操作。所以需要一点比较soft的处理办法。</p>
+</blockquote>
+<h3 id="目标（Target）"><a href="#目标（Target）" class="headerlink" title="目标（Target）"></a>目标（Target）</h3><p>对于公司的最终业务目标：保证基本的业务指标不下降的前提下，提高系统的检索结果的多样性，对于内部的话，正式员工是有指标的，全年的目标是，业务指标（uv价值是指GMV/客户数）和多样性指标各3%的相对提升。</p>
+<p>现阶段的主要目标，就是能够协助建立起这个系统，并且系统能够有效可靠的运行。包括能够建立正常的数据流，模型的正常训练迭代，模型的预测，模型的评测，模型可以在线上进行severing（线上架构能够抗的住），线上线下结果的一致性</p>
+<h3 id="采取的措施（Actions）"><a href="#采取的措施（Actions）" class="headerlink" title="采取的措施（Actions）"></a>采取的措施（Actions）</h3><p>前期工作:方案调研，具体实现哪个方案，mentor基本完成了。</p>
+<p>主要分为：数据的获取，模型的实现与实验，效果的评测</p>
+<p>确定了目标方案，就是参考（Personal Reranking  for recommendation）论文的一些技巧，然后在我们场景下进行实现。</p>
+<ul>
+<li><p>数据的获取</p>
+<p>主要通过hive/pig 脚本构建数据pipeline，因为是listwise的，数据的构成有些特殊，需要将同一个pvid对应的所有item都group到一起，query  user 特征共享，item特征不同。</p>
+</li>
+<li><p>模型的实现经历了</p>
+<p>1.两个阶段，一个阶段是在keras上进行模型的实现与实验，涉及定长（推荐列表长度为定长30），以及不定长版本（搜索场景下返回的不同，其实最终还是定长的，但是对于不满足长度的需要做一些处理）的实现。</p>
+<p>2.第二个阶段就是将keras 版本的代码迁移至内部的分布式计算框架上。代码其实相当于重新设计了。受限于数据输入shape的限制。keras 版本时候 数据的输入时3d的（batch,seq_len,dim）这样的组成，其中的seq_len 就是一个推荐列表的长度。但是内部的框架，仅支持(batch,dim) 这样的形式，需要再一次对代码进行修改。由于transformer 自身是对3d很友好的，所以转换到2d上还是比较麻烦的。</p>
+<p>3.一些细节问题，loss 的计算是有问题的会出现震荡情况，也是由于不定长所导致的。这个目前也还在解决，但是影响不是很大，也能达到一个比较好的效果。</p>
+</li>
+<li><p>效果评测</p>
+<p>离线评测主要是两个指标，一个是auc，一个是多样性指标，这个我们选用的是熵值。熵值越大，表示多样性越好。主要用来计算品牌多样性。</p>
+</li>
+</ul>
+<h3 id="结果（Result）"><a href="#结果（Result）" class="headerlink" title="结果（Result）"></a>结果（Result）</h3><p>简历上的实验指标是有问题的，当时的实验结果发生了特征穿越的问题。因为模型里面使用了Transformer，而使用Transformer要用的一个特征就是pos，然后进行pos-encoding。</p>
+<p>目前使用离线指标相对提升2.5%。auc从0.861提升到0.8828。多样性指标目前是不太确定效果的。</p>
+<h3 id="一些可以优化的点"><a href="#一些可以优化的点" class="headerlink" title="一些可以优化的点"></a>一些可以优化的点</h3><ul>
+<li>loss计算的问题，而且目前是通过softmax 给一个list内全部item进行打分</li>
+<li>personal vec  这个 是使用的预训练的。</li>
+</ul>
+<h3 id="相关指标"><a href="#相关指标" class="headerlink" title="相关指标"></a>相关指标</h3><p>PV(访问量)：即Page View, 具体是指网站的是页面浏览量或者点击量。</p>
+<p>UV(独立访客)：即Unique Visitor,访问您网站的一台电脑客户端为一个访客。根据IP地址来区分访客数，在一段时间内重复访问，也算是一个UV。</p>
+<p>UV价值=销售额/访客数。意思是每位访客带来多少销售额。</p>
+<h1 id="最大边缘相关（Maximal-Marginal-Relevance，MMR）对文档重排序"><a href="#最大边缘相关（Maximal-Marginal-Relevance，MMR）对文档重排序" class="headerlink" title="最大边缘相关（Maximal Marginal Relevance，MMR）对文档重排序"></a>最大边缘相关（Maximal Marginal Relevance，MMR）对文档重排序</h1><p>采用MMR（Maximal Marginal Relevance）算法对文档diverse ranking。</p>
+<p>  <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdinygf8osj30j508mt8v.jpg" alt="img"></p>
+<p>从MMR的公式中可以看出，diverse ranking的实现是权衡Query与Document相关性和Document间的冗余性的结果。</p>
+<p>用MMR进行文档重定序的计算方法：</p>
+<ol>
+<li><p>用常用IR方法取得前K个文档记Dr= IR(C, Q, K)</p>
+</li>
+<li><p>选max sim(di ε D , Q)作为第一个文档，即让Ranked = <di></p>
+</li>
+<li><p>Let D= D\{di}，从中去掉这个元素</p>
+</li>
+<li><p>While D is not empty, do:</p>
+</li>
+</ol>
+<p>a. Find di withmax MMR(Q, D, Ranked)</p>
+<p>b. Let Ranked = Ranked append di</p>
+<p>c. Let D= D\{di}</p>
+<p>算法思想：</p>
+<p>1、先根据Query和Document的相似度给出包含k个文档的集合D；</p>
+<p>2、先在集合D中选取一篇与Query最为相似的文档d加入重排序集合R，在D中去掉d；</p>
+<p>3、对D中所有的文档计算MMR值，分值最大文档d的加入R，并在D中去掉d；</p>
+<p>4、重复步骤3，直到D为空，此时集合R即为重排序后的有序集合。</p>
+
     </div>
 
     
@@ -330,6 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实习阶段项目总结"><span class="nav-number">1.</span> <span class="nav-text">实习阶段项目总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要做rerank（Stiuations）"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要做rerank（Stiuations）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#业务背景"><span class="nav-number">1.1.1.</span> <span class="nav-text">业务背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技术背景"><span class="nav-number">1.1.2.</span> <span class="nav-text">技术背景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标（Target）"><span class="nav-number">1.2.</span> <span class="nav-text">目标（Target）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#采取的措施（Actions）"><span class="nav-number">1.3.</span> <span class="nav-text">采取的措施（Actions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果（Result）"><span class="nav-number">1.4.</span> <span class="nav-text">结果（Result）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些可以优化的点"><span class="nav-number">1.5.</span> <span class="nav-text">一些可以优化的点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关指标"><span class="nav-number">1.6.</span> <span class="nav-text">相关指标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最大边缘相关（Maximal-Marginal-Relevance，MMR）对文档重排序"><span class="nav-number"></span> <span class="nav-text">最大边缘相关（Maximal Marginal Relevance，MMR）对文档重排序</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -343,18 +412,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

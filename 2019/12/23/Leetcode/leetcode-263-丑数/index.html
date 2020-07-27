@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="丑数编写一个程序判断给定的数是否为丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例 1: 输入: 6输出: true解释: 6 = 2 × 3示例 2: 输入: 8输出: true解释: 8 = 2 × 2 × 2示例 3: 输入: 14输出: false解释: 14 不是丑数，因为它包含了另外一个质因数 7。说明： 1 是丑数。输入不会超过 32 位有符号整数的范围: [−231,">
+  <meta name="description" content="复习要点 判断是不是丑数，递归调用解决就可以了  丑数编写一个程序判断给定的数是否为丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例 1: 输入: 6输出: true解释: 6 = 2 × 3示例 2: 输入: 8输出: true解释: 8 = 2 × 2 × 2示例 3: 输入: 14输出: false解释: 14 不是丑数，因为它包含了另外一个质因数 7。说明： 1 是丑数。输">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode-263-丑数">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;23&#x2F;Leetcode&#x2F;leetcode-263-%E4%B8%91%E6%95%B0&#x2F;index.html">
 <meta property="og:site_name" content="Mereder">
-<meta property="og:description" content="丑数编写一个程序判断给定的数是否为丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例 1: 输入: 6输出: true解释: 6 = 2 × 3示例 2: 输入: 8输出: true解释: 8 = 2 × 2 × 2示例 3: 输入: 14输出: false解释: 14 不是丑数，因为它包含了另外一个质因数 7。说明： 1 是丑数。输入不会超过 32 位有符号整数的范围: [−231,">
+<meta property="og:description" content="复习要点 判断是不是丑数，递归调用解决就可以了  丑数编写一个程序判断给定的数是否为丑数。 丑数就是只包含质因数 2, 3, 5 的正整数。 示例 1: 输入: 6输出: true解释: 6 = 2 × 3示例 2: 输入: 8输出: true解释: 8 = 2 × 2 × 2示例 3: 输入: 14输出: false解释: 14 不是丑数，因为它包含了另外一个质因数 7。说明： 1 是丑数。输">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-23T15:33:22.314Z">
+<meta property="og:updated_time" content="2020-03-24T02:59:04.325Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/23/Leetcode/leetcode-263-%E4%B8%91%E6%95%B0/">
@@ -235,10 +235,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-12-23 23:30:43 / Modified: 23:33:22" itemprop="dateCreated datePublished" datetime="2019-12-23T23:30:43+08:00">2019-12-23</time>
+              <time title="Created: 2019-12-23 23:30:43" itemprop="dateCreated datePublished" datetime="2019-12-23T23:30:43+08:00">2019-12-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-24 10:59:04" itemprop="dateModified" datetime="2020-03-24T10:59:04+08:00">2020-03-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -268,7 +274,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h2><p>编写一个程序判断给定的数是否为丑数。</p>
+        <blockquote>
+<p>复习要点 判断是不是丑数，递归调用解决就可以了</p>
+</blockquote>
+<h2 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h2><p>编写一个程序判断给定的数是否为丑数。</p>
 <p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
 <p>示例 1:</p>
 <p>输入: 6<br>输出: true<br>解释: 6 = 2 × 3<br>示例 2:</p>
@@ -277,7 +286,7 @@
 <p>1 是丑数。<br>输入不会超过 32 位有符号整数的范围: [−231,  231 − 1]。</p>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>丑数的定义已经说明白了，<code>只包含质因数2，3，5的正整数，1也是丑数</code></p>
 <p>给我们一个数，只需要不断用丑数的质因数去除待测试的数即可，如果最后的结果是1则是丑数，否则不是</p>
-<p>（0这个数十个坑，记得排除）</p>
+<p>（0这个数是个坑，记得排除）</p>
 <p>递归解法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isUgly</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> num%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">elif</span> num%<span class="number">5</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.isUgly(num/<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
 
@@ -356,18 +365,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">204</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
