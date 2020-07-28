@@ -212,6 +212,343 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/05/Leetcode/leetcode-81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E7%9A%84%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/05/Leetcode/leetcode-81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E7%9A%84%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/" class="post-title-link" itemprop="url">Leetcode-81-搜索旋转的排序数组II</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-05 17:54:56 / Modified: 19:32:29" itemprop="dateCreated datePublished" datetime="2019-12-05T17:54:56+08:00">2019-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">算法刷题</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="搜索旋转的排序数组ii"><a href="#搜索旋转的排序数组ii" class="headerlink" title="搜索旋转的排序数组ii"></a>搜索旋转的排序数组ii</h2><p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
+<p>( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。</p>
+<p>编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。</p>
+<p>示例 1:</p>
+<p>输入: nums = [2,5,6,0,0,1,2], target = 0<br>输出: true<br>示例 2:</p>
+<p>输入: nums = [2,5,6,0,0,1,2], target = 3<br>输出: false<br>进阶:</p>
+<p>这是 搜索旋转排序数组 的延伸题目，本题中的 nums  可能包含重复元素。<br>这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>变数是出现<strong>重复的数</strong>了</p>
+<p>原本的思路是：</p>
+<ul>
+<li><p>如果 mid == target 直接返回</p>
+</li>
+<li><p>前半部有序（指的是[3,4,5,6,7,0,12]，中间划开前面是[3,4,5,6]有序，后边是[7,0,1,2]不完全有序）</p>
+<ul>
+<li>target落在有序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
+<li>target落在无序序列，即mid—right中，则left = mid+1</li>
+</ul>
+</li>
+<li>后半部有序（指的是[6,7,0,1,2,3,4,5],中间划开，前面是[6,7,0,1]不完全有序，后边是[2,3,4,5]有序）<ul>
+<li>target落在无序序列，即left—-mid中，则查找这个范围所以right = mid-1</li>
+<li>target落在有序序列，即mid—right中，则left = mid+1</li>
+</ul>
+</li>
+</ul>
+<p>当出现重复的数字，如果不出现在两端还好，没有影响</p>
+<p>原本只需要判断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> nums[mid] == target:  <span class="comment"># 命中 返回</span></span><br><span class="line">    <span class="keyword">return</span> mid</span><br><span class="line"><span class="keyword">if</span> nums[mid] &gt;= nums[left]:  <span class="comment"># mid的位置，mid落在前半部还是后半部</span></span><br><span class="line">    <span class="string">'''前半部有序的操作'''</span></span><br><span class="line"><span class="keyword">else</span>: </span><br><span class="line">    <span class="string">'''后半部有序的操作'''</span></span><br></pre></td></tr></table></figure>
+<p>但是对应有重复数的出现，可能会存在下面的情况，即：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">left == mid == right </span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] <span class="keyword">or</span> [<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<p>此时分不清到底是前半部分有序还是后半部分有序，但是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left == mid == right 一定 != target</span><br></pre></td></tr></table></figure>
+<p>因为我们先判断了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> nums[mid] == target:  <span class="comment"># 命中 返回</span></span><br><span class="line">		<span class="keyword">return</span> mid</span><br></pre></td></tr></table></figure>
+<p>既然左left右right 都不等，我们干脆往中间移动，去掉干扰项即可，即：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] <span class="number">1</span> <span class="keyword">or</span> <span class="number">5</span> [<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>操作之后，问题也就回到了我们熟悉的问题上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        right = len(nums)<span class="number">-1</span> </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">            mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="comment"># 不能确定哪一侧有序</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] == nums[mid] == nums[right]:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">            <span class="comment"># 在左侧序列，左侧是有序的</span></span><br><span class="line">            <span class="keyword">elif</span> nums[mid] &gt;= nums[left]:</span><br><span class="line">                <span class="keyword">if</span> nums[left]&lt;= target &lt; nums[mid]:</span><br><span class="line">                    right = mid <span class="number">-1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">            <span class="comment"># 在右侧序列，右侧是有序的</span></span><br><span class="line">            <span class="keyword">else</span>: </span><br><span class="line">                <span class="keyword">if</span> nums[mid] &lt; target &lt;= nums[right]:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right = mid - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/%E9%9D%A2%E7%BB%8F/Synnex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/04/%E9%9D%A2%E7%BB%8F/Synnex/" class="post-title-link" itemprop="url">新聚思（Synnex）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-04 20:26:09 / Modified: 20:28:47" itemprop="dateCreated datePublished" datetime="2019-12-04T20:26:09+08:00">2019-12-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">实习面试经验</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="synnax实习总结"><a href="#synnax实习总结" class="headerlink" title="synnax实习总结"></a>synnax实习总结</h1><p>问题：</p>
+<p>lr 推 还可以</p>
+<p>svm推 …</p>
+<p>xgboost 推…</p>
+<p>编程：</p>
+<p>kmeans  </p>
+<p>堆排序</p>
+<p>鸡蛋落地问题</p>
+<p>概率题：  </p>
+<p>圆上3点 构成锐角三角形的概率</p>
+<p>spark  </p>
+<p>完全阵亡</p>
+<p>实际业务场景应用问题</p>
+<p>文本分类 的全流程</p>
+<p><strong>以上问题都是笔试题（是的我在现场笔试了一个小时）</strong></p>
+<p>其他一些细节问题</p>
+<p>transformer 的问题 每个细节问题 </p>
+<p>mutil过程具体怎么操作的  </p>
+<p>为啥除以dk</p>
+<p>add 和norm 具体操作 为什么 有什么作用</p>
+<p>decoder中 的mask Attention 怎么操作的</p>
+<p>实习问题：</p>
+<p>1.薪资问题  </p>
+<p>实习薪资：保密 :smile_cat:</p>
+<p>2.团队规模 </p>
+<p>400人左右 其中it技术100多人， 算法团队20人这样吧</p>
+<p>有transfer北美的机会</p>
+<p>3.发展问题</p>
+<p>工程师会需要有夜班嘛 对应时差 </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/%E9%9D%A2%E7%BB%8F/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/04/%E9%9D%A2%E7%BB%8F/%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">京东搜索排序面经-已过</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-04 20:17:02" itemprop="dateCreated datePublished" datetime="2019-12-04T20:17:02+08:00">2019-12-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-25 09:42:32" itemprop="dateModified" datetime="2020-07-25T09:42:32+08:00">2020-07-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">实习面试经验</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="京东搜索排序面经"><a href="#京东搜索排序面经" class="headerlink" title="京东搜索排序面经"></a>京东搜索排序面经</h2><h3 id="jd"><a href="#jd" class="headerlink" title="jd"></a>jd</h3><p>招聘岗位：算法实习生（能获得导师许可并保证至少6个月的实习）</p>
+<p>工作地点：北辰世纪中心，位于北京朝阳区奥林匹克公园附近</p>
+<p>【工作内容】</p>
+<ol>
+<li>基于京东海量的用户和商家数据，应用机器学习算法，优化搜索排序</li>
+</ol>
+<p>【任职要求】</p>
+<ol>
+<li><p>对机器学习、数据挖掘、深度学习等算法领域有研究热情和扎实的基础</p>
+</li>
+<li><p>计算机、数学及相关专业研究生、博士生</p>
+</li>
+<li><p>熟悉python、C++与Linux开发 </p>
+</li>
+<li><p>良好的沟通协调能力，较好的主动性和求知欲</p>
+</li>
+<li><p>熟悉tensorflow、pytorch、caffe等学习框架优先</p>
+</li>
+<li><p>熟悉强化学习及相关框架，或对其有强烈兴趣者优先</p>
+</li>
+</ol>
+<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p>一面：</p>
+<p>主要是聊项目经历 说一下项目</p>
+<p>基本套路 讲一下项目背景 讲一下项目的基本过程 讲一下其中的亮点  难点 与反思 </p>
+<p>其实后边三个是更重要的  </p>
+<p><strong>问了神经网络防止过拟合的方法！！！</strong></p>
+<blockquote>
+<ol>
+<li>参数正则化， L1 L2</li>
+<li>dropout</li>
+<li>early stoping</li>
+<li>参数(权值共享)</li>
+<li>BatchNormaliaztion</li>
+</ol>
+</blockquote>
+<p>题目一： 从m个数中随机等概率抽取n个数（面试官让我实现random.choice）</p>
+<p>题目二：找出一个数组中，超过一半的个数的元素</p>
+<p><a href="https://mereder.github.io/2019/12/04/leetcode-169-多数元素/" target="_blank" rel="noopener">Leetcode-169-多数元素</a></p>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><p>主要问我的都是算法点吧…</p>
+<p>决策树怎么进行特征选择，信息增益怎么算，信息增益比怎么算</p>
+<p>其中着重讲了神经网络的参数更新过程（前向传播，反向传播，要写链式求导）</p>
+<p>Xgboost，让我手推一边，能推到哪里就写到哪里，然后讲一下整个表达式中的各个含义</p>
+<p>笔试题目：</p>
+<p><a href="https://mereder.github.io/2019/11/29/插入排序/" target="_blank" rel="noopener">插入排序</a></p>
+<h3 id="三面交叉面"><a href="#三面交叉面" class="headerlink" title="三面交叉面"></a>三面交叉面</h3><p>来的面试官是这边做知识图谱的一位，全程都属于聊天状态。</p>
+<p>抛给我的问题都算是思考类型的吧</p>
+<p>笔试题目：给出括号的对数，问有多少种不同的排列方式</p>
+<p><a href="https://mereder.github.io/2019/11/29/leetcode-22-括号生成" target="_blank" rel="noopener">Leetcode-22-括号生成</a></p>
+<h3 id="四面leader"><a href="#四面leader" class="headerlink" title="四面leader"></a>四面leader</h3><p>应该是这个组的老大吧，他说他手下大概20多个人。</p>
+<p>老大过来跟我说了下他们这边主要做什么</p>
+<p>然后搜索流量占了京东app流量的一半以上，dau6000W，检索条数更是十亿级别吧。</p>
+<p>然后说了说自己从nlp转到推荐或者搜索的初衷</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/Leetcode/leetcode-169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -886,291 +1223,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/Leetcode/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/Leetcode/leetcode-63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/" class="post-title-link" itemprop="url">Leetcode-63-不同路径II</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-03 12:29:47 / Modified: 17:36:03" itemprop="dateCreated datePublished" datetime="2019-12-03T12:29:47+08:00">2019-12-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="不同路径II"><a href="#不同路径II" class="headerlink" title="不同路径II"></a>不同路径II</h2><p><strong>作业帮算法实习生二面面试题</strong></p>
-<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9jfbb1hcej30b4053gll.jpg" alt="img"></p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
-<p>说明：m 和 n 的值均不超过 100。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
-<p>1.向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</p>
-<p>2.向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</p>
-</blockquote>
-<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>机器人走路问题，还是用动态规划来解决，最基本的动态规划递归状态是</p>
-<script type="math/tex; mode=display">
-当前路径数 = 左侧格子路径+上边格子路径 \\
-n_{i,j} = n_{i,j-1} + n_{i-1,j} \\
-dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存在障碍那么就需要对障碍点进行下判断：</p>
-<ul>
-<li>第一步就是障碍点： 直接返回0</li>
-<li>第一列或者第一行存在障碍点 那么后继的都应该为0</li>
-<li>其他情况的障碍点 只需要存在就令该位置对应dp为0</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> obstacleGrid:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        m = len(obstacleGrid)</span><br><span class="line">        n = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> range(m)]</span><br><span class="line">        <span class="comment"># 特殊情况，起始位置就是障碍则为0 否则为1</span></span><br><span class="line">        <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># dp空间初始化进行赋值 第一行    </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[i][<span class="number">0</span>] == <span class="number">1</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[i][<span class="number">0</span>] = dp[i<span class="number">-1</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># dp 空间初始化进行赋值 第一列</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][j] == <span class="number">1</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j<span class="number">-1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 其他情况 需要进行遍历</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                <span class="comment"># 遇到障碍 dp = 0</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[i][j] == <span class="number">1</span>:</span><br><span class="line">                    dp[i][j] = <span class="number">0</span></span><br><span class="line">               	<span class="comment"># 非障碍，根据情况进行dp[i][j]的赋值</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">and</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">elif</span> dp[i<span class="number">-1</span>][j] == <span class="number">0</span> <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                        dp[i][j] = max(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        dp[i][j] = dp[i<span class="number">-1</span>][j] + dp[i][j<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/Leetcode/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/01/Leetcode/leetcode-53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode-53-最大子序和</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-01 16:41:00" itemprop="dateCreated datePublished" datetime="2019-12-01T16:41:00+08:00">2019-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-02 00:32:46" itemprop="dateModified" datetime="2019-12-02T00:32:46+08:00">2019-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">算法刷题</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a>最大子序和</h2><p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
-<p>示例:</p>
-<blockquote>
-<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
-</blockquote>
-<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h4><p>基本方法动态规划，动态规划就是求最值过程，其中每一个元素都面临着两种选择，要还是不要，对应dp过程：</p>
-<blockquote>
-<p>dp[i] = max(dp[i-1]+nums[i],num[i])</p>
-</blockquote>
-<p>最终结果是，dp数组中结果最大的那个值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    int maxSubArray(vector&lt;int&gt; &amp;nums)</span><br><span class="line">    &#123;</span><br><span class="line">        // 类似寻找最大最小值的题目，初始值一定要定义成理论上的最小最大值</span><br><span class="line">        int result = INT_MIN;</span><br><span class="line">        int numsSize = int(nums.size());</span><br><span class="line">        // dp[i]表示nums中以nums[i]结尾的最大子序和</span><br><span class="line">        vector&lt;int&gt; dp(numsSize);</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        result = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (int i = <span class="number">1</span>; i &lt; numsSize; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i] = max(dp[i - <span class="number">1</span>] + nums[i], nums[i]);</span><br><span class="line">            result = max(result, dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="贪心解法"><a href="#贪心解法" class="headerlink" title="贪心解法"></a>贪心解法</h4><p>贪心算法就是思考每一步我的选择都是最优的，如果i之前的和为正数，那么可以继续连续和，则加上nums[i]。如果之前的和已经为负数了，那么没有必要继续连续，到i位置，我们重新定义连续和为nums[i]。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSubArray</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        ans = nums[<span class="number">0</span>]</span><br><span class="line">        tmp = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> tmp &gt; <span class="number">0</span>:</span><br><span class="line">                tmp += data</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                tmp = data</span><br><span class="line">            ans = max(ans,tmp)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><p>使用更为精妙的分治法来求解</p>
-<p>思路就是，求一个数组的最大连续和，可以转化为求左侧数组最大子序列和，求右侧数组最大子序列和，<strong>求跨过分界点的连续子序列</strong>，这样问题就被分治化解了。重点就是如何求跨过分界点的连续子序列和</p>
-<p>Ps:这个思路可以了解下，但是解这道题来说，真的是时间空间都不够好</p>
-<p>时间复杂度$O(nlogn)$，空间复杂度$O(logn)$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSubArray</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        n = len(nums) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.helper1(nums,<span class="number">0</span>,n)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper1</span><span class="params">(self, nums, left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> left == right:</span><br><span class="line">            <span class="keyword">return</span> nums[left]</span><br><span class="line">        </span><br><span class="line">        mid = (left+right) &gt;&gt; <span class="number">1</span></span><br><span class="line">        left_res = self.helper1(nums,left,mid)</span><br><span class="line">        right_res = self.helper1(nums,mid+<span class="number">1</span>,right)</span><br><span class="line">        cross_res = self.helper2(nums,left,mid,right)</span><br><span class="line"></span><br><span class="line">        res = max(left_res,right_res,cross_res)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper2</span><span class="params">(self,nums,left,mid,right)</span>:</span></span><br><span class="line">        res_left = -np.inf</span><br><span class="line">        tmp = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 从中间向前</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(mid,left<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">            tmp += nums[i]</span><br><span class="line">            res_left = max(tmp,res_left)</span><br><span class="line"></span><br><span class="line">        res_right = -np.inf</span><br><span class="line">        tmp = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 从中间向后</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(mid+<span class="number">1</span>,right+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">            tmp += nums[i]</span><br><span class="line">            res_right = max(tmp,res_right)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res_left+res_right</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Meng Di">
-      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mereder">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/01/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">归并排序</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-01 00:42:20" itemprop="dateCreated datePublished" datetime="2019-12-01T00:42:20+08:00">2019-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-02 00:39:52" itemprop="dateModified" datetime="2019-12-02T00:39:52+08:00">2019-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">算法基础</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>基于分治思想的排序算法，稳定的排序算法，时间复杂度$O(NlogN)$，空间复杂度为$O(N)$（需要一个备份数字来进行存储）。</p>
-<p>排序算法的实现：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 归并排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergreSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="comment"># 迭代终止条件</span></span><br><span class="line">    <span class="keyword">if</span> len(nums) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    mid = len(nums) &gt;&gt; <span class="number">1</span></span><br><span class="line">    <span class="comment"># 分治过程 不断划分</span></span><br><span class="line">    left = mergreSort(nums[:mid])</span><br><span class="line">    right = mergreSort(nums[mid:])</span><br><span class="line">    <span class="keyword">return</span> merge(left, right)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    res = []</span><br><span class="line">    l, r = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="comment"># 核心操作：比较左右两个数组，将比较小的先加入备份数字</span></span><br><span class="line">    <span class="keyword">while</span> l &lt; len(left) <span class="keyword">and</span> r &lt; len(right):</span><br><span class="line">        <span class="keyword">if</span> left[l] &lt;= right[r]:</span><br><span class="line">            res.append(left[l])</span><br><span class="line">            l += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            res.append(right[r])</span><br><span class="line">            r += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> l &lt; len(left):</span><br><span class="line">        res.append(left[l])</span><br><span class="line">        l += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> r &lt; len(right):</span><br><span class="line">        res.append(right[r])</span><br><span class="line">        r += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a =[<span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line">    print(a)</span><br><span class="line">    res = mergreSort(a)</span><br><span class="line">    print(res)</span><br></pre></td></tr></table></figure>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>最基础的应用，求逆序对数。</p>
-<p>基本思想就是：左边的都是小于右边的，那么逆序对数就是右边的一个对应左边每一个。</p>
-<p>在merge过程就可以进行计数</p>
-<p>举个例子：</p>
-<blockquote>
-<p>[1,3,5],[2,4,6]</p>
-<p>左侧序列的5可以组成的逆序对有(5,2)(5,4)</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1219,7 +1271,7 @@ dp[i][j] = dp[i][j-1] + dp[i-1][j]</script><p>这个题有特殊的要求，存�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-count">207</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
