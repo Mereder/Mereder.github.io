@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Mereder">
 <meta property="og:description" content="ROCROC曲线是 receiver operating characteristic curve的简称。（受试者工作特征曲线） 其横坐标为假阳性率(False Positive Rate,FPR)， 纵坐标为真阳性率(True Positive Rate, TPR)  FPR = \frac{FP}{N} \\ TPR = \frac{TP}{P} \\对于假阳性率、真阳性率，需要一点实际例子来">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-08T12:57:11.557Z">
+<meta property="og:updated_time" content="2020-07-30T07:03:51.936Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/09/ML/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87AUC/">
@@ -243,7 +243,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-08 20:57:11" itemprop="dateModified" datetime="2020-03-08T20:57:11+08:00">2020-03-08</time>
+                <time title="Modified: 2020-07-30 15:03:51" itemprop="dateModified" datetime="2020-07-30T15:03:51+08:00">2020-07-30</time>
               </span>
 
           
@@ -279,6 +279,7 @@ TPR = \frac{5}{6} \\
 即分类正确的三俗样本，占实际三俗样本个数的比例，跟召回率一样</script><h3 id="如何绘制ROC曲线"><a href="#如何绘制ROC曲线" class="headerlink" title="如何绘制ROC曲线"></a>如何绘制ROC曲线</h3><p>关键点在于：<strong>每个截断点都对于一个TPR和FPR</strong></p>
 <p>绘制ROC曲线的过程，就是不断枚举截断点（分类阈值）的过程，通过动态调整截断点，从最高分的得分开始，逐渐调整到最低点，其中每一个截断点都对应一个坐标（FPR,TPR），将这些点连成线就构成了ROC曲线。</p>
 <h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。（对于排序来说，就是把正样本排的越靠前）。</p>
+<p>关键点在于AUC如何进行计算</p>
 
     </div>
 
@@ -355,14 +356,14 @@ TPR = \frac{5}{6} \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">207</span>
+          <span class="site-state-item-count">211</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

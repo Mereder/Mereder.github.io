@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Mereder" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="同一个圆上随机选3点，构成锐角三角形的概率 任意一点A确定，B也确定之后，要形成锐角三角形，点C必须在DE之间，否则将成为直角或钝角三角形ABC。设AB对应夹角为θ，θ在（0，π）上才有可能形成锐角三角形。θ的概率密度是1&#x2F;π，此时组成锐角三角形需要C点在AB对应的DE段间的概率是θ&#x2F;2π 所以概率是【θ&#x2F;2π*1&#x2F;π】关于θ在（0，π）积分=(θ^2)&#x2F;(4π^2)在π取值减去在0取值=1&#x2F;4">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试过程中的概率问题">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;27&#x2F;%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1&#x2F;%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98&#x2F;index.html">
+<meta property="og:site_name" content="Mereder">
+<meta property="og:description" content="同一个圆上随机选3点，构成锐角三角形的概率 任意一点A确定，B也确定之后，要形成锐角三角形，点C必须在DE之间，否则将成为直角或钝角三角形ABC。设AB对应夹角为θ，θ在（0，π）上才有可能形成锐角三角形。θ的概率密度是1&#x2F;π，此时组成锐角三角形需要C点在AB对应的DE段间的概率是θ&#x2F;2π 所以概率是【θ&#x2F;2π*1&#x2F;π】关于θ在（0，π）积分=(θ^2)&#x2F;(4π^2)在π取值减去在0取值=1&#x2F;4">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;iknow-pic.cdn.bcebos.com&#x2F;6c224f4a20a44623060db6de9e22720e0df3d742?x-bce-process=image&#x2F;resize,m_lfit,w_600,h_800,limit_1">
+<meta property="og:updated_time" content="2020-07-30T07:08:00.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;iknow-pic.cdn.bcebos.com&#x2F;6c224f4a20a44623060db6de9e22720e0df3d742?x-bce-process=image&#x2F;resize,m_lfit,w_600,h_800,limit_1">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/27/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>面试过程中的概率问题 | Mereder</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mereder</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">珍惜现在，感谢所有，不悔将来</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Meng Di">
+      <meta itemprop="description" content="NLP初学者，推荐新手，刚入门ML和DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mereder">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试过程中的概率问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-27 16:30:34" itemprop="dateCreated datePublished" datetime="2020-07-27T16:30:34+08:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-30 15:08:00" itemprop="dateModified" datetime="2020-07-30T15:08:00+08:00">2020-07-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%97%AE%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">概率统计问题</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="同一个圆上随机选3点，构成锐角三角形的概率"><a href="#同一个圆上随机选3点，构成锐角三角形的概率" class="headerlink" title="同一个圆上随机选3点，构成锐角三角形的概率"></a>同一个圆上随机选3点，构成锐角三角形的概率</h3><p><img src="https://iknow-pic.cdn.bcebos.com/6c224f4a20a44623060db6de9e22720e0df3d742?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="img"></p>
+<p>任意一点A确定，B也确定之后，要形成锐角三角形，点C必须在DE之间，否则将成为直角或钝角三角形ABC。设AB对应夹角为θ，θ在（0，π）上才有可能形成锐角三角形。θ的概率密度是1/π，此时组成锐角三角形需要C点在AB对应的DE段间的概率是θ/2π</p>
+<p>所以概率是【θ/2π*1/π】关于θ在（0，π）积分=(θ^2)/(4π^2)在π取值减去在0取值=1/4</p>
+<h3 id="一根木棒，截成三截，组成三角形的概率是多少？"><a href="#一根木棒，截成三截，组成三角形的概率是多少？" class="headerlink" title="一根木棒，截成三截，组成三角形的概率是多少？"></a>一根木棒，截成三截，组成三角形的概率是多少？</h3><p>几何概率问题，对构成三角形的问题进行建模</p>
+<p>设三条边分别为x,y,1-x-y 根据三角形构成规则：<strong>两边之和大于第三条边</strong></p>
+<h3 id="有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"><a href="#有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？" class="headerlink" title="有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"></a>有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？</h3><p>给所有的抛硬币操作从 1 开始编号，显然先手者只可能在奇数（1，3，5，7…）次抛硬币得到苹果，而后手只可能在偶数次（2，4，6，8…）抛硬币得到苹果。</p>
+<p>设先手者得到苹果的概率为 p，第 1 次抛硬币得到苹果的概率为 p = 1/2，在第 3 次（3，5，7…）以后得到苹果的概率为 p/4（这是因为这种只有在第1次和第2次抛硬币都没有抛到正面，概率为 1/4 = 1/2 * 1/2 的时候才有可能发生，而且此时先手者此刻面临和开始相同的局面）；所以可以列出等式 p = 1/2 + p /4，p = 2/3（注意 p 表示先手者得到苹果的概率）。</p>
+<h3 id="一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"><a href="#一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？" class="headerlink" title="一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"></a>一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？</h3><p>只有都顺时针或者都逆时针才不会相撞概率为$\frac{1}{8}$</p>
+<h3 id="已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><a href="#已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）" class="headerlink" title="已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）"></a>已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</h3><p>由题目有： 0 : p 1 : 1 - p</p>
+<p>连续产生两个数，其组合以及概率如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>00</th>
+<th>01</th>
+<th>10</th>
+<th>11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p^2$</td>
+<td>p(1-p)</td>
+<td>(1-p)p</td>
+<td>$(1-p)^2$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以发现 01 和 10 组合的概率是相等的，只需要将其分别映射到 0 和 1 即可。</p>
+<p>即每次随机产生两个数，如果组合为00或11则丢弃，若为 01 则映射到 1，若为 10 则映射到 0，这样一来产生 0 和 1 的概率均为 1 / 2 </p>
+<h3 id="已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><a href="#已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）" class="headerlink" title="已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）"></a>已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</h3><p>使用该随机发生器产生随机数 a，b，有以下 3 种情况：</p>
+<ol>
+<li>a &lt; b</li>
+<li>a == b</li>
+<li>a &gt; b</li>
+</ol>
+<p>其中情况（1）和（3）是对称的，发生的概率相等，只需要将这两种情况分别映射到 0 和 1 即可，其中遇到 a == b 时忽略。</p>
+<h3 id="已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10"><a href="#已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10" class="headerlink" title="已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10"></a>已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10</h3><p>产生随机数的主要原则是每个数出现的概率是相等的，如果可以得到一组等概率出现的数字，那么就可以从中找到映射为 1 到 10 的方法。</p>
+<p>rand7() 返回 1 ~ 7 的自然数，构造新的函数 (rand7() - 1) * 7 + rand7()，这个函数会随机产生 1 到 49 的自然数。</p>
+<p>原因是 1 到 49 中的每个数只有唯一的第一个 rand7() 的值和第二个 rand7() 的值表示，于是它们出现的概率是相等。</p>
+<p>但是这里的数字太多，可以丢弃 41 到 49 的数字，把 1 到 40 的数字分成 10 组，每组映射成 1 到 10 中的一个，于是可以得到随机的结果。</p>
+<p>具体方法是，利用 (rand7() - 1) * 7 + rand7() 产生随机数 x，如果大于 40 则继续随机直到小于等于 40 为止，如果小于等于 40，则产生的随机数为 (x - 1) / 4 + 1。</p>
+<p>refs:</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/46592195" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46592195</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/07/26/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E8%82%A1%E7%A5%A8%E9%97%AE%E9%A2%98/" rel="next" title="基础算法/股票问题">
+                  <i class="fa fa-chevron-left"></i> 基础算法/股票问题
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/07/30/python/%E5%9F%BA%E7%A1%80/" rel="prev" title="Python 一些基础问题">
+                  Python 一些基础问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#同一个圆上随机选3点，构成锐角三角形的概率"><span class="nav-number">1.</span> <span class="nav-text">同一个圆上随机选3点，构成锐角三角形的概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一根木棒，截成三截，组成三角形的概率是多少？"><span class="nav-number">2.</span> <span class="nav-text">一根木棒，截成三截，组成三角形的概率是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"><span class="nav-number">3.</span> <span class="nav-text">有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"><span class="nav-number">4.</span> <span class="nav-text">一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><span class="nav-number">5.</span> <span class="nav-text">已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><span class="nav-number">6.</span> <span class="nav-text">已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10"><span class="nav-number">7.</span> <span class="nav-text">已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Meng Di</p>
+  <div class="site-description" itemprop="description">NLP初学者，推荐新手，刚入门ML和DL</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">211</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Di</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>

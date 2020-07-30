@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>面试过程中的概率问题</title>
-    <url>/2020/07/27/%E9%9D%A2%E7%BB%8F/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="同一个圆上随机选3点，构成锐角三角形的概率"><a href="#同一个圆上随机选3点，构成锐角三角形的概率" class="headerlink" title="同一个圆上随机选3点，构成锐角三角形的概率"></a>同一个圆上随机选3点，构成锐角三角形的概率</h3>]]></content>
+    <title>tmux 日常使用</title>
+    <url>/2020/07/30/Linux/tmux/</url>
+    <content><![CDATA[<h1 id="Tmux-命令"><a href="#Tmux-命令" class="headerlink" title="Tmux 命令"></a>Tmux 命令</h1><p>简化同时打开多个终端命令台</p>
+<ul>
+<li><p>丝滑分屏</p>
+</li>
+<li><p>*保护现场（）</p>
+<p>即使命令行工作到一半，关闭终端后仍可重新进入操作现场。ssh远程连接，即使掉线后也可以恢复现场。远程服务器运行耗时任务（跑个模型）时候，可以帮助一直保持后台的会话</p>
+</li>
+<li><p>会话共享</p>
+<p>将tmux会话地址分享给别人，他们可以通过SSH接入会话。然后看演示的操作内容。</p>
+</li>
+</ul>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>会话（session） 窗口（window） 面板就（pane）</p>
+<p>每一次可以创建一个会话，默认一个会话充满一个窗口，一个窗口内部可以有多个面板</p>
+<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><p>前缀键 ctrl + b</p>
+<p>下面内容中的$<prefix>$ 均表示前缀键</p>
+<h3 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tmux # 新建一个无名会话</span><br><span class="line">tmux new -s demo # 新建一个名称为demo的 会话</span><br></pre></td></tr></table></figure>
+<h3 id="挂起当前会话（后台运行）"><a href="#挂起当前会话（后台运行）" class="headerlink" title="挂起当前会话（后台运行）"></a>挂起当前会话（后台运行）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tmux detach # 后台挂起 </span><br><span class="line">快捷键&lt;prefix&gt; + d</span><br></pre></td></tr></table></figure>
+<h3 id="进入之前会话"><a href="#进入之前会话" class="headerlink" title="进入之前会话"></a>进入之前会话</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tmux a # 默认进入第一个会话</span><br><span class="line">tmux a -t demo # 进入名称为demo的会话</span><br></pre></td></tr></table></figure>
+<h3 id="关闭会话"><a href="#关闭会话" class="headerlink" title="关闭会话"></a>关闭会话</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;prefix&gt; + &amp;  (&amp; 是 shift + 7)</span><br></pre></td></tr></table></figure>
+<p>基础命令 kill-session、kill-window、kill-pane、kill-server</p>
+<h2 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h2><p>同一个窗口下可以快速创建分窗口（实际就是面板），他们共享一个会话，可以通过快捷键进行上下分屏，左右分屏，开启面板，关闭面板</p>
+]]></content>
       <categories>
-        <category>实习面试经验</category>
+        <category>Linux</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>python 中的参数系统</title>
+    <url>/2020/07/30/python/%E5%8F%82%E6%95%B0%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><p>主要是用在写代码的时候 规定一些 默认参数</p>
+<p>从最开始  设定  一些关键参数 减少 代码中 其他部分   频繁修改</p>
+<p><a href="https://docs.python.org/zh-cn/3/library/argparse.html" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/argparse.html</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> argparse <span class="keyword">import</span> ArgumentParser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一系列命令行参数</span></span><br><span class="line">parser = ArgumentParser()</span><br><span class="line"><span class="comment"># 定义 file</span></span><br><span class="line">parser.add_argument(<span class="string">'--file'</span>, type=str,</span><br><span class="line">                        dest=<span class="string">'file'</span>, help=<span class="string">'input file name'</span>,</span><br><span class="line">                        metavar=<span class="string">'file'</span>, required=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 定义 选择 n-gram 的n</span></span><br><span class="line">parser.add_argument(<span class="string">'--ngram'</span>,type=int,</span><br><span class="line">                        dest=<span class="string">'ngram'</span>,help=<span class="string">'the number of gram'</span>,</span><br><span class="line">                        metavar=<span class="string">'ngram'</span>,required = <span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 定义 选择返回的 topN</span></span><br><span class="line">parser.add_argument(<span class="string">'--topN'</span>,type=int,</span><br><span class="line">                        dest=<span class="string">'topN'</span>,help=<span class="string">'return the number of TOP'</span>,</span><br><span class="line">                        metavar=<span class="string">'topN'</span>,required = <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Python 一些基础问题</title>
+    <url>/2020/07/30/python/%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h3 id="Python-传值还是传引用问题"><a href="#Python-传值还是传引用问题" class="headerlink" title="Python 传值还是传引用问题"></a>Python 传值还是传引用问题</h3><p>Python 总体来说，对于可变变量传的是引用，对于不可变变量传的是值</p>
+<p>对于int long,float等 都是传值，对于可变类型list,dict，对象等都是传引用。注意 string 是传递的值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a)</span>:</span></span><br><span class="line">  a += <span class="string">'test'</span></span><br><span class="line">  </span><br><span class="line">a = [<span class="string">'test'</span>]</span><br><span class="line">s = <span class="string">'test'</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>面试过程中的概率问题</title>
+    <url>/2020/07/27/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="同一个圆上随机选3点，构成锐角三角形的概率"><a href="#同一个圆上随机选3点，构成锐角三角形的概率" class="headerlink" title="同一个圆上随机选3点，构成锐角三角形的概率"></a>同一个圆上随机选3点，构成锐角三角形的概率</h3><p><img src="https://iknow-pic.cdn.bcebos.com/6c224f4a20a44623060db6de9e22720e0df3d742?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="img"></p>
+<p>任意一点A确定，B也确定之后，要形成锐角三角形，点C必须在DE之间，否则将成为直角或钝角三角形ABC。设AB对应夹角为θ，θ在（0，π）上才有可能形成锐角三角形。θ的概率密度是1/π，此时组成锐角三角形需要C点在AB对应的DE段间的概率是θ/2π</p>
+<p>所以概率是【θ/2π*1/π】关于θ在（0，π）积分=(θ^2)/(4π^2)在π取值减去在0取值=1/4</p>
+<h3 id="一根木棒，截成三截，组成三角形的概率是多少？"><a href="#一根木棒，截成三截，组成三角形的概率是多少？" class="headerlink" title="一根木棒，截成三截，组成三角形的概率是多少？"></a>一根木棒，截成三截，组成三角形的概率是多少？</h3><p>几何概率问题，对构成三角形的问题进行建模</p>
+<p>设三条边分别为x,y,1-x-y 根据三角形构成规则：<strong>两边之和大于第三条边</strong></p>
+<h3 id="有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"><a href="#有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？" class="headerlink" title="有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"></a>有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？</h3><p>给所有的抛硬币操作从 1 开始编号，显然先手者只可能在奇数（1，3，5，7…）次抛硬币得到苹果，而后手只可能在偶数次（2，4，6，8…）抛硬币得到苹果。</p>
+<p>设先手者得到苹果的概率为 p，第 1 次抛硬币得到苹果的概率为 p = 1/2，在第 3 次（3，5，7…）以后得到苹果的概率为 p/4（这是因为这种只有在第1次和第2次抛硬币都没有抛到正面，概率为 1/4 = 1/2 * 1/2 的时候才有可能发生，而且此时先手者此刻面临和开始相同的局面）；所以可以列出等式 p = 1/2 + p /4，p = 2/3（注意 p 表示先手者得到苹果的概率）。</p>
+<h3 id="一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"><a href="#一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？" class="headerlink" title="一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"></a>一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？</h3><p>只有都顺时针或者都逆时针才不会相撞概率为$\frac{1}{8}$</p>
+<h3 id="已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><a href="#已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）" class="headerlink" title="已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）"></a>已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</h3><p>由题目有： 0 : p 1 : 1 - p</p>
+<p>连续产生两个数，其组合以及概率如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>00</th>
+<th>01</th>
+<th>10</th>
+<th>11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p^2$</td>
+<td>p(1-p)</td>
+<td>(1-p)p</td>
+<td>$(1-p)^2$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以发现 01 和 10 组合的概率是相等的，只需要将其分别映射到 0 和 1 即可。</p>
+<p>即每次随机产生两个数，如果组合为00或11则丢弃，若为 01 则映射到 1，若为 10 则映射到 0，这样一来产生 0 和 1 的概率均为 1 / 2 </p>
+<h3 id="已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><a href="#已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）" class="headerlink" title="已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）"></a>已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</h3><p>使用该随机发生器产生随机数 a，b，有以下 3 种情况：</p>
+<ol>
+<li>a &lt; b</li>
+<li>a == b</li>
+<li>a &gt; b</li>
+</ol>
+<p>其中情况（1）和（3）是对称的，发生的概率相等，只需要将这两种情况分别映射到 0 和 1 即可，其中遇到 a == b 时忽略。</p>
+<h3 id="已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10"><a href="#已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10" class="headerlink" title="已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10"></a>已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10</h3><p>产生随机数的主要原则是每个数出现的概率是相等的，如果可以得到一组等概率出现的数字，那么就可以从中找到映射为 1 到 10 的方法。</p>
+<p>rand7() 返回 1 ~ 7 的自然数，构造新的函数 (rand7() - 1) * 7 + rand7()，这个函数会随机产生 1 到 49 的自然数。</p>
+<p>原因是 1 到 49 中的每个数只有唯一的第一个 rand7() 的值和第二个 rand7() 的值表示，于是它们出现的概率是相等。</p>
+<p>但是这里的数字太多，可以丢弃 41 到 49 的数字，把 1 到 40 的数字分成 10 组，每组映射成 1 到 10 中的一个，于是可以得到随机的结果。</p>
+<p>具体方法是，利用 (rand7() - 1) * 7 + rand7() 产生随机数 x，如果大于 40 则继续随机直到小于等于 40 为止，如果小于等于 40，则产生的随机数为 (x - 1) / 4 + 1。</p>
+<p>refs:</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/46592195" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46592195</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>概率统计问题</category>
       </categories>
   </entry>
   <entry>
@@ -676,7 +775,7 @@ f(z) = \frac{1}{1+e^{-wx+b}} = \frac{e^{wx+b}}{1+e^{wx+b}} \\
   </entry>
   <entry>
     <title>深度学习面试题目汇总</title>
-    <url>/2020/03/26/%E9%9D%A2%E7%BB%8F/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/</url>
+    <url>/2020/03/26/DL/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/</url>
     <content><![CDATA[<h3 id="BN什么作用？如何实现"><a href="#BN什么作用？如何实现" class="headerlink" title="BN什么作用？如何实现"></a>BN什么作用？如何实现</h3><p><a href="https://zhuanlan.zhihu.com/p/33173246?utm_source=wechat_timeline&amp;utm_medium=social&amp;utm_oi=27943216611328&amp;from=timeline&amp;isappinstalled=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33173246?utm_source=wechat_timeline&amp;utm_medium=social&amp;utm_oi=27943216611328&amp;from=timeline&amp;isappinstalled=0</a></p>
 <h3 id="说一说常用的优化器"><a href="#说一说常用的优化器" class="headerlink" title="说一说常用的优化器"></a>说一说常用的优化器</h3><p><a href="https://zhuanlan.zhihu.com/p/32230623" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32230623</a></p>
 <h3 id="常用激活函数和优缺点"><a href="#常用激活函数和优缺点" class="headerlink" title="常用激活函数和优缺点"></a>常用激活函数和优缺点</h3><ul>
@@ -2488,9 +2587,14 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
       </categories>
   </entry>
   <entry>
-    <title>Vim 日常使用</title>
-    <url>/2020/01/08/vim%20%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[]]></content>
+    <title>Vim 套餐</title>
+    <url>/2020/01/08/Linux/vim%20%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="vim大法"><a href="#vim大法" class="headerlink" title="vim大法"></a>vim大法</h3><p>如果能满足可以使用VScode 还是vscode香一些。但是目前在熊厂实习，不能用vscode，所以用VIM套餐。</p>
+<p>主要使用Vundle 来进行插件管理。</p>
+<p><a href="https://blog.csdn.net/weixin_38815998/article/details/103589090" target="_blank" rel="noopener">https://blog.csdn.net/weixin_38815998/article/details/103589090</a></p>
+<h3 id="附录-自己的vim-基础配置"><a href="#附录-自己的vim-基础配置" class="headerlink" title="附录 自己的vim 基础配置"></a>附录 自己的vim 基础配置</h3><p>主要是一些vim 基础配置，以及Vundle对插件的一些管理，以及插件的快捷键</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">set nocompatible              " 这是必需的 </span><br><span class="line">filetype off                  " 这是必需的 </span><br><span class="line">  </span><br><span class="line">" 你在此设置运行时路径 </span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim  </span><br><span class="line"> </span><br><span class="line">" vundle初始化 </span><br><span class="line">call vundle#begin()  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">" 这应该始终是第一个 </span><br><span class="line">Plugin 'gmarik/Vundle.vim' </span><br><span class="line"> </span><br><span class="line">" 该例子来自https://github.com/gmarik/Vundle.vim README </span><br><span class="line">Plugin 'tpope/vim-fugitive'  </span><br><span class="line"> </span><br><span class="line">Plugin 'Yggdroot/indentLine'</span><br><span class="line"></span><br><span class="line">" Plugin 'preservim/nerdtree'</span><br><span class="line">Plugin 'scrooloose/nerdtree'</span><br><span class="line"></span><br><span class="line">Plugin 'majutsushi/tagbar'</span><br><span class="line"></span><br><span class="line">Plugin 'vim-airline/vim-airline'</span><br><span class="line">Plugin 'vim-airline/vim-airline-themes'</span><br><span class="line"></span><br><span class="line">Plugin 'kien/ctrlp.vim'</span><br><span class="line"></span><br><span class="line">Plugin 'tomasr/molokai'</span><br><span class="line"></span><br><span class="line">" 来自http://vim-scripts.org/vim/scripts.html的插件 </span><br><span class="line">"Plugin 'L9'  </span><br><span class="line"> </span><br><span class="line">"未托管在GitHub上的Git插件 </span><br><span class="line">"Plugin 'git://git.wincent.com/command-t.git'  </span><br><span class="line"> </span><br><span class="line">"本地机器上的git软件库（即编写自己的插件时） </span><br><span class="line">"Plugin 'file:///home/gmarik/path/to/plugin'  </span><br><span class="line"> </span><br><span class="line">" sparkup vim脚本在名为vim的该软件库子目录下。 </span><br><span class="line">" 传递路径，合理设置运行时路径。 </span><br><span class="line">Plugin 'rstacruz/sparkup', &#123;'rtp': 'vim/'&#125; </span><br><span class="line"> </span><br><span class="line">" 与L9避免名称冲突 </span><br><span class="line">Plugin 'user/L9', &#123;'name': 'newL9'&#125;  </span><br><span class="line"> </span><br><span class="line">"每个插件都应该在这一行之前  </span><br><span class="line"> </span><br><span class="line">call vundle#end()            " required</span><br><span class="line">filetype plugin indent on    " required</span><br><span class="line"></span><br><span class="line">"显示行号</span><br><span class="line">set nu</span><br><span class="line"></span><br><span class="line">"启动时隐去援助提示</span><br><span class="line">set shortmess=atI</span><br><span class="line"></span><br><span class="line">"语法高亮</span><br><span class="line">syntax on</span><br><span class="line"></span><br><span class="line">"使用vim的键盘模式</span><br><span class="line">set nocompatible</span><br><span class="line"></span><br><span class="line">"不需要备份</span><br><span class="line">set nobackup</span><br><span class="line"></span><br><span class="line">"没有保存或文件只读时弹出确认</span><br><span class="line">set confirm</span><br><span class="line"></span><br><span class="line">"鼠标可用</span><br><span class="line">set mouse-=a</span><br><span class="line"></span><br><span class="line">"tab缩进</span><br><span class="line">set tabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line">set expandtab</span><br><span class="line">set smarttab</span><br><span class="line"></span><br><span class="line">"文件自动检测外部更改</span><br><span class="line">set autoread</span><br><span class="line"></span><br><span class="line">"c文件自动缩进</span><br><span class="line">set cindent</span><br><span class="line"></span><br><span class="line">"自动对齐</span><br><span class="line">set autoindent</span><br><span class="line"></span><br><span class="line">"智能缩进</span><br><span class="line">set smartindent</span><br><span class="line"></span><br><span class="line">"高亮查找匹配</span><br><span class="line">set hlsearch</span><br><span class="line"></span><br><span class="line">"显示匹配</span><br><span class="line">set showmatch</span><br><span class="line"></span><br><span class="line">"显示标尺，就是在右下角显示光标位置</span><br><span class="line">set ruler</span><br><span class="line"></span><br><span class="line">"去除vi的一致性</span><br><span class="line">set nocompatible</span><br><span class="line"></span><br><span class="line">"设置键盘映射，通过空格设置折叠</span><br><span class="line">nnoremap &lt;space&gt; @=((foldclosed(line('.')&lt;0)?'zc':'zo'))&lt;CR&gt;</span><br><span class="line">""""""""""""""""""""""""""""""""""""""""""""""</span><br><span class="line">"不要闪烁</span><br><span class="line">set novisualbell</span><br><span class="line"></span><br><span class="line">"启动显示状态行</span><br><span class="line">set laststatus=2</span><br><span class="line"></span><br><span class="line">"浅色显示当前行</span><br><span class="line">autocmd InsertLeave * se nocul</span><br><span class="line"></span><br><span class="line">"用浅色高亮当前行</span><br><span class="line">autocmd InsertEnter * se cul</span><br><span class="line"></span><br><span class="line">"显示输入的命令</span><br><span class="line">set showcmd</span><br><span class="line"></span><br><span class="line">"被分割窗口之间显示空白</span><br><span class="line">set fillchars=vert:/</span><br><span class="line">set fillchars=stl:/</span><br><span class="line">set fillchars=stlnc:/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">" 配色方案</span><br><span class="line">"set background=dark</span><br><span class="line">"colorscheme solarized</span><br><span class="line">"colorscheme molokai</span><br><span class="line">"colorscheme phd</span><br><span class="line"></span><br><span class="line">" 禁止显示菜单和工具条</span><br><span class="line">set guioptions-=m</span><br><span class="line">set guioptions-=T</span><br><span class="line"></span><br><span class="line">" 总是显示状态栏</span><br><span class="line">set laststatus=2</span><br><span class="line"></span><br><span class="line">" 禁止折行</span><br><span class="line">set nowrap</span><br><span class="line"></span><br><span class="line">" 设置状态栏主题风格</span><br><span class="line">let g:Powerline_colorscheme='solarized256'</span><br><span class="line"></span><br><span class="line">syntax keyword cppSTLtype initializer_list</span><br><span class="line"></span><br><span class="line">" 基于缩进或语法进行代码折叠</span><br><span class="line">"set foldmethod=indent</span><br><span class="line">set foldmethod=syntax</span><br><span class="line">" 启动 vim 时关闭折叠代码</span><br><span class="line">set nofoldenable</span><br><span class="line"></span><br><span class="line">"允许用退格键删除字符</span><br><span class="line">set backspace=indent,eol,start</span><br><span class="line"></span><br><span class="line">"编码设置</span><br><span class="line">set encoding=utf-8</span><br><span class="line"></span><br><span class="line">"共享剪切板</span><br><span class="line">set clipboard=unnamed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let mapleader = ","</span><br><span class="line">let g:mapleader = ","</span><br><span class="line"></span><br><span class="line">" molokai</span><br><span class="line">colorscheme molokai    "开启 molokai 配色主题</span><br><span class="line"></span><br><span class="line">" ctrlp.vim</span><br><span class="line">let g:airline_cmd = 'CtrlP'        " ctrl + p 按键启动</span><br><span class="line">let g:airline_theme="bubblegum"</span><br><span class="line"></span><br><span class="line">" tagbar</span><br><span class="line">"nmap &lt;F8&gt; :TagbarToggle&lt;CR&gt;    " 通过 F8 打开/关闭Tagbar</span><br><span class="line">map &lt;leader&gt;tt :TagbarToggle&lt;CR&gt;    " 通过 F8 打开/关闭Tagbar</span><br><span class="line"></span><br><span class="line">" nerdtree</span><br><span class="line">let g:NERDTreeWinPos = "left"</span><br><span class="line">let NERDTreeIgnore = ['\.pyc$', '\.o$', 'tags']</span><br><span class="line">let g:NERDTreeWinSize = 35</span><br><span class="line">autocmd vimenter * NERDTree    " 打开vim，自动开启nerd tree</span><br><span class="line">map &lt;leader&gt;nm :NERDTreeMirror&lt;CR&gt; </span><br><span class="line">map &lt;leader&gt;nf :NERDTreeFind&lt;CR&gt;</span><br><span class="line">map &lt;leader&gt;nn :NERDTreeToggle&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>daily</category>
       </categories>
@@ -2511,7 +2615,7 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
   </entry>
   <entry>
     <title>numpy 相关</title>
-    <url>/2020/01/06/Numpy%E7%9B%B8%E5%85%B3/</url>
+    <url>/2020/01/06/python/Numpy%E7%9B%B8%E5%85%B3/</url>
     <content><![CDATA[<h2 id="Numpy-相关"><a href="#Numpy-相关" class="headerlink" title="Numpy 相关"></a>Numpy 相关</h2><h3 id="np-vstack-和np-dstack"><a href="#np-vstack-和np-dstack" class="headerlink" title="np.vstack 和np.dstack"></a>np.vstack 和np.dstack</h3><p>vstack是对其低纬，将高纬进行合并</p>
 <p>dstack是对其高纬，将低纬进行合并</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; a = np.ones((64,30,2))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; b = np.zeros((64,30,3))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; c = np.dstack((a,b))</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; c.shape</span></span><br><span class="line">(64, 30, 5)</span><br></pre></td></tr></table></figure>
@@ -2557,7 +2661,7 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
   </entry>
   <entry>
     <title>外企冲冲冲</title>
-    <url>/2020/01/05/%E5%88%B7%E9%A2%98%E6%8C%89%E5%85%AC%E5%8F%B8%E5%88%86%E7%B1%BB/</url>
+    <url>/2020/01/05/Leetcode/%E5%88%B7%E9%A2%98%E6%8C%89%E5%85%AC%E5%8F%B8%E5%88%86%E7%B1%BB/</url>
     <content><![CDATA[<p>那么面试过程中，如何表现呢？**</p>
 <p><strong>1. 听题+记录</strong></p>
 <p><strong>2. 复述+追问</strong></p>
@@ -2867,7 +2971,7 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
   </entry>
   <entry>
     <title>BeautifulSoup 4 部分使用笔记</title>
-    <url>/2019/12/27/BeautifulSoup4/</url>
+    <url>/2019/12/27/python/BeautifulSoup4/</url>
     <content><![CDATA[<h1 id="BeautifulSoup-4-使用理解"><a href="#BeautifulSoup-4-使用理解" class="headerlink" title="BeautifulSoup 4  使用理解"></a>BeautifulSoup 4  使用理解</h1><p><strong>核心</strong>：Beautiful Soup将复杂HTML文档转换成一个复杂的<strong>树形结构</strong>,每个节点都是Python对象,所有对象可以归纳为4种: <code>Tag</code> , <code>NavigableString</code> , <code>BeautifulSoup</code> , <code>Comment</code> </p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 全篇都是以这个例子进行展开</span></span><br><span class="line">html_doc = <span class="string">"""</span></span><br><span class="line"><span class="string">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</span></span><br><span class="line"><span class="string">and they lived at the bottom of a well.&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;...&lt;/p&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(html_doc)</span><br></pre></td></tr></table></figure>
 <h2 id="基础节点类型"><a href="#基础节点类型" class="headerlink" title="基础节点类型"></a>基础节点类型</h2><ul>
@@ -3266,7 +3370,7 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
   </entry>
   <entry>
     <title>两个水桶的装水问题</title>
-    <url>/2019/12/18/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/</url>
+    <url>/2019/12/18/%E9%9D%A2%E7%BB%8F/%E8%A3%85%E6%B0%B4%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="装水问题"><a href="#装水问题" class="headerlink" title="装水问题"></a>装水问题</h2><p>一个和尚去河边挑水，带了两个桶，一个是能装4斤水，一个能装9斤水，问如何可以装一个6斤水的出来</p>
 <p>（or 一个能装3斤水一个能装5斤水）</p>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>A桶4斤，B桶9斤</p>
@@ -3741,10 +3845,12 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
   </entry>
   <entry>
     <title>Shell 命令基础</title>
-    <url>/2019/12/17/shell%E5%9F%BA%E7%A1%80/</url>
+    <url>/2019/12/17/Linux/shell%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h2 id="Shell命令基础"><a href="#Shell命令基础" class="headerlink" title="Shell命令基础"></a>Shell命令基础</h2><p>日常linux下工作除了基本的命令行命令之外 还需要积累一些shell 脚本的基础知识</p>
-<h3 id="基本符号问题"><a href="#基本符号问题" class="headerlink" title="基本符号问题"></a>基本符号问题</h3><p>` `  ！！！不是单引号</p>
+<h3 id="基本符号问题"><a href="#基本符号问题" class="headerlink" title="基本符号问题"></a>基本符号问题</h3><p>` `   不是单引号</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">`` 键盘右上角的符号，并不是单引号，这个用来包住命令 tmp=`echo '123'`就是将内部的命令运行结果包起来</span><br><span class="line">等价于 $() 即 tmp=$(echo '123')</span><br></pre></td></tr></table></figure>
+<p>常用符号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">$</span></span><br><span class="line">Shell本身的PID（ProcessID）</span><br><span class="line"><span class="meta">$</span><span class="bash">!</span></span><br><span class="line">Shell最后运行的后台Process的PID</span><br><span class="line"><span class="meta">$</span><span class="bash">?   经常配合 <span class="built_in">test</span> 使用</span></span><br><span class="line">最后运行的命令的结束代码（返回值）</span><br><span class="line"><span class="meta">$</span><span class="bash">-</span></span><br><span class="line">使用Set命令设定的Flag一览</span><br><span class="line"><span class="meta">$</span><span class="bash">*</span></span><br><span class="line">所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数。</span><br><span class="line"><span class="meta">$</span><span class="bash">@</span></span><br><span class="line">所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。</span><br><span class="line"><span class="meta">$</span><span class="bash"><span class="comment">#</span></span></span><br><span class="line">添加到Shell的参数个数</span><br><span class="line"><span class="meta">$</span><span class="bash">0</span></span><br><span class="line">Shell本身的文件名</span><br><span class="line"><span class="meta">$</span><span class="bash">1～<span class="variable">$n</span></span></span><br><span class="line">添加到Shell的各参数值。$1是第1参数、$2是第2参数…。</span><br></pre></td></tr></table></figure>
 <h3 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h3><h4 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for((i=0;i&lt;$n;i++)); # 这样可以像C语言一样写</span><br><span class="line">do xxxxxx</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 <h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dt=$1</span><br><span class="line">if [ ! $dt ];then</span><br><span class="line">    do something</span><br><span class="line">else:</span><br><span class="line">	  do something</span><br><span class="line">	  exit 1  # 强制退出</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 <h4 id="函数写法"><a href="#函数写法" class="headerlink" title="函数写法"></a>函数写法</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 定义一个函数</span></span><br><span class="line">test_func()&#123;</span><br><span class="line">		hive -hiveconf table_name=$&#123;table_name&#125; \</span><br><span class="line">				-hiveconf ...\</span><br><span class="line">				-f test.hql</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">test_func</span><br></pre></td></tr></table></figure>
@@ -3761,14 +3867,24 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
 <h3 id="shell-脚本里面多行注释"><a href="#shell-脚本里面多行注释" class="headerlink" title="shell 脚本里面多行注释"></a>shell 脚本里面多行注释</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "123"</span><br><span class="line"></span><br><span class="line">&lt;&lt; COMMENT</span><br><span class="line">test </span><br><span class="line">&lt;&lt;</span><br></pre></td></tr></table></figure>
 <h3 id="sort-用法"><a href="#sort-用法" class="headerlink" title="sort 用法"></a>sort 用法</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">主要的几个参数：</span><br><span class="line">-k 3  按照第3列进行排序</span><br><span class="line">-r  默认升序，-r进行逆序</span><br><span class="line">-n numerical  如果按照字符串排序会出现  23排在8前面  -n则是按照数值大小排序</span><br><span class="line">-t ”,“ 按照逗号分割，  '\t'这个有点特殊  需要  $'\t' 这样用</span><br></pre></td></tr></table></figure>
 <h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从标准输入 获取</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -p 表示先输出一段文本内容</span></span><br><span class="line">read -p  "please input: " num</span><br><span class="line">echo $num</span><br></pre></td></tr></table></figure>
+<h3 id="shell-常用命令符号含义"><a href="#shell-常用命令符号含义" class="headerlink" title="shell 常用命令符号含义"></a>shell 常用命令符号含义</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="crontab-踩坑实录"><a href="#crontab-踩坑实录" class="headerlink" title="crontab 踩坑实录"></a>crontab 踩坑实录</h3><p>crontab -e 直接编写 定时job<br>crontab -l 查看当前所有定时job</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">* * * * * command</span><br><span class="line">5个* 分别对应着  分 时 天 月 周</span><br><span class="line">分  0-59</span><br><span class="line">时  0-23</span><br><span class="line">天  1-31</span><br><span class="line">月  1-12</span><br><span class="line">星期0-7   0,7都表示星期天</span><br></pre></td></tr></table></figure>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>实例1：每1分钟执行一次myCommand<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">* * * * * myCommand</span><br></pre></td></tr></table></figure><br>实例2：每小时的第3和第15分钟执行<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">3,15 * * * * myCommand</span><br></pre></td></tr></table></figure><br>实例3：在上午8点到11点的第3和第15分钟执行<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">3,15 8-11 * * * myCommand</span><br></pre></td></tr></table></figure><br>实例4：每隔两天的上午8点到11点的第3和第15分钟执行<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">3,15 8-11 */2  *  * myCommand</span><br></pre></td></tr></table></figure><br>实例5：每周一上午8点到11点的第3和第15分钟执行<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">3,15 8-11 * * 1 myCommand</span><br></pre></td></tr></table></figure></p>
+<h4 id="alias-不可用"><a href="#alias-不可用" class="headerlink" title="alias 不可用"></a>alias 不可用</h4><p>bash 默认 在非交互模式下是无效的。即脚本里面使用。平时的命令窗口是没有问题的。如果需要再脚本里面使用：shopt</p>
+<p>注意shopt这个命令是shell内置命令，可以控制shell功能选项的开启和关闭，从而控制shell的行为<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alias echo_hello=“echo Hello!”</span><br><span class="line">shopt -s expand_aliases</span><br><span class="line">shopt expand_aliases</span><br><span class="line">echo_hello</span><br></pre></td></tr></table></figure><br>上面的echo_hello 别名就可以正常使用了</p>
+<h4 id="crontab-路径问题"><a href="#crontab-路径问题" class="headerlink" title="crontab 路径问题"></a>crontab 路径问题</h4><p>由于crontab 使用的路径跟你的脚本路径基本不一致，所以crontab -e 命令使用 <strong>绝对路径</strong><br>shell 脚本里面也需要注意</p>
+<h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><p>crontab 环境变量也都不一致<br>所以 有些需要使用的 需要在脚本里面 source 一下才能生效<br>比如 python的环境 也要切换到对应的虚拟环境下</p>
+<h4 id="crontab中-号问题"><a href="#crontab中-号问题" class="headerlink" title="crontab中%号问题"></a>crontab中%号问题</h4><p>由于在 crontab 里面，自己默认的%是换行操作，所以对于执行<code>date +&quot;%Y%m%d&quot;</code>的操作，就不work<br>所以需要进行转义<br><code>date +&quot;\%Y\%m\%d&quot;</code><br>这样才可以正常使用</p>
 ]]></content>
   </entry>
   <entry>
     <title>Git 常用工作流</title>
-    <url>/2019/12/17/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</url>
+    <url>/2019/12/17/Linux/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</url>
     <content><![CDATA[<h3 id="git-基本工作流"><a href="#git-基本工作流" class="headerlink" title="git 基本工作流"></a>git 基本工作流</h3><p>初级 以及讲解  配合业务 使用</p>
 <ul>
-<li><p>从线上拉回代码</p>
+<li><p>从一个库中拉取代码 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone  xxx</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>开发前建立一个分支</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -b marys-feature</span><br></pre></td></tr></table></figure>
@@ -3953,7 +4069,7 @@ d[i][j] = max\{d[i-1][0...j-2]\} + slices[j]</script><p>$d[i][j]$其中的i表�
   </entry>
   <entry>
     <title>Dropout学习与总结</title>
-    <url>/2019/12/14/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/</url>
+    <url>/2019/12/14/DL/dropout%E9%A2%84%E9%98%B2%E8%BF%87%E6%8B%9F%E5%90%88/</url>
     <content><![CDATA[<h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>关于一个新东西的三连：是什么，为什么，怎么用</p>
 <h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>Dropout 是训练<strong>深度</strong>神经网络时采取的一种手段，来预防过拟合。在训练过程中，随机的以一定的概率“临时”抛弃掉某些节点。具体来讲，dropout作用于每个<strong>小batch</strong>训练数据，由于其随机丢弃部分神经元的机制，相当于每次迭代都在训练不同的神经网络结构。</p>
 <h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>Dropout为什么会有这样的效果呢？类比bagging方法，其实达到了集成学习的效果。从bagging的集成角度来讲，传统意义上的bagging集成方法涉及多个模型的训练与评估，当网络参数规模庞大时，这种集成方式需要消耗大量的运算时间和空间。而Dropout是在小批量上进行操作，类似一种轻量级的bagging集成近似，能够实现指数级数量神经网络的训练与评估。</p>
@@ -3980,7 +4096,7 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
   </entry>
   <entry>
     <title>中心极限定理</title>
-    <url>/2019/12/11/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <url>/2019/12/11/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h2 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h2><h3 id="数学表述"><a href="#数学表述" class="headerlink" title="数学表述"></a>数学表述</h3><h3 id="独立同分布的中心极限定理"><a href="#独立同分布的中心极限定理" class="headerlink" title="独立同分布的中心极限定理"></a>独立同分布的中心极限定理</h3><p>设随机变量X1，X2，……Xn，……独立同分布，并且具有有限的数学期望和方差：E(Xi)=μ，D(Xi)=σ20(k=1,2….)，则对任意x，分布函数</p>
 <p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/f31fbe096b63f624c0ee83e68a44ebf81b4ca3a0.jpg" alt="img"></p>
 <p>满足</p>
@@ -3997,6 +4113,7 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
 <h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><p>对于一份数据集，其分布可能并不是正太分布的。但是我们可以通过采样操作，比如每次采样n=50个，一共采样m个样本集，那么这个样本集的分布是符合正太分布的。</p>
 <p>比如整个数据集合的均值可能为1，方差为2。我们抽出来了m个样本，可能这m个样本中，有的样本均值为0，有的样本均值为0.9，有的为1.2有的为2.0 。但是这m个样本的分布是符合正太分布的。</p>
 <p><strong>中心极限定理意味着即使数据分布不是正态的，从中抽取的样本均值的分布也是正态的</strong></p>
+<p>主要应用场景就是 A/Btest</p>
 ]]></content>
       <categories>
         <category>概率与统计面试题</category>
@@ -4160,18 +4277,19 @@ f是激活函数</script><p>由此可见，是先对前一层的神经元进行�
 <li>[ ] 编程思想</li>
 </ul>
 <h3 id="机器学习大方向"><a href="#机器学习大方向" class="headerlink" title="机器学习大方向"></a>机器学习大方向</h3><ul>
-<li>[ ] 统计学习方法</li>
+<li>[x] 统计学习方法</li>
 <li>[ ] 机器学习（西瓜书）</li>
-<li>[ ] 百面机器学习</li>
+<li>[x] 百面机器学习</li>
 <li>[ ] 强化学习精要</li>
 <li>[ ] 推荐系统</li>
 </ul>
 <h3 id="算法工程师基本技能"><a href="#算法工程师基本技能" class="headerlink" title="算法工程师基本技能"></a>算法工程师基本技能</h3><ul>
-<li><p>编程语言</p>
-<ul>
+<li>编程语言<ul>
 <li>python 核心编程</li>
 <li>java ？？？ </li>
 </ul>
+</li>
+<li><p>c++ ！！！:accept:</p>
 </li>
 <li><p>大数据方向</p>
 </li>
@@ -4210,6 +4328,7 @@ TPR = \frac{5}{6} \\
 即分类正确的三俗样本，占实际三俗样本个数的比例，跟召回率一样</script><h3 id="如何绘制ROC曲线"><a href="#如何绘制ROC曲线" class="headerlink" title="如何绘制ROC曲线"></a>如何绘制ROC曲线</h3><p>关键点在于：<strong>每个截断点都对于一个TPR和FPR</strong></p>
 <p>绘制ROC曲线的过程，就是不断枚举截断点（分类阈值）的过程，通过动态调整截断点，从最高分的得分开始，逐渐调整到最低点，其中每一个截断点都对应一个坐标（FPR,TPR），将这些点连成线就构成了ROC曲线。</p>
 <h2 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h2><p> AUC即 area under curve ,指的是ROC曲线下的面经，该值能够量化地反映基于ROC曲线衡量出的模型性能。AUC一般取值0.5-1之间，AUC越大，说明分类器越可能把真正的正样本排在前面，分类性能越好。（对于排序来说，就是把正样本排的越靠前）。</p>
+<p>关键点在于AUC如何进行计算</p>
 ]]></content>
   </entry>
   <entry>
@@ -5574,7 +5693,8 @@ x^{*}=\frac{x-\mu}{\sigma}</script><p>非线性归一化：</p>
 </ul>
 <p>第一个条件是比较坚决的，第二三个条件可以波动。</p>
 <h3 id="中介"><a href="#中介" class="headerlink" title="中介"></a>中介</h3><p>永丰南那里中润置家还是挺好的，至少我租了6个月的体验还算可以吧</p>
-<p>肖家河东西区那边就是合美家还可以，就是收服务费这个事情一定要搞清楚</p>
+<p><del>肖家河东西区那边就是合美家还可以，就是收服务费这个事情一定要搞清楚</del></p>
+<p>垃圾，虽然没发生什么太大问题，退押金要一个月才能退。国家规定的法律关系结束的时候就要必须退还押金。</p>
 ]]></content>
   </entry>
   <entry>
@@ -5857,7 +5977,7 @@ dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><tabl
   </entry>
   <entry>
     <title>日常awk命令汇总</title>
-    <url>/2019/11/04/awk/</url>
+    <url>/2019/11/04/Linux/awk/</url>
     <content><![CDATA[<h1 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h1><p>适用于文本处理和报表生成（是一种一旦学会了就会成为您的<strong><a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/" target="_blank" rel="noopener">战略代码库</a></strong>的重要部分语言:laughing:）</p>
 <p>awk处理文件的过程是一行一行读取并处理的，总是先去匹配pattern（模式），如果匹配成功就是执行action。</p>
 <p>除了核心模块外还有两个辅助部分，即<code>BEGIN</code>和<code>END</code>模块，这两个部分是在核心处理机制外的，大白话来解释就是：</p>
@@ -5930,5 +6050,14 @@ dp[i][j] = d[i][j-1] + dp[i-1][j]</script><figure class="highlight python"><tabl
       <categories>
         <category>daily</category>
       </categories>
+  </entry>
+  <entry>
+    <title>python/txt和excel互换脚本</title>
+    <url>/2019/11/04/python/txt%E5%92%8Cexcel%E4%BA%92%E6%8D%A2%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="txt-和-excel-进行互相切换的脚本代码"><a href="#txt-和-excel-进行互相切换的脚本代码" class="headerlink" title="txt 和 excel 进行互相切换的脚本代码"></a>txt 和 excel 进行互相切换的脚本代码</h2><p>场景：服务器上操作，多以文本形式就行，包括python 中 直接写print 进行重定向输出，都是非常方便的，但是有时候为了给产品或者运营数据，或者从他们手里拿到数据，都是excel格式的。因此有一个互换的脚本是非常方便的</p>
+<h3 id="bashrc-配置"><a href="#bashrc-配置" class="headerlink" title="bashrc 配置"></a>bashrc 配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alias xls2txt='/xls2txt.py'</span><br><span class="line">alias txt2xls='/txt2xls.py'</span><br></pre></td></tr></table></figure>
+<h3 id="txt2xls"><a href="#txt2xls" class="headerlink" title="txt2xls"></a>txt2xls</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> xlwt <span class="comment">#需要的模块</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook, load_workbook</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">txt2xls</span><span class="params">(filename,xlsname)</span>:</span>  <span class="comment">#文本转换成xls的函数，filename 表示一个要被转换的txt文本，xlsname 表示转换后的文件名</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'converting xls ... '</span>)</span><br><span class="line">    f = open(filename)   <span class="comment">#打开txt文本进行读取</span></span><br><span class="line">    x = <span class="number">0</span>                <span class="comment">#在excel开始写的位置（y）</span></span><br><span class="line">    y = <span class="number">0</span>                <span class="comment">#在excel开始写的位置（x）</span></span><br><span class="line">    xls=Workbook()</span><br><span class="line">    sheet = xls.create_sheet(<span class="string">'sheet0'</span>,<span class="number">0</span>) <span class="comment">#生成excel的方法，声明excel</span></span><br><span class="line">    <span class="comment">#sheet=xls.active</span></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:  <span class="comment">#循环，读取文本里面的所有内容</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            line = f.readline() <span class="comment">#一行一行读取</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> line:  <span class="comment">#如果没有内容，则退出循环</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            co=<span class="number">1</span></span><br><span class="line">            data=line.strip(<span class="string">'\n'</span>).split(<span class="string">'\t'</span>)<span class="comment">#读取出相应的内容写到x</span></span><br><span class="line">            sheet.append(data)</span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> count%<span class="number">500000</span>==<span class="number">0</span>:</span><br><span class="line">                <span class="comment">#sheet.write(x,y)</span></span><br><span class="line">                sheet = xls.create_sheet(<span class="string">'sheet'</span>+str(count//<span class="number">10</span>))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(str(e))</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment">#y += 1 #另起一列</span></span><br><span class="line">        <span class="comment">#x += 1 #另起一行</span></span><br><span class="line">        <span class="comment">#y = 0  #初始成第一列</span></span><br><span class="line">    f.close()</span><br><span class="line">    xls.save(xlsname+<span class="string">'.xlsx'</span>) <span class="comment">#保存</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) != <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">"Usage: txt2xls text_file output_xls_file"</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line">    filename = sys.argv[<span class="number">1</span>]</span><br><span class="line">    xlsname  = sys.argv[<span class="number">2</span>]</span><br><span class="line">    txt2xls(filename,xlsname)</span><br></pre></td></tr></table></figure>
+<h3 id="xls2txt"><a href="#xls2txt" class="headerlink" title="xls2txt"></a>xls2txt</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xls2txt</span><span class="params">(xls_file, txt_file)</span>:</span></span><br><span class="line">    fname = xls_file    <span class="comment">#命令行参数 ,取第一个参数</span></span><br><span class="line">    <span class="comment"># print  fname</span></span><br><span class="line">    bk = xlrd.open_workbook(fname)</span><br><span class="line">    <span class="comment">#工作簿中所有sheet的名称</span></span><br><span class="line">    <span class="comment">#print bk.sheet_names()</span></span><br><span class="line">    <span class="comment">#shxrange = range(bk.nsheets) </span></span><br><span class="line">    fo = open(txt_file, <span class="string">'wb'</span>)</span><br><span class="line">    <span class="comment">#循环获取每个sheet中的数据</span></span><br><span class="line">    sheetnames = bk.sheet_names()</span><br><span class="line">    m=sheetnames[<span class="number">3</span>]</span><br><span class="line">    <span class="keyword">print</span> (m)</span><br><span class="line">    sh=bk.sheet_by_name(m)</span><br><span class="line">    nrows=sh.nrows</span><br><span class="line">    ncols=sh.ncols</span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(nrows):</span><br><span class="line">        <span class="keyword">if</span> count==<span class="number">0</span>:</span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">       <span class="comment"># count+=1</span></span><br><span class="line">        row_data=sh.row_values(i)</span><br><span class="line">        line=<span class="string">""</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        if int(row_data[0])==1:</span></span><br><span class="line"><span class="string">        #    print('1')</span></span><br><span class="line"><span class="string">            line=str(1.0)+'\t'+'\t'.join(row_data[1:])</span></span><br><span class="line"><span class="string">        elif int(row_data[0])==0:</span></span><br><span class="line"><span class="string">            line='-1.0'+'\t'+'\t'.join(row_data[1:])</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        line = <span class="string">'\t'</span>.join(str(j) <span class="keyword">for</span> j <span class="keyword">in</span> row_data)</span><br><span class="line">        fo.write((line + <span class="string">"\n"</span>).encode(encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    for m in sheetnames:</span></span><br><span class="line"><span class="string">        sh = bk.sheet_by_name(m)</span></span><br><span class="line"><span class="string">        #获取行数</span></span><br><span class="line"><span class="string">        nrows = sh.nrows</span></span><br><span class="line"><span class="string">        #获取列数</span></span><br><span class="line"><span class="string">        ncols = sh.ncols     #此行可注释掉</span></span><br><span class="line"><span class="string">        #print "nrows %d, ncols %d" % (nrows,ncols)</span></span><br><span class="line"><span class="string">        row_list = []</span></span><br><span class="line"><span class="string">        #获取各行数据</span></span><br><span class="line"><span class="string">        for i in range(nrows):</span></span><br><span class="line"><span class="string">            row_data = sh.row_values(i)</span></span><br><span class="line"><span class="string">            line = ""</span></span><br><span class="line"><span class="string">            for j in range(len(row_data)):</span></span><br><span class="line"><span class="string">                if j == 0:</span></span><br><span class="line"><span class="string">                    line = str(row_data[j])</span></span><br><span class="line"><span class="string">                else:</span></span><br><span class="line"><span class="string">                    line = line + "\t" + str(row_data[j])</span></span><br><span class="line"><span class="string">            fo.write((line + "\n").encode(encoding='utf-8'))  #输出每行后换行</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    fo.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) != <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">"Usage: xls2txt xls_file output_txt_file"</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line">    xls_file = sys.argv[<span class="number">1</span>]</span><br><span class="line">    txt_file = sys.argv[<span class="number">2</span>]</span><br><span class="line">    xls2txt(xls_file, txt_file)</span><br></pre></td></tr></table></figure>
+]]></content>
   </entry>
 </search>

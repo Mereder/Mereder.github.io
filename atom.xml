@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-27T08:37:56.336Z</updated>
+  <updated>2020-07-30T07:52:27.320Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,91 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>面试过程中的概率问题</title>
-    <link href="http://yoursite.com/2020/07/27/%E9%9D%A2%E7%BB%8F/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2020/07/27/%E9%9D%A2%E7%BB%8F/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/</id>
-    <published>2020-07-27T08:30:34.786Z</published>
-    <updated>2020-07-27T08:37:56.336Z</updated>
+    <title>tmux 日常使用</title>
+    <link href="http://yoursite.com/2020/07/30/Linux/tmux/"/>
+    <id>http://yoursite.com/2020/07/30/Linux/tmux/</id>
+    <published>2020-07-30T07:44:30.724Z</published>
+    <updated>2020-07-30T07:52:27.320Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="同一个圆上随机选3点，构成锐角三角形的概率"><a href="#同一个圆上随机选3点，构成锐角三角形的概率" class="headerlink" title="同一个圆上随机选3点，构成锐角三角形的概率"></a>同一个圆上随机选3点，构成锐角三角形的概率</h3>]]></content>
+    <content type="html"><![CDATA[<h1 id="Tmux-命令"><a href="#Tmux-命令" class="headerlink" title="Tmux 命令"></a>Tmux 命令</h1><p>简化同时打开多个终端命令台</p><ul><li><p>丝滑分屏</p></li><li><p>*保护现场（）</p><p>即使命令行工作到一半，关闭终端后仍可重新进入操作现场。ssh远程连接，即使掉线后也可以恢复现场。远程服务器运行耗时任务（跑个模型）时候，可以帮助一直保持后台的会话</p></li><li><p>会话共享</p><p>将tmux会话地址分享给别人，他们可以通过SSH接入会话。然后看演示的操作内容。</p></li></ul><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>会话（session） 窗口（window） 面板就（pane）</p><p>每一次可以创建一个会话，默认一个会话充满一个窗口，一个窗口内部可以有多个面板</p><h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><p>前缀键 ctrl + b</p><p>下面内容中的$<prefix>$ 均表示前缀键</p><h3 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux # 新建一个无名会话</span><br><span class="line">tmux new -s demo # 新建一个名称为demo的 会话</span><br></pre></td></tr></table></figure><h3 id="挂起当前会话（后台运行）"><a href="#挂起当前会话（后台运行）" class="headerlink" title="挂起当前会话（后台运行）"></a>挂起当前会话（后台运行）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux detach # 后台挂起 </span><br><span class="line">快捷键&lt;prefix&gt; + d</span><br></pre></td></tr></table></figure><h3 id="进入之前会话"><a href="#进入之前会话" class="headerlink" title="进入之前会话"></a>进入之前会话</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux a # 默认进入第一个会话</span><br><span class="line">tmux a -t demo # 进入名称为demo的会话</span><br></pre></td></tr></table></figure><h3 id="关闭会话"><a href="#关闭会话" class="headerlink" title="关闭会话"></a>关闭会话</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;prefix&gt; + &amp;  (&amp; 是 shift + 7)</span><br></pre></td></tr></table></figure><p>基础命令 kill-session、kill-window、kill-pane、kill-server</p><h2 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h2><p>同一个窗口下可以快速创建分窗口（实际就是面板），他们共享一个会话，可以通过快捷键进行上下分屏，左右分屏，开启面板，关闭面板</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Tmux-命令&quot;&gt;&lt;a href=&quot;#Tmux-命令&quot; class=&quot;headerlink&quot; title=&quot;Tmux 命令&quot;&gt;&lt;/a&gt;Tmux 命令&lt;/h1&gt;&lt;p&gt;简化同时打开多个终端命令台&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;丝滑分屏&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>python 中的参数系统</title>
+    <link href="http://yoursite.com/2020/07/30/python/%E5%8F%82%E6%95%B0%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://yoursite.com/2020/07/30/python/%E5%8F%82%E6%95%B0%E7%B3%BB%E7%BB%9F/</id>
+    <published>2020-07-30T07:10:14.991Z</published>
+    <updated>2020-07-30T07:10:58.155Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><p>主要是用在写代码的时候 规定一些 默认参数</p><p>从最开始  设定  一些关键参数 减少 代码中 其他部分   频繁修改</p><p><a href="https://docs.python.org/zh-cn/3/library/argparse.html" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/argparse.html</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> argparse <span class="keyword">import</span> ArgumentParser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一系列命令行参数</span></span><br><span class="line">parser = ArgumentParser()</span><br><span class="line"><span class="comment"># 定义 file</span></span><br><span class="line">parser.add_argument(<span class="string">'--file'</span>, type=str,</span><br><span class="line">                        dest=<span class="string">'file'</span>, help=<span class="string">'input file name'</span>,</span><br><span class="line">                        metavar=<span class="string">'file'</span>, required=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 定义 选择 n-gram 的n</span></span><br><span class="line">parser.add_argument(<span class="string">'--ngram'</span>,type=int,</span><br><span class="line">                        dest=<span class="string">'ngram'</span>,help=<span class="string">'the number of gram'</span>,</span><br><span class="line">                        metavar=<span class="string">'ngram'</span>,required = <span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 定义 选择返回的 topN</span></span><br><span class="line">parser.add_argument(<span class="string">'--topN'</span>,type=int,</span><br><span class="line">                        dest=<span class="string">'topN'</span>,help=<span class="string">'return the number of TOP'</span>,</span><br><span class="line">                        metavar=<span class="string">'topN'</span>,required = <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot; &quot;&gt;&lt;/a&gt; &lt;/h3&gt;&lt;p&gt;主要是用在写代码的时候 规定一些 默认参数&lt;/p&gt;
+&lt;p&gt;从最开始  设定  一些关键参数 减少 代码中 其他部分   频繁修改&lt;/p&gt;
+&lt;p&gt;&lt;a h
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python 一些基础问题</title>
+    <link href="http://yoursite.com/2020/07/30/python/%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2020/07/30/python/%E5%9F%BA%E7%A1%80/</id>
+    <published>2020-07-30T02:59:56.638Z</published>
+    <updated>2020-07-30T07:12:21.790Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Python-传值还是传引用问题"><a href="#Python-传值还是传引用问题" class="headerlink" title="Python 传值还是传引用问题"></a>Python 传值还是传引用问题</h3><p>Python 总体来说，对于可变变量传的是引用，对于不可变变量传的是值</p><p>对于int long,float等 都是传值，对于可变类型list,dict，对象等都是传引用。注意 string 是传递的值</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a)</span>:</span></span><br><span class="line">  a += <span class="string">'test'</span></span><br><span class="line">  </span><br><span class="line">a = [<span class="string">'test'</span>]</span><br><span class="line">s = <span class="string">'test'</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Python-传值还是传引用问题&quot;&gt;&lt;a href=&quot;#Python-传值还是传引用问题&quot; class=&quot;headerlink&quot; title=&quot;Python 传值还是传引用问题&quot;&gt;&lt;/a&gt;Python 传值还是传引用问题&lt;/h3&gt;&lt;p&gt;Python 总体来说，对于
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>面试过程中的概率问题</title>
+    <link href="http://yoursite.com/2020/07/27/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2020/07/27/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98/</id>
+    <published>2020-07-27T08:30:34.786Z</published>
+    <updated>2020-07-30T07:08:00.903Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="同一个圆上随机选3点，构成锐角三角形的概率"><a href="#同一个圆上随机选3点，构成锐角三角形的概率" class="headerlink" title="同一个圆上随机选3点，构成锐角三角形的概率"></a>同一个圆上随机选3点，构成锐角三角形的概率</h3><p><img src="https://iknow-pic.cdn.bcebos.com/6c224f4a20a44623060db6de9e22720e0df3d742?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="img"></p><p>任意一点A确定，B也确定之后，要形成锐角三角形，点C必须在DE之间，否则将成为直角或钝角三角形ABC。设AB对应夹角为θ，θ在（0，π）上才有可能形成锐角三角形。θ的概率密度是1/π，此时组成锐角三角形需要C点在AB对应的DE段间的概率是θ/2π</p><p>所以概率是【θ/2π*1/π】关于θ在（0，π）积分=(θ^2)/(4π^2)在π取值减去在0取值=1/4</p><h3 id="一根木棒，截成三截，组成三角形的概率是多少？"><a href="#一根木棒，截成三截，组成三角形的概率是多少？" class="headerlink" title="一根木棒，截成三截，组成三角形的概率是多少？"></a>一根木棒，截成三截，组成三角形的概率是多少？</h3><p>几何概率问题，对构成三角形的问题进行建模</p><p>设三条边分别为x,y,1-x-y 根据三角形构成规则：<strong>两边之和大于第三条边</strong></p><h3 id="有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"><a href="#有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？" class="headerlink" title="有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？"></a>有一苹果，两个人抛硬币来决定谁吃这个苹果，先抛到正面者吃。问先抛这吃到苹果的概率是多少？</h3><p>给所有的抛硬币操作从 1 开始编号，显然先手者只可能在奇数（1，3，5，7…）次抛硬币得到苹果，而后手只可能在偶数次（2，4，6，8…）抛硬币得到苹果。</p><p>设先手者得到苹果的概率为 p，第 1 次抛硬币得到苹果的概率为 p = 1/2，在第 3 次（3，5，7…）以后得到苹果的概率为 p/4（这是因为这种只有在第1次和第2次抛硬币都没有抛到正面，概率为 1/4 = 1/2 * 1/2 的时候才有可能发生，而且此时先手者此刻面临和开始相同的局面）；所以可以列出等式 p = 1/2 + p /4，p = 2/3（注意 p 表示先手者得到苹果的概率）。</p><h3 id="一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"><a href="#一个三角形，-三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？" class="headerlink" title="一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？"></a>一个三角形， 三个端点上有三只蚂蚁，蚂蚁可以绕任意边走，问蚂蚁不相撞的概率是多少？</h3><p>只有都顺时针或者都逆时针才不会相撞概率为$\frac{1}{8}$</p><h3 id="已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><a href="#已知一随机发生器，产生-0-的概率是-p，产生-1-的概率是-1-p，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）" class="headerlink" title="已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）"></a>已知一随机发生器，产生 0 的概率是 p，产生 1 的概率是 1-p，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</h3><p>由题目有： 0 : p 1 : 1 - p</p><p>连续产生两个数，其组合以及概率如下：</p><div class="table-container"><table><thead><tr><th>00</th><th>01</th><th>10</th><th>11</th></tr></thead><tbody><tr><td>$p^2$</td><td>p(1-p)</td><td>(1-p)p</td><td>$(1-p)^2$</td></tr></tbody></table></div><p>可以发现 01 和 10 组合的概率是相等的，只需要将其分别映射到 0 和 1 即可。</p><p>即每次随机产生两个数，如果组合为00或11则丢弃，若为 01 则映射到 1，若为 10 则映射到 0，这样一来产生 0 和 1 的概率均为 1 / 2 </p><h3 id="已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）"><a href="#已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生-0-和-1-的概率均为-1-2（随机数生成）" class="headerlink" title="已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）"></a>已知一随机发生器，产生的数字的分布不清楚，现在要你构造一个发生器，使得它产生 0 和 1 的概率均为 1/2（随机数生成）</h3><p>使用该随机发生器产生随机数 a，b，有以下 3 种情况：</p><ol><li>a &lt; b</li><li>a == b</li><li>a &gt; b</li></ol><p>其中情况（1）和（3）是对称的，发生的概率相等，只需要将这两种情况分别映射到 0 和 1 即可，其中遇到 a == b 时忽略。</p><h3 id="已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10"><a href="#已知有个-rand7-的函数，返回-1-到-7-随机自然数，怎样利用这个-rand7-构造-rand10-，随机-1-10" class="headerlink" title="已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10"></a>已知有个 rand7() 的函数，返回 1 到 7 随机自然数，怎样利用这个 rand7() 构造 rand10()，随机 1 ~ 10</h3><p>产生随机数的主要原则是每个数出现的概率是相等的，如果可以得到一组等概率出现的数字，那么就可以从中找到映射为 1 到 10 的方法。</p><p>rand7() 返回 1 ~ 7 的自然数，构造新的函数 (rand7() - 1) * 7 + rand7()，这个函数会随机产生 1 到 49 的自然数。</p><p>原因是 1 到 49 中的每个数只有唯一的第一个 rand7() 的值和第二个 rand7() 的值表示，于是它们出现的概率是相等。</p><p>但是这里的数字太多，可以丢弃 41 到 49 的数字，把 1 到 40 的数字分成 10 组，每组映射成 1 到 10 中的一个，于是可以得到随机的结果。</p><p>具体方法是，利用 (rand7() - 1) * 7 + rand7() 产生随机数 x，如果大于 40 则继续随机直到小于等于 40 为止，如果小于等于 40，则产生的随机数为 (x - 1) / 4 + 1。</p><p>refs:</p><blockquote><p><a href="https://zhuanlan.zhihu.com/p/46592195" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46592195</a></p></blockquote>]]></content>
     
     <summary type="html">
     
@@ -35,7 +113,7 @@
     </summary>
     
     
-      <category term="实习面试经验" scheme="http://yoursite.com/categories/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/"/>
+      <category term="概率统计问题" scheme="http://yoursite.com/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%97%AE%E9%A2%98/"/>
     
     
   </entry>
@@ -67,7 +145,7 @@
     <link href="http://yoursite.com/2020/07/25/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/QLQ%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/"/>
     <id>http://yoursite.com/2020/07/25/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/QLQ%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/</id>
     <published>2020-07-25T03:58:08.591Z</published>
-    <updated>2020-07-25T04:03:16.511Z</updated>
+    <updated>2020-07-30T07:56:03.287Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Situations"><a href="#Situations" class="headerlink" title="Situations"></a>Situations</h3><p>由于历史演变原因，系统在线qlq暴露出来很多问题不能很好的满足凤巢新的用户体验标准对建模的要求：</p><ul><li>不能形成良好的客户优化良性互动</li><li>过度依赖广告创意维度特征，落地页引入严重不足，不能满足其建模的物理意义。</li><li></li></ul>]]></content>
     
@@ -425,80 +503,6 @@
     
     </summary>
     
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leetcode-72-编辑距离</title>
-    <link href="http://yoursite.com/2020/04/06/Leetcode/leetcode-72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/"/>
-    <id>http://yoursite.com/2020/04/06/Leetcode/leetcode-72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/</id>
-    <published>2020-04-06T13:12:57.000Z</published>
-    <updated>2020-04-06T13:36:39.589Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a>编辑距离</h2><p>给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。</p><p>你可以对一个单词进行如下三种操作：</p><p>插入一个字符<br>删除一个字符<br>替换一个字符</p><p>示例 1：</p><p>输入：word1 = “horse”, word2 = “ros”<br>输出：3<br>解释：<br>horse -&gt; rorse (将 ‘h’ 替换为 ‘r’)<br>rorse -&gt; rose (删除 ‘r’)<br>rose -&gt; ros (删除 ‘e’)<br>示例 2：</p><p>输入：word1 = “intention”, word2 = “execution”<br>输出：5<br>解释：<br>intention -&gt; inention (删除 ‘t’)<br>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)<br>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)<br>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)<br>exection -&gt; execution (插入 ‘u’)</p><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">https://leetcode-cn.com/problems/edit-distance</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>为什么选择dp？</p><p>这个是存在最优子问题结构的，比如示例给出的<code>horse</code>和 <code>ros</code>，其中包含的子问题就是<code>hors</code> 和<code>ros</code>的编辑距离，当然也可以是<code>horse</code>和<code>ro</code>的编辑距离。子问题解决了再看最终的<code>horse</code>和<code>ros</code>的情况。由上面分析也可以知道，由于word1 和word2都需要考虑他们的子串对应的情况，所以是个二维dp。</p><p>其次就是dp 情况的说明：</p><blockquote><p>$dp[i][j]$表示的word1 前i个字符和word2的前j个字符对应的编辑距离（最少操作次数）</p><p>状态转移方程呢？</p><p>当 word1第i个字符 == word2第j个字符，那么说明这个位置不用处理，编辑距离就等于 各前一个字符处的情况，即：$dp[i][j] = d[i-1][j-1]$</p><p>当 word1第i个字符 ！= word2第j个字符，那么存在3种情况，分别为 插入、删除、替换。</p><p>因为问题是 最少的操作从word1变到word2，</p><p>所以插入操作就是在前i-1个字符基础上插入一个字符得到当前的，即$dp[i][j] = dp[i1-][j]$</p><p>对应删除操作是指，删除当前i所对应的字符，对应的就是$dp[i][j] = dp[i][j-1]$</p><p>对应替换操作，就是将i对应的字符换成j对应的字符，那么就是$dp[i][j] = dp[i-1][j-1]$</p><p>而我们要求的是最少操作次数，所以需要看上面三种情况 哪个情况的操作次数最少。</p><p>$dp[i][j] =min(dp[i-1][j-1],dp[i][j-1],dp[i-1][j]) + 1$</p><p>最后的<code>+1</code>是指上面操作都需要一次操作</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minDistance</span><span class="params">(self, word1: str, word2: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 搞明白dp 的含义</span></span><br><span class="line">        <span class="comment"># dp[i][j] 表示 word1 前i个字符变到  word2前j个字符 需要的操作次数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> word1 <span class="keyword">or</span> <span class="keyword">not</span> word2:</span><br><span class="line">            <span class="keyword">return</span> len(word1) <span class="keyword">or</span> len(word2)</span><br><span class="line">        n1 = len(word1)</span><br><span class="line">        n2 = len(word2)</span><br><span class="line">        dp = [[<span class="number">0</span>]*(n2+<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(n1+<span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n1+<span class="number">1</span>):</span><br><span class="line">            dp[i][<span class="number">0</span>] = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(n2+<span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][j] = j</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n1+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n2+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> word1[i<span class="number">-1</span>] == word2[j<span class="number">-1</span>]:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = min(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>],dp[i<span class="number">-1</span>][j<span class="number">-1</span>])+<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[n1][n2]</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;编辑距离&quot;&gt;&lt;a href=&quot;#编辑距离&quot; class=&quot;headerlink&quot; title=&quot;编辑距离&quot;&gt;&lt;/a&gt;编辑距离&lt;/h2&gt;&lt;p&gt;给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。&lt;/p&gt;
-&lt;p
-      
-    
-    </summary>
-    
-    
-      <category term="算法刷题" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/"/>
-    
-      <category term="Leetcode" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/Leetcode/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>自我介绍</title>
-    <link href="http://yoursite.com/2020/04/05/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://yoursite.com/2020/04/05/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D/</id>
-    <published>2020-04-05T08:19:46.000Z</published>
-    <updated>2020-04-12T15:32:15.786Z</updated>
-    
-    <content type="html"><![CDATA[<p>抓住自己擅长的地方和领域，引导面试官往自己的领域靠近。</p><p>我叫孟迪，本科就读于北京交通大学计算机与科学专业，现在就读于北京大学软件工程专业，研究生二年级。想要应聘的是软件开发工程师实习生，更确切的是做算法工程相关的职位。我之前有过两份算法实习的经历，一份是在网易新闻做NLP相关的工作，主要任务是构建新闻内容质量生态，涉及打三俗、正文优化等工作。最近的这份实习是在京东做电商的搜索排序工作，主要负责的rerank 模块从0到1的构建过程。两份算法工程师的实习都是偏工程实践的，不是算法研究的那种。即为了解决什么样的问题，可以将什么样的算法进行应用，以及是否能达到预期标准，是否能满足系统的要求。我自己对实践一个比较新的算法，应用到实际的生产数据中，能够work并且能够满足客户的需求，非常感兴趣。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;抓住自己擅长的地方和领域，引导面试官往自己的领域靠近。&lt;/p&gt;
-&lt;p&gt;我叫孟迪，本科就读于北京交通大学计算机与科学专业，现在就读于北京大学软件工程专业，研究生二年级。想要应聘的是软件开发工程师实习生，更确切的是做算法工程相关的职位。我之前有过两份算法实习的经历，一份是在网易
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>项目分析——STAR方法</title>
-    <link href="http://yoursite.com/2020/04/05/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/STAR%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/2020/04/05/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/STAR%E8%A1%8C%E4%B8%BA%E6%96%B9%E6%B3%95/</id>
-    <published>2020-04-05T07:58:14.000Z</published>
-    <updated>2020-04-05T08:00:42.336Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="STAR-方法"><a href="#STAR-方法" class="headerlink" title="STAR 方法"></a>STAR 方法</h2><p>STAR是一种结构化的方法，来回答基于行为的面试问题，再根据您描述的场景、任务、行动和结果展开讨论。详情如下：</p><p> （来源于亚马逊的<a href="https://www.amazon.jobs/zh/landing_pages/in-person-interview" target="_blank" rel="noopener">现场面试准备</a>）</p><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>描述你之前所经历的一次情况，或者你需要完成的一件任务。为面试官提供足够的细节来了解情况里的复杂性。您所描述的例子可以来自您之前的工作，学校作业，志愿者活动或任何相关事件。</p><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>您朝着什么目标努力？</p><h3 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h3><p>描述您针对有关情况所采取的行动，并提供足够的细节；阐述时请将重点放在您的身上。 你采取了哪些具体步骤？ 你的具体的贡献是什么？ 注意，描述时请不要将焦点偏至您团队或小组的贡献。让我们了解您的个人贡献阐述行动时，请使用 “我” 而不是 “我们”</p><h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>描述您的行动所得的结果，无需谦虚，并且将属于您的成就讲述出来。发生了什么？ 事情是如何结束的？ 您获得了什么成就？ 您学习到了什么？ 如果适宜，请提供指标或数据的示例。</p><p>考虑您自己在领导力准则方面的成功和失败。准备具体的例子来体现您的专业知识，并展示你在这个过程中如何冒险，成功，失败和成长。亚马逊最成功的一些项目是从失败的项目中脱颖而出的。失败是成功之母，是创新的必经之路。是必须经历的途径。我们了解这一点，并相信我们应该尽早尝试，失败，然后改进，直到成功。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;STAR-方法&quot;&gt;&lt;a href=&quot;#STAR-方法&quot; class=&quot;headerlink&quot; title=&quot;STAR 方法&quot;&gt;&lt;/a&gt;STAR 方法&lt;/h2&gt;&lt;p&gt;STAR是一种结构化的方法，来回答基于行为的面试问题，再根据您描述的场景、任务、行动和结果展开讨论。
-      
-    
-    </summary>
-    
-    
-      <category term="项目总结" scheme="http://yoursite.com/categories/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/"/>
     
     
   </entry>
